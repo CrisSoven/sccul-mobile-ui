@@ -29,10 +29,10 @@ export default function AppNavigation() {
         component={IndexScreen}
         name="Home"
         options={{
-          tabBarIcon: ({ color, size, focused }) => (
+          tabBarIcon: ({ focused }) => (
             <Icons
               name={"home-outline"}
-              color={focused ? Colors.Black : Colors.PalleteGray}
+              color={focused ? Colors.PalleteBlack : Colors.PalleteGray}
               size={30}
             />
           ),
@@ -42,10 +42,10 @@ export default function AppNavigation() {
         component={CartScreen}
         name="Cart"
         options={{
-          tabBarIcon: ({ color, size, focused }) => (
+          tabBarIcon: ({ focused }) => (
             <Icons
               name={"cart-outline"}
-              color={focused ? Colors.Black : Colors.PalleteGray}
+              color={focused ? Colors.PalleteBlack : Colors.PalleteGray}
               size={30}
             />
           ),
@@ -55,10 +55,10 @@ export default function AppNavigation() {
         component={CourseScreen}
         name="My course"
         options={{
-          tabBarIcon: ({ color, size, focused }) => (
+          tabBarIcon: ({ focused }) => (
             <Icons
               name={"bookmark-box-multiple-outline"}
-              color={focused ? Colors.Black : Colors.PalleteGray}
+              color={focused ? Colors.PalleteBlack : Colors.PalleteGray}
               size={30}
             />
           ),
@@ -68,10 +68,10 @@ export default function AppNavigation() {
         component={ProfileScreen}
         name="Profile"
         options={{
-          tabBarIcon: ({ color, size, focused }) => (
+          tabBarIcon: ({ focused }) => (
             <Icons
               name={"account-outline"}
-              color={focused ? Colors.Black : Colors.PalleteGray}
+              color={focused ? Colors.PalleteBlack : Colors.PalleteGray}
               size={30}
             />
           ),
