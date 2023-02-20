@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "sccul-mobile-ui",
+    "slug": "sccul-mobile-ui",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "sccul-mobile-ui"
+}
