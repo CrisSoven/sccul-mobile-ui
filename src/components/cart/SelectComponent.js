@@ -7,6 +7,7 @@ export default function CartScreen() {
   const cartTitle = 'Carrito de compras'
   return (
     <View>
+      <Text>CartScreen</Text>
       <View style={styles.header}>
         <View style={styles.column}>
           <Text style={styles.title}>{cartTitle}</Text>
@@ -16,8 +17,8 @@ export default function CartScreen() {
           <Text>Aqui va el bucador</Text>
       </View>
     </View>
-    
-);
+  )
+
 }
 
 const styles = StyleSheet.create({
@@ -37,5 +38,3 @@ column: {
   width: '50%',
 },
 });
-
-
