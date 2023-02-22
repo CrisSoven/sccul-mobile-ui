@@ -6,7 +6,8 @@ export default function SearchBar() {
   return (
     <>
       <View style={styles.searchBar}>
-        <Icon name="search" size={30} color="#888" style={styles.searchIcon} />
+        <Icon name="search" size={30} color="
+        rgb(164,180,177)" style={styles.searchIcon} />
         <TextInput style={styles.searchInput} placeholder="Buscar curso..." />
       </View>
     </>
@@ -17,7 +18,7 @@ const styles = StyleSheet.create({
   searchBar: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#d4ddd6",
+    backgroundColor: "rgb(217,239,234)",
     height: 50,
     borderRadius: 16,
     paddingHorizontal: 15,

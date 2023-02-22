@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   container: {
     width: 130,
     height: 60,
-    backgroundColor: "#d4ddd6",
+    backgroundColor: "rgb(217,239,234)",
     marginRight: 20,
     borderRadius: 5,
     justifyContent: "center",
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   text: {
-    color: "#333",
+    color: "rgb(164,180,177)",
     fontWeight: "bold",
     textAlign: "center",
   },
