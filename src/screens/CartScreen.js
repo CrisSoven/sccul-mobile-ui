@@ -1,28 +1,28 @@
-import { StyleSheet, Text, View } from 'react-native'
-// import Fonts from "../utils/Fonts";
 
+import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import SearchBar from '../components/SearchBar'
 import SelectComponent from '../components/cart/SelectComponent';
 import BottonsCartComponent from '../components/cart/BottonsCartComponent';
 import PriceTotalCartComponnet from '../components/cart/PriceTotalCartComponnet';
 
-export default function CartScreen() {
+export default function CartScreen(props) {
+  const { navigation } = props;
   const cartTitle = 'Carrito de compras'
+
   return (
     <View style={styles.header}>
       <View>
-      <Text style={styles.title}>{cartTitle}</Text>
+        <Text style={styles.title}>{cartTitle}</Text>
       </View>
       <SearchBar/>
       <SelectComponent/>
       <View style={styles.footer}>
-      <PriceTotalCartComponnet/>
-      <BottonsCartComponent/>
+        <PriceTotalCartComponnet/>
+        <BottonsCartComponent navigation={navigation}/>
       </View>
     </View>
-
-);
+  );
 }
 
 const styles = StyleSheet.create({

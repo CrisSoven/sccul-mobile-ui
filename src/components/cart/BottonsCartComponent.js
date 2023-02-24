@@ -1,19 +1,25 @@
+
 import React from 'react';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 
-export default function BottonsCartComponent() {
+
+export default function BottonsCartComponent(props) {
+  const { navigation } = props;
+
   return (
-    <View  style={styles.container}>
-        <TouchableOpacity style={styles.btn}>
-         <Text style={styles.btnText}>Pagar</Text>
-        </TouchableOpacity>
-    
+    <View style={styles.container}>
+    <TouchableOpacity 
+  style={styles.btn} 
+  onPress={() => navigation.navigate('PaymentMethod')}>
+  <Text style={styles.btnText}>Pagar</Text>
+</TouchableOpacity>
+
     </View>
   );
 }
 
+
 const styles = StyleSheet.create({
-    
   btn: {
     alignItems: 'center',
     justifyContent: 'center',
