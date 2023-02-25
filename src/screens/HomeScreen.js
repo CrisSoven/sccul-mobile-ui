@@ -7,7 +7,7 @@ import FeaturedCourses from "../components/FeaturedCourses";
 
 export default function HomeScreen() {
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <View>
         <SearchBar />
         <Banner />

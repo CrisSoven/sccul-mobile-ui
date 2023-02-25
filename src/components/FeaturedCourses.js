@@ -1,18 +1,16 @@
-import React from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-import { Icon } from "react-native-elements";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  Modal,
+  Pressable,
+} from "react-native";
+import { Icon, Rating } from "react-native-elements";
 
 const CursoDestacado = ({ image, title, price, average, comments }) => {
-  //   const estrellas = [];
-  //   for (let i = 1; i <= 5; i++) {
-  //     if (i <= Math.floor(puntuacion)) {
-  //       estrellas.push("star");
-  //     } else if (i === Math.ceil(puntuacion) && puntuacion % 1 !== 0) {
-  //       estrellas.push("star-half");
-  //     } else {
-  //       estrellas.push("star-outline");
-  //     }
-  //   }
   return (
     <TouchableOpacity style={styles.container}>
       <Image source={image} style={styles.image} />
@@ -21,17 +19,15 @@ const CursoDestacado = ({ image, title, price, average, comments }) => {
         <Text style={styles.price}>{price}</Text>
         <View style={styles.averageContainer}>
           <Text style={styles.average}>{average}</Text>
-          <Icon name="star" type="ionicons" color="#FFAA0D" size={18} />
-          {/* <Text style={styles.puntuacion}>{puntuacion}</Text>
-          {estrellas.map((iconName, index) => (
-            <Icon
-              key={index}
-              name={iconName}
-              type="ionicons"
-              color="#FFC107"
-              size={18}
-            />
-          ))} */}
+          <Rating
+            startingValue={average}
+            fractions="{1}"
+            imageSize={24}
+            readonly
+            ratingColor="#FFAA0D"
+            tintColor="#d4ddd6"
+            style={{ marginRight: 10 }}
+          />
           <Text style={styles.comments}>({comments})</Text>
         </View>
       </View>
@@ -40,19 +36,21 @@ const CursoDestacado = ({ image, title, price, average, comments }) => {
 };
 
 export default function FeaturedCourses() {
+  const [modalVisible, setModalVisible] = useState(false);
+
   const cursos = [
     {
       image: require("../../assets/img/chequito.jpg"),
       title: "Programación",
       price: "$50",
-      average: 4.5,
+      average: 4.4,
       comments: 20,
     },
     {
       image: require("../../assets/img/chequito.jpg"),
       title: "Diseño Gráfico",
       price: "$70",
-      average: 5,
+      average: 5.0,
       comments: 10,
     },
     {
@@ -66,9 +64,16 @@ export default function FeaturedCourses() {
 
   return (
     <View style={styles.listContainer}>
-      <Text style={styles.titleList}>Cursos destacados</Text>
+      <View style={styles.tituloContainer}>
+        <Text style={styles.titleList}>Cursos destacados</Text>
+        <TouchableOpacity
+          style={styles.filtroButton}
+          onPress={() => setModalVisible(true)}
+        >
+          <Icon name="filter" type="font-awesome" color="#fff" size={20} />
+        </TouchableOpacity>
+      </View>
       {cursos.map((curso, index) => (
-        console.log(cursos),
         <CursoDestacado
           key={index}
           image={curso.image}
@@ -78,6 +83,19 @@ export default function FeaturedCourses() {
           comments={curso.comments}
         />
       ))}
+      <Modal animationType="slide" transparent={true} visible={modalVisible}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modal}>
+            <Text style={styles.modalTitulo}>Filtros</Text>
+            <Pressable
+              style={styles.modalBoton}
+              onPress={() => setModalVisible(false)}
+            >
+              <Text style={styles.modalBotonTexto}>Cerrar</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -87,11 +105,17 @@ const styles = StyleSheet.create({
     paddingVertical: 40,
     marginHorizontal: 20,
   },
+  tituloContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginLeft: -10,
+    marginRight: -5,
+  },
   titleList: {
     fontSize: 28,
     fontWeight: "bold",
     marginBottom: 20,
-    marginLeft: -10,
   },
   container: {
     flexDirection: "row",
@@ -99,6 +123,20 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 15,
     width: 370,
+  },
+  filtroButton: {
+    backgroundColor: "#333",
+    borderRadius: 15,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginBottom: 13,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  filtroButtonText: {
+    color: "#fff",
+    fontSize: 14,
+    marginLeft: 10,
   },
   image: {
     width: 140,
@@ -134,5 +172,32 @@ const styles = StyleSheet.create({
   },
   comments: {
     fontSize: 16,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modal: {
+    backgroundColor: "#fff",
+    borderRadius: 15,
+    padding: 20,
+    width: "80%",
+  },
+  modalTitulo: {
+    fontSize: 21,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  modalBoton: {
+    backgroundColor: "#333",
+    borderRadius: 15,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    alignItems: "center",
+  },
+  modalBotonTexto: {
+    color: "#fff",
+    fontSize: 15,
   },
 });
