@@ -11,7 +11,7 @@ export default function ScrollViewCategories() {
   return (
     <View style={styles.box}>
       <Text style={styles.title}>Categorías</Text>
-      <ScrollView horizontal={true}>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         <TouchableOpacity style={styles.container}>
           <Text style={styles.text}>Programación</Text>
         </TouchableOpacity>
