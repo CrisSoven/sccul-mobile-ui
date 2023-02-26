@@ -10,7 +10,7 @@ export default function ProfileScreen() {
       </View>
       <View style={styles.column}>
         <ButtonComponent
-        icon="logout-variant" title="Log out"
+        icon="arrow-right-from-bracket" title="Log out"
         />
       </View>
     </View>

@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import CartPaymentMethodTitle from '../../components/cart/CartPaymentMethodTitle'
+import GoBack from '../../components/Goback'
 import AddCardComponenet from '../../components/cart/AddCardComponenet'
 
 export default function CartPaymentMethodScreen() {
 
   return (
     <View>
-    <CartPaymentMethodTitle/>
-    <AddCardComponenet/>
+      <GoBack title="Metodos de Pago"/>
+      <AddCardComponenet/>
     </View>
   )
 }
@@ -22,5 +22,4 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingHorizontal: 20,
   },
-
 })

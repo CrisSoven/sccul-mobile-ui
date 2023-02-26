@@ -1,19 +1,17 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
+import ButtonComponent from '../ButtonComponent';
 
 export default function AddCardComponenet() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Mis tarjetas</Text>
-      <TouchableOpacity style={styles.buttonContainer}>
-        <Icon
-          name="add"
-          size={18}
-          color="white"
-          style={styles.buttonIcon}
-        />
-        <Text style={styles.buttonTitle}>Agregar tarjeta</Text>
-      </TouchableOpacity>
+      <ButtonComponent
+  title="Agregar tarjeta"
+  onPress={() => {}}
+  icon="add"
+/>
+    
     </View>
   );
 }
