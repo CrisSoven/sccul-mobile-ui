@@ -2,16 +2,20 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 import ButtonComponent from '../ButtonComponent';
 
-export default function AddCardComponenet() {
+import { useNavigation } from '@react-navigation/native';
+
+export default function AddCardBtnComponent(props) {
+  const {  } = props;
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Mis tarjetas</Text>
       <ButtonComponent
-  title="Agregar tarjeta"
-  onPress={() => {}}
-  icon="add"
-/>
-    
+        title="Agregar tarjeta"
+        onPress={() => { navigation.navigate('AddCard')}}
+        icon="add"
+      />
     </View>
   );
 }

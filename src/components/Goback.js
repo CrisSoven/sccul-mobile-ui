@@ -8,7 +8,7 @@ export default function Goback(props) {
   const navigation = useNavigation()
 
   return (
-      <View style={styles.header}>
+      <View >
     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.container}>
       <Icon name='chevron-left' type='material-community' size={30} style={styles.icon}/>
       <Text style={styles.title}>{title}</Text>
@@ -19,10 +19,7 @@ export default function Goback(props) {
 }
 
 const styles = StyleSheet.create({
-    header: {
-    paddingTop: 20,
-    paddingHorizontal: 20,
-    },
+  
   container: {
     flexDirection: 'row',
     alignItems: 'center',

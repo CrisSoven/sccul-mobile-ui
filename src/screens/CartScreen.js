@@ -18,7 +18,6 @@ export default function CartScreen(props) {
       <SelectComponent/>
       <View style={styles.footer}>
         <PriceTotalCartComponnet/>
-       
         <ButtonComponent
           title="Pagar"
           navigation={navigation}
