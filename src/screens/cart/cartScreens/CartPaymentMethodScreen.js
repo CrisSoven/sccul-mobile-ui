@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import GoBack from '../../components/Goback'
-import AddCardComponenet from '../../components/cart/AddCardBtnComponent'
-import CardsComponent from '../../components/cart/CardsComponent'
+import GoBack from '../../../components/common/Goback'
+import AddCardComponenet from '../../../components/cart/AddCardBtnComponent'
+import CardsComponent from '../../../components/cart/CardsComponent'
 import { ScrollView } from 'react-native-gesture-handler'
 
 export default function CartPaymentMethodScreen(props) {

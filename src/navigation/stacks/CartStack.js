@@ -2,10 +2,10 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import CartScreen from '../screens/CartScreen';
-import CartPaymentMethodScreen from '../screens/Cart/CartPaymentMethodScreen'
-import AddCardScreen from '../screens/Cart/AddCardScreen';
-import CartPaymentScreen from '../screens/Cart/CartPaymentScreen';
+import CartScreen from '../../screens/cart/CartScreen';
+import CartPaymentMethodScreen from '../../screens/cart/cartScreens/CartPaymentMethodScreen';
+import AddCardScreen from '../../screens/cart/cartScreens/AddCardScreen';
+import CartPaymentScreen from '../../screens/cart/cartScreens/CartPaymentScreen';
 
 const Stack = createStackNavigator();
 

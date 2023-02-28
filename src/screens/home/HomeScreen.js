@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import React from "react";
-import SearchBar from "../components/SearchBar";
-import Banner from "../components/Banner";
-import ScrollViewCategories from "../components/ScrollViewCategories";
-import FeaturedCourses from "../components/FeaturedCourses";
+import SearchBar from "../../components/common/SearchBar";
+import Banner from "../../components/home/Banner";
+import ScrollViewCategories from "../../components/home/ScrollViewCategories";
+import FeaturedCourses from "../../components/FeaturedCourses";
 
 export default function HomeScreen() {
   return (

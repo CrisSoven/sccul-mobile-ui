@@ -5,7 +5,7 @@ export default function Banner() {
   return (
     <View style={styles.container}>
       <Image
-        source={require("../../assets/img/chequito.jpg")}
+        source={require("../../../assets/img/chequito.jpg")}
         style={styles.image}
       />
     </View>

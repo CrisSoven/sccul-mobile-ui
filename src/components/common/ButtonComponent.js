@@ -1,4 +1,4 @@
-import Colors from "../utils/Colors";
+import Colors from "../../utils/Colors";
 import { Icon } from 'react-native-elements';
 import React from 'react';
 import { StyleSheet,  TouchableOpacity, Text } from 'react-native';

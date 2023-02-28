@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { Button, Icon } from 'react-native-elements';
-import ButtonComponent from '../ButtonComponent';
+import { StyleSheet, Text, View} from 'react-native';
+import ButtonComponent from '../common/ButtonComponent';
 
 import { useNavigation } from '@react-navigation/native';
 

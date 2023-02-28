@@ -58,7 +58,7 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native"; // Importa la función useNavigation
-import ButtonComponent from "../ButtonComponent";
+import ButtonComponent from "../common/ButtonComponent";
 
 export default function AccionsBtnComponent(props) {
   const navigation = useNavigation(); // Usa la función useNavigation para obtener la navegación

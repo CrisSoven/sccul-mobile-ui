@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
-import Goback from '../../components/Goback'
+import Goback from '../../../components/common/Goback'
 import { ScrollView } from 'react-native-gesture-handler'
-import PriceTotalCartComponnet from '../../components/cart/PriceTotalCartComponnet'
-import CardsComponent from '../../components/cart/CardsComponent'
+import PriceTotalCartComponnet from '../../../components/cart/PriceTotalCartComponnet'
+import CardsComponent from '../../../components/cart/CardsComponent'
 
 export default function CartPaymentScreen(props) {
   return (

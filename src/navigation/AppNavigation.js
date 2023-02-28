@@ -1,12 +1,11 @@
-
-import React, { useState } from "react";
+import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icons from "react-native-vector-icons/MaterialCommunityIcons";
-import IndexScreen from "../screens/HomeScreen";
-import CourseScreen from "../screens/CourseScreen";
-import ProfileScreen from "../screens/ProfileScreen";
+import HomeScreen from "../screens/home/HomeScreen";
+import CourseScreen from "../screens/course/CourseScreen";
+import ProfileScreen from "../screens/profile/ProfileScreen";
 import Colors from "../utils/Colors";
-import CartStackNavigator from "./CartStack";// Importa el Stack Navigator del Carrito
+import CartStackNavigator from "./stacks/CartStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -27,7 +26,7 @@ export default function AppNavigation() {
       }}
     >
       <Tab.Screen
-        component={IndexScreen}
+        component={HomeScreen}
         name="Home"
         options={{
           tabBarIcon: ({ focused }) => (
