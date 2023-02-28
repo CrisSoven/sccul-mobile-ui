@@ -11,10 +11,13 @@ export default function AddCardBtnComponent(props) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Mis tarjetas</Text>
+
       <ButtonComponent
         title="Agregar tarjeta"
         onPress={() => { navigation.navigate('AddCard')}}
         icon="add"
+        buttonStyle={styles.btn}
+        titleStyle={styles.btnText}
       />
     </View>
   );
@@ -32,21 +35,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
-  buttonContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'black',
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    height: 40,
-    borderRadius:16
-  },
-  buttonIcon: {
-    marginRight: 10,
-  },
-  buttonTitle: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 15,
-  },
+  btn: {
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  marginTop: 20,
+  width: 146,
+  height: 40,
+  borderRadius: 10,
+  backgroundColor: '#002E60',
+  marginLeft: 5,
+},
+btnText: {
+  color: '#fff',
+  fontSize: 16,
+},
 });

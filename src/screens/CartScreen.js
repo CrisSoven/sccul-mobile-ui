@@ -4,29 +4,32 @@ import SearchBar from '../components/SearchBar'
 import SelectComponent from '../components/cart/SelectComponent';
 import PriceTotalCartComponnet from '../components/cart/PriceTotalCartComponnet';
 import ButtonComponent from '../components/ButtonComponent';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function CartScreen(props) {
   const { navigation } = props;
   const cartTitle = 'Carrito de compras'
 
   return (
-    <View style={styles.header}>
+    <ScrollView contentContainerStyle={styles.header}>
       <View>
         <Text style={styles.title}>{cartTitle}</Text>
       </View>
       <SearchBar/>
       <SelectComponent/>
       <View style={styles.footer}>
-        <PriceTotalCartComponnet/>
+        <PriceTotalCartComponnet
+        priceText={'$'  + 599.75 + 'mx'  }
+        />
         <ButtonComponent
           title="Pagar"
           navigation={navigation}
           onPress={() => navigation.navigate('PaymentMethod')}
           buttonStyle={styles.btn}
           titleStyle={styles.btnText}
-        />
+          />
       </View>
-    </View>
+  </ScrollView>
   );
 }
 
@@ -36,8 +39,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   header: {
-    paddingTop: 20,
-    paddingHorizontal: 20,
+    paddingTop: 10,
+        paddingHorizontal: 1,
+        paddingVertical:5,
+        width:360,
+        height:660
   },
   footer: {
     paddingHorizontal: 20,

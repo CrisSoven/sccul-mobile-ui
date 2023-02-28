@@ -3,24 +3,29 @@ import React from 'react'
 import GoBack from '../../components/Goback'
 import AddCardComponenet from '../../components/cart/AddCardBtnComponent'
 import CardsComponent from '../../components/cart/CardsComponent'
+import { ScrollView } from 'react-native-gesture-handler'
 
 export default function CartPaymentMethodScreen(props) {
   const { navigation } = props;
 
   return (
-    <View style={styles.header}>
+    <ScrollView contentContainerStyle={styles.header}>
+
       <GoBack title="Metodos de Pago"/>
       <AddCardComponenet/>
       <CardsComponent/>
-      
-    </View>
+
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   header: {
-    paddingTop: 20,
-    paddingHorizontal: 20,
+    paddingTop: 10,
+    paddingHorizontal: 1,
+    paddingVertical:5,
+    width:360,
+    height:660
     },
   title: {
     fontSize: 24,

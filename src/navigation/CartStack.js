@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import CartScreen from '../screens/CartScreen';
 import CartPaymentMethodScreen from '../screens/Cart/CartPaymentMethodScreen'
 import AddCardScreen from '../screens/Cart/AddCardScreen';
+import CartPaymentScreen from '../screens/Cart/CartPaymentScreen';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,11 @@ export default function CartStackNavigator() {
       name='AddCard'
       component={AddCardScreen}
       options={{title:'Agregar tarjeta'}}
+      />
+      <Stack.Screen 
+      name='CartPayment'
+      component={CartPaymentScreen}
+      options={{title:'Pago'}}
       />
     </Stack.Navigator>
   );
