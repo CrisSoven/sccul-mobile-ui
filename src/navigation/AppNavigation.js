@@ -1,11 +1,12 @@
+
 import React, { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icons from "react-native-vector-icons/MaterialCommunityIcons";
 import IndexScreen from "../screens/HomeScreen";
-import CartScreen from "../screens/CartScreen";
 import CourseScreen from "../screens/CourseScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import Colors from "../utils/Colors";
+import CartStackNavigator from "./CartStack";// Importa el Stack Navigator del Carrito
 
 const Tab = createBottomTabNavigator();
 
@@ -39,8 +40,9 @@ export default function AppNavigation() {
         }}
       />
       <Tab.Screen
-        component={CartScreen}
-        name="Cart"
+        name="Carrito"
+        // Reemplaza el componente CartScreen por el CartStackNavigator
+        component={CartStackNavigator}
         options={{
           tabBarIcon: ({ focused }) => (
             <Icons

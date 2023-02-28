@@ -1,40 +1,55 @@
-import { StyleSheet, Text, View } from 'react-native'
-import Fonts from "../utils/Fonts";
 
-import React from 'react'
+import { useState } from 'react';
+import { StyleSheet, Text, View, TouchableWithoutFeedback } from 'react-native';
+import Colors from '../../utils/Colors';
 
-export default function CartScreen() {
-  const cartTitle = 'Carrito de compras'
+export default function SelectComponent({}) {
+  const [isSelected, setIsSelected] = useState(false);
+
   return (
-    <View>
-      <Text>CartScreen</Text>
-      <View style={styles.header}>
-        <View style={styles.column}>
-          <Text style={styles.title}>{cartTitle}</Text>
+    <TouchableWithoutFeedback onPress={() => setIsSelected(!isSelected)}>
+      <View style={styles.container}>
+        <View style={[styles.radioButton, isSelected && styles.radioButtonSelected]}>
+          {isSelected && <View style={styles.radioButtonSelectedCircle} />}
         </View>
+        <Text  style={styles.textP} >Selecciona Todos los Cursos</Text>
       </View>
-      <View>
-          <Text>Aqui va el bucador</Text>
-      </View>
-    </View>
-  )
-
+    </TouchableWithoutFeedback>
+  );
 }
 
 const styles = StyleSheet.create({
-title: {
-  fontSize: 24,
-  fontFamily:Fonts['Cabin-Bold'],
-  fontWeight:'bold', 
-},
-header: {
-  paddingTop: 20,
-  paddingHorizontal: 20,
-  flex: 1,
-  flexDirection: "row",
-},
-column: {
-  flex: 1,
-  width: '50%',
-},
+  container: {
+    marginVertical: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  radioButton: {
+    height: 20,
+    width: 20,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: Colors.PalleteGray,
+    marginRight: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  radioButtonSelectedCircle: {
+    height: 10,
+    width: 10,
+    borderRadius: 5,
+    backgroundColor: 'rgba(0, 0, 0, 0.25)',
+  },
+  optionContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 5,
+  },
+  optionText: {
+    fontSize: 16,
+  },
+  textP:{
+    fontSize: 14,
+    fontWeight: 'bold',
+  }
 });

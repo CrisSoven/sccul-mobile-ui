@@ -1,22 +1,25 @@
-import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
-import React from "react";
 import Colors from "../utils/Colors";
-import Icons from "react-native-vector-icons/MaterialCommunityIcons";
+import { Icon } from 'react-native-elements';
+import React from 'react';
+import { StyleSheet,  TouchableOpacity, Text } from 'react-native';
 
 export default function ButtonComponent(props) {
-  const { icon, title } = props;
+  const { onPress, title, containerStyle, textStyle, buttonStyle, titleStyle, icon, iconStyle } = props;
 
   return (
-    <TouchableOpacity
-      style={styles.button}
-      onPress={() => {
-        console.log("Pressed");
-      }}
+    <TouchableOpacity 
+      style={[styles.button, containerStyle, buttonStyle]} 
+      onPress={onPress}
     >
-      <View style={styles.row}>
-        <Icons name={icon} size={24} color={Colors.PalleteWhite} />
-        <Text style={styles.label}>{title}</Text>
-      </View>
+      {icon && (
+        <Icon
+          name={icon}
+          size={24}
+          color="white"
+          style={[styles.icon, iconStyle]}
+        />
+      )}
+      <Text style={[styles.title, textStyle, titleStyle]}>{title}</Text>
     </TouchableOpacity>
   );
 }
@@ -27,15 +30,15 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.PalleteBlack,
     paddingHorizontal: 20,
     paddingVertical: 10,
-  },
-  row: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  label: {
+  title: {
     color: Colors.PalleteWhite,
-    marginLeft: 12,
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  icon: {
+    marginRight: 10,
   },
 });
