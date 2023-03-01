@@ -1,23 +1,23 @@
-// import { StyleSheet,  View } from "react-native";
-// import React from "react";
-// import ButtonComponent from "../ButtonComponent";
 
+// import { StyleSheet, View } from "react-native";
+// import React from "react";
+// import { useNavigation } from "@react-navigation/native"; 
+// import ButtonComponent from "../common/ButtonComponent";
+// import Colors from "../../utils/Colors";
 // export default function AccionsBtnComponent(props) {
-//   const { navigation } = props;
+//   const navigation = useNavigation(); 
 //   return (
 //     <View style={styles.container}>
 //       <ButtonComponent
-//         title="Cancelar"
+//         title={props.btnCancelTitle}
 //         buttonStyle={styles.btnC}
 //         titleStyle={styles.btnText}
 //       />
 //       <ButtonComponent
-//         title="Continuar"
-//         buttonStyle={styles.btn}
+//          title={props.btnContinueTitle}
+//         buttonStyle={[styles.btn, styles.btnlarge ]}
 //         titleStyle={styles.btnText}
-//         navigation={navigation}
-//         onPress={() =>  props.navigation.navigate('CartPayment')}
-      
+//         onPress={() => navigation.navigate('CartPayment')}
 //       />
 //     </View>
 //   );
@@ -37,11 +37,11 @@
 //     width: 146,
 //     height: 40,
 //     borderRadius: 10,
-//     backgroundColor: "#002E60",
+//     backgroundColor: Colors.PalleteBluePrimary,
 //     marginLeft: 5,
 //   },
 //   btnText: {
-//     color: "#fff",
+//     color: Colors.PalleteWhite,
 //     fontSize: 16,
 //   },
 //   btnC: {
@@ -54,24 +54,34 @@
 //     backgroundColor: "gray",
 //     marginLeft: 5,
 //   },
+//   btnlarge: {
+//     width: 196,
+//     height: 40,
+//   },
 // });
-import { StyleSheet, View } from "react-native";
+
+
+
+import { StyleSheet, View, Dimensions } from "react-native";
 import React from "react";
-import { useNavigation } from "@react-navigation/native"; // Importa la función useNavigation
+import { useNavigation } from "@react-navigation/native"; 
 import ButtonComponent from "../common/ButtonComponent";
+import Colors from "../../utils/Colors";
+
+const windowWidth = Dimensions.get('window').width;
 
 export default function AccionsBtnComponent(props) {
-  const navigation = useNavigation(); // Usa la función useNavigation para obtener la navegación
+  const navigation = useNavigation(); 
   return (
     <View style={styles.container}>
       <ButtonComponent
-        title="Cancelar"
+        title={props.btnCancelTitle}
         buttonStyle={styles.btnC}
         titleStyle={styles.btnText}
       />
       <ButtonComponent
-        title="Continuar"
-        buttonStyle={styles.btn}
+        title={props.btnContinueTitle}
+        buttonStyle={[styles.btn, styles.btnlarge ]}
         titleStyle={styles.btnText}
         onPress={() => navigation.navigate('CartPayment')}
       />
@@ -83,31 +93,35 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 20,
+    paddingHorizontal: windowWidth * 0.05,
     marginTop: 20,
   },
   btn: {
     alignItems: "center",
     justifyContent: "center",
     marginTop: 20,
-    width: 146,
+    width: windowWidth * 0.3,
     height: 40,
     borderRadius: 10,
-    backgroundColor: "#002E60",
+    backgroundColor: Colors.PalleteBluePrimary,
     marginLeft: 5,
   },
   btnText: {
-    color: "#fff",
+    color: Colors.PalleteWhite,
     fontSize: 16,
   },
   btnC: {
     alignItems: "center",
     justifyContent: "center",
     marginTop: 20,
-    width: 146,
+    width: windowWidth * 0.3,
     height: 40,
     borderRadius: 10,
     backgroundColor: "gray",
     marginLeft: 5,
+  },
+  btnlarge: {
+    width: windowWidth * 0.4,
+    height: 40,
   },
 });

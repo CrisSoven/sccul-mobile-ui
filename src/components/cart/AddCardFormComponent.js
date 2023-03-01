@@ -1,9 +1,13 @@
 import React from "react";
-import { StyleSheet, Text, TextInput, View, KeyboardAvoidingView  } from "react-native";
+import { StyleSheet, Text, TextInput, View, KeyboardAvoidingView, Dimensions  } from "react-native";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { Button, Icon } from "react-native-elements";
 import { useState } from "react";
+import Colors from "../../utils/Colors";
+
+const { width, height } = Dimensions.get('window');
+
 
 export default function AddCardFormComponent() {
   const initialValues = {
@@ -170,7 +174,6 @@ export default function AddCardFormComponent() {
                 <Text style={styles.error}>{errors.ccv}</Text>
               )}
             </View>
-            {/* <Button title="Guardar" onPress={handleSubmit} /> */}
           </View>
         )}
       </Formik>
@@ -187,12 +190,12 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    borderColor: "rgb(217,239,234)",
-    backgroundColor: "rgb(217,239,234)",
+    borderColor: Colors.PalleteGreenBackground,
+    backgroundColor: Colors.PalleteGreenBackground,
     borderRadius: 10,
     paddingLeft: 10,
     paddingRight: 10,
-    width: 330,
+    width: 310,
     height: 40,
     margin: 4,
   },
@@ -202,21 +205,11 @@ const styles = StyleSheet.create({
     height: 40,
   },
   error: {
-    color: "red",
+    color: Colors.PalletteRed,
     marginTop: 1,
   },
-  submitButton: {
-    backgroundColor: "blue",
-    padding: 10,
-    borderRadius: 5,
-    alignItems: "center",
-  },
-  submitButtonText: {
-    color: "white",
-    fontSize: 18,
-  },
   header: {
-    paddingTop: 20,
+    paddingTop: 30,
     paddingHorizontal: 20,
   },
 });

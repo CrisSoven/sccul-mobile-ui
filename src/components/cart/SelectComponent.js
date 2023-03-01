@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     height: 10,
     width: 10,
     borderRadius: 5,
-    backgroundColor: 'rgba(0, 0, 0, 0.25)',
+    backgroundColor: Colors.PalleteBluePrimary,
   },
   optionContainer: {
     flexDirection: 'row',

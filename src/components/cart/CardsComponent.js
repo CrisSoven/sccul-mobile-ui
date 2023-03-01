@@ -3,6 +3,7 @@ import React from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Icon } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native';
+import Colors from '../../utils/Colors';
 
 export default function CardsComponent() {
   const navigation = useNavigation();
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     width: 340,
     height: 65,
     borderRadius: 10,
-    backgroundColor: 'rgb(217,239,234)',
+    backgroundColor: Colors.PalleteGreenBackground,
   },
   leftContainer: {
     flexDirection: 'row',

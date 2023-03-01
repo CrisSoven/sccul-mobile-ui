@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Switch } from 'react-native';
+import Colors from '../../utils/Colors';
 
 export default function SaveCardBtnComponent() {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -11,7 +12,7 @@ export default function SaveCardBtnComponent() {
       <Text style={styles.text}>Guardar tarjeta para futuros pagos</Text>
       <Switch
         trackColor={{ false: '#767577', true: '#81b0ff' }}
-        thumbColor={isEnabled ? '#002E60' : '#f4f3f4'}
+        thumbColor={isEnabled ? Colors.PalleteBluePrimary : '#f4f3f4'}
         ios_backgroundColor="#3e3e3e"
         onValueChange={toggleSwitch}
         value={isEnabled}
@@ -25,6 +26,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
+    // marginTop: 20,
+    // marginHorizontal: 30,
+    
   },
   text: {
     fontSize: 15,

@@ -1,16 +1,16 @@
-import { StyleSheet, Text, View} from 'react-native';
+
+import { StyleSheet, Text, View } from 'react-native';
 import ButtonComponent from '../common/ButtonComponent';
 
 import { useNavigation } from '@react-navigation/native';
+import Colors from '../../utils/Colors';
 
 export default function AddCardBtnComponent(props) {
-  const {  } = props;
   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Mis tarjetas</Text>
-
       <ButtonComponent
         title="Agregar tarjeta"
         onPress={() => { navigation.navigate('AddCard')}}
@@ -25,27 +25,28 @@ export default function AddCardBtnComponent(props) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
-    paddingTop: 20,
-    paddingHorizontal: 20,
+    alignContent: 'center',
+    alignItems: 'center', 
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
+    marginTop:20
   },
   btn: {
-  alignItems: 'center',
-  justifyContent: 'flex-start',
-  marginTop: 20,
-  width: 146,
-  height: 40,
-  borderRadius: 10,
-  backgroundColor: '#002E60',
-  marginLeft: 5,
-},
-btnText: {
-  color: '#fff',
-  fontSize: 16,
-},
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginTop: 20,
+    width: 180,
+    height: 40,
+    borderRadius: 10,
+    backgroundColor: Colors.PalleteBluePrimary,
+    marginLeft: 5,
+  },
+  btnText: {
+    color: Colors.PalleteWhite,
+    fontSize: 16,
+  },
 });

@@ -8,7 +8,7 @@ import SaveCardBtnComponent from "../../../components/cart/SaveCardBtnComponent"
 
 export default function AddCardScreen() {
   return (
-    <ScrollView contentContainerStyle={styles.header}>
+    <ScrollView contentContainerStyle={styles.container}>
       <View>
 
       <Goback title="Agregar tarjeta" />
@@ -18,7 +18,10 @@ export default function AddCardScreen() {
         />
       <AddCardFormComponent />
       <SaveCardBtnComponent/>
-      <AccionsBtnComponent/>
+      <AccionsBtnComponent
+      btnCancelTitle="Cancelar" 
+      btnContinueTitle="Continuar"
+      />
     </View>
     </ScrollView>
 
@@ -26,12 +29,10 @@ export default function AddCardScreen() {
 }
 
 const styles = StyleSheet.create({
-  header: {
+  container: {
     paddingTop: 10,
-    paddingHorizontal: 1,
-    paddingVertical:5,
-    width:360,
-    height:660
+    paddingHorizontal: 10,
+    paddingVertical: 5,
   },
   image: {
     width: 175,
