@@ -2,7 +2,7 @@ export default {
      PalleteBlack: '#000000',
      PalleteGray: '#CCCCCC',
      PalleteWhite: '#FFFFFF', 
-     PalleteGreenBackground: '#D9EFEA',
+     PalleteGreenBackground: '#CFE3DE',
      PalleteBluePrimary: '#002E60',
      PalleteBlueSecundary: '#8097af',
      PalletteRed: '#940718',

@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
+import Colors from "../../utils/Colors";
 
 export default function ScrollViewCategories() {
   return (
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
   container: {
     width: 130,
     height: 60,
-    backgroundColor: "rgb(217,239,234)",
+    backgroundColor: Colors.PalleteGreenBackground,
     marginRight: 20,
     borderRadius: 5,
     justifyContent: "center",
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   text: {
-    color: "rgb(164,180,177)",
+    color: Colors.PalleteBlack,
     fontWeight: "bold",
     textAlign: "center",
   },
