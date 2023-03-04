@@ -9,21 +9,21 @@ export default function FeaturedCourses() {
 
   const cursos = [
     {
-      image: require("../../assets/img/chequito.jpg"),
+      image: require("../../assets/img/dev.jpg"),
       title: "Programación",
       price: "$50",
       average: 4.4,
       comments: 20,
     },
     {
-      image: require("../../assets/img/chequito.jpg"),
+      image: require("../../assets/img/diseño.jpg"),
       title: "Diseño Gráfico",
       price: "$70",
       average: 5.0,
       comments: 10,
     },
     {
-      image: require("../../assets/img/chequito.jpg"),
+      image: require("../../assets/img/marketimg.jpg"),
       title: "Marketing Digital",
       price: "$60",
       average: 4.5,
