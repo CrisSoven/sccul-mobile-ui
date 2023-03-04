@@ -1,25 +1,14 @@
 import Colors from "../../utils/Colors";
-import { Icon } from 'react-native-elements';
-import React from 'react';
-import { StyleSheet,  TouchableOpacity, Text } from 'react-native';
+import { Icon } from "react-native-elements";
+import React from "react";
+import { StyleSheet, TouchableOpacity, Text } from "react-native";
 
 export default function ButtonComponent(props) {
-  const { onPress, title, containerStyle, textStyle, buttonStyle, titleStyle, icon, iconStyle } = props;
-
+  const { title, icon, onPress } = props;
   return (
-    <TouchableOpacity 
-      style={[styles.button, containerStyle, buttonStyle]} 
-      onPress={onPress}
-    >
-      {icon && (
-        <Icon
-          name={icon}
-          size={24}
-          color="white"
-          style={[styles.icon, iconStyle]}
-        />
-      )}
-      <Text style={[styles.title, textStyle, titleStyle]}>{title}</Text>
+    <TouchableOpacity style={styles.button} onPress={onPress}>
+      {icon && <Icon name={icon} size={24} color="white" style={styles.icon} />}
+      <Text style={styles.title}>{title}</Text>
     </TouchableOpacity>
   );
 }
@@ -27,18 +16,19 @@ export default function ButtonComponent(props) {
 const styles = StyleSheet.create({
   button: {
     borderRadius: 20,
-    backgroundColor: Colors.PalleteBlack,
-    paddingHorizontal: 20,
+    backgroundColor: Colors.PalleteBluePrimary,
+    marginHorizontal: 20,
     paddingVertical: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     color: Colors.PalleteWhite,
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   icon: {
-    marginRight: 10,
+    marginRight: 5,
   },
 });

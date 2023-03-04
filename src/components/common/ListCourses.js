@@ -3,7 +3,7 @@ import React from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Image, Text } from "react-native-elements";
 import { Rating } from "react-native-elements";
-import Colors from "../../utils/Colors"
+import Colors from "../../utils/Colors";
 
 const CursoDestacado = ({ image, title, price, average, comments }) => {
   return (

@@ -5,10 +5,7 @@ import Colors from "../../utils/Colors";
 
 export default function Filter({ onPress }) {
   return (
-    <TouchableOpacity
-      style={styles.filtroButton}
-      onPress={() => onPress()}
-    >
+    <TouchableOpacity style={styles.filtroButton} onPress={() => onPress()}>
       <Icon name="filter" type="font-awesome" color="#fff" size={20} />
     </TouchableOpacity>
   );

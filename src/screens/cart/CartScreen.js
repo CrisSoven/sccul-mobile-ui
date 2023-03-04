@@ -1,84 +1,56 @@
- import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
-import SearchBar from '../../components/common/SearchBar';
-import SelectComponent from '../../components/cart/SelectComponent';
-import PriceTotalCartComponnet from '../../components/cart/PriceTotalCartComponent';
-import ButtonComponent from '../../components/common/ButtonComponent';
-import { ScrollView } from 'react-native-gesture-handler';
-import Colors from '../../utils/Colors';
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import SearchBar from "../../components/common/SearchBar";
+import SelectComponent from "../../components/cart/SelectComponent";
+import Colors from "../../utils/Colors";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import TitleBtnComponent from "../../components/profile/TitleBtnComponent";
+import { useNavigation } from "@react-navigation/native";
 
-export default function CartScreen(props) {
-  const { navigation } = props;
-  const cartTitle = 'Carrito de compras';
-
+export default function CartScreen() {
+  const navigation = useNavigation();
+  const navigateTo = () => {
+    navigation.navigate("PaymentMethod");
+  };
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View>
-        <Text style={styles.title}>{cartTitle}</Text>
+    <KeyboardAwareScrollView contentContainerStyle={styles.container}>
+      <View style={styles.content}>
+        <Text style={styles.title}>Carrito de compras</Text>
+        <SearchBar />
+        <SelectComponent />
       </View>
-      <SearchBar />
-      <SelectComponent />
-      <View style={styles.footer}>
-        <PriceTotalCartComponnet
-          priceText={'$' + 599.75 + 'mx'}
-          containerStyle={styles.priceContainer}
-          priceStyle={styles.price}
-        />
-        <ButtonComponent
-          title="Pagar"
-          navigation={navigation}
-          onPress={() => navigation.navigate('PaymentMethod')}
-          buttonStyle={styles.btn}
-          titleStyle={styles.btnText}
-        />
-      </View>
-    </ScrollView>
+
+      <TitleBtnComponent
+        style={styles.footer}
+        textTitle="$1,246.50 MX"
+        titleStyle={styles.subtitle}
+        textBtn="Pagar"
+        onPress={navigateTo}
+      />
+    </KeyboardAwareScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   container: {
-    paddingTop: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    flex: 1,
+    padding: 20,
+  },
+  content: {
+    flex: 1,
   },
   footer: {
-    paddingHorizontal: 20,
-    paddingTop: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    position: "absolute",
+    bottom: 0,
   },
-  btn: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 20,
-    width: 146,
-    height: 40,
-    borderRadius: 10,
-    backgroundColor: Colors.PalleteBluePrimary,
-    marginLeft: 5,
-  },
-  btnText: {
-    color: Colors.PalleteWhite,
+
+  subtitle: {
     fontSize: 16,
-  },
-  priceContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 20,
-    width: 150,
-    height: 40,
-    borderRadius: 10,
-    backgroundColor: Colors.PalleteGreenBackground,
-  },
-  price: {
-    color: Colors.PalleteBlack,
-    fontSize: 14,
-    fontWeight: 'bold',
+    fontWeight: "bold",
+    color: Colors.PalleteGray,
   },
 });

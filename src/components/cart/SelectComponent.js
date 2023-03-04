@@ -1,7 +1,6 @@
-
-import { useState } from 'react';
-import { StyleSheet, Text, View, TouchableWithoutFeedback } from 'react-native';
-import Colors from '../../utils/Colors';
+import { useState } from "react";
+import { StyleSheet, Text, View, TouchableWithoutFeedback } from "react-native";
+import Colors from "../../utils/Colors";
 
 export default function SelectComponent({}) {
   const [isSelected, setIsSelected] = useState(false);
@@ -9,10 +8,12 @@ export default function SelectComponent({}) {
   return (
     <TouchableWithoutFeedback onPress={() => setIsSelected(!isSelected)}>
       <View style={styles.container}>
-        <View style={[styles.radioButton, isSelected && styles.radioButtonSelected]}>
+        <View
+          style={[styles.radioButton, isSelected && styles.radioButtonSelected]}
+        >
           {isSelected && <View style={styles.radioButtonSelectedCircle} />}
         </View>
-        <Text  style={styles.textP} >Selecciona Todos los Cursos</Text>
+        <Text style={styles.textP}>Selecciona Todos los Cursos</Text>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -21,8 +22,8 @@ export default function SelectComponent({}) {
 const styles = StyleSheet.create({
   container: {
     marginVertical: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   radioButton: {
     height: 20,
@@ -31,8 +32,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.PalleteGray,
     marginRight: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   radioButtonSelectedCircle: {
     height: 10,
@@ -41,15 +42,15 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.PalleteBluePrimary,
   },
   optionContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginVertical: 5,
   },
   optionText: {
     fontSize: 16,
   },
-  textP:{
+  textP: {
     fontSize: 14,
-    fontWeight: 'bold',
-  }
+    fontWeight: "bold",
+  },
 });
