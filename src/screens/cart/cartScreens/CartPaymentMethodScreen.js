@@ -44,11 +44,11 @@ import GoBack from '../../../components/common/Goback';
 import AddCardComponenet from '../../../components/cart/AddCardBtnComponent';
 import CardsComponent from '../../../components/cart/CardsComponent';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useNavigation } from "@react-navigation/native";
 
-const { width, height } = Dimensions.get('window');
+
 
 export default function CartPaymentMethodScreen(props) {
-  const { navigation } = props;
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -57,7 +57,7 @@ export default function CartPaymentMethodScreen(props) {
         <AddCardComponenet/>
       </View>
       <View style={styles.content}>
-        <CardsComponent/>
+        <CardsComponent />
       </View>
     </ScrollView>
   )

@@ -6,6 +6,8 @@ import CartScreen from '../../screens/cart/CartScreen';
 import CartPaymentMethodScreen from '../../screens/cart/cartScreens/CartPaymentMethodScreen';
 import AddCardScreen from '../../screens/cart/cartScreens/AddCardScreen';
 import CartPaymentScreen from '../../screens/cart/cartScreens/CartPaymentScreen';
+import Successful from '../../screens/cart/cartScreens/Successful';
+import Fail from '../../screens/cart/cartScreens/Fail';
 
 const Stack = createStackNavigator();
 
@@ -34,6 +36,14 @@ export default function CartStackNavigator() {
       name='CartPayment'
       component={CartPaymentScreen}
       options={{title:'Pago'}}
+      />
+      <Stack.Screen
+      name='Successful'
+      component={Successful}
+      />
+            <Stack.Screen
+      name='Fail'
+      component={Fail}
       />
     </Stack.Navigator>
   );

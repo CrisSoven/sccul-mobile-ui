@@ -5,8 +5,13 @@ import AddCardFormComponent from "../../../components/cart/AddCardFormComponent"
 import { ScrollView } from "react-native-gesture-handler";
 import AccionsBtnComponent from "../../../components/cart/AccionsBtnComponent";
 import SaveCardBtnComponent from "../../../components/cart/SaveCardBtnComponent";
+import { useNavigation } from "@react-navigation/native"; 
+
+
 
 export default function AddCardScreen() {
+  const navigation = useNavigation(); 
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View>
@@ -21,6 +26,7 @@ export default function AddCardScreen() {
       <AccionsBtnComponent
       btnCancelTitle="Cancelar" 
       btnContinueTitle="Continuar"
+      action={() => navigation.navigate('CartPayment')}
       />
     </View>
     </ScrollView>

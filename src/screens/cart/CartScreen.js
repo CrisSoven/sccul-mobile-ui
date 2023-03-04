@@ -19,7 +19,7 @@ export default function CartScreen() {
         <SearchBar />
         <SelectComponent />
       </View>
-
+        
       <TitleBtnComponent
         style={styles.footer}
         textTitle="$1,246.50 MX"

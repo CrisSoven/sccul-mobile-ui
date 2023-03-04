@@ -83,7 +83,7 @@ export default function AccionsBtnComponent(props) {
         title={props.btnContinueTitle}
         buttonStyle={[styles.btn, styles.btnlarge ]}
         titleStyle={styles.btnText}
-        onPress={() => navigation.navigate('CartPayment')}
+        onPress={props.action}
       />
     </View>
   );
