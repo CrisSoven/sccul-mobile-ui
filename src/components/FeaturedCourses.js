@@ -7,7 +7,7 @@ import Colors from "../utils/Colors";
 export default function FeaturedCourses() {
   const [modalVisible, setModalVisible] = useState(false);
 
-  const cursos = [
+  const courses = [
     {
       image: require("../../assets/img/dev.jpg"),
       title: "Programación",
@@ -41,7 +41,7 @@ export default function FeaturedCourses() {
         <Text style={styles.titleList}>Cursos destacados</Text>
         <Filter onPress={handleFilterPress} />
       </View>
-      <ListCourses cursos={cursos} />
+      <ListCourses courses={courses} />
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <View style={styles.modalContainer}>
           <View style={styles.modal}>

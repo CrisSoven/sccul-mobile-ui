@@ -5,7 +5,7 @@ import { Image, Text } from "react-native-elements";
 import { Rating } from "react-native-elements";
 import Colors from "../../utils/Colors";
 
-const CursoDestacado = ({ image, title, price, average, comments }) => {
+const Courses = ({ image, title, price, average, comments }) => {
   return (
     <TouchableOpacity style={styles.container}>
       <Image source={image} style={styles.image} />
@@ -30,11 +30,11 @@ const CursoDestacado = ({ image, title, price, average, comments }) => {
   );
 };
 
-export default function ListCourses({ cursos }) {
+export default function ListCourses({ courses }) {
   return (
     <View>
-      {cursos.map((curso, index) => (
-        <CursoDestacado
+      {courses.map((curso, index) => (
+        <Courses
           key={index}
           image={curso.image}
           title={curso.title}

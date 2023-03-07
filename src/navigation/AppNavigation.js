@@ -28,7 +28,7 @@ export default function AppNavigation() {
       }}
     >
       <Tab.Screen
-        component={HomeStack }
+        component={HomeStack}
         name="Home"
         options={{
           tabBarIcon: ({ focused }) => (

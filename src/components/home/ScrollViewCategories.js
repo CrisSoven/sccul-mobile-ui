@@ -7,24 +7,27 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Colors from "../../utils/Colors";
+import { useNavigation } from "@react-navigation/native";
+
+const categories = ["Programación", "Diseño", "Marketing", "Música", "Cocina"];
 
 export default function ScrollViewCategories() {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.box}>
       <Text style={styles.title}>Categorías</Text>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-        <TouchableOpacity style={styles.container}>
-          <Text style={styles.text}>Programación</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.container}>
-          <Text style={styles.text}>Diseño gráfico</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.container}>
-          <Text style={styles.text}>Marketing</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.container}>
-          <Text style={styles.text}>Cocina</Text>
-        </TouchableOpacity>
+        {categories.map((category, index) => (
+          <TouchableOpacity
+            key={index}
+            style={styles.container}
+            onPress={() =>
+              {navigation.navigate("CategoryScreen")}}
+          >
+            <Text style={styles.text}>{category}</Text>
+          </TouchableOpacity>
+        ))}
       </ScrollView>
     </View>
   );
