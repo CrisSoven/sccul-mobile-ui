@@ -3,8 +3,8 @@ import React from 'react'
 
 export default function CourseScreen() {
   return (
-    <View>
-      <Text>CourseScreen</Text>
+    <View> 
+      <Text >CourseScreen</Text>
     </View>
   )
 }

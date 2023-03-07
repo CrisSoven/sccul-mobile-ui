@@ -23,8 +23,7 @@ export default function ScrollViewCategories() {
             key={index}
             style={styles.container}
             onPress={() =>
-              navigation.navigate("CategoryScreen", { category: category })
-            }
+              {navigation.navigate("CategoryScreen")}}
           >
             <Text style={styles.text}>{category}</Text>
           </TouchableOpacity>

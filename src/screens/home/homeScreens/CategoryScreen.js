@@ -1,12 +1,20 @@
 import { StyleSheet, Text, View } from "react-native";
-import ListCourses from "../../components/ListCourses";
+import ListCourses from "../../../components/common/ListCourses";
 import React from "react";
+import Goback from "../../../components/common/Goback";
+
+
 
 export default function CategoryScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{category}</Text>
-      <ListCourses />
+      <Goback
+      title='Categorias'
+      />
+      <Text style={styles.title}>Arriba las aguilas</Text>
+      {/* <ListCourses /> */}
+      {/* Coco ya solo manda a tarer los cursos por que el Listcourses lo pide,
+      si lo descometas te va dar error we */}
     </View>
   );
 }
