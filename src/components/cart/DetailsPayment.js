@@ -4,7 +4,7 @@ import Colors from '../../utils/Colors'
 import ListCourses from '../common/ListCourses';
 
 export default function DetailsPayment() {
-  const cursos = [
+  const courses = [
     {
       image: require("../../../assets/img/dev.jpg"),
       title: "Programación",
@@ -31,7 +31,7 @@ export default function DetailsPayment() {
     <View>
       <Text style={styles.title}>Detalles de compra</Text>
       <ListCourses 
-      cursos={cursos}/>
+      courses={courses}/>
     </View>
   )
 }

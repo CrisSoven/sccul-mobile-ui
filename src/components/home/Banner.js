@@ -4,7 +4,7 @@ import { Image } from "react-native-elements";
 import Swiper from "react-native-swiper";
 
 const images = [
-  require("../../../assets/img/chequito.jpg"),
+  require("../../../assets/img/redbull.jpg"),
   require("../../../assets/img/leclerc.jpg"),
   require("../../../assets/img/redbull.jpg"),
 ];
@@ -14,9 +14,8 @@ export default function Banner() {
     <View style={styles.container}>
       <Swiper
         autoplay={{
-          delay: 5000,
+          delay: 10000,
         }}
-        scrollEnabled={false}
       >
         {images.map((image, index) => (
           <View key={index}>

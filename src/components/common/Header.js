@@ -18,7 +18,7 @@ export default function Header() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.PalleteBluePrimary,
-    height: "13%",
+    height: "10%",
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",

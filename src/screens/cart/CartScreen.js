@@ -15,7 +15,7 @@ export default function CartScreen() {
   const navigateTo = () => {
     navigation.navigate("PaymentMethod");
   };
-  const cursos = [
+  const courses = [
     {
       image: require("../../../assets/img/dev.jpg"),
       title: "Programación",
@@ -51,7 +51,7 @@ export default function CartScreen() {
         <SearchBar />
         <SelectComponent />
         <ListCourses 
-          cursos={cursos}
+          courses={courses}
         />
       </View>
       
