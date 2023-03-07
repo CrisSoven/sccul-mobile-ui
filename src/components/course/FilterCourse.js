@@ -17,8 +17,8 @@ export default function FilterCourse() {
   
 
   return (
+    <View style={styles.principal}> 
     <View style={styles.box}>
-     
         <TouchableOpacity style={styles.container}>
           <Text style={styles.text}>Todos</Text>
         </TouchableOpacity>
@@ -33,7 +33,8 @@ export default function FilterCourse() {
         onPress={handleFilterPress}
         />
         </TouchableOpacity>
-    </View>
+      </View>
+    </View> 
   );
 }
 
@@ -63,6 +64,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 14,
   },
-
+  principal: {
+    marginLeft:2,
+    marginRight:1,
+  },
   
 })

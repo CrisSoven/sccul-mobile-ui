@@ -7,6 +7,7 @@ import Colors from "../../utils/Colors";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import TitleBtnComponent from "../../components/profile/TitleBtnComponent";
 import { useNavigation } from "@react-navigation/native";
+import { ScrollView } from "react-native-gesture-handler";
 
 
 export default function CartScreen() {
@@ -40,12 +41,15 @@ export default function CartScreen() {
   
 
   return (
+    <ScrollView>
+
+  
     <KeyboardAwareScrollView contentContainerStyle={styles.container}>
+      
       <View style={styles.content}>
         <Text style={styles.title}>Carrito de compras</Text>
         <SearchBar />
         <SelectComponent />
-        {/* <FeaturedCourses  /> */}
         <ListCourses 
           cursos={cursos}
         />
@@ -59,6 +63,7 @@ export default function CartScreen() {
         onPress={navigateTo}
       />
     </KeyboardAwareScrollView>
+    </ScrollView>
   );
 }
 

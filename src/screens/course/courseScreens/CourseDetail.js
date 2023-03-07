@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import SearchBar from '../../../components/common/SearchBar'
 import FilterCourse from '../../../components/course/FilterCourse'
+import Courses from '../../../components/course/Courses'
 
 export default function CourseDetail() {
   return (
@@ -9,7 +10,7 @@ export default function CourseDetail() {
       <Text style={styles.title}>Mis cursos</Text>
       <SearchBar/>
       <FilterCourse/>
-      
+      <Courses/>
     </View>
   )
 }

@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-export default function courseSuvery() {
+export default function CourseSuvery() {
   return (
     <View>
-      <Text>courseSuvery</Text>
+      <Text>CourseSuvery</Text>
     </View>
   )
 }
