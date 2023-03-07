@@ -35,7 +35,7 @@ export default function PurchaseConfirmationScreen() {
           />
           <ButtonComponent
             title="Hecho"
-             onPress={() => navigation.navigate("Home")}
+            onPress={() => navigation.navigate("HomeS")}
             style={styles.btn}
 
           />
