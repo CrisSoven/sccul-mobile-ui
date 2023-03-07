@@ -4,11 +4,11 @@ import React from "react";
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
 
 export default function ButtonComponent(props) {
-  const { title, icon, onPress, style } = props;
+  const { title, icon, btnPrimary, onPress } = props;
   return (
-    <TouchableOpacity style={[styles.button, style]} onPress={onPress}>
+    <TouchableOpacity style={[styles.button, btnPrimary === true ? styles.btnPrimaryColor : styles.btnCancelColor]} onPress={onPress}>
       {icon && <Icon name={icon} size={24} color="white" style={styles.icon} />}
-      <Text style={styles.title}>{title}</Text>
+      <Text style={btnPrimary === true ? styles.titlePrimary : styles.titleCancel}>{title}</Text>
     </TouchableOpacity>
   );
 }
@@ -16,18 +16,26 @@ export default function ButtonComponent(props) {
 const styles = StyleSheet.create({
   button: {
     borderRadius: 20,
-    backgroundColor: Colors.PalleteBluePrimary,
     marginHorizontal: 20,
     paddingVertical: 10,
     flexDirection: "row",
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: 10,
-    height: 50,
+    height: 45,
   },
-  title: {
+  btnPrimaryColor: {
+    backgroundColor: Colors.PalleteBluePrimary,
+  },
+  btnCancelColor: {
+    backgroundColor: Colors.PalleteGray,
+  },
+  titlePrimary: {
     color: Colors.PalleteWhite,
+    fontWeight: "bold",
+  },
+  titleCancel: {
+    color: Colors.PalleteBlack,
     fontWeight: "bold",
   },
   icon: {

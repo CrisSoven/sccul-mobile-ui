@@ -2,94 +2,57 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 import React from "react";
 import Colors from "../../utils/Colors";
 import { Icon } from "react-native-elements";
+import Input from "../common/InputComponent";
 
 export default function PersonalInfoFormComponent() {
   return (
     <View style={styles.form}>
-      <Text style={styles.label}>Nombre(s)</Text>
-      <View style={styles.container}>
-        <View style={styles.leftContainer}>
-          <Icon
-            style={styles.icon}
-            name="person-outline"
-            type="MaterialIcons"
-            size={25}
-          />
-
-          <TextInput style={styles.input} value="Cristopher" editable={false} />
-        </View>
-      </View>
-
+      <Input
+        label="Nombre(s)"
+        value="Cristopher"
+        iconName="person-outline"
+        iconType="MaterialIcons"
+        iconSize={25}
+        editable={false}
+      />
       <View style={styles.row}>
         <View style={styles.column}>
-          <Text style={styles.label}>Apellido paterno</Text>
-          <View style={styles.container}>
-            <View style={styles.leftContainer}>
-              <Icon
-                style={styles.icon}
-                name="person-outline"
-                type="MaterialIcons"
-                size={25}
-              />
-
-              <TextInput style={styles.input} value="Soto" editable={false} />
-            </View>
-          </View>
+          <Input
+            label="Apellido paterno"
+            value="Soto"
+            iconName="person-outline"
+            iconType="MaterialIcons"
+            iconSize={25}
+            editable={false}
+          />
         </View>
-
         <View style={styles.column}>
-          <Text style={styles.label}>Apellido materno</Text>
-          <View style={styles.container}>
-            <View style={styles.leftContainer}>
-              <Icon
-                style={styles.icon}
-                name="person-outline"
-                type="MaterialIcons"
-                size={25}
-              />
-
-              <TextInput
-                style={styles.input}
-                value="Ventura"
-                editable={false}
-              />
-            </View>
-          </View>
-        </View>
-      </View>
-
-      <Text style={styles.label}>Teléfono</Text>
-      <View style={styles.container}>
-        <View style={styles.leftContainer}>
-          <Icon
-            style={styles.icon}
-            name="phone-android"
-            type="MaterialIcons"
-            size={20}
-          />
-
-          <TextInput style={styles.input} value="7775550627" editable={false} />
-        </View>
-      </View>
-
-      <Text style={styles.label}>Correo eléctronico</Text>
-      <View style={styles.container}>
-        <View style={styles.leftContainer}>
-          <Icon
-            style={styles.icon}
-            name="mail-outline"
-            type="MaterialIcons"
-            size={25}
-          />
-
-          <TextInput
-            style={styles.input}
-            value="cristopher.sotoventura@gmail.com"
+          <Input
+            label="Apellido materno"
+            value="Ventura"
+            iconName="person-outline"
+            iconType="MaterialIcons"
+            iconSize={25}
             editable={false}
           />
         </View>
       </View>
-
+      <Input
+        label="Teléfono"
+        value="7775550627"
+        iconName="phone-android"
+        iconType="MaterialIcons"
+        iconSize={20}
+        editable={false}
+      />
+      <Input
+        label="Correo electrónico"
+        value="cristopher.sotoventura@gmail.com"
+        iconName="mail-outline"
+        iconType="MaterialIcons"
+        iconSize={25}
+        editable={false}
+      />
       <View style={styles.row}>
         <View style={styles.circleKey}>
           <Icon
@@ -97,6 +60,7 @@ export default function PersonalInfoFormComponent() {
             name="vpn-key"
             type="MaterialIcons"
             size={20}
+            editable={false}
           />
         </View>
         <Text style={styles.label}>Cambiar contraseña</Text>
@@ -106,37 +70,11 @@ export default function PersonalInfoFormComponent() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginTop: 5,
-    marginBottom: 15,
-    height: 50,
-    borderRadius: 16,
-    backgroundColor: Colors.PalleteGreenBackground,
-    marginHorizontal: 20,
-  },
-  leftContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginLeft: 10,
-  },
-  rightContainer: {
-    marginRight: 10,
-  },
   icon: {
     paddingRight: 10,
   },
-  label: {
-    fontSize: 15,
-    fontWeight: "700",
-    marginTop: 20,
-    marginLeft: 20,
-  },
   row: {
     flexDirection: "row",
-    width: "100%",
   },
   column: {
     flexDirection: "column",
@@ -153,5 +91,11 @@ const styles = StyleSheet.create({
   },
   form: {
     marginBottom: 20,
+  },
+  label: {
+    fontSize: 15,
+    fontWeight: "700",
+    marginTop: 20,
+    marginLeft: 20,
   },
 });

@@ -2,24 +2,59 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import SearchBar from "../../components/common/SearchBar";
 import SelectComponent from "../../components/cart/SelectComponent";
+import ListCourses from "../../components/common/ListCourses";
 import Colors from "../../utils/Colors";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import TitleBtnComponent from "../../components/profile/TitleBtnComponent";
 import { useNavigation } from "@react-navigation/native";
+import { ScrollView } from "react-native-gesture-handler";
+
 
 export default function CartScreen() {
   const navigation = useNavigation();
   const navigateTo = () => {
     navigation.navigate("PaymentMethod");
   };
+  const cursos = [
+    {
+      image: require("../../../assets/img/dev.jpg"),
+      title: "Programación",
+      price: "$50",
+      average: 4.4,
+      comments: 20,
+    },
+    {
+      image: require("../../../assets/img/diseño.jpg"),
+      title: "Diseño Gráfico",
+      price: "$70",
+      average: 5.0,
+      comments: 10,
+    },
+    {
+      image: require("../../../assets/img/marketimg.jpg"),
+      title: "Marketing Digital",
+      price: "$60",
+      average: 4.5,
+      comments: 15,
+    },
+  ];
+  
+
   return (
+    <ScrollView>
+
+  
     <KeyboardAwareScrollView contentContainerStyle={styles.container}>
+      
       <View style={styles.content}>
         <Text style={styles.title}>Carrito de compras</Text>
         <SearchBar />
         <SelectComponent />
+        <ListCourses 
+          cursos={cursos}
+        />
       </View>
-        
+      
       <TitleBtnComponent
         style={styles.footer}
         textTitle="$1,246.50 MX"
@@ -28,6 +63,7 @@ export default function CartScreen() {
         onPress={navigateTo}
       />
     </KeyboardAwareScrollView>
+    </ScrollView>
   );
 }
 

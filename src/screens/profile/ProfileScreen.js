@@ -7,8 +7,13 @@ import TitleBtnComponent from "../../components/profile/TitleBtnComponent";
 import Colors from "../../utils/Colors";
 import PersonalInfoComponent from "../../components/profile/PersonalInfoFormComponent";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { useNavigation } from "@react-navigation/native";
 
 export default function ProfileScreen() {
+  const navigation = useNavigation();
+  const navigateTo = () => {
+    navigation.navigate("ChangePass");
+  };
   return (
     <KeyboardAwareScrollView>
       <TitleBtnComponent
@@ -17,6 +22,7 @@ export default function ProfileScreen() {
         icon="logout"
         textBtn="Cerrar sesión"
         iconType="material-community"
+        btnPrimary={true}
       />
 
       <View>
@@ -31,6 +37,8 @@ export default function ProfileScreen() {
         icon="edit"
         textBtn="Editar"
         iconType="material-community"
+        btnPrimary={true}
+        onPress={navigateTo}
       />
 
       <PersonalInfoComponent />

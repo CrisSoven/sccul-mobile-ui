@@ -4,7 +4,7 @@ import HomeScreen from '../../screens/home/HomeScreen';
 
 const Stack = createStackNavigator();
 
-export default function CartStackNavigator() {
+export default function HomeStack() {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -12,7 +12,7 @@ export default function CartStackNavigator() {
       }}
     >
       <Stack.Screen
-        name="Home"
+        name="HomeS"
         component={HomeScreen}
       />
 

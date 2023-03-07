@@ -1,10 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import ButtonComponent from "../common/ButtonComponent";
-import Colors from "../../utils/Colors";
 
 export default function TitleBtnComponent(props) {
-  const { textTitle, titleStyle, icon, textBtn, iconType, onPress } = props;
+  const { textTitle, titleStyle, icon, textBtn, iconType, btnPrimary, onPress } = props;
   return (
     <View style={styles.header}>
       <View style={styles.column}>
@@ -15,6 +14,7 @@ export default function TitleBtnComponent(props) {
           icon={icon}
           title={textBtn}
           type={iconType}
+          btnPrimary={btnPrimary}
           onPress={onPress}
         />
       </View>

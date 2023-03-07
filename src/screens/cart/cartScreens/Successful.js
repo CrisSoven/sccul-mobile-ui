@@ -34,7 +34,10 @@ export default function PurchaseConfirmationScreen() {
           />
           <ButtonComponent
             title="Hecho"
-            onPress={() => navigation.navigate("Home")}
+            onPress={() => 
+              navigation.navigate("HomeS")
+              // console.log("presionado")
+            }
             style={styles.btn}
           />
         </View>

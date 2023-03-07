@@ -1,7 +1,5 @@
-
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-
 import CartScreen from '../../screens/cart/CartScreen';
 import CartPaymentMethodScreen from '../../screens/cart/cartScreens/CartPaymentMethodScreen';
 import AddCardScreen from '../../screens/cart/cartScreens/AddCardScreen';
@@ -18,33 +16,24 @@ export default function CartStackNavigator() {
         headerShown: false,
       }}
     >
-      <Stack.Screen
-        name="Cart"
-        component={CartScreen}
-      />
+      <Stack.Screen name="Cart" component={CartScreen} />
       <Stack.Screen
         name="PaymentMethod"
         component={CartPaymentMethodScreen}
-        options={{title:'Metodos de pago'}}
+        options={{ title: "Metodos de pago" }}
       />
       <Stack.Screen
-      name='AddCard'
-      component={AddCardScreen}
-      options={{title:'Agregar tarjeta'}}
-      />
-      <Stack.Screen 
-      name='CartPayment'
-      component={CartPaymentScreen}
-      options={{title:'Pago'}}
+        name="AddCard"
+        component={AddCardScreen}
+        options={{ title: "Agregar tarjeta" }}
       />
       <Stack.Screen
-      name='Successful'
-      component={Successful}
+        name="CartPayment"
+        component={CartPaymentScreen}
+        options={{ title: "Pago" }}
       />
-            <Stack.Screen
-      name='Fail'
-      component={Fail}
-      />
+      <Stack.Screen name="Successful" component={Successful} />
+      <Stack.Screen name="Fail" component={Fail} />
     </Stack.Navigator>
   );
 }
