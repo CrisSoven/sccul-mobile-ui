@@ -1,19 +1,3 @@
-// import { StyleSheet, Text, View } from 'react-native'
-// import React from 'react'
-// import Goback from '../../components/common/Goback'
-
-// export default function CourseScreen() {
-//   return (
-//     <View>
-//      <Goback
-//      title='Fundamentos'
-//      />
-//     </View>
-//   )
-// }
-
-// const styles = StyleSheet.create({})
-
 import React from "react";
 import { View, StyleSheet, Button } from "react-native";
 import { Video, AVPlaybackStatus } from "expo-av";

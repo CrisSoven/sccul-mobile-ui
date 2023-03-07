@@ -9,7 +9,7 @@ const Courses = () => {
       key: "1",
       title: "Fundamentos de Java.",
       duration: "5 episodios - 1h 24min",
-      progress: 20,
+      progress: 10,
       image: require("../../../assets/img/dev.jpg"),
     },
     {

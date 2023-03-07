@@ -84,6 +84,7 @@ export default function AccionsBtnComponent(props) {
         buttonStyle={[styles.btn, styles.btnlarge ]}
         titleStyle={styles.btnText}
         onPress={props.action}
+        btnPrimary={props.btnPrimary}
       />
     </View>
   );

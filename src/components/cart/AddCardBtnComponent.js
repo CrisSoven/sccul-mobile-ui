@@ -4,21 +4,24 @@ import ButtonComponent from '../common/ButtonComponent';
 
 import { useNavigation } from '@react-navigation/native';
 import Colors from '../../utils/Colors';
+import TitleBtnComponent from '../profile/TitleBtnComponent';
 
-export default function AddCardBtnComponent(props) {
+export default function AddCardBtnComponent() {
   const navigation = useNavigation();
-
+  const navigateTo = () => {
+    navigation.navigate("AddCard");
+  };
+  
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Mis tarjetas</Text>
-      <ButtonComponent
-        title="Agregar tarjeta"
-        onPress={() => { navigation.navigate('AddCard')}}
-        icon="add"
-        buttonStyle={styles.btn}
-        titleStyle={styles.btnText}
-      />
-    </View>
+    <TitleBtnComponent
+    textTitle="Mis tarjetas"
+    titleStyle={styles.title}
+    icon="edit"
+    textBtn="Editar"
+    iconType="material-community"
+    btnPrimary={true}
+    onPress={navigateTo}
+  />
   );
 }
 
@@ -26,7 +29,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center', 
   },

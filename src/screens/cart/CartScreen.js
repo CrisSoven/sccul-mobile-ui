@@ -61,6 +61,7 @@ export default function CartScreen() {
         titleStyle={styles.subtitle}
         textBtn="Pagar"
         onPress={navigateTo}
+        btnPrimary={true}
       />
     </KeyboardAwareScrollView>
     </ScrollView>

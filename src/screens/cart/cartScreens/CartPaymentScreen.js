@@ -1,7 +1,6 @@
-import { StyleSheet, View, Dimensions } from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 import React, { useState } from "react";
 import Goback from "../../../components/common/Goback";
-import { ScrollView } from "react-native-gesture-handler";
 import Line from "../../../components/common/Line";
 import CartResume from "../../../components/cart/CartResume";
 import DetailsPayment from "../../../components/cart/DetailsPayment";
@@ -10,7 +9,7 @@ import CardsComponent from "../../../components/cart/CardsComponent";
 import ResumePrice from "../../../components/cart/ResumePrice";
 import { useNavigation } from "@react-navigation/native";
 
-const windowWidth = Dimensions.get("window").width;
+//const windowWidth = Dimensions.get("window").width;
 
 export default function CartPaymentScreen(props) {
   const navigation = useNavigation();
@@ -23,11 +22,13 @@ export default function CartPaymentScreen(props) {
     }
   };
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <>
       <View style={styles.header}>
         <Goback title="Confirmar compra" />
         <ResumePrice />
         <CardsComponent />
+      </View>
+      <ScrollView>
         <Line />
         <CartResume />
         <Line />
@@ -36,22 +37,20 @@ export default function CartPaymentScreen(props) {
           btnCancelTitle="Cancelar"
           btnContinueTitle="Finalizar Compra"
           action={handleAction}
+          btnPrimary={true}
         />
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-    width: windowWidth,
+    //width: windowWidth,
+    paddingBottom: 30,
   },
   header: {
     paddingHorizontal: 20,
-    paddingBottom: 20,
-    maxWidth: 400,
-    alignSelf: "center",
-    width: windowWidth,
+    //width: windowWidth,
   },
 });

@@ -28,18 +28,18 @@ export default function CardsComponent() {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     marginTop: 20,
-    width: 340,
-    height: 65,
-    borderRadius: 10,
+    height: 50,
+    borderRadius: 16,
     backgroundColor: Colors.PalleteGreenBackground,
+    marginHorizontal: 20,
   },
   leftContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginLeft: 10,
   },
   rightContainer: {
