@@ -3,9 +3,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icons from "react-native-vector-icons/MaterialCommunityIcons";
 import HomeScreen from "../screens/home/HomeScreen";
 import CourseScreen from "../screens/course/CourseScreen";
-import ProfileScreen from "../screens/profile/ProfileScreen";
 import Colors from "../utils/Colors";
 import CartStackNavigator from "./stacks/CartStack";
+import ProfileStackNavigator from "./stacks/ProfileStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -13,6 +13,7 @@ export default function AppNavigation() {
   return (
     <Tab.Navigator
       screenOptions={{
+        headerShown: false,
         tabBarActiveTintColor: Colors.PalleteBlack,
         tabBarInactiveTintColor: Colors.PalleteGray,
         tabBarLabelStyle: {
@@ -66,7 +67,7 @@ export default function AppNavigation() {
         }}
       />
       <Tab.Screen
-        component={ProfileScreen}
+        component={ProfileStackNavigator}
         name="Profile"
         options={{
           tabBarIcon: ({ focused }) => (
