@@ -12,8 +12,10 @@ export default function CategoryScreen({ route }) {
   const courses = [
     {
       id: 1,
-      title: "Curso 1",
+      title: "JavaPug - Curso de Java desde cero a pendejo",
       image: require("../../../../assets/img/leclerc.jpg"),
+      description:
+        "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
       category: "Programación",
       price: "$20",
       average: 4.5,
@@ -23,6 +25,8 @@ export default function CategoryScreen({ route }) {
       id: 2,
       title: "Curso 2",
       image: require("../../../../assets/img/leclerc.jpg"),
+      description:
+        "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
       category: "Diseño",
       price: "$30",
       average: 3.5,
@@ -32,15 +36,19 @@ export default function CategoryScreen({ route }) {
       id: 3,
       title: "Curso 3",
       image: require("../../../../assets/img/leclerc.jpg"),
+      description:
+        "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
       category: "Programación",
       price: "$25",
-      average: 4.0,
+      average: 4.2,
       comments: 8,
     },
     {
       id: 4,
       title: "Curso 4",
       image: require("../../../../assets/img/leclerc.jpg"),
+      description:
+        "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
       category: "Música",
       price: "$15",
       average: 4.8,
@@ -50,6 +58,8 @@ export default function CategoryScreen({ route }) {
       id: 5,
       title: "Curso 5",
       image: require("../../../../assets/img/leclerc.jpg"),
+      description:
+        "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
       category: "Cocina",
       price: "$10",
       average: 3.0,
@@ -59,6 +69,8 @@ export default function CategoryScreen({ route }) {
       id: 6,
       title: "Curso 6",
       image: require("../../../../assets/img/leclerc.jpg"),
+      description:
+        "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
       category: "Marketing",
       price: "$40",
       average: 4.2,
@@ -68,6 +80,8 @@ export default function CategoryScreen({ route }) {
       id: 7,
       title: "Curso 7",
       image: require("../../../../assets/img/leclerc.jpg"),
+      description:
+        "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
       category: "Programación",
       price: "$50",
       average: 3.8,
@@ -77,6 +91,8 @@ export default function CategoryScreen({ route }) {
       id: 8,
       title: "Curso 8",
       image: require("../../../../assets/img/leclerc.jpg"),
+      description:
+        "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
       category: "Diseño",
       price: "$15",
       average: 4.9,
@@ -86,6 +102,8 @@ export default function CategoryScreen({ route }) {
       id: 9,
       title: "Curso 9",
       image: require("../../../../assets/img/leclerc.jpg"),
+      description:
+        "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
       category: "Marketing",
       price: "$60",
       average: 4.5,
@@ -95,15 +113,19 @@ export default function CategoryScreen({ route }) {
       id: 10,
       title: "Curso 10",
       image: require("../../../../assets/img/leclerc.jpg"),
+      description:
+        "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
       category: "Programación",
       price: "$35",
-      average: 4.0,
+      average: 4.5,
       comments: 6,
     },
     {
       id: 11,
       title: "Curso 11",
       image: require("../../../../assets/img/leclerc.jpg"),
+      description:
+        "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
       category: "Cocina",
       price: "$45",
       average: 4.3,
@@ -113,6 +135,8 @@ export default function CategoryScreen({ route }) {
       id: 12,
       title: "Curso 12",
       image: require("../../../../assets/img/leclerc.jpg"),
+      description:
+        "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
       category: "Música",
       price: "$55",
       average: 3.9,
@@ -125,7 +149,7 @@ export default function CategoryScreen({ route }) {
   );
 
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <Goback title={"Categorías"} />
       <SearchBar />
       <View style={styles.scrollViewCategoriesContainer}>
@@ -133,9 +157,9 @@ export default function CategoryScreen({ route }) {
       </View>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>{`Cursos (${category})`}</Text>
-        <View style={styles.listContainer}>
-          <ListCourses courses={filteredCourses} />
-        </View>
+      </View>
+      <View style={styles.listContainer}>
+        <ListCourses courses={filteredCourses} />
       </View>
     </ScrollView>
   );
@@ -152,7 +176,8 @@ const styles = StyleSheet.create({
     marginBottom: "5%",
   },
   listContainer: {
-    marginHorizontal: "4%",
+    marginHorizontal: "3.5%",
+    flex: 1,
   },
   scrollViewCategoriesContainer: {
     marginTop: "5%",

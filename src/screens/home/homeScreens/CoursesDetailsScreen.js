@@ -1,8 +1,18 @@
-import { title } from "process";
 import React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 import { Rating } from "react-native-elements";
+import { ScrollView } from "react-native-gesture-handler";
 import Goback from "../../../components/common/Goback";
+import Sections from "../../../components/common/Sections";
+import AddToCartBtn from "../../../components/home/AddToCartBtn";
+import BuyNowBtn from "../../../components/home/BuyNowBtn";
 import Colors from "../../../utils/Colors";
 
 const CoursesDetailsScreen = ({ route }) => {
@@ -10,27 +20,45 @@ const CoursesDetailsScreen = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      <Goback title={`${course.title}`} />
-      <Image source={course.image} style={styles.image} />
-      <View style={styles.infoContainer}>
-        <View style={styles.averageContainer}>
-          <Text style={styles.average}>{course.average}</Text>
-          <Rating
-            startingValue={course.average}
-            fractions={1}
-            imageSize={24}
-            readonly
-            ratingColor="#FFAA0D"
-            style={{ marginRight: 10 }}
-          />
-          <Text style={styles.comments}>({course.comments})</Text>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Goback title={`${course.title}`} />
+        <Image source={course.image} style={styles.image} />
+        <View style={styles.infoContainer}>
+          <View style={styles.averageContainer}>
+            <Text style={styles.average}>{course.average}</Text>
+            <Rating
+              startingValue={course.average}
+              fractions={1}
+              imageSize={24}
+              readonly
+              ratingColor="#FFAA0D"
+              style={{ marginRight: 10 }}
+            />
+            <Text style={styles.comments}>({course.comments})</Text>
+          </View>
+          <Text style={styles.price}>{course.price}</Text>
+          <Text style={styles.description}>{course.description}</Text>
+          <View style={styles.categoryContainer}>
+            <TouchableOpacity style={styles.categoryContainer} disabled={true}>
+              <Text style={styles.categoryText} numberOfLines={1}>
+                {course.category}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.addToCartAndBuyNowContainer}>
+            <View style={styles.addToCartContainer}>
+              <AddToCartBtn />
+            </View>
+            <View style={styles.buyNowContainer}>
+              <BuyNowBtn />
+            </View>
+          </View>
+          <Text style={styles.contentOfCourse}>Contenido del curso</Text>
+          <View>
+            <Sections sections={ course.section }/>
+          </View>
         </View>
-        <Text style={styles.price}>{course.price}</Text>
-        <Text style={styles.description}>{course.description}</Text>
-        <View style={styles.categoryContainer}>
-          <Text style={styles.category}>{course.category}</Text>
-        </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -44,7 +72,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "90%",
-    height: "30%",
+    height: 230,
     marginHorizontal: "5%",
     borderRadius: 15,
   },
@@ -78,31 +106,45 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#333",
   },
-  category: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginTop: 20,
-  },
   description: {
     fontSize: 18,
     color: "#333",
     textAlign: "justify",
-    fontWeight: "bold",
   },
   categoryContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 10,
-    height: 45,
+    marginTop: "4%",
     width: 130,
+    height: 40,
     backgroundColor: Colors.PalleteGreenBackground,
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 15,
   },
-  category: {
-    fontSize: 15,
-    fontWeight: "bold",
+  categoryText: {
     color: Colors.PalleteBlack,
-    paddingLeft: "10%",
+    fontWeight: "bold",
     textAlign: "center",
+    marginBottom: 5,
+  },
+  addToCartAndBuyNowContainer: {
+    flex: 1,
+    flexDirection: "row",
+    marginHorizontal: "5%",
+    marginTop: "6%",
+  },
+  addToCartContainer: {
+    flex: .3,
+    width: 100,
+  },
+  buyNowContainer: {
+    flex: 1,
+    width: 100,
+    marginLeft: "5%",
+  },
+  contentOfCourse: {
+    fontWeight: "bold",
+    fontSize: 25,
+    marginTop: "5%",
+    marginBottom: "3%",
   },
 });
