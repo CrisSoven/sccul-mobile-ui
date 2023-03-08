@@ -34,11 +34,12 @@ export default function PurchaseConfirmationScreen() {
           />
           <ButtonComponent
             title="Hecho"
-            onPress={() => 
-              navigation.navigate("HomeS")
-              // console.log("presionado")
+            onPress={() =>
+              navigation.navigate("Cart")
+              //  console.log("presionado")
             }
             style={styles.btn}
+            btnPrimary={true}
           />
         </View>
       </View>
@@ -76,18 +77,18 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   btn: {
-    position: "absolute",
-    alignItems: "center",
-    justifyContent: "center",
-    alignContent: "center",
-    marginTop: 20,
-    width: 300,
-    height: 50,
-    borderRadius: 16,
-    backgroundColor: Colors.PalleteBluePrimary,
-    marginLeft: 30,
-    marginRight: 30,
-    marginTop: 175,
+    // position: "absolute",
+    // alignItems: "center",
+    // justifyContent: "center",
+    // alignContent: "center",
+    // marginTop: 20,
+    // width: 300,
+    // height: 50,
+    // borderRadius: 16,
+    // backgroundColor: Colors.PalleteBluePrimary,
+    // marginLeft: 30,
+    // marginRight: 30,
+    // marginTop: 175,
   },
   svg: {
     width: "100%",

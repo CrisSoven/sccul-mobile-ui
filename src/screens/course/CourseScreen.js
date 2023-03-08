@@ -1,18 +1,20 @@
 import React from "react";
 import { View, StyleSheet, Button } from "react-native";
-import { Video, AVPlaybackStatus } from "expo-av";
+import { Video } from "expo-av";
 import Goback from "../../components/common/Goback";
+import ContentComponent from "../../components/course/ContentComponent";
+import { ScrollView } from "react-native-gesture-handler";
+import FeedbackComponent from "../../components/course/FeedbackComponent";
 
 export default function CourseScreen() {
   const video = React.useRef(null);
   const [status, setStatus] = React.useState({});
   return (
-    <>
-      <View>
-        <Goback title="Conejo Puto" />
-      </View>
-      <View style={styles.container}>
-        <Video
+    <ScrollView>
+       <View style={styles.container}>
+        <Goback title="Fundamentos de JavaScript" />
+        <View style={styles.videoContainer}> 
+        <Video  
           ref={video}
           style={styles.video}
           source={require("../../../assets/video/lavine.mp4")}
@@ -20,36 +22,26 @@ export default function CourseScreen() {
           resizeMode="contain"
           isLooping
           onPlaybackStatusUpdate={(status) => setStatus(() => status)}
-        />
-        <View style={styles.buttons}>
-          <Button
-            title={status.isPlaying ? "Pause" : "Play"}
-            onPress={() =>
-              status.isPlaying
-                ? video.current.pauseAsync()
-                : video.current.playAsync()
-            }
           />
         </View>
+        <ContentComponent/>
+        <FeedbackComponent/>
       </View>
-    </>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    backgroundColor: "#ecf0f1",
+   
   },
   video: {
     alignSelf: "center",
     width: 320,
     height: 200,
-  },
-  buttons: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
+    resizeMode: "contain",
+    
+   },
+
 });
