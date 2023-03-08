@@ -3,92 +3,44 @@ import { StyleSheet, Text, View, Image, FlatList } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Colors from "../../utils/Colors";
 import { useNavigation } from "@react-navigation/native";
-const Courses = () => {
-  const data = [
-    {
-      key: "1",
-      title: "Fundamentos de Java.",
-      duration: "5 episodios - 1h 24min",
-      progress: 10,
-      image: require("../../../assets/img/dev.jpg"),
-    },
-    {
-      key: "2",
-      title: "Postres franceses",
-      duration: "6 episodios - 1h 40min",
-      progress: 100,
-      image: require("../../../assets/img/diseño.jpg"),
-    },
-    {
-      key: "3",
-      title: "Introducción a React.",
-      duration: "4 episodios - 1h 10min",
-      progress: 20,
-      image: require("../../../assets/img/dev.jpg"),
-    },
-    {
-      key: "4",
-      title: "Desarrollo de aplicaciones móviles con React Native.",
-      duration: "7 episodios - 2h 30min",
-      progress: 40,
-      image: require("../../../assets/img/dev.jpg"),
-    },
-  ];
 
+export default function Courses(props) {
   const navigation = useNavigation();
-
-  const renderItem = ({ item }) => {
-    return (
-      <TouchableOpacity
-        style={styles.container}
-        onPress={() => navigation.navigate("Course")}
-      >
-        <View style={styles.blueBox}>
-          <Image source={item.image} style={styles.image} />
-          <View style={styles.data}>
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.duration}>{item.duration}</Text>
-            <View style={styles.progressBar}>
-              <View
-                style={[styles.progress, { width: `${item.progress}%` }]}
-              ></View>
-            </View>
-          </View>
-        </View>
-      </TouchableOpacity>
-    );
-  };
+  const { title, duration, progress, image } = props;
+  console.log(props);
 
   return (
-    <FlatList
-      data={data}
-      numColumns={2}
-      keyExtractor={(item) => item.key}
-      renderItem={renderItem}
-      contentContainerStyle={styles.listContainer}
-    />
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigation.navigate("Course")}
+    >
+      <View style={styles.blueBox}>
+        <Image source={image} style={styles.image} />
+        <View style={styles.data}>
+          <Text style={styles.title} numberOfLines={1}>{title}</Text>
+          <Text style={styles.duration}>{duration}</Text>
+          <View style={styles.progressBar}>
+            <View
+              style={[styles.progress, { width: `${progress}%` }]}
+            ></View>
+          </View>
+        </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  listContainer: {
-    paddingHorizontal: 10,
-    paddingBottom: 10,
-  },
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   blueBox: {
     backgroundColor: Colors.PalleteGreenBackground,
     margin: 10,
     borderRadius: 10,
-    width: 175,
-    height: 190,
+    width: "90%",
+    height: "auto",
+    marginBottom: 5,
   },
   image: {
-    width: 175,
+    width: "auto",
     height: 100,
     resizeMode: "cover",
     borderRadius: 10,
@@ -100,7 +52,7 @@ const styles = StyleSheet.create({
   },
   duration: {
     fontSize: 10,
-    marginBottom: 5,
+    paddingBottom: 10,
   },
   progressBar: {
     width: "90%",
@@ -116,4 +68,34 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Courses;
+  //array de datos
+  // const data = [
+  //   {
+  //     key: "1",
+  //     title: "Fundamentos de Java",
+  //     duration: "5 episodios - 1h 24min",
+  //     progress: 10,
+  //     image: require("../../../assets/img/dev.jpg"),
+  //   },
+  //   {
+  //     key: "2",
+  //     title: "Postres franceses",
+  //     duration: "6 episodios - 1h 40min",
+  //     progress: 100,
+  //     image: require("../../../assets/img/diseño.jpg"),
+  //   },
+  //   {
+  //     key: "3",
+  //     title: "Introducción a React",
+  //     duration: "4 episodios - 1h 10min",
+  //     progress: 20,
+  //     image: require("../../../assets/img/dev.jpg"),
+  //   },
+  //   {
+  //     key: "4",
+  //     title: "Desarrollo de aplicaciones móviles con React Native",
+  //     duration: "7 episodios - 2h 30min",
+  //     progress: 40,
+  //     image: require("../../../assets/img/diseño.jpg"),
+  //   },
+  // ];
