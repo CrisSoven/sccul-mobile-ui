@@ -11,9 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function ProfileScreen() {
   const navigation = useNavigation();
-  const navigateTo = () => {
-    navigation.navigate("ChangePass");
-  };
+
   return (
     <KeyboardAwareScrollView>
       <TitleBtnComponent
@@ -38,7 +36,6 @@ export default function ProfileScreen() {
         textBtn="Editar"
         iconType="material-community"
         btnPrimary={true}
-        onPress={navigateTo}
       />
 
       <PersonalInfoComponent />

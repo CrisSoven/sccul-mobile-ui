@@ -1,10 +1,16 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import Colors from "../../utils/Colors";
 import { Icon } from "react-native-elements";
 import Input from "../common/InputComponent";
+import { useNavigation } from "@react-navigation/native";
 
 export default function PersonalInfoFormComponent() {
+  const navigation = useNavigation();
+  const navigateTo = () => {
+    navigation.navigate("ChangePass");
+  };
+
   return (
     <View style={styles.form}>
       <Input
@@ -53,7 +59,7 @@ export default function PersonalInfoFormComponent() {
         iconSize={25}
         editable={false}
       />
-      <View style={styles.row}>
+      <TouchableOpacity style={styles.row} onPress={navigateTo}>
         <View style={styles.circleKey}>
           <Icon
             style={styles.icon}
@@ -61,10 +67,11 @@ export default function PersonalInfoFormComponent() {
             type="MaterialIcons"
             size={20}
             editable={false}
+
           />
         </View>
         <Text style={styles.label}>Cambiar contraseña</Text>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 }
