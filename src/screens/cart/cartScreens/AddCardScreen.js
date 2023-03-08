@@ -7,8 +7,6 @@ import AccionsBtnComponent from "../../../components/cart/AccionsBtnComponent";
 import SaveCardBtnComponent from "../../../components/cart/SaveCardBtnComponent";
 import { useNavigation } from "@react-navigation/native"; 
 
-
-
 export default function AddCardScreen() {
   const navigation = useNavigation(); 
 

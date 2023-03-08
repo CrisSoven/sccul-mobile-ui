@@ -1,14 +1,11 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import React from "react";
 import SearchBar from "../../components/common/SearchBar";
 import SelectComponent from "../../components/cart/SelectComponent";
 import ListCourses from "../../components/common/ListCourses";
 import Colors from "../../utils/Colors";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import TitleBtnComponent from "../../components/profile/TitleBtnComponent";
 import { useNavigation } from "@react-navigation/native";
-import { ScrollView } from "react-native-gesture-handler";
-
 
 export default function CartScreen() {
   const navigation = useNavigation();
@@ -38,56 +35,49 @@ export default function CartScreen() {
       comments: 15,
     },
   ];
-  
 
   return (
-    <ScrollView>
-
-  
-    <KeyboardAwareScrollView contentContainerStyle={styles.container}>
-      
+    <View style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.title}>Carrito de compras</Text>
         <SearchBar />
         <SelectComponent />
-        <ListCourses 
-          courses={courses}
+        <ScrollView>
+          <ListCourses courses={courses} />
+        </ScrollView>
+      </View>
+      <View style={styles.footer}>
+        <TitleBtnComponent
+          textTitle="$1,246.50 MX"
+          titleStyle={styles.subtitle}
+          textBtn="Pagar"
+          onPress={navigateTo}
+          btnPrimary={true}
         />
       </View>
-      
-      <TitleBtnComponent
-        style={styles.footer}
-        textTitle="$1,246.50 MX"
-        titleStyle={styles.subtitle}
-        textBtn="Pagar"
-        onPress={navigateTo}
-        btnPrimary={true}
-      />
-    </KeyboardAwareScrollView>
-    </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   title: {
     fontSize: 24,
     fontWeight: "bold",
-  },
-  container: {
-    flex: 1,
-    padding: 20,
+    marginBottom: 10,
   },
   content: {
     flex: 1,
+    padding: 20,
   },
   footer: {
-    position: "absolute",
-    bottom: 0,
+    marginBottom: 20,
   },
-
   subtitle: {
     fontSize: 16,
     fontWeight: "bold",
-    color: Colors.PalleteGray,
+    color: Colors.White,
   },
 });
