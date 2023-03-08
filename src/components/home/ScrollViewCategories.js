@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ScrollView,
   View,
@@ -12,18 +12,21 @@ import { useNavigation } from "@react-navigation/native";
 const categories = ["Programación", "Diseño", "Marketing", "Música", "Cocina"];
 
 export default function ScrollViewCategories() {
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
   const navigation = useNavigation();
 
   return (
-    <View style={styles.box}>
-      <Text style={styles.title}>Categorías</Text>
+    <View style={styles.viewContainer}>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         {categories.map((category, index) => (
           <TouchableOpacity
             key={index}
             style={styles.container}
-            onPress={() =>
-              {navigation.navigate("CategoryScreen")}}
+            onPress={() => {
+              setSelectedCategory(category);
+              navigation.navigate("CategoryScreen", { category });
+            }}
           >
             <Text style={styles.text}>{category}</Text>
           </TouchableOpacity>
@@ -34,14 +37,9 @@ export default function ScrollViewCategories() {
 }
 
 const styles = StyleSheet.create({
-  box: {
-    marginTop: 20,
-    marginLeft: 10,
-  },
-  title: {
-    fontWeight: "bold",
-    fontSize: 28,
-    marginBottom: 10,
+  viewContainer: {
+    marginTop: "2%",
+    marginLeft: "3%",
   },
   container: {
     width: 130,

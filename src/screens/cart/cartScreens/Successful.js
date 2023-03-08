@@ -16,11 +16,6 @@ export default function PurchaseConfirmationScreen() {
             type="material-community"
             size={200}
             color={Colors.PalleteWhite}
-            containerStyle={{
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: "10%",
-            }}
           />
           <Text style={styles.title}>Gracias por tu compra!</Text>
           <Text style={styles.textP}>
@@ -34,12 +29,11 @@ export default function PurchaseConfirmationScreen() {
           />
           <ButtonComponent
             title="Hecho"
-            onPress={() =>
-              navigation.navigate("Cart")
-              //  console.log("presionado")
+            onPress={() => 
+              navigation.navigate("HomeS")
+              // console.log("presionado")
             }
             style={styles.btn}
-            btnPrimary={true}
           />
         </View>
       </View>
@@ -54,20 +48,23 @@ const styles = StyleSheet.create({
   rowSup: {
     position: "relative",
     backgroundColor: Colors.PalleteGreen,
-    height: 350,
+    height: "55%",
     borderBottomEndRadius: 10,
     borderBottomStartRadius: 10,
+    marginBottom: "10%",
+    justifyContent: "center",
   },
   rowInf: {
     backgroundColor: Colors.PalleteWhite,
-    height: 400,
+    height: "20%",
+    bottom: 0,
   },
   title: {
     fontSize: 32,
     fontWeight: "bold",
     color: Colors.PalleteWhite,
     textAlign: "center",
-    marginBottom: 10,
+    marginBottom: 20,
   },
   textP: {
     fontSize: 15,
@@ -77,22 +74,22 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   btn: {
-    // position: "absolute",
-    // alignItems: "center",
-    // justifyContent: "center",
-    // alignContent: "center",
-    // marginTop: 20,
-    // width: 300,
-    // height: 50,
-    // borderRadius: 16,
-    // backgroundColor: Colors.PalleteBluePrimary,
-    // marginLeft: 30,
-    // marginRight: 30,
-    // marginTop: 175,
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    alignContent: "center",
+    marginTop: 20,
+    width: 300,
+    height: 50,
+    borderRadius: 16,
+    backgroundColor: Colors.PalleteBluePrimary,
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 175,
   },
   svg: {
     width: "100%",
-    height: 180,
+    height: 250,
     resizeMode: "contain",
   },
 });

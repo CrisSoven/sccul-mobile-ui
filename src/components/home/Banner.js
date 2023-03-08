@@ -6,7 +6,7 @@ import Swiper from "react-native-swiper";
 const images = [
   require("../../../assets/img/redbull.jpg"),
   require("../../../assets/img/leclerc.jpg"),
-  require("../../../assets/img/redbull.jpg"),
+  require("../../../assets/img/box.png"),
 ];
 
 export default function Banner() {
@@ -29,10 +29,10 @@ export default function Banner() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    padding: "2%",
     alignItems: "center",
     borderRadius: 10,
-    marginTop: 10,
+    marginTop: "5%",
     height: 270,
   },
   image: {
