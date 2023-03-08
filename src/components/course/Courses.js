@@ -31,13 +31,18 @@ export default function Courses(props) {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   blueBox: {
     backgroundColor: Colors.PalleteGreenBackground,
     margin: 10,
     borderRadius: 10,
     width: "90%",
     height: "auto",
-    marginBottom: 5,
   },
   image: {
     width: "auto",
@@ -66,36 +71,7 @@ const styles = StyleSheet.create({
   data: {
     padding: 10,
   },
+  column: {
+    flexDirection: "column",
+  },
 });
-
-  //array de datos
-  // const data = [
-  //   {
-  //     key: "1",
-  //     title: "Fundamentos de Java",
-  //     duration: "5 episodios - 1h 24min",
-  //     progress: 10,
-  //     image: require("../../../assets/img/dev.jpg"),
-  //   },
-  //   {
-  //     key: "2",
-  //     title: "Postres franceses",
-  //     duration: "6 episodios - 1h 40min",
-  //     progress: 100,
-  //     image: require("../../../assets/img/diseño.jpg"),
-  //   },
-  //   {
-  //     key: "3",
-  //     title: "Introducción a React",
-  //     duration: "4 episodios - 1h 10min",
-  //     progress: 20,
-  //     image: require("../../../assets/img/dev.jpg"),
-  //   },
-  //   {
-  //     key: "4",
-  //     title: "Desarrollo de aplicaciones móviles con React Native",
-  //     duration: "7 episodios - 2h 30min",
-  //     progress: 40,
-  //     image: require("../../../assets/img/diseño.jpg"),
-  //   },
-  // ];

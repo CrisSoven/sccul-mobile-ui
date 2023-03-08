@@ -12,30 +12,98 @@ export default function CourseDetail() {
       <SearchBar />
       <FilterCourse />
       <ScrollView>
-      <Courses
-        title="Fundamentos de Java"
-        duration="5 episodios - 1h 24min"
-        progress={18}
-        image={require("../../../../assets/img/dev.jpg")}
-      />
-      <Courses
-        title="Fundamentos de Java"
-        duration="5 episodios - 1h 24min"
-        progress={18}
-        image={require("../../../../assets/img/dev.jpg")}
-      />
-      <Courses
-        title="Fundamentos de Java"
-        duration="5 episodios - 1h 24min"
-        progress={18}
-        image={require("../../../../assets/img/dev.jpg")}
-      />
-      <Courses
-        title="Fundamentos de Java"
-        duration="5 episodios - 1h 24min"
-        progress={18}
-        image={require("../../../../assets/img/dev.jpg")}
-      />
+        <View style={styles.row}>
+          <Courses
+            styles={styles.column}
+            title="Fundamentos de Java"
+            duration="5 episodios - 1h 24min"
+            progress={18}
+            image={require("../../../../assets/img/dev.jpg")}
+          />
+          <Courses
+            styles={styles.column}
+            title="Postres franceses"
+            duration="6 episodios - 1h 40min"
+            progress={100}
+            image={require("../../../../assets/img/diseño.jpg")}
+          />
+        </View>
+        <View style={styles.row}>
+          <Courses
+            styles={styles.column}
+            title="Postres franceses"
+            duration="6 episodios - 1h 40min"
+            progress={100}
+            image={require("../../../../assets/img/diseño.jpg")}
+          />
+          <Courses
+            styles={styles.column}
+            title="Fundamentos de Java"
+            duration="5 episodios - 1h 24min"
+            progress={18}
+            image={require("../../../../assets/img/dev.jpg")}
+          />
+          <Courses
+            styles={styles.column}
+            title="Postres franceses"
+            duration="6 episodios - 1h 40min"
+            progress={500}
+            image={require("../../../../assets/img/diseño.jpg")}
+          />
+          <Courses
+            styles={styles.column}
+            title="Fundamentos de Java"
+            duration="5 episodios - 1h 24min"
+            progress={18}
+            image={require("../../../../assets/img/dev.jpg")}
+          />
+        </View>
+        <View style={styles.row}>
+          <Courses
+            styles={styles.column}
+            title="Fundamentos de Java"
+            duration="5 episodios - 1h 24min"
+            progress={18}
+            image={require("../../../../assets/img/dev.jpg")}
+          />
+          <Courses
+            styles={styles.column}
+            title="Postres franceses"
+            duration="6 episodios - 1h 40min"
+            progress={100}
+            image={require("../../../../assets/img/diseño.jpg")}
+          />
+          <Courses
+            styles={styles.column}
+            title="Postres franceses"
+            duration="6 episodios - 1h 40min"
+            progress={80}
+            image={require("../../../../assets/img/diseño.jpg")}
+          />
+          <Courses
+            styles={styles.column}
+            title="Fundamentos de Java"
+            duration="5 episodios - 1h 24min"
+            progress={18}
+            image={require("../../../../assets/img/dev.jpg")}
+          />
+        </View>
+        <View style={styles.row}>
+          <Courses
+            styles={styles.column}
+            title="Fundamentos de Java"
+            duration="5 episodios - 1h 24min"
+            progress={18}
+            image={require("../../../../assets/img/dev.jpg")}
+          />
+          <Courses
+            styles={styles.column}
+            title="Fundamentos de Java"
+            duration="5 episodios - 1h 24min"
+            progress={18}
+            image={require("../../../../assets/img/dev.jpg")}
+          />
+        </View>
       </ScrollView>
     </View>
   )
@@ -49,4 +117,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: "50%",
+  },
+  column: {
+    flexDirection: 'column',
+  }
 });

@@ -68,8 +68,6 @@ import { useNavigation } from "@react-navigation/native";
 import ButtonComponent from "../common/ButtonComponent";
 import Colors from "../../utils/Colors";
 
-const windowWidth = Dimensions.get('window').width;
-
 export default function AccionsBtnComponent(props) {
   const navigation = useNavigation(); 
   return (
@@ -93,36 +91,9 @@ export default function AccionsBtnComponent(props) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: windowWidth * 0.05,
-    marginTop: 20,
-  },
-  btn: {
-    alignItems: "center",
     justifyContent: "center",
     marginTop: 20,
-    width: windowWidth * 0.3,
-    height: 40,
-    borderRadius: 10,
-    backgroundColor: Colors.PalleteBluePrimary,
-    marginLeft: 5,
-  },
-  btnText: {
-    color: Colors.PalleteWhite,
-    fontSize: 16,
-  },
-  btnC: {
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 20,
-    width: windowWidth * 0.3,
-    height: 40,
-    borderRadius: 10,
-    backgroundColor: "gray",
-    marginLeft: 5,
-  },
-  btnlarge: {
-    width: windowWidth * 0.4,
-    height: 40,
-  },
+    width: "50%",
+    alignSelf: "center",
+  }
 });

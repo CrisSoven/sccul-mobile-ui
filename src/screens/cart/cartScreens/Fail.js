@@ -17,11 +17,6 @@ export default function PurchaseConfirmationScreen() {
             type="material-community"
             size={200}
             color={Colors.PalleteWhite}
-            containerStyle={{
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: "10%",
-            }}
           />
           <Text style={styles.title}>Algo salió mal</Text>
           <Text style={styles.textP}>
@@ -30,7 +25,7 @@ export default function PurchaseConfirmationScreen() {
         </View>
         <View style={styles.rowInf}>
           <Image
-            source={require("../../../../assets/img/boxS.png")}
+            source={require("../../../../assets/img/box.png")}
             style={styles.svg}
           />
           <ButtonComponent
@@ -52,45 +47,34 @@ const styles = StyleSheet.create({
   rowSup: {
     position: "relative",
     backgroundColor: Colors.PalletteRed,
-    height: 350,
+    height: "55%",
     borderBottomEndRadius: 10,
     borderBottomStartRadius: 10,
+    marginBottom: "10%",
+    justifyContent: "center",
   },
   rowInf: {
     backgroundColor: Colors.PalleteWhite,
-    height: 400,
+    height: "20%",
+    bottom: 0,
   },
   title: {
     fontSize: 32,
     fontWeight: "bold",
     color: Colors.PalleteWhite,
     textAlign: "center",
-    marginBottom: 10,
+    marginBottom: 20,
   },
   textP: {
     fontSize: 15,
     fontWeight: "500",
     color: Colors.PalleteWhite,
     textAlign: "center",
-    marginBottom: 50,
-  },
-  btn: {
-    position: "absolute",
-    alignItems: "center",
-    justifyContent: "center",
-    alignContent: "center",
-    marginTop: 20,
-    width: 300,
-    height: 50,
-    borderRadius: 16,
-    backgroundColor: Colors.PalleteBluePrimary,
-    marginLeft: 30,
-    marginRight: 30,
-    marginTop: 120,
+    marginHorizontal: 20,
   },
   svg: {
     width: "100%",
-     height: 120,
+    height: 250,
     resizeMode: "contain",
   },
 });

@@ -19,10 +19,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     paddingVertical: 10,
     flexDirection: "row",
-    flex: 1,
     alignItems: "center",
     justifyContent: "center",
     height: 45,
+    width: "80%",
   },
   btnPrimaryColor: {
     backgroundColor: Colors.PalleteBluePrimary,
