@@ -21,13 +21,12 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.PalleteGreenBackground,
     height: 50,
     borderRadius: 16,
-    paddingHorizontal: 15,
-    marginHorizontal: 15,
-    marginTop: 15,
+    paddingHorizontal: "5%",
+    marginHorizontal: "4%",
   },
   searchIcon: {
-    marginRight: 8,
-    marginBottom: 5,
+    marginRight: "5%",
+    marginBottom: "2%",
   },
   searchInput: {
     flex: 1,

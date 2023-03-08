@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginTop: 15,
+    marginBottom: 25,
   },
   icon: {
     marginLeft: 1,

@@ -3,12 +3,20 @@ import React from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Image, Text } from "react-native-elements";
 import { Rating } from "react-native-elements";
+import { useNavigation } from "@react-navigation/native";
 import Colors from "../../utils/Colors";
 
-const Courses = ({ image, title, price, average, comments }) => {
+const Courses = ({ image, title, price, average, comments, course }) => {
+  console.log(course);
+  const navigation = useNavigation();
   return (
-    <TouchableOpacity style={styles.container}>
-      <Image source={image} style={styles.image} />
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigation.navigate("CoursesDetailsScreen", { course })}
+    >
+      <View style={styles.imageContainer}>
+        <Image source={image} style={styles.image} />
+      </View>
       <View style={styles.infoContainer}>
         <Text style={styles.titleCourse}>{title}</Text>
         <Text style={styles.price}>{price}</Text>
@@ -33,14 +41,15 @@ const Courses = ({ image, title, price, average, comments }) => {
 export default function ListCourses({ courses }) {
   return (
     <View>
-      {courses.map((curso, index) => (
+      {courses.map((course, index) => (
         <Courses
           key={index}
-          image={curso.image}
-          title={curso.title}
-          price={curso.price}
-          average={curso.average}
-          comments={curso.comments}
+          image={course.image}
+          title={course.title}
+          price={course.price}
+          average={course.average}
+          comments={course.comments}
+          course={course}
         />
       ))}
     </View>
@@ -51,15 +60,14 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     backgroundColor: Colors.PalleteGreenBackground,
-    marginBottom: 10,
+    marginBottom: "5%",
     borderRadius: 15,
     width: "100%",
+    height: 120,
   },
   image: {
-    width: 140,
-    height: 100,
-    borderRadius: 15,
-    marginRight: 10,
+    width: "100%",
+    height: "100%",
   },
   infoContainer: {
     flex: 1,
@@ -67,27 +75,32 @@ const styles = StyleSheet.create({
   titleCourse: {
     fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 5,
-    marginTop: 5,
+    marginTop: "1%",
   },
   price: {
     fontSize: 16,
     fontWeight: "bold",
     color: "#333",
-    marginBottom: 5,
+    paddingTop: "7%",
   },
   averageContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 5,
   },
   average: {
     fontSize: 16,
     fontWeight: "bold",
-    marginRight: 5,
+    marginRight: "4%",
     color: Colors.PalletteRed,
   },
   comments: {
     fontSize: 16,
+  },
+  imageContainer: {
+    width: "37%",
+    height: "100%",
+    borderRadius: 15,
+    marginRight: "2%",
+    overflow: "hidden",
   },
 });

@@ -10,22 +10,31 @@ export default function FeaturedCourses() {
   const courses = [
     {
       image: require("../../assets/img/dev.jpg"),
-      title: "Programación",
-      price: "$50",
+      title: "Programación Orientado a Objetos (POO)",
+      price: "$50 MXN",
+      description:
+        "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
+      category: "Programación",
       average: 4.4,
       comments: 20,
     },
     {
       image: require("../../assets/img/diseño.jpg"),
-      title: "Diseño Gráfico",
+      title: "Diseño Gráfico para pendejos",
       price: "$70",
+      description:
+        "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
+      category: "Diseño",
       average: 5.0,
       comments: 10,
     },
     {
       image: require("../../assets/img/marketimg.jpg"),
-      title: "Marketing Digital",
+      title: "Marketing Digital - Aprende a vender",
       price: "$60",
+      description:
+        "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
+      category: "Marketing",
       average: 4.5,
       comments: 15,
     },
@@ -33,15 +42,17 @@ export default function FeaturedCourses() {
 
   const handleFilterPress = () => {
     setModalVisible(true);
-  }
+  };
 
   return (
-    <View style={styles.listContainer}>
+    <>
       <View style={styles.tituloContainer}>
-        <Text style={styles.titleList}>Cursos destacados</Text>
+        <Text style={styles.titleFeatured}>Cursos destacados</Text>
         <Filter onPress={handleFilterPress} />
       </View>
-      <ListCourses courses={courses} />
+      <View style={styles.listContainer}>
+        <ListCourses courses={courses} />
+      </View>
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <View style={styles.modalContainer}>
           <View style={styles.modal}>
@@ -55,26 +66,22 @@ export default function FeaturedCourses() {
           </View>
         </View>
       </Modal>
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  listContainer: {
-    paddingVertical: 40,
-    marginHorizontal: 20,
-  },
   tituloContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginLeft: -10,
-    marginRight: -5,
+    marginHorizontal: "2%",
+    marginTop: "5%",
   },
-  titleList: {
+  titleFeatured: {
     fontSize: 28,
     fontWeight: "bold",
-    marginBottom: 20,
+    marginBottom: "5%",
   },
   modalContainer: {
     flex: 1,
@@ -84,23 +91,25 @@ const styles = StyleSheet.create({
   modal: {
     backgroundColor: Colors.PalleteWhite,
     borderRadius: 15,
-    padding: 20,
+    padding: "5%",
     width: "80%",
   },
   modalTitle: {
     fontSize: 21,
     fontWeight: "bold",
-    marginBottom: 20,
+    marginBottom: "10%",
   },
   modalButton: {
     backgroundColor: Colors.PalleteAuxiliarBlue,
     borderRadius: 15,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
+    paddingVertical: "3%",
     alignItems: "center",
   },
   modalButtonText: {
     color: Colors.PalleteWhite,
     fontSize: 15,
+  },
+  listContainer: {
+    marginHorizontal: "4%",
   },
 });
