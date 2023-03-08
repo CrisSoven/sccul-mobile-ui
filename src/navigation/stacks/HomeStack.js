@@ -14,11 +14,6 @@ export default function HomeStack() {
       }}
     >
       <Stack.Screen name="HomeS" component={HomeScreen} />
-      <Stack.Screen
-        name="CategoryScreen"
-        component={CategoryScreen}
-        options={{ title: "Checo Puto" }}
-      />
       <Stack.Screen name="CategoryScreen" component={CategoryScreen} />
       <Stack.Screen name="CoursesDetailsScreen" component={CoursesDetailsScreen} />
     </Stack.Navigator>
