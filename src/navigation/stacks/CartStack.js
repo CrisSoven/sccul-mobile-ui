@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
 import CartScreen from '../../screens/cart/CartScreen';
 import CartPaymentMethodScreen from '../../screens/cart/cartScreens/CartPaymentMethodScreen';
 import AddCardScreen from '../../screens/cart/cartScreens/AddCardScreen';
@@ -10,6 +11,16 @@ import Fail from '../../screens/cart/cartScreens/Fail';
 const Stack = createStackNavigator();
 
 export default function CartStackNavigator() {
+  const navigationRef = useRef(null);
+  const navigation = useNavigation();
+
+  function resetCartStack() {
+    navigationRef.current?.reset({
+      index: 0,
+      routes: [{ name: 'Cart' }],
+    });
+  }
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -37,4 +48,3 @@ export default function CartStackNavigator() {
     </Stack.Navigator>
   );
 }
-
