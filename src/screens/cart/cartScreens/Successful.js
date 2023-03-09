@@ -22,11 +22,11 @@ export default function PurchaseConfirmationScreen() {
             Aprender es la mejor inversión que puedes hacer en ti mismo
           </Text>
         </View>
+        <View style={styles.rowInf}>
           <Image
             source={require("../../../../assets/img/boxS.png")}
             style={styles.svg}
           />
-        <View style={styles.rowInf}>
           <ButtonComponent
             title="Hecho"
             btnPrimary={true}
@@ -55,12 +55,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   rowInf: {
-    backgroundColor: "blue",
     position: "absolute",
     width: "100%",
     marginBottom: 20,
     bottom: 0,
-    alignItems: "center",
+    marginHorizontal: 20,
   },
   title: {
     fontSize: 32,
@@ -76,9 +75,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   svg: {
-    backgroundColor: "red",
-    width: "100%",
-    height: 150,
+    height: 250,
     resizeMode: "contain",
+    marginRight: 50
   },
 });

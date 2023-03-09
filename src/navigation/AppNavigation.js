@@ -43,7 +43,6 @@ export default function AppNavigation() {
         name="Carrito"
         // Reemplaza el componente CartScreen por el CartStackNavigator
         component={CartStackNavigator}
-        onPress={resetCartStack}
         options={{
           tabBarIcon: ({ focused }) => (
             <Icons
