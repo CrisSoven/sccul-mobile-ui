@@ -22,7 +22,7 @@ export default function AppNavigation() {
         tabBarStyle: {
           padding: 15,
           paddingBottom: 15,
-          height: 80,
+          height: 70,
         },
       }}
     >

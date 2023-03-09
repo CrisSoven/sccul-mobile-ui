@@ -15,13 +15,96 @@ export default function FeaturedCourses() {
       description:
         "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
       category: "Programación",
-      average: 4.4,
+      average: 4.5,
       comments: 20,
+      section: [
+        {
+          number: 1,
+          title: "Introducción al curso",
+          duration: "1:30",
+        },
+        {
+          number: 2,
+          title: "Introductorio a Programación Orientada a Objetos",
+          duration: "1:40",
+        },
+      ],
     },
     {
       image: require("../../assets/img/diseño.jpg"),
       title: "Diseño Gráfico para pendejos",
-      price: "$70",
+      price: "$70 MXN",
+      description:
+        "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
+      category: "Diseño",
+      average: 5.0,
+      comments: 10,
+      section: [
+        {
+          number: 1,
+          title: "Sección 1",
+          duration: "1:30",
+        },
+        {
+          number: 2,
+          title: "Sección 2",
+          duration: "2:25",
+        },
+        {
+          number: 3,
+          title: "Introductorio a Programación Orientada a Objetos",
+          duration: "1:30",
+        },
+      ],
+    },
+    {
+      image: require("../../assets/img/marketimg.jpg"),
+      title: "Marketing Digital - Aprende a vender",
+      price: "$60 MXN",
+      description:
+        "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
+      category: "Marketing",
+      average: 4.3,
+      comments: 15,
+      section: [
+        {
+          number: 1,
+          title: "Sección 1",
+          duration: "1:30",
+        },
+        {
+          number: 2,
+          title: "Sección 2",
+          duration: "1:30",
+        },
+      ],
+    },
+    {
+      image: require("../../assets/img/dev.jpg"),
+      title: "Programación Orientado a Objetos (POO)",
+      price: "$50 MXN",
+      description:
+        "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
+      category: "Programación",
+      average: 4.5,
+      comments: 20,
+      section: [
+        {
+          number: 1,
+          title: "Sección 1",
+          duration: "1:30",
+        },
+        {
+          number: 2,
+          title: "Sección 2",
+          duration: "1:30",
+        },
+      ],
+    },
+    {
+      image: require("../../assets/img/diseño.jpg"),
+      title: "Diseño Gráfico para pendejos",
+      price: "$70 MXN",
       description:
         "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
       category: "Diseño",
@@ -31,11 +114,11 @@ export default function FeaturedCourses() {
     {
       image: require("../../assets/img/marketimg.jpg"),
       title: "Marketing Digital - Aprende a vender",
-      price: "$60",
+      price: "$60 MXN",
       description:
         "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
       category: "Marketing",
-      average: 4.5,
+      average: 4.3,
       comments: 15,
     },
   ];
