@@ -20,6 +20,18 @@ export default function CategoryScreen({ route }) {
       price: "$20",
       average: 4.5,
       comments: 10,
+      section: [
+        {
+          number: 1,
+          title: "Sección 1",
+          duration: "1:30",
+        },
+        {
+          number: 2,
+          title: "Sección 2",
+          duration: "1:30",
+        },
+      ],
     },
     {
       id: 2,
@@ -31,6 +43,18 @@ export default function CategoryScreen({ route }) {
       price: "$30",
       average: 3.5,
       comments: 5,
+      section: [
+        {
+          number: 1,
+          title: "Sección 1",
+          duration: "1:30",
+        },
+        {
+          number: 2,
+          title: "Sección 2",
+          duration: "1:30",
+        },
+      ],
     },
     {
       id: 3,
@@ -42,6 +66,18 @@ export default function CategoryScreen({ route }) {
       price: "$25",
       average: 4.2,
       comments: 8,
+      section: [
+        {
+          number: 1,
+          title: "Sección 1",
+          duration: "1:30",
+        },
+        {
+          number: 2,
+          title: "Sección 2",
+          duration: "1:30",
+        },
+      ],
     },
     {
       id: 4,
@@ -53,6 +89,18 @@ export default function CategoryScreen({ route }) {
       price: "$15",
       average: 4.8,
       comments: 15,
+      section: [
+        {
+          number: 1,
+          title: "Sección 1",
+          duration: "1:30",
+        },
+        {
+          number: 2,
+          title: "Sección 2",
+          duration: "1:30",
+        },
+      ],
     },
     {
       id: 5,
@@ -64,6 +112,18 @@ export default function CategoryScreen({ route }) {
       price: "$10",
       average: 3.0,
       comments: 2,
+      section: [
+        {
+          number: 1,
+          title: "Sección 1",
+          duration: "1:30",
+        },
+        {
+          number: 2,
+          title: "Sección 2",
+          duration: "1:30",
+        },
+      ],
     },
     {
       id: 6,
@@ -75,6 +135,18 @@ export default function CategoryScreen({ route }) {
       price: "$40",
       average: 4.2,
       comments: 12,
+      section: [
+        {
+          number: 1,
+          title: "Sección 1",
+          duration: "1:30",
+        },
+        {
+          number: 2,
+          title: "Sección 2",
+          duration: "1:30",
+        },
+      ],
     },
     {
       id: 7,

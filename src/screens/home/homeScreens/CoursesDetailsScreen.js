@@ -18,10 +18,21 @@ import Colors from "../../../utils/Colors";
 const CoursesDetailsScreen = ({ route }) => {
   const { course } = route.params;
 
+  const caps = course.section.length;
+
+  const totalDuration = course.section.reduce((acc, section) => {
+    const [minutes, seconds] = section.duration.split(":").map(Number);
+    const sectionDuration = minutes * 60 + seconds;
+    return acc + sectionDuration;
+  }, 0);
+
+  const hours = Math.floor(totalDuration / 60);
+  const minutes = totalDuration % 60;
+
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Goback title={`${course.title}`} />
+        <Goback title={course.title} />
         <Image source={course.image} style={styles.image} />
         <View style={styles.infoContainer}>
           <View style={styles.averageContainer}>
@@ -38,7 +49,7 @@ const CoursesDetailsScreen = ({ route }) => {
           </View>
           <Text style={styles.price}>{course.price}</Text>
           <Text style={styles.description}>{course.description}</Text>
-          <View style={styles.categoryContainer}>
+          <View>
             <TouchableOpacity style={styles.categoryContainer} disabled={true}>
               <Text style={styles.categoryText} numberOfLines={1}>
                 {course.category}
@@ -54,8 +65,14 @@ const CoursesDetailsScreen = ({ route }) => {
             </View>
           </View>
           <Text style={styles.contentOfCourse}>Contenido del curso</Text>
+          <View style={styles.capsAndDurationContainer}>
+            <Text style={styles.totalCaps}>{caps} Capitulos - </Text>
+            <Text style={styles.totalDuration}>
+              {hours} h {minutes} min
+            </Text>
+          </View>
           <View>
-            <Sections sections={ course.section }/>
+            <Sections sections={course.section} />
           </View>
         </View>
       </ScrollView>
@@ -124,7 +141,6 @@ const styles = StyleSheet.create({
     color: Colors.PalleteBlack,
     fontWeight: "bold",
     textAlign: "center",
-    marginBottom: 5,
   },
   addToCartAndBuyNowContainer: {
     flex: 1,
@@ -133,7 +149,7 @@ const styles = StyleSheet.create({
     marginTop: "6%",
   },
   addToCartContainer: {
-    flex: .3,
+    flex: 0.3,
     width: 100,
   },
   buyNowContainer: {
@@ -145,6 +161,21 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 25,
     marginTop: "5%",
-    marginBottom: "3%",
+    marginBottom: "1%",
+  },
+  capsAndDurationContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: "5%",
+    marginHorizontal: "1%",
+  },
+  totalCaps: {
+    fontSize: 14,
+    color: Colors.PalleteBlack,
+  },
+  totalDuration: {
+    fontSize: 14,
+    color: Colors.PalleteBlack,
+    fontWeight: "bold",
   },
 });

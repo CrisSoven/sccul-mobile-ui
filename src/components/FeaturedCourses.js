@@ -19,16 +19,14 @@ export default function FeaturedCourses() {
       comments: 20,
       section: [
         {
-          id: 1,
           number: 1,
-          title: "Sección 1",
+          title: "Introducción al curso",
           duration: "1:30",
         },
         {
-          id: 2,
           number: 2,
-          title: "Sección 2",
-          duration: "1:30",
+          title: "Introductorio a Programación Orientada a Objetos",
+          duration: "1:40",
         },
       ],
     },
@@ -43,15 +41,18 @@ export default function FeaturedCourses() {
       comments: 10,
       section: [
         {
-          id: 1,
           number: 1,
           title: "Sección 1",
           duration: "1:30",
         },
         {
-          id: 2,
           number: 2,
           title: "Sección 2",
+          duration: "2:25",
+        },
+        {
+          number: 3,
+          title: "Introductorio a Programación Orientada a Objetos",
           duration: "1:30",
         },
       ],
@@ -67,13 +68,11 @@ export default function FeaturedCourses() {
       comments: 15,
       section: [
         {
-          id: 1,
           number: 1,
           title: "Sección 1",
           duration: "1:30",
         },
         {
-          id: 2,
           number: 2,
           title: "Sección 2",
           duration: "1:30",
@@ -91,13 +90,11 @@ export default function FeaturedCourses() {
       comments: 20,
       section: [
         {
-          id: 1,
           number: 1,
           title: "Sección 1",
           duration: "1:30",
         },
         {
-          id: 2,
           number: 2,
           title: "Sección 2",
           duration: "1:30",
