@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { Rating } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
+import Comments from "../../../components/common/Comments";
 import Goback from "../../../components/common/Goback";
 import Sections from "../../../components/common/Sections";
 import AddToCartBtn from "../../../components/home/AddToCartBtn";
@@ -45,7 +46,7 @@ const CoursesDetailsScreen = ({ route }) => {
               ratingColor="#FFAA0D"
               style={{ marginRight: 10 }}
             />
-            <Text style={styles.comments}>({course.comments})</Text>
+            <Text style={styles.comments}>({course.comments.length})</Text>
           </View>
           <Text style={styles.price}>{course.price}</Text>
           <Text style={styles.description}>{course.description}</Text>
@@ -68,11 +69,15 @@ const CoursesDetailsScreen = ({ route }) => {
           <View style={styles.capsAndDurationContainer}>
             <Text style={styles.totalCaps}>{caps} Capitulos - </Text>
             <Text style={styles.totalDuration}>
-              {hours} h {minutes} min
+              {hours}h {minutes}min
             </Text>
           </View>
-          <View>
+          <View style={styles.sectionsContainer}>
             <Sections sections={course.section} />
+          </View>
+          <Text style={styles.commentsTitle}>Comentarios</Text>
+          <View style={styles.commentsContainer}>
+            <Comments comments={course.comments} />
           </View>
         </View>
       </ScrollView>
@@ -177,5 +182,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: Colors.PalleteBlack,
     fontWeight: "bold",
+  },
+  commentsContainer: {
+    marginHorizontal: "1%",
+  },
+  commentsTitle: {
+    fontWeight: "bold",
+    fontSize: 25,
+    marginTop: "5%",
+    marginBottom: "3%",
+  },
+  sectionsContainer: {
   },
 });
