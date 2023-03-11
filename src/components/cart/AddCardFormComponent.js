@@ -10,8 +10,10 @@ export default function AddCardFormComponent() {
   const initialValues = {
     cardName: "",
     cardNumber: "",
-    expirationMonth: new Date().getMonth() + 1,
-    expirationYear: new Date().getFullYear(),
+    // expirationMonth: new Date().getMonth() + 1,
+    // expirationYear: new Date().getFullYear(),
+    expirationMonth: "",
+    expirationYear: "",
     ccv: "",
   };
 
@@ -58,8 +60,6 @@ export default function AddCardFormComponent() {
 
   return (
     <KeyboardAvoidingView>
-
-
       <View style={styles.header}>
         <Formik
           initialValues={initialValues}
@@ -75,9 +75,11 @@ export default function AddCardFormComponent() {
             touched,
           }) => (
             <View>
+              <View style={styles.spaceBetween}>
               <Text style={styles.label}>Nombre en tarjeta</Text>
               <View style={styles.inputContainer}>
                 <Icon
+                  style={styles.icon}
                   name="account-outline"
                   size={24}
                   color="black"
@@ -94,9 +96,12 @@ export default function AddCardFormComponent() {
               {errors.cardName && touched.cardName && (
                 <Text style={styles.error}>{errors.cardName}</Text>
               )}
+              </View>
+              <View style={styles.spaceBetween}>
               <Text style={styles.label}>Número de tarjeta</Text>
               <View style={styles.inputContainer}>
-                <Icon name="credit-card" size={24} color="black" />
+                <Icon
+                  style={styles.icon} name="credit-card" size={24} color="black" />
                 <TextInput
                   style={styles.input}
                   placeholder="Numero de tarjeta"
@@ -111,65 +116,70 @@ export default function AddCardFormComponent() {
               {errors.cardNumber && touched.cardNumber && (
                 <Text style={styles.error}>{errors.cardNumber}</Text>
               )}
-              <View style={styles.alingLabel}>
-                <Text style={styles.label}>Fecha de expiración</Text>
-
-                <View style={styles.inputContainer}>
-                  <Icon
-                    name="calendar-range"
-                    size={24}
-                    color="black"
-                    type="material-community"
-                  />
-                  <TextInput
-                    style={styles.input}
-                    placeholder="MM/AA" z
-                    onChangeText={handleChange("expirationMonth")}
-                    onBlur={handleBlur("expirationMonth")}
-                    value={values.expirationMonth.toString()}
-                    keyboardType="numeric"
-                    maxLength={2}
-                  />
-                  <Text>/</Text>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="MM/AA"
-                    onChangeText={handleChange("expirationYear")}
-                    onBlur={handleBlur("expirationYear")}
-                    value={values.expirationYear.toString()}
-                    keyboardType="numeric"
-                    maxLength={4}
-                  />
+              </View>
+              <View style={styles.row}>
+                <View stlye={styles.column}>
+                  <Text style={styles.label}>Fecha de expiración</Text>
+                  <View style={styles.inputContainer}>
+                    <Icon
+                      style={styles.icon}
+                      name="calendar-range"
+                      size={24}
+                      color="black"
+                      type="material-community"
+                    />
+                    <TextInput
+                      style={styles.input}
+                      placeholder="MM"
+                      onChangeText={handleChange("expirationMonth")}
+                      onBlur={handleBlur("expirationMonth")}
+                      value={values.expirationMonth.toString()}
+                      keyboardType="numeric"
+                      maxLength={2}
+                    />
+                    <Text>/</Text>
+                    <TextInput
+                      style={styles.input}
+                      placeholder="AAAA"
+                      onChangeText={handleChange("expirationYear")}
+                      onBlur={handleBlur("expirationYear")}
+                      value={values.expirationYear.toString()}
+                      keyboardType="numeric"
+                      maxLength={4}
+                    />
+                  </View>
+                  {errors.expirationMonth && touched.expirationMonth && (
+                    <Text style={styles.error}>{errors.expirationMonth}</Text>
+                  )}
+                  {errors.expirationYear && touched.expirationYear && (
+                    <Text style={styles.error}>{errors.expirationYear}</Text>
+                  )}
                 </View>
-                {errors.expirationMonth && touched.expirationMonth && (
-                  <Text style={styles.error}>{errors.expirationMonth}</Text>
-                )}
-                {errors.expirationYear && touched.expirationYear && (
-                  <Text style={styles.error}>{errors.expirationYear}</Text>
-                )}
-
-                <Text style={styles.label}>CCV</Text>
-                <View style={styles.inputContainer}>
-                  <Icon
-                    name="lock-outline"
-                    size={24}
-                    color="black"
-                    type="material-community"
-                  />
-                  <TextInput
-                    style={styles.input}
-                    placeholder="CCV"
-                    onChangeText={handleChange("ccv")}
-                    onBlur={handleBlur("ccv")}
-                    value={values.ccv}
-                    keyboardType="numeric"
-                    maxLength={3}
-                    minLength={3}
-                  />
+                <View style={styles.column}>
+                  <Text style={styles.label}>CCV</Text>
+                  <View style={styles.inputContainer}>
+                    <Icon
+                      style={styles.icon}
+                      name="lock-outline"
+                      size={24}
+                      color="black"
+                      type="material-community"
+                    />
+                    <TextInput
+                      style={styles.input}
+                      placeholder="CCV"
+                      onChangeText={handleChange("ccv")}
+                      onBlur={handleBlur("ccv")}
+                      value={values.ccv}
+                      keyboardType="numeric"
+                      maxLength={3}
+                      minLength={3}
+                    />
+                  </View>
+                  {errors.ccv && touched.ccv && (
+                    <Text style={styles.error}>{errors.ccv}</Text>
+                  )}
                 </View>
-                {errors.ccv && touched.ccv && (
-                  <Text style={styles.error}>{errors.ccv}</Text>
-                )}
               </View>
             </View>
           )}
@@ -181,8 +191,19 @@ export default function AddCardFormComponent() {
 const styles = StyleSheet.create({
   label: {
     fontSize: 15,
-    fontWeight: "700",
-    marginBottom: 5,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  row: {
+    flexDirection: "row",
+  },
+  column: {
+    flexDirection: "column",
+    width: "40%",
+    paddingHorizontal: 20,
+  },
+  icon: {
+    marginRight: 10,
   },
   inputContainer: {
     flexDirection: "row",
@@ -191,21 +212,21 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.PalleteGreenBackground,
     borderRadius: 10,
     paddingLeft: 10,
-    paddingRight: 10,
-    height: 40,
-    margin: 4,
   },
-
   input: {
-    flex: 1,
-    height: 40,
+    height: 45,
+    marginRight: "18%",
   },
   error: {
     color: Colors.PalletteRed,
-    marginTop: 1,
+    fontWeight: "bold",
+    marginTop: 5,
   },
   header: {
-    paddingTop: 30,
+    paddingTop: 20,
     paddingHorizontal: 20,
   },
+  spaceBetween: {
+    marginBottom: 30,
+  }
 });

@@ -11,8 +11,8 @@ export default function SaveCardBtnComponent() {
     <View style={styles.container}>
       <Text style={styles.text}>Guardar tarjeta para futuros pagos</Text>
       <Switch
-        trackColor={{ false: '#767577', true: '#81b0ff' }}
-        thumbColor={isEnabled ? Colors.PalleteBluePrimary : '#f4f3f4'}
+        trackColor={{ false: Colors.PalleteGray, true: Colors.PalleteBlueSecundary }}
+        thumbColor={isEnabled ? Colors.PalleteBluePrimary : Colors.PalleteWhite }
         ios_backgroundColor="#3e3e3e"
         onValueChange={toggleSwitch}
         value={isEnabled}
@@ -25,14 +25,13 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    paddingHorizontal: 20,
+    marginTop: 20,
     alignItems: 'center',
-    // marginTop: 20,
-    // marginHorizontal: 30,
-    
   },
   text: {
     fontSize: 15,
-    marginRight: 60,
+    marginRight: 15,
     fontWeight: 'bold',
   },
 });

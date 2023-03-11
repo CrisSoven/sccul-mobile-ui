@@ -32,7 +32,6 @@ export default function PurchaseConfirmationScreen() {
             btnPrimary={true}
             onPress={() =>
               navigation.navigate("HomeS")
-              // console.log("presionado")
             }
           />
         </View>

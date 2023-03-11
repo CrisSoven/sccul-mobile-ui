@@ -13,7 +13,7 @@ export default function CartPaymentScreen(props) {
   const navigation = useNavigation();
   const [isPurchaseSuccessful, setIsPurchaseSuccessful] = useState(false); // Aquí asumo que tienes una variable que indica si la compra fue exitosa o no
   const handleAction = () => {
-    if (!isPurchaseSuccessful) {
+    if (isPurchaseSuccessful) {
       navigation.navigate("Successful");
     } else {
       navigation.navigate("Fail");

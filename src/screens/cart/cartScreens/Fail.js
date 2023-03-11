@@ -4,7 +4,6 @@ import ButtonComponent from "../../../components/common/ButtonComponent";
 import { useNavigation } from "@react-navigation/native";
 import Colors from "../../../utils/Colors";
 import { Icon, Image } from "react-native-elements";
-import TitleBtnComponent from "../../../components/profile/TitleBtnComponent";
 
 export default function PurchaseConfirmationScreen() {
   const navigation = useNavigation();
@@ -30,9 +29,10 @@ export default function PurchaseConfirmationScreen() {
           />
           <ButtonComponent
             title="Hecho"
-            onPress={() => navigation.navigate("HomeS")}
-            style={styles.btn}
-
+            btnPrimary={true}
+            onPress={() =>
+              navigation.navigate("HomeS")
+            }
           />
         </View>
       </View>
@@ -54,9 +54,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   rowInf: {
-    backgroundColor: Colors.PalleteWhite,
-    height: "20%",
+    position: "absolute",
+    width: "100%",
+    marginBottom: 20,
     bottom: 0,
+    marginHorizontal: 20,
   },
   title: {
     fontSize: 32,
@@ -70,11 +72,10 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     color: Colors.PalleteWhite,
     textAlign: "center",
-    marginHorizontal: 20,
   },
   svg: {
-    width: "100%",
     height: 250,
     resizeMode: "contain",
+    marginRight: 50
   },
 });

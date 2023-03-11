@@ -2,13 +2,13 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Icon } from "react-native-elements";
-import { useNavigation } from "@react-navigation/native";
 import Colors from "../../utils/Colors";
 
-export default function CardsComponent() {
-  const navigation = useNavigation();
+export default function CardsComponent(props) {
+  const { onPress } = props;
+  console.log(props);
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.leftContainer}>
         <Icon style={styles.icon} name="credit-card" type="MaterialIcons" size={25} />
         <Text style={styles.title}>Mi cartera</Text>

@@ -11,7 +11,9 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function ProfileScreen() {
   const navigation = useNavigation();
-
+  const navigateTo = () => {
+    navigation.navigate("Pockets");
+  };
   return (
     <KeyboardAwareScrollView>
       <TitleBtnComponent
@@ -25,7 +27,9 @@ export default function ProfileScreen() {
 
       <View>
         <BannerProfileComponent />
-        <PocketComponent />
+        <PocketComponent
+          onPress={navigateTo}
+        />
         <Line />
       </View>
 

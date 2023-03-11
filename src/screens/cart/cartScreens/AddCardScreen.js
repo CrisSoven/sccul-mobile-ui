@@ -5,46 +5,35 @@ import AddCardFormComponent from "../../../components/cart/AddCardFormComponent"
 import { ScrollView } from "react-native-gesture-handler";
 import AccionsBtnComponent from "../../../components/cart/AccionsBtnComponent";
 import SaveCardBtnComponent from "../../../components/cart/SaveCardBtnComponent";
-import { useNavigation } from "@react-navigation/native"; 
+import { useNavigation } from "@react-navigation/native";
 
 export default function AddCardScreen() {
-  const navigation = useNavigation(); 
-
+  const navigation = useNavigation();
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View>
-
+    <ScrollView>
       <Goback title="Agregar tarjeta" />
       <Image
         style={styles.image}
         source={require("../../../../assets/img/Visa_Logo.png")}
-        />
-      <AddCardFormComponent />
-      <SaveCardBtnComponent/>
-      <AccionsBtnComponent
-      btnCancelTitle="Cancelar" 
-      btnContinueTitle="Continuar"
-      action={() => navigation.navigate('CartPayment')}
       />
-    </View>
+      <AddCardFormComponent />
+      <SaveCardBtnComponent />
+      <AccionsBtnComponent
+        btnCancelTitle="Cancelar"
+        btnContinueTitle="Continuar"
+        action={() => navigation.navigate('CartPayment')}
+        btnPrimary={true}
+      />
     </ScrollView>
 
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-  },
   image: {
     width: 175,
     height: 50,
     marginTop: 30,
-  },
-  btn: {
-    width: 196,
-    height: 40,
-  },
+    resizeMode: "contain",
+  }
 });

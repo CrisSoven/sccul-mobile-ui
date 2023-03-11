@@ -1,22 +1,18 @@
-
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Icon } from 'react-native-elements'
-import { useNavigation } from '@react-navigation/native';
 import Colors from '../../utils/Colors';
 
-export default function CardsComponent() {
-  const navigation = useNavigation();
+export default function CardsComponent(props) {
+  const { onPress } = props;
+  console.log(onPress);
   return (
     <TouchableOpacity style={styles.container}
-    onPress={() => 
-       navigation.navigate('CartPayment')
-      // console.log('presionado')
-  } 
+      onPress={onPress}
     >
       <View style={styles.leftContainer}>
-        <Image style={styles.image}  source={require("../../../assets/img/Visa_Logo.png")} />
+        <Image style={styles.image} source={require("../../../assets/img/Visa_Logo.png")} />
         <Text style={styles.title}>Jonathan Abed Ramirez</Text>
       </View>
       <View style={styles.rightContainer}>

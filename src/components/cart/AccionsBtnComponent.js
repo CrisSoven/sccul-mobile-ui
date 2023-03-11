@@ -66,7 +66,6 @@ import { StyleSheet, View, Dimensions } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native"; 
 import ButtonComponent from "../common/ButtonComponent";
-import Colors from "../../utils/Colors";
 
 export default function AccionsBtnComponent(props) {
   const navigation = useNavigation(); 

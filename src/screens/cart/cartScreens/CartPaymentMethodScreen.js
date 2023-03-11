@@ -1,37 +1,42 @@
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import React from "react";
 import GoBack from "../../../components/common/Goback";
-import AddCardComponenet from "../../../components/cart/AddCardBtnComponent";
 import CardsComponent from "../../../components/cart/CardsComponent";
 import { ScrollView } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
+import TitleBtnComponent from "../../../components/profile/TitleBtnComponent";
 
 export default function CartPaymentMethodScreen(props) {
+  const navigation = useNavigation();
+  const navigateToAdd = () => {
+    navigation.navigate("AddCard");
+  };
+  const navigateToCard = () => {
+    navigation.navigate("CartPayment");
+  };
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView>
       <View style={styles.header}>
         <GoBack title="Metodos de Pago" />
-        <AddCardComponenet />
+        <TitleBtnComponent
+          textTitle="Mis tarjetas"
+          titleStyle={styles.title}
+          icon="add"
+          textBtn="Agregar"
+          iconType="material-community"
+          btnPrimary={true}
+          onPress={navigateToAdd}
+        />
       </View>
       <View style={styles.content}>
-        <CardsComponent />
+        <CardsComponent
+        onPress={navigateToCard}/>
       </View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-  },
-  header: {
-    paddingHorizontal: 20,
-    paddingTop: 20,
-    paddingBottom: 10,
-  },
-  content: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-  },
   title: {
     fontSize: 24,
     fontWeight: "bold",
