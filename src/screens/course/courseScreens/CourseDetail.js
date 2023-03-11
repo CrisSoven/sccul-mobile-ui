@@ -8,10 +8,12 @@ import { ScrollView } from 'react-native-gesture-handler'
 export default function CourseDetail() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Mis cursos</Text>
+      <View style={styles.content}>
+        <Text style={styles.title}>Mis cursos</Text>
+      </View>
       <SearchBar />
       <FilterCourse />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.row}>
           <Courses
             styles={styles.column}
@@ -105,7 +107,7 @@ export default function CourseDetail() {
           />
         </View>
       </ScrollView>
-    </View>
+    </View >
   )
 }
 
@@ -113,9 +115,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  content: {
+    paddingVertical: 20,
+  },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
+    marginLeft: 20,
   },
   row: {
     flexDirection: 'row',

@@ -59,6 +59,7 @@ export default function FeedbackComponent() {
               value={values.comment}
               placeholder="Escribe un comentario"
               multiline={true}
+              numberOfLines={5}
             />
             {touched.comment && errors.comment && (
               <Text style={styles.errorText}>{errors.comment}</Text>
@@ -86,7 +87,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   commentInput: {
-    height: 40,
     borderColor: Colors.PalleteGray,
     borderWidth: 1,
     marginVertical: 10,

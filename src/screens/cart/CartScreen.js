@@ -38,23 +38,19 @@ export default function CartScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.content}>
-        <Text style={styles.title}>Carrito de compras</Text>
-        <SearchBar />
+      <Text style={styles.title}>Carrito de compras</Text>
+      <SearchBar />
+      <ScrollView style={styles.content}>
         <SelectComponent />
-        <ScrollView>
-          <ListCourses courses={courses} />
-        </ScrollView>
-      </View>
-      <View style={styles.footer}>
-        <TitleBtnComponent
-          textTitle="$1,246.50 MX"
-          titleStyle={styles.subtitle}
-          textBtn="Pagar"
-          onPress={navigateTo}
-          btnPrimary={true}
-        />
-      </View>
+        <ListCourses courses={courses} />
+      </ScrollView>
+      <TitleBtnComponent
+        textTitle="$1,246.50 MX"
+        titleStyle={styles.subtitle}
+        textBtn="Pagar"
+        onPress={navigateTo}
+        btnPrimary={true}
+      />
     </View>
   );
 }
@@ -62,17 +58,17 @@ export default function CartScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingVertical: 20,
+  },
+  content: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingVertical: 20,
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 10,
-  },
-  content: {
-    flex: 1,
-    padding: 20,
-  },
-  footer: {
+    marginLeft: 20,
     marginBottom: 20,
   },
   subtitle: {
