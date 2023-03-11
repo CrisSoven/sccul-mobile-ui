@@ -14,6 +14,9 @@ export default function ProfileScreen() {
   const navigateTo = () => {
     navigation.navigate("Pockets");
   };
+  const logout = () => {
+    navigation.navigate("Logins");
+  };
   return (
     <KeyboardAwareScrollView>
       <TitleBtnComponent
@@ -23,6 +26,7 @@ export default function ProfileScreen() {
         textBtn="Cerrar sesión"
         iconType="material-community"
         btnPrimary={true}
+        onPress={logout}
       />
 
       <View>

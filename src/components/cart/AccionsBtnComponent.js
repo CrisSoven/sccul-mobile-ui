@@ -1,4 +1,3 @@
-
 // import { StyleSheet, View } from "react-native";
 // import React from "react";
 // import { useNavigation } from "@react-navigation/native"; 
@@ -22,7 +21,6 @@
 //     </View>
 //   );
 // }
-
 // const styles = StyleSheet.create({
 //   container: {
 //     flexDirection: "row",
@@ -60,28 +58,22 @@
 //   },
 // });
 
-
-
 import { StyleSheet, View, Dimensions } from "react-native";
 import React from "react";
-import { useNavigation } from "@react-navigation/native"; 
 import ButtonComponent from "../common/ButtonComponent";
 
 export default function AccionsBtnComponent(props) {
-  const navigation = useNavigation(); 
+  const { btnCancelTitle, btnContinueTitle, isReturn, action, btnPrimary } = props;
   return (
     <View style={styles.container}>
       <ButtonComponent
-        title={props.btnCancelTitle}
-        buttonStyle={styles.btnC}
-        titleStyle={styles.btnText}
+        title={btnCancelTitle}
+        onPress={isReturn}
       />
       <ButtonComponent
-        title={props.btnContinueTitle}
-        buttonStyle={[styles.btn, styles.btnlarge ]}
-        titleStyle={styles.btnText}
-        onPress={props.action}
-        btnPrimary={props.btnPrimary}
+        title={btnContinueTitle}
+        onPress={action}
+        btnPrimary={btnPrimary}
       />
     </View>
   );

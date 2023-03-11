@@ -3,7 +3,7 @@ import React from 'react'
 import { SafeAreaView } from "react-native-safe-area-context";
 import ScculMainComponent from "../../components/sccul/ScculMainComponent";
 import { useNavigation } from '@react-navigation/native';
-import ScculLoginFormComponent from '../../components/sccul/ScculLoginFormComponent';
+import ScculRegisterFormComponent from '../../components/sccul/ScculRegisterFormComponent';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function LoginScreen() {
@@ -14,9 +14,8 @@ export default function LoginScreen() {
   return (
     <SafeAreaView>
       <KeyboardAwareScrollView>
-        <ScculMainComponent text="Reanuda tu aprendizaje" />
-        <Image style={styles.img} source={require('../../../assets/img/loginImage.png')} />
-        <ScculLoginFormComponent />
+        <ScculMainComponent text="Emprende un nuevo viaje al conocimiento" />
+        <ScculRegisterFormComponent />
       </KeyboardAwareScrollView>
     </SafeAreaView>
   )

@@ -1,5 +1,11 @@
 import React from "react";
-import { StyleSheet, Text, TextInput, View, KeyboardAvoidingView, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  KeyboardAvoidingView,
+} from "react-native";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { Button, Icon } from "react-native-elements";
@@ -19,7 +25,9 @@ export default function AddCardFormComponent() {
 
   const validationSchema = yup.object().shape({
     cardName: yup.string().required("El nombre de la tarjeta es requerido"),
-    cardNumber: yup.string().required("El número de la tarjeta es requerido")
+    cardNumber: yup
+      .string()
+      .required("El número de la tarjeta es requerido")
       .matches(/^[0-9]{16}$/, "El número de la tarjeta debe tener 16 dígitos"),
 
     expirationMonth: yup
@@ -76,46 +84,50 @@ export default function AddCardFormComponent() {
           }) => (
             <View>
               <View style={styles.spaceBetween}>
-              <Text style={styles.label}>Nombre en tarjeta</Text>
-              <View style={styles.inputContainer}>
-                <Icon
-                  style={styles.icon}
-                  name="account-outline"
-                  size={24}
-                  color="black"
-                  type="material-community"
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Nombre en tarjeta"
-                  onChangeText={handleChange("cardName")}
-                  onBlur={handleBlur("cardName")}
-                  value={values.cardName}
-                />
-              </View>
-              {errors.cardName && touched.cardName && (
-                <Text style={styles.error}>{errors.cardName}</Text>
-              )}
+                <Text style={styles.label}>Nombre en tarjeta</Text>
+                <View style={styles.inputContainer}>
+                  <Icon
+                    style={styles.icon}
+                    name="account-outline"
+                    size={24}
+                    color="black"
+                    type="material-community"
+                  />
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Nombre en tarjeta"
+                    onChangeText={handleChange("cardName")}
+                    onBlur={handleBlur("cardName")}
+                    value={values.cardName}
+                  />
+                </View>
+                {errors.cardName && touched.cardName && (
+                  <Text style={styles.error}>{errors.cardName}</Text>
+                )}
               </View>
               <View style={styles.spaceBetween}>
-              <Text style={styles.label}>Número de tarjeta</Text>
-              <View style={styles.inputContainer}>
-                <Icon
-                  style={styles.icon} name="credit-card" size={24} color="black" />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Numero de tarjeta"
-                  onChangeText={handleChange("cardNumber")}
-                  onBlur={handleBlur("cardNumber")}
-                  value={values.cardNumber}
-                  keyboardType="numeric"
-                  maxLength={16}
-                  minLength={16}
-                />
-              </View>
-              {errors.cardNumber && touched.cardNumber && (
-                <Text style={styles.error}>{errors.cardNumber}</Text>
-              )}
+                <Text style={styles.label}>Número de tarjeta</Text>
+                <View style={styles.inputContainer}>
+                  <Icon
+                    style={styles.icon}
+                    name="credit-card"
+                    size={24}
+                    color="black"
+                  />
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Numero de tarjeta"
+                    onChangeText={handleChange("cardNumber")}
+                    onBlur={handleBlur("cardNumber")}
+                    value={values.cardNumber}
+                    keyboardType="numeric"
+                    maxLength={16}
+                    minLength={16}
+                  />
+                </View>
+                {errors.cardNumber && touched.cardNumber && (
+                  <Text style={styles.error}>{errors.cardNumber}</Text>
+                )}
               </View>
               <View style={styles.row}>
                 <View stlye={styles.column}>
@@ -228,5 +240,5 @@ const styles = StyleSheet.create({
   },
   spaceBetween: {
     marginBottom: 30,
-  }
+  },
 });
