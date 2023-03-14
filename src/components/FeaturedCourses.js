@@ -20,7 +20,7 @@ export default function FeaturedCourses() {
         {
           number: 1,
           title: "Introducción al curso",
-          duration: "1:30",
+          duration: "1:58",
         },
         {
           number: 2,
