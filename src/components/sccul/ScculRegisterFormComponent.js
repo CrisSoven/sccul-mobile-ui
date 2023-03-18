@@ -19,23 +19,55 @@ export default function LoginForm() {
     email: "",
     password: "",
     repeatPassword: "",
-  }
+  };
 
   const validationSchema = yup.object().shape({
     names: yup.string().required("Nombre(s) obligatorio"),
     lastname: yup.string().required("Apellido paterno obligatorio"),
-    cellphone: yup.string().required("Número de teléfono obligatorio")
+    cellphone: yup
+      .string()
+      .required("Número de teléfono obligatorio")
       .min(10, "Número de teléfono debe tener 10 dígitos")
       .max(10, "Número de teléfono debe tener 10 dígitos"),
-    email: yup.string().email("Correo electrónico inválido")
+    email: yup
+      .string()
+      .email("Correo electrónico inválido")
       .required("Correo electrónico obligatorio"),
     password: yup.string().required("Contraseña obligatoria"),
-    repeatPassword: yup.string().required("Contraseña obligatoria")
+    repeatPassword: yup
+      .string()
+      .required("Contraseña obligatoria")
       .oneOf([yup.ref("password")], "Las contraseñas no coinciden"),
-  })
+  });
 
-  const handleSubmit = (values) => {
-    console.log(values);
+  const handleFormSubmit = (handleSubmit) => {
+    handleSubmit();
+  };
+
+  const handleSubmit = async (values) => {
+    const { names, lastname, surname, cellphone, email, password } = values;
+
+    try {
+      console.log("entra" + values);
+      const response = await fetch("http://10.0.2.2:8080/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: names,
+          lastname: lastname,
+          surname,
+          phoneNumber: cellphone,
+          email,
+          password,
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -221,6 +253,7 @@ export default function LoginForm() {
                 btnCancelTitle={"Regresar"}
                 btnContinueTitle={"Iniciar sesión"}
                 btnPrimary={true}
+                action={() => handleFormSubmit(handleSubmit)}
               />
             </View>
           </View>

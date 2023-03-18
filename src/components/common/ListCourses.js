@@ -49,7 +49,7 @@ export default function ListCourses({ courses }) {
           title={course.title}
           price={course.price}
           average={course.average}
-          comments={course.comments}
+          comments={course.comments.length}
           course={course}
         />
       ))}

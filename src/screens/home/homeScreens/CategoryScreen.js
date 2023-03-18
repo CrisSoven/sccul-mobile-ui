@@ -12,7 +12,7 @@ export default function CategoryScreen({ route }) {
   const courses = [
     {
       id: 1,
-      title: "JavaPug - Curso de Java desde cero a pendejo",
+      title: "JavaPug - Curso de Java desde cero a experto",
       image: require("../../../../assets/img/leclerc.jpg"),
       description:
         "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",

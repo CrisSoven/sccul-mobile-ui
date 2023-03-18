@@ -21,7 +21,7 @@ export default function Sections(section) {
           <Text style={styles.title} numberOfLines={1}>
             {section.title}
           </Text>
-          <Text style={styles.duration}>{section.duration}</Text>
+          <Text style={styles.duration}>{section.duration}h</Text>
         </TouchableOpacity>
       ))}
     </View>
@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 15,
     alignItems: "center",
-    marginHorizontal: "3%",
   },
   number: {
     flex: 0.1,
@@ -54,7 +53,7 @@ const styles = StyleSheet.create({
   },
   duration: {
     flex: 0.2,
-    fontSize: 16,
+    fontSize: 14,
     opacity: 0.5,
   },
 });

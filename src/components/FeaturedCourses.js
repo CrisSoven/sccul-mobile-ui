@@ -16,12 +16,11 @@ export default function FeaturedCourses() {
         "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
       category: "Programación",
       average: 4.5,
-      comments: 20,
       section: [
         {
           number: 1,
           title: "Introducción al curso",
-          duration: "1:30",
+          duration: "1:58",
         },
         {
           number: 2,
@@ -29,16 +28,38 @@ export default function FeaturedCourses() {
           duration: "1:40",
         },
       ],
+      comments: [
+        {
+          comment:
+            "Excelente curso, ojala no hagan más cursos de este tipo Excelente curso, ojala no hagan más cursos de este tipo Excelente curso, ojala no hagan más cursos de este tipo Excelente curso, ojala no hagan más cursos de este tipo",
+          name: "Checo Perez",
+          score: 1,
+          createdAt: "10/10/2020",
+        },
+        {
+          comment:
+            "Excelente curso, me encanto, espero que hagan más cursos de este tipo",
+          name: "Joksan Bahena",
+          score: 4.5,
+          createdAt: "13/06/1970",
+        },
+        {
+          comment:
+            "No me gusto en lo absoluto, esperaba más de este curso con el precio que tiene",
+          name: "Yei Peralta",
+          score: 3.5,
+          createdAt: "10/11/2021",
+        },
+      ],
     },
     {
       image: require("../../assets/img/diseño.jpg"),
-      title: "Diseño Gráfico para pendejos",
+      title: "Diseño Gráfico - Aprende a diseñar",
       price: "$70 MXN",
       description:
         "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
       category: "Diseño",
       average: 5.0,
-      comments: 10,
       section: [
         {
           number: 1,
@@ -56,6 +77,28 @@ export default function FeaturedCourses() {
           duration: "1:30",
         },
       ],
+      comments: [
+        {
+          comment: "Excelente curso, ojala no hagan más cursos de este tipo",
+          name: "Checo Perez",
+          score: 4.2,
+          createdAt: "10/10/2020",
+        },
+        {
+          comment:
+            "Excelente curso, me encanto, espero que hagan más cursos de este tipo",
+          name: "Juan Perez",
+          score: 2.5,
+          createdAt: "13/06/1970",
+        },
+        {
+          comment:
+            "No me gusto en lo absoluto, esperaba más de este curso con el precio que tiene",
+          name: "Yei Peralta",
+          score: 5,
+          createdAt: "10/11/2021",
+        },
+      ],
     },
     {
       image: require("../../assets/img/marketimg.jpg"),
@@ -65,7 +108,6 @@ export default function FeaturedCourses() {
         "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
       category: "Marketing",
       average: 4.3,
-      comments: 15,
       section: [
         {
           number: 1,
@@ -76,6 +118,28 @@ export default function FeaturedCourses() {
           number: 2,
           title: "Sección 2",
           duration: "1:30",
+        },
+      ],
+      comments: [
+        {
+          comment: "Excelente curso, ojala no hagan más cursos de este tipo",
+          name: "Checo Perez",
+          score: 4.2,
+          createdAt: "10/10/2020",
+        },
+        {
+          comment:
+            "Excelente curso, me encanto, espero que hagan más cursos de este tipo",
+          name: "Juan Perez",
+          score: 2.5,
+          createdAt: "13/06/1970",
+        },
+        {
+          comment:
+            "No me gusto en lo absoluto, esperaba más de este curso con el precio que tiene",
+          name: "Yei Peralta",
+          score: 5,
+          createdAt: "10/11/2021",
         },
       ],
     },
@@ -87,7 +151,6 @@ export default function FeaturedCourses() {
         "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
       category: "Programación",
       average: 4.5,
-      comments: 20,
       section: [
         {
           number: 1,
@@ -100,16 +163,72 @@ export default function FeaturedCourses() {
           duration: "1:30",
         },
       ],
+      comments: [
+        {
+          comment: "Excelente curso, ojala no hagan más cursos de este tipo",
+          name: "Checo Perez",
+          score: 4.2,
+          createdAt: "10/10/2020",
+        },
+        {
+          comment:
+            "Excelente curso, me encanto, espero que hagan más cursos de este tipo",
+          name: "Juan Perez",
+          score: 2.5,
+          createdAt: "13/06/1970",
+        },
+        {
+          comment:
+            "No me gusto en lo absoluto, esperaba más de este curso con el precio que tiene",
+          name: "Yei Peralta",
+          score: 5,
+          createdAt: "10/11/2021",
+        },
+      ],
     },
     {
       image: require("../../assets/img/diseño.jpg"),
-      title: "Diseño Gráfico para pendejos",
+      title: "Diseño Gráfico - Aprende a diseñar",
       price: "$70 MXN",
       description:
         "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
       category: "Diseño",
       average: 5.0,
-      comments: 10,
+      section: [
+        {
+          number: 1,
+          title: "Sección 1",
+          duration: "1:30",
+        },
+        {
+          number: 2,
+          title: "Sección 2",
+          duration: "1:30",
+        },
+      ],
+      comments: [
+        {
+          comment:
+            "Excelente curso, ojala no hagan más cursos de este tipo Excelente curso, ojala no hagan más cursos de este tipo Excelente curso, ojala no hagan más cursos de este tipo Excelente curso, ojala no hagan más cursos de este tipo",
+          name: "Checo Perez",
+          score: 1,
+          createdAt: "10/10/2020",
+        },
+        {
+          comment:
+            "Excelente curso, me encanto, espero que hagan más cursos de este tipo",
+          name: "Joksan Bahena",
+          score: 4.5,
+          createdAt: "13/06/1970",
+        },
+        {
+          comment:
+            "No me gusto en lo absoluto, esperaba más de este curso con el precio que tiene",
+          name: "Yei Peralta",
+          score: 3.5,
+          createdAt: "10/11/2021",
+        },
+      ],
     },
     {
       image: require("../../assets/img/marketimg.jpg"),
@@ -119,7 +238,41 @@ export default function FeaturedCourses() {
         "Fundamentos de JavaScript está diseñado para aquellos sin experiencia previa que buscan aprender los conceptos básicos del lenguaje. Tendrás la oportunidad de aplicar tus habilidades a través de proyectos prácticos y ejercicios. Con un enfoque en la enseñanza clara y concisa.",
       category: "Marketing",
       average: 4.3,
-      comments: 15,
+      section: [
+        {
+          number: 1,
+          title: "Sección 1",
+          duration: "1:30",
+        },
+        {
+          number: 2,
+          title: "Sección 2",
+          duration: "1:30",
+        },
+      ],
+      comments: [
+        {
+          comment:
+            "Excelente curso, ojala no hagan más cursos de este tipo Excelente curso, ojala no hagan más cursos de este tipo Excelente curso, ojala no hagan más cursos de este tipo Excelente curso, ojala no hagan más cursos de este tipo",
+          name: "Checo Perez",
+          score: 1,
+          createdAt: "10/10/2020",
+        },
+        {
+          comment:
+            "Excelente curso, me encanto, espero que hagan más cursos de este tipo",
+          name: "Joksan Bahena",
+          score: 4.5,
+          createdAt: "13/06/1970",
+        },
+        {
+          comment:
+            "No me gusto en lo absoluto, esperaba más de este curso con el precio que tiene",
+          name: "Yei Peralta",
+          score: 3.5,
+          createdAt: "10/11/2021",
+        },
+      ],
     },
   ];
 
