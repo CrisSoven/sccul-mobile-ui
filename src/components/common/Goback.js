@@ -17,9 +17,9 @@ export default function Goback(props) {
           name="chevron-left"
           type="material-community"
           size={30}
-          style={styles.icon}
+          style={{marginLeft: 1}}
         />
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.title} numberOfLines={1}>{title}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -29,11 +29,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 15,
-    marginBottom: 20,
-  },
-  icon: {
-    marginLeft: 1,
+    marginVertical: 20,
+    paddingEnd: "5%",
   },
   title: {
     fontSize: 24,

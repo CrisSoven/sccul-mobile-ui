@@ -9,7 +9,7 @@ import {
 import Colors from "../../utils/Colors";
 import { useNavigation } from "@react-navigation/native";
 
-const categories = ["Programación", "Diseño", "Marketing", "Música", "Cocina"];
+const categories = ["Programación", "Diseño", "Marketing", "Música", "Cocina", "Idiomas"];
 
 export default function ScrollViewCategories() {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -38,14 +38,14 @@ export default function ScrollViewCategories() {
 
 const styles = StyleSheet.create({
   viewContainer: {
-    marginTop: "2%",
-    marginLeft: "3%",
+    marginHorizontal: "4%",
+    marginBottom: "3%",
   },
   container: {
     width: 130,
-    height: 60,
+    height: 55,
     backgroundColor: Colors.PalleteGreenBackground,
-    marginRight: 20,
+    marginRight: 15,
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
@@ -53,7 +53,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: Colors.PalleteBlack,
-    fontWeight: "bold",
+    fontWeight: "500",
     textAlign: "center",
+    fontSize: 13,
   },
 });

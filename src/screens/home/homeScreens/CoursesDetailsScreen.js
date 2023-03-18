@@ -39,14 +39,15 @@ const CoursesDetailsScreen = ({ route }) => {
           <View style={styles.averageContainer}>
             <Text style={styles.average}>{course.average}</Text>
             <Rating
+              style={{ marginRight: 5 }}
+              type='custom'
               startingValue={course.average}
-              fractions={1}
-              imageSize={24}
-              readonly
-              ratingColor="#FFAA0D"
-              style={{ marginRight: 10 }}
+              fractions="{1}"
+              imageSize={20}
+              ratingColor={Colors.PalleteYellow}
+              ratingBackgroundColor={"#c8c8c8"}
             />
-            <Text style={styles.comments}>({course.comments.length})</Text>
+            <Text style={{ fontSize: 18 }}>({course.comments.length})</Text>
           </View>
           <Text style={styles.price}>{course.price}</Text>
           <Text style={styles.description}>{course.description}</Text>
@@ -88,24 +89,20 @@ const CoursesDetailsScreen = ({ route }) => {
 export default CoursesDetailsScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
   image: {
     width: "90%",
     height: 230,
     marginHorizontal: "5%",
-    borderRadius: 15,
+    borderRadius: 16,
   },
   infoContainer: {
     paddingHorizontal: 15,
     paddingTop: 15,
   },
-  titleCourse: {
-    fontSize: 22,
-    fontWeight: "bold",
-    marginBottom: 5,
+  averageContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
   },
   price: {
     fontSize: 35,
@@ -113,24 +110,14 @@ const styles = StyleSheet.create({
     color: Colors.PalletteRed,
     marginBottom: 10,
   },
-  averageContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 10,
-  },
   average: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "bold",
-    marginRight: 10,
+    marginRight: 5,
     color: Colors.PalletteRed,
   },
-  comments: {
-    fontSize: 20,
-    color: "#333",
-  },
   description: {
-    fontSize: 18,
-    color: "#333",
+    fontSize: 16,
     textAlign: "justify",
   },
   categoryContainer: {
@@ -139,8 +126,7 @@ const styles = StyleSheet.create({
     height: 40,
     backgroundColor: Colors.PalleteGreenBackground,
     justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 15,
+    borderRadius: 16,
   },
   categoryText: {
     color: Colors.PalleteBlack,
@@ -191,7 +177,5 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginTop: "5%",
     marginBottom: "3%",
-  },
-  sectionsContainer: {
   },
 });

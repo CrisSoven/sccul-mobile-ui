@@ -17,21 +17,22 @@ const Courses = ({ image, title, price, average, comments, course }) => {
         <Image source={image} style={styles.image} />
       </View>
       <View style={styles.infoContainer}>
-        <Text style={styles.titleCourse} numberOfLines={3}>{title}</Text>
-        <View style={styles.averageAndPriceContainer}>
+        <Text style={styles.titleCourse} numberOfLines={2}>{title}</Text>
+        <View>
           <Text style={styles.price}>{price}</Text>
-          <View style={styles.averageContainer}>
+          <View style={{ flexDirection: "row" }}>
             <Text style={styles.average}>{average}</Text>
             <Rating
+              style={{ marginRight: 3 }}
+              type='custom'
               startingValue={average}
               fractions="{1}"
-              imageSize={24}
-              readonly
-              ratingColor="#FFAA0D"
-              tintColor="#CFE3DE"
-              style={{ marginRight: 10 }}
+              imageSize={20}
+              ratingColor={Colors.PalleteYellow}
+              ratingBackgroundColor={"#c8c8c8"}
+              tintColor={Colors.PalleteGreenBackground}
             />
-            <Text style={styles.comments}>({comments})</Text>
+            <Text style={{ fontSize: 14 }}>({comments})</Text>
           </View>
         </View>
       </View>
@@ -61,51 +62,39 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     backgroundColor: Colors.PalleteGreenBackground,
-    marginBottom: "5%",
-    borderRadius: 15,
+    marginBottom: 15,
+    borderRadius: 16,
     width: "100%",
-    height: 125,
+    height: 115,
   },
   image: {
-    width: "100%",
     height: "100%",
+    width: "100%",
   },
   infoContainer: {
     flex: 1,
-    flexDirection: "column",
-    marginHorizontal: "2%",
+    marginHorizontal: "3%",
+    marginVertical: "2%",
+    justifyContent: "space-evenly",
   },
   titleCourse: {
-    flex: 1.4,
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: "bold",
-    marginTop: "1%",
   },
   price: {
-    fontSize: 16,
-    color: "#333",
-  },
-  averageAndPriceContainer: {
-    flex: 1,
-  },
-  averageContainer: {
-    flex: 1,
-    flexDirection: "row",
+    fontSize: 17,
+    marginBottom: "2%",
   },
   average: {
-    flex: .5,
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
-    marginRight: "1%",
+    marginRight: 3,
     color: Colors.PalletteRed,
   },
-  comments: {
-    fontSize: 16,
-  },
   imageContainer: {
-    width: "37%",
+    width: "45%",
     height: "100%",
-    borderRadius: 15,
+    borderRadius: 16,
     overflow: "hidden",
   },
 });

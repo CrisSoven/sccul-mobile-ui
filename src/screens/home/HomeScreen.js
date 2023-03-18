@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View, ScrollView, BackHandler } from "react-native";
 import React from "react";
 import SearchBar from "../../components/common/SearchBar";
 import Banner from "../../components/home/Banner";
@@ -22,13 +22,11 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    marginTop: "5%"
+    marginTop: "5%",
   },
   title: {
     fontWeight: "bold",
-    fontSize: 28,
-    marginTop: "3%",
+    fontSize: 24,
     marginBottom: "3%",
     marginHorizontal: "2%",
   },

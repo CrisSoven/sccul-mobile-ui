@@ -7,7 +7,7 @@ export default function SearchBar() {
   return (
     <>
       <View style={styles.searchBar}>
-        <Icon name="search" size={30} color="#333" style={styles.searchIcon} />
+        <Icon name="search" size={30} color="Colors.PalleteGreenBackground" style={styles.searchIcon} />
         <TextInput style={styles.searchInput} placeholder="Buscar curso..." />
       </View>
     </>
@@ -20,13 +20,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: Colors.PalleteGreenBackground,
     height: 50,
-    borderRadius: 16,
+    borderRadius: 64,
     paddingHorizontal: "5%",
     marginHorizontal: "4%",
   },
   searchIcon: {
     marginRight: "5%",
-    marginBottom: "2%",
   },
   searchInput: {
     flex: 1,

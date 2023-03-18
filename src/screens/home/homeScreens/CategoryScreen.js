@@ -239,10 +239,10 @@ export default function CategoryScreen({ route }) {
 
 const styles = StyleSheet.create({
   titleContainer: {
-    marginTop: "10%",
+    marginTop: "5%",
   },
   title: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: "bold",
     marginHorizontal: "2%",
     marginBottom: "5%",

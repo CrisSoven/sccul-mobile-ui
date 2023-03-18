@@ -315,7 +315,7 @@ const styles = StyleSheet.create({
     marginTop: "5%",
   },
   titleFeatured: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: "bold",
     marginBottom: "5%",
   },

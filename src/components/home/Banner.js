@@ -6,17 +6,13 @@ import Swiper from "react-native-swiper";
 const images = [
   require("../../../assets/img/redbull.jpg"),
   require("../../../assets/img/leclerc.jpg"),
-  require("../../../assets/img/box.png"),
+  require("../../../assets/img/banner.jpg"),
 ];
 
 export default function Banner() {
   return (
     <View style={styles.container}>
-      <Swiper
-        autoplay={{
-          delay: 10000,
-        }}
-      >
+      <Swiper autoplay={true} autoplayTimeout={5} showsPagination={false}>
         {images.map((image, index) => (
           <View key={index}>
             <Image source={image} style={styles.image} />
@@ -29,15 +25,13 @@ export default function Banner() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: "2%",
-    alignItems: "center",
-    borderRadius: 10,
-    marginTop: "5%",
+    padding: "3%",
     height: 270,
   },
   image: {
-    width: "100%",
-    height: 250,
-    borderRadius: 15,
+    width: "99%",
+    height: 230,
+    borderRadius: 10,
+    marginHorizontal: "1%",
   },
 });

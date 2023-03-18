@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
   mainContainer: {
     flexDirection: "row",
     height: "auto",
-    backgroundColor: Colors.PalleteWhite,
     marginBottom: 20,
     borderRadius: 15,
     alignItems: "center",
