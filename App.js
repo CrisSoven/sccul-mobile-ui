@@ -7,7 +7,7 @@ import Header from "./src/components/common/Header";
 import ScculStack from "./src/navigation/stacks/ScculStack";
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isLogged, setIsLogged] = useState(true);
 
   useEffect(() => {
@@ -22,7 +22,6 @@ export default function App() {
   }, []);
 
   if (isLoading) {
-    // Se muestra el splash screen mientras se verifica el estado de login
     return <Splash />;
   }
 
