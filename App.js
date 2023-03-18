@@ -8,7 +8,7 @@ import ScculStack from './src/navigation/stacks/ScculStack';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(false);
-  const [isLogged, setIsLogged] = useState(true);
+  const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
     async function checkLoginStatus() {

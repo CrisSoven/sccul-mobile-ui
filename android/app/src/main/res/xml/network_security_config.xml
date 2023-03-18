@@ -10,7 +10,6 @@
 
         <domain includeSubdomains="true">my.domain.com</domain>
         <trust-anchors>
-            <!--  acceso a los certificados instalados manualmente -->
             <certificates src="user"/>
             <certificates src="system"/>
         </trust-anchors>
