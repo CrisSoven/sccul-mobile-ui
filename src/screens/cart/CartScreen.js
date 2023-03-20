@@ -30,8 +30,11 @@ export default function CartScreen() {
     if (inscriptions && inscriptions.length > 0) {
       return inscriptions[0].status.includes("inscrito");
     }
-    
   });
+
+  const total = filteredCourses.reduce((acc, curso) => {
+    return acc + curso.price;
+  }, 0);
 
   const navigation = useNavigation();
   const navigateTo = () => {
@@ -44,12 +47,13 @@ export default function CartScreen() {
       <SearchBar />
       <SelectComponent />
       <ScrollView style={styles.content}>
-        <Courses courses={filteredCourses} />
+        <Courses courses={filteredCourses} inCart={true} />
       </ScrollView>
       <TitleBtnComponent
-        textTitle="$1,246.50 MX"
+        textTitle= {`$${total} MX`}
         titleStyle={styles.subtitle}
-        textBtn="Pagar"
+        textBtn=" Pagar "
+        icon="payments"
         onPress={navigateTo}
         btnPrimary={true}
       />
@@ -74,8 +78,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
-    color: Colors.White,
+    color: Colors.PalletteRed,
   },
 });

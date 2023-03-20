@@ -14,7 +14,7 @@ export default function AddCardScreen() {
       <Goback title="Agregar tarjeta" />
       <Image
         style={styles.image}
-        source={require("../../../../assets/img/Visa_Logo.png")}
+        source={require("../../../../assets/img/visa.png")}
       />
       <AddCardFormComponent />
       <SaveCardBtnComponent />

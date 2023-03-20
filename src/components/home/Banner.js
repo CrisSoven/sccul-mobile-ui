@@ -4,9 +4,10 @@ import { Image } from "react-native-elements";
 import Swiper from "react-native-swiper";
 
 const images = [
-  require("../../../assets/img/redbull.jpg"),
-  require("../../../assets/img/leclerc.jpg"),
-  require("../../../assets/img/banner.jpg"),
+  require("../../../assets/img/banner0.jpg"),
+  require("../../../assets/img/banner1.jpg"),
+  require("../../../assets/img/banner2.jpg"),
+  require("../../../assets/img/banner3.jpg"),
 ];
 
 export default function Banner() {

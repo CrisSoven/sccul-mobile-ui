@@ -7,8 +7,20 @@ import { useNavigation } from "@react-navigation/native";
 import Colors from "../../utils/Colors";
 
 export default function Courses(props) {
-  const { courses } = props;
+  const { courses, inCart } = props;
+
+  /*
+  <TouchableWithoutFeedback onPress={() => setIsSelected(!isSelected)}>
+    <View>
+       <View style={[styles.radioButton, isSelected]} >
+         {isSelected && <View style={styles.radioButtonSelectedCircle} />}
+        </View>
+    </View>
+  </TouchableWithoutFeedback>
+  */
+
   const navigation = useNavigation();
+
   return (
     <View>
       {courses.map((course) => (

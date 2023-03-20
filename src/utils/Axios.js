@@ -110,3 +110,35 @@ export async function getInscriptions() {
     console.log("error inscripciones");
   }
 }
+
+////
+//getUserInfo
+///
+
+export async function getBankCards(){
+  try {
+    const response = await axios.get(`${baseUrl}/api/bankCards/user/1`,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = response.data;
+    return data.data;
+  } catch (error) {
+    console.log("error tarjetas");
+  }
+}
+
+export async function getBankCardById(bankCardId) {
+  try {
+    const response = await axios.get(`${baseUrl}/api/bankCards/user/1/card/${bankCardId}`,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = response.data;
+    return data.data;
+  } catch (error) {
+    console.log("error tarjeta id");
+  }
+};

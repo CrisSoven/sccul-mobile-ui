@@ -1,18 +1,16 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  KeyboardAvoidingView,
-} from "react-native";
+import { StyleSheet, Text, TextInput, View, KeyboardAvoidingView, } from "react-native";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { Button, Icon } from "react-native-elements";
+import { Icon } from "react-native-elements";
 import { useState } from "react";
 import Colors from "../../utils/Colors";
 
-export default function AddCardFormComponent() {
+export default function AddCardFormComponent(props) {
+  const { card, isEditable } = props;
+  console.log(card, isEditable);
+  const [showData, setShowData] = useState(false);
+
   const initialValues = {
     cardName: "",
     cardNumber: "",
@@ -29,7 +27,6 @@ export default function AddCardFormComponent() {
       .string()
       .required("El número de la tarjeta es requerido")
       .matches(/^[0-9]{16}$/, "El número de la tarjeta debe tener 16 dígitos"),
-
     expirationMonth: yup
       .number()
       .min(1, "El mes debe estar entre 1 y 12")
@@ -51,7 +48,6 @@ export default function AddCardFormComponent() {
   const [date, setDate] = useState(
     new Date(initialValues.expirationYear, initialValues.expirationMonth - 1)
   );
-  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const handleChangeDate = (newDate) => {
     setDate(newDate);
@@ -74,16 +70,10 @@ export default function AddCardFormComponent() {
           onSubmit={handleSubmit}
           validationSchema={validationSchema}
         >
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            values,
-            errors,
-            touched,
-          }) => (
+          {({ handleChange, handleBlur, handleSubmit, values, errors, touched, }) => (
             <View>
               <View style={styles.spaceBetween}>
+
                 <Text style={styles.label}>Nombre en tarjeta</Text>
                 <View style={styles.inputContainer}>
                   <Icon
@@ -98,7 +88,8 @@ export default function AddCardFormComponent() {
                     placeholder="Nombre en tarjeta"
                     onChangeText={handleChange("cardName")}
                     onBlur={handleBlur("cardName")}
-                    value={values.cardName}
+                    value={isEditable ? values.cardName : card.ownerName}
+                    editable={isEditable}
                   />
                 </View>
                 {errors.cardName && touched.cardName && (
@@ -106,6 +97,7 @@ export default function AddCardFormComponent() {
                 )}
               </View>
               <View style={styles.spaceBetween}>
+                
                 <Text style={styles.label}>Número de tarjeta</Text>
                 <View style={styles.inputContainer}>
                   <Icon
@@ -119,16 +111,18 @@ export default function AddCardFormComponent() {
                     placeholder="Numero de tarjeta"
                     onChangeText={handleChange("cardNumber")}
                     onBlur={handleBlur("cardNumber")}
-                    value={values.cardNumber}
+                    value={isEditable ? values.cardNumber : card.cardNumber}
                     keyboardType="numeric"
                     maxLength={16}
                     minLength={16}
+                    editable={isEditable}
                   />
                 </View>
                 {errors.cardNumber && touched.cardNumber && (
                   <Text style={styles.error}>{errors.cardNumber}</Text>
                 )}
               </View>
+
               <View style={styles.row}>
                 <View stlye={styles.column}>
                   <Text style={styles.label}>Fecha de expiración</Text>
@@ -145,9 +139,10 @@ export default function AddCardFormComponent() {
                       placeholder="MM"
                       onChangeText={handleChange("expirationMonth")}
                       onBlur={handleBlur("expirationMonth")}
-                      value={values.expirationMonth.toString()}
+                      value={isEditable ? values.expirationMonth.toString() : card.cardExpiration}
                       keyboardType="numeric"
                       maxLength={2}
+                      editable={isEditable}
                     />
                     <Text>/</Text>
                     <TextInput
@@ -158,6 +153,7 @@ export default function AddCardFormComponent() {
                       value={values.expirationYear.toString()}
                       keyboardType="numeric"
                       maxLength={4}
+                      editable={isEditable}
                     />
                   </View>
                   {errors.expirationMonth && touched.expirationMonth && (
@@ -182,10 +178,12 @@ export default function AddCardFormComponent() {
                       placeholder="CCV"
                       onChangeText={handleChange("ccv")}
                       onBlur={handleBlur("ccv")}
-                      value={values.ccv}
+                      secureTextEntry={true}
+                      value={isEditable ? values.ccv : card.cardCvv}
                       keyboardType="numeric"
                       maxLength={3}
                       minLength={3}
+                      editable={isEditable}
                     />
                   </View>
                   {errors.ccv && touched.ccv && (
@@ -211,7 +209,7 @@ const styles = StyleSheet.create({
   },
   column: {
     flexDirection: "column",
-    width: "40%",
+    width: "50%",
     paddingHorizontal: 20,
   },
   icon: {
@@ -226,8 +224,9 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   input: {
+    flex: 1,
     height: 45,
-    marginRight: "18%",
+    paddingRight: "20%",
   },
   error: {
     color: Colors.PalletteRed,
