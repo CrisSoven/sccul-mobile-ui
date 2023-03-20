@@ -1,12 +1,5 @@
-import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  Dimensions,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { Rating } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
 import Comments from "../../../components/common/Comments";
@@ -15,14 +8,29 @@ import Sections from "../../../components/common/Sections";
 import AddToCartBtn from "../../../components/home/AddToCartBtn";
 import BuyNowBtn from "../../../components/home/BuyNowBtn";
 import Colors from "../../../utils/Colors";
+import { getCourseById } from "../../../utils/Axios";
+import Splash from "../../sccul/SplashScreen";
 
-const CoursesDetailsScreen = ({ route }) => {
-  const { course } = route.params;
+export default function CoursesDetailsScreen({ route }) {
+  const [course, setCourse] = useState({});
+  const { courseId } = route.params;
 
-  const caps = course.section.length;
+  useEffect(() => {
+    const fetchCourse = async () => {
+      const fetchedCourse = await getCourseById(courseId);
+      setCourse(fetchedCourse);
+    };
+    fetchCourse();
+  }, [courseId]);
 
-  const totalDuration = course.section.reduce((acc, section) => {
-    const [minutes, seconds] = section.duration.split(":").map(Number);
+  if (!course.id) {
+    return <Splash />;
+  }
+
+  const caps = course.sections ? course.sections.length : 0;
+  
+  const totalDuration = course.sections.reduce((acc, sections) => {
+    const [minutes, seconds] = sections.duration.split(":").map(Number);
     const sectionDuration = minutes * 60 + seconds;
     return acc + sectionDuration;
   }, 0);
@@ -31,10 +39,10 @@ const CoursesDetailsScreen = ({ route }) => {
   const minutes = totalDuration % 60;
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} >
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Goback title={course.title} />
-        <Image source={course.image} style={styles.image} />
+        <Goback title={course.name} />
+        <Image source={{ uri: course.image }} style={styles.image} />
         <View style={styles.infoContainer}>
           <View style={styles.averageContainer}>
             <Text style={styles.average}>{course.average}</Text>
@@ -45,16 +53,15 @@ const CoursesDetailsScreen = ({ route }) => {
               fractions="{1}"
               imageSize={20}
               ratingColor={Colors.PalleteYellow}
-              ratingBackgroundColor={"#c8c8c8"}
             />
-            <Text style={{ fontSize: 18 }}>({course.comments.length})</Text>
+            <Text style={{ fontSize: 18 }}>({course.comments.length ? course.comments.length : 0})</Text>
           </View>
-          <Text style={styles.price}>{course.price}</Text>
+          <Text style={styles.price}>${course.price} MX</Text>
           <Text style={styles.description}>{course.description}</Text>
           <View>
             <TouchableOpacity style={styles.categoryContainer} disabled={true}>
               <Text style={styles.categoryText} numberOfLines={1}>
-                {course.category}
+                {course.category.name}
               </Text>
             </TouchableOpacity>
           </View>
@@ -74,7 +81,7 @@ const CoursesDetailsScreen = ({ route }) => {
             </Text>
           </View>
           <View style={styles.sectionsContainer}>
-            <Sections sections={course.section} />
+            <Sections sections={course.sections} />
           </View>
           <Text style={styles.commentsTitle}>Comentarios</Text>
           <View style={styles.commentsContainer}>
@@ -85,8 +92,6 @@ const CoursesDetailsScreen = ({ route }) => {
     </View>
   );
 };
-
-export default CoursesDetailsScreen;
 
 const styles = StyleSheet.create({
   image: {

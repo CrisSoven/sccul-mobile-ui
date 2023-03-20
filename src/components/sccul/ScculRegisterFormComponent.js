@@ -6,6 +6,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import Colors from "../../utils/Colors";
 import AccionsBtnComponent from "../../components/cart/AccionsBtnComponent";
+import { registerUser } from '../../utils/Axios';
 
 export default function LoginForm() {
   const [showPass, setShowPass] = useState(false);
@@ -41,33 +42,20 @@ export default function LoginForm() {
   });
 
   const handleFormSubmit = (handleSubmit) => {
-    handleSubmit();
+    return handleSubmit();
   };
 
   const handleSubmit = async (values) => {
     const { names, lastname, surname, cellphone, email, password } = values;
-
-    try {
-      console.log("entra" + values);
-      const response = await fetch("http://10.0.2.2:8080/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: names,
-          lastname: lastname,
-          surname,
-          phoneNumber: cellphone,
-          email,
-          password,
-        }),
-      });
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
+    console.log("registed?");
+    return await registerUser(
+      names,
+      lastname,
+      surname,
+      cellphone,
+      email,
+      password
+    );
   };
 
   return (

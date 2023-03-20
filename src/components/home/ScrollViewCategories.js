@@ -1,34 +1,34 @@
-import React, { useState } from "react";
-import {
-  ScrollView,
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Colors from "../../utils/Colors";
 import { useNavigation } from "@react-navigation/native";
-
-const categories = ["Programación", "Diseño", "Marketing", "Música", "Cocina", "Idiomas"];
+import { getCategories } from "../../utils/Axios";
 
 export default function ScrollViewCategories() {
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const fetchedCategories = await getCategories();
+      setCategories(fetchedCategories);
+    };
+    fetchCategories();
+  }, []);
 
   const navigation = useNavigation();
 
   return (
     <View style={styles.viewContainer}>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-        {categories.map((category, index) => (
+        {categories.map((category) => (
           <TouchableOpacity
-            key={index}
+            key={category.id}
             style={styles.container}
             onPress={() => {
-              setSelectedCategory(category);
               navigation.navigate("CategoryScreen", { category });
             }}
           >
-            <Text style={styles.text}>{category}</Text>
+            <Text style={styles.text}>{category.name}</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -46,10 +46,9 @@ const styles = StyleSheet.create({
     height: 55,
     backgroundColor: Colors.PalleteGreenBackground,
     marginRight: 15,
-    borderRadius: 5,
+    borderRadius: 15,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 15,
   },
   text: {
     color: Colors.PalleteBlack,

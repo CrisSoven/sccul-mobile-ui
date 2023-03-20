@@ -10,11 +10,10 @@ export default function CourseScreen() {
   const video = React.useRef(null);
   const [status, setStatus] = React.useState({});
   return (
-    <ScrollView>
-       <View style={styles.container}>
-        <Goback title="Fundamentos de JavaScript" />
-        <View style={styles.videoContainer}> 
-        <Video  
+    <ScrollView style={styles.container}>
+      <Goback title="Fundamentos de JavaScript" />
+      <View style={styles.videoContainer}>
+        <Video
           ref={video}
           style={styles.video}
           source={require("../../../assets/video/lavine.mp4")}
@@ -22,11 +21,10 @@ export default function CourseScreen() {
           resizeMode="contain"
           isLooping
           onPlaybackStatusUpdate={(status) => setStatus(() => status)}
-          />
-        </View>
-        <ContentComponent/>
-        <FeedbackComponent/>
+        />
       </View>
+      <ContentComponent />
+      <FeedbackComponent />
     </ScrollView>
   );
 }
@@ -34,14 +32,15 @@ export default function CourseScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-   
+  },
+  videoContainer: {
+    width: "90%",
+    height: 215,
+    alignSelf: "center",
+    marginBottom: 20,
   },
   video: {
-    alignSelf: "center",
-    width: 320,
-    height: 200,
-    resizeMode: "contain",
-    
-   },
-
+    height: "100%",
+    borderRadius: 20,
+  },
 });

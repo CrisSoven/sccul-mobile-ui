@@ -7,7 +7,6 @@ import { useNavigation } from "@react-navigation/native";
 export default function Courses(props) {
   const navigation = useNavigation();
   const { title, duration, progress, image } = props;
-  console.log(props);
 
   return (
     <TouchableOpacity

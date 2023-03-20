@@ -6,9 +6,11 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import Colors from '../../utils/Colors';
 import AccionsBtnComponent from '../../components/cart/AccionsBtnComponent';
+import { loginUser } from '../../utils/Axios';
 
 export default function LoginForm() {
   const [showPass, setShowPass] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
 
   const initialValues = {
@@ -25,29 +27,17 @@ export default function LoginForm() {
   });
 
   const handleFormSubmit = (handleSubmit) => {
-    handleSubmit();
+    return handleSubmit();
   };
 
   const handleSubmit = async (values) => {
     const { email, password } = values;
+    console.log('log');
+    return await loginUser(email, password);
+  };
 
-    try {
-      console.log('entra');
-      const response = await fetch('http://10.0.2.2:8080/api/auth/mobile/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: email,
-          password,
-        }),
-      });
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
+  const hidePass = () => {
+    setShowPass(!showPass);
   };
 
   return (
@@ -94,7 +84,8 @@ export default function LoginForm() {
               <View style={styles.inputContainer}>
                 <Icon
                   style={styles.icon}
-                  name='account-outline'
+                  name= {showPass ? 'eye-off-outline' : 'eye-outline'}
+                  onPress={hidePass}
                   size={24}
                   color='black'
                   type='material-community'
@@ -118,9 +109,8 @@ export default function LoginForm() {
                   btnCancelTitle={'Regresar'}
                   btnContinueTitle={'Iniciar sesión'}
                   btnPrimary={true}
-                  action={() =>
-                    handleFormSubmit(handleSubmit)
-                  }
+                  loading={isLoading}
+                  action={() => handleFormSubmit(handleSubmit)}
                 />
               </View>
             </View>

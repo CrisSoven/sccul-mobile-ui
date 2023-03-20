@@ -5,23 +5,20 @@ import Splash from './src/screens/sccul/SplashScreen';
 import { View } from 'react-native';
 import Header from './src/components/common/Header';
 import ScculStack from './src/navigation/stacks/ScculStack';
+import { checkLoginStatus } from './src/utils/Axios';
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(null);
 
   useEffect(() => {
-    async function checkLoginStatus() {
-      // Aquí iría la lógica para verificar si el usuario está logueado o no
-      // Si está logueado, se setea setIsLogged a true
-      // Si no está logueado, se setea setIsLogged a false
-      setIsLoading(false); // Una vez que se haya verificado el estado de login, se oculta el splash screen
+    async function checkStatus() {
+      const status = await checkLoginStatus();
+      setIsLogged(true);
     }
-
-    checkLoginStatus();
+    checkStatus();
   }, []);
 
-  if (isLoading) {
+  if (isLogged === null) {
     return <Splash />;
   }
   return (

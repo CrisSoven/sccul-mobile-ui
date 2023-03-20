@@ -40,20 +40,17 @@ export default function FilterCourse() {
 
 const styles = StyleSheet.create({
   box: {
-    marginTop: 20,
+    marginVertical: 10,
     marginLeft: 10,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-
-
   },
   container: {
     width: 90,
     height: 60,
     backgroundColor: Colors.PalleteGreenBackground,
     marginRight: 20,
-    borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 15,
@@ -68,5 +65,4 @@ const styles = StyleSheet.create({
     marginLeft:2,
     marginRight:1,
   },
-  
 })

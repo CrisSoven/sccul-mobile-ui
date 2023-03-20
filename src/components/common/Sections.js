@@ -19,7 +19,7 @@ export default function Sections(section) {
             style={{ opacity: 0.5 }}
           />
           <Text style={styles.title} numberOfLines={1}>
-            {section.title}
+            {section.name}
           </Text>
           <Text style={styles.duration}>{section.duration}h</Text>
         </TouchableOpacity>

@@ -7,10 +7,6 @@ import ScculLoginFormComponent from '../../components/sccul/ScculLoginFormCompon
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function LoginScreen() {
-  const navigation = useNavigation();
-  const navigateToL = () => {
-    navigation.navigate('Logins');
-  }
   return (
     <SafeAreaView>
       <KeyboardAwareScrollView>

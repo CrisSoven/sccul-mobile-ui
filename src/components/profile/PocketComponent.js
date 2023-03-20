@@ -6,7 +6,6 @@ import Colors from "../../utils/Colors";
 
 export default function CardsComponent(props) {
   const { onPress } = props;
-  console.log(props);
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.leftContainer}>

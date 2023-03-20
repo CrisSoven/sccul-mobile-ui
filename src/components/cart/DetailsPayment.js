@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Colors from '../../utils/Colors'
-import ListCourses from '../common/ListCourses';
+import Courses from '../common/Courses';
 
 export default function DetailsPayment() {
   const courses = [
@@ -30,7 +30,7 @@ export default function DetailsPayment() {
   return (
     <View>
       <Text style={styles.title}>Detalles de compra</Text>
-      <ListCourses 
+      <Courses 
       courses={courses}/>
     </View>
   )

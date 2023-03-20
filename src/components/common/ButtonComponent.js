@@ -1,15 +1,20 @@
 import Colors from "../../utils/Colors";
 import { Icon } from "react-native-elements";
 import React from "react";
-import { StyleSheet, TouchableOpacity, Text } from "react-native";
+import { StyleSheet, Text } from "react-native";
+import { Button } from "react-native-elements";
 
 export default function ButtonComponent(props) {
-  const { title, icon, btnPrimary, onPress } = props;
+  const { title, icon, btnPrimary, onPress, loading } = props;
   return (
-    <TouchableOpacity style={[styles.button, btnPrimary === true ? styles.btnPrimaryColor : styles.btnCancelColor]} onPress={onPress}>
-      {icon && <Icon name={icon} size={24} color="white" style={styles.icon} />}
-      <Text style={btnPrimary === true ? styles.titlePrimary : styles.titleCancel}>{title}</Text>
-    </TouchableOpacity>
+    <Button
+      title={title}
+      loading={loading}
+      onPress={onPress}
+      titleStyle={btnPrimary ? styles.titlePrimary : styles.titleCancel}
+      icon={icon && <Icon name={icon} size={24} color="white" style={styles.icon} />}
+      buttonStyle={[styles.button, btnPrimary ? styles.btnPrimaryColor : styles.btnCancelColor]}
+    />
   );
 }
 

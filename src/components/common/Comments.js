@@ -5,8 +5,6 @@ import { Icon, Rating } from "react-native-elements";
 
 export default function Comments(comment) {
   const { comments } = comment;
-  console.log(comments);
-
   return (
     <View>
       {comments.map((comments, index) => (
@@ -20,7 +18,7 @@ export default function Comments(comment) {
           <View style={styles.infoContainer}>
             <View style={styles.nameContainer}>
               <Text style={styles.name} numberOfLines={1}>
-                {comments.name}
+                {comments.user.name + " " + comments.user.surname}
               </Text>
               <Text style={styles.createdAt}>{comments.createdAt}</Text>
               <Rating

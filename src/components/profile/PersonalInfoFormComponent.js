@@ -12,7 +12,7 @@ export default function PersonalInfoFormComponent() {
   };
 
   return (
-    <View style={styles.form}>
+    <View style={{marginBottom: 20}}>
       <Input
         label="Nombre(s)"
         value="Cristopher"
@@ -62,7 +62,6 @@ export default function PersonalInfoFormComponent() {
       <TouchableOpacity style={styles.row} onPress={navigateTo}>
         <View style={styles.circleKey}>
           <Icon
-            style={styles.icon}
             name="vpn-key"
             type="MaterialIcons"
             size={20}
@@ -77,11 +76,9 @@ export default function PersonalInfoFormComponent() {
 }
 
 const styles = StyleSheet.create({
-  icon: {
-    paddingRight: 10,
-  },
   row: {
     flexDirection: "row",
+    alignItems: "center",
   },
   column: {
     flexDirection: "column",
@@ -92,17 +89,12 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 20,
     backgroundColor: Colors.PalleteGreenBackground,
-    alignItems: "center",
     justifyContent: "center",
     marginLeft: 20,
-  },
-  form: {
-    marginBottom: 20,
   },
   label: {
     fontSize: 15,
     fontWeight: "700",
-    marginTop: 20,
-    marginLeft: 20,
+    marginLeft: 10,
   },
 });

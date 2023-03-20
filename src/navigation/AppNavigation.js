@@ -20,9 +20,9 @@ export default function AppNavigation() {
           fontSize: 9,
         },
         tabBarStyle: {
-          padding: 15,
-          paddingBottom: 15,
-          height: 70,
+          padding: 10,
+          paddingBottom: 10,
+          height: 65,
         },
       }}
     >

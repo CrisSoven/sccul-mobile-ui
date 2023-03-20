@@ -2,18 +2,18 @@ import { useState } from "react";
 import { StyleSheet, Text, View, TouchableWithoutFeedback } from "react-native";
 import Colors from "../../utils/Colors";
 
-export default function SelectComponent({}) {
+export default function SelectComponent() {
   const [isSelected, setIsSelected] = useState(false);
 
   return (
     <TouchableWithoutFeedback onPress={() => setIsSelected(!isSelected)}>
       <View style={styles.container}>
         <View
-          style={[styles.radioButton, isSelected && styles.radioButtonSelected]}
+          style={[styles.radioButton, isSelected]}
         >
           {isSelected && <View style={styles.radioButtonSelectedCircle} />}
         </View>
-        <Text style={styles.textP}>Selecciona Todos los Cursos</Text>
+        <Text style={styles.textP}>Seleccionar todos los cursos</Text>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -21,9 +21,9 @@ export default function SelectComponent({}) {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 10,
+    marginVertical: 20,
+    marginHorizontal: 20,
     flexDirection: "row",
-    alignItems: "center",
   },
   radioButton: {
     height: 20,
@@ -40,14 +40,6 @@ const styles = StyleSheet.create({
     width: 10,
     borderRadius: 5,
     backgroundColor: Colors.PalleteBluePrimary,
-  },
-  optionContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginVertical: 5,
-  },
-  optionText: {
-    fontSize: 16,
   },
   textP: {
     fontSize: 14,

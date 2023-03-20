@@ -63,16 +63,16 @@ import React from "react";
 import ButtonComponent from "../common/ButtonComponent";
 
 export default function AccionsBtnComponent(props) {
-  const { btnCancelTitle, btnContinueTitle, isReturn, action, btnPrimary } = props;
+  const { btnCancelTitle, btnContinueTitle, action, btnPrimary, loading } = props;
   return (
     <View style={styles.container}>
       <ButtonComponent
         title={btnCancelTitle}
-        onPress={isReturn}
       />
       <ButtonComponent
         title={btnContinueTitle}
         onPress={action}
+        loading={loading}
         btnPrimary={btnPrimary}
       />
     </View>
