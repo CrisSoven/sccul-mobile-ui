@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView, BackHandler } from "react-native";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import React from "react";
 import SearchBar from "../../components/common/SearchBar";
 import Banner from "../../components/home/Banner";

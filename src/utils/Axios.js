@@ -6,7 +6,6 @@ let localPassword = "empty"
 let localToken = "empty"
 let token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
 
-
 export async function checkLoginStatus() {
   try {
     loginUser(localEmail, localPassword)
@@ -111,9 +110,47 @@ export async function getInscriptions() {
   }
 }
 
-////
-//getUserInfo
-///
+export async function deleteInscription(inscriptionId) {
+  try {
+    const response = await axios.delete(`${baseUrl}/api/inscriptions/${inscriptionId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = response.data;
+    return data.data;
+  } catch (error) {
+    console.log("error inscripciones");
+  }
+};
+
+export async function buyCourse(inscriptionId) {
+  try {
+    const response = await axios.patch(`${baseUrl}/api/inscriptions/changeStatus/${inscriptionId}`,{}, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = response.data;
+    return data.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getUserInfo() {
+  try {
+    const response = await axios.get(`${baseUrl}/api/users/1`,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = response.data;
+    return data.data;
+  } catch (error) {
+    console.log("error info usuario");
+  }
+};
 
 export async function getBankCards(){
   try {

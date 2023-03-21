@@ -1,16 +1,13 @@
-////////////////////////////////////
-//          Pendiente
-///////////////////////////////////
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import React, { useState, useEffect } from "react";
 import SearchBar from "../../components/common/SearchBar";
 import SelectComponent from "../../components/cart/SelectComponent";
-import Courses from "../../components/common/Courses";
 import Colors from "../../utils/Colors";
 import TitleBtnComponent from "../../components/profile/TitleBtnComponent";
 import { useNavigation } from "@react-navigation/native";
 import { getCourses } from "../../utils/Axios";
 import Splash from "../../screens/sccul/SplashScreen";
+import SwipeableComponent from "../../components/cart/SwipeableComponent";
 
 export default function CartScreen() {
   const [courses, setCourses] = useState([]);
@@ -23,7 +20,9 @@ export default function CartScreen() {
     fetchCourses();
   }, []);
 
-  if (!courses) <Splash />;
+  if (!courses.length > 0) {
+    return <Splash />;
+  }
 
   const filteredCourses = courses.filter((curso) => {
     const inscriptions = curso.inscriptions;
@@ -47,10 +46,10 @@ export default function CartScreen() {
       <SearchBar />
       <SelectComponent />
       <ScrollView style={styles.content}>
-        <Courses courses={filteredCourses} inCart={true} />
+        <SwipeableComponent courses={filteredCourses} />
       </ScrollView>
       <TitleBtnComponent
-        textTitle= {`$${total} MX`}
+        textTitle= {`$${total.toFixed(3)} MX`}
         titleStyle={styles.subtitle}
         textBtn=" Pagar "
         icon="payments"
@@ -69,7 +68,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingVertical: 20,
+    paddingVertical: 10,
   },
   title: {
     fontSize: 24,

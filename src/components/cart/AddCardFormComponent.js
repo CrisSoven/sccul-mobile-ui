@@ -8,7 +8,6 @@ import Colors from "../../utils/Colors";
 
 export default function AddCardFormComponent(props) {
   const { card, isEditable } = props;
-  console.log(card, isEditable);
   const [showData, setShowData] = useState(false);
 
   const initialValues = {
@@ -111,10 +110,10 @@ export default function AddCardFormComponent(props) {
                     placeholder="Numero de tarjeta"
                     onChangeText={handleChange("cardNumber")}
                     onBlur={handleBlur("cardNumber")}
-                    value={isEditable ? values.cardNumber : card.cardNumber}
+                    value={isEditable ? values.cardNumber : card.cardNumber.replace(/(\d{4})/g, '$1 ')}
                     keyboardType="numeric"
-                    maxLength={16}
-                    minLength={16}
+                    maxLength={isEditable ? 16 : 19}
+                    minLength={isEditable ? 16 : 19}
                     editable={isEditable}
                   />
                 </View>

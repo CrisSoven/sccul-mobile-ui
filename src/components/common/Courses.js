@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import React, { useState, useEffect } from "react";
+import React  from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Image, Text } from "react-native-elements";
 import { Rating } from "react-native-elements";
@@ -7,24 +7,54 @@ import { useNavigation } from "@react-navigation/native";
 import Colors from "../../utils/Colors";
 
 export default function Courses(props) {
-  const { courses, inCart } = props;
-
-  /*
-  <TouchableWithoutFeedback onPress={() => setIsSelected(!isSelected)}>
-    <View>
-       <View style={[styles.radioButton, isSelected]} >
-         {isSelected && <View style={styles.radioButtonSelectedCircle} />}
-        </View>
-    </View>
-  </TouchableWithoutFeedback>
-  */
-
+  const { courses, courseSwipe } = props;
   const navigation = useNavigation();
+
+  const changeOpacity = () => {
+    console.log("hola");
+  };
+
+  if (courseSwipe) {
+    return (
+      <TouchableOpacity
+      activeOpacity={0.8}
+        style={styles.container}
+        onPress={() => {
+          navigation.navigate("CoursesDetailsScreen", { courseId: courseSwipe.id });
+        }}
+      >
+        <View style={styles.imageContainer}>
+          <Image source={{ uri: courseSwipe.image }} style={styles.image} resizeMode="cover" />
+        </View>
+        <View style={styles.infoContainer}>
+          <Text style={styles.titleCourse} numberOfLines={2}>{courseSwipe.name}</Text>
+          <View>
+            <Text style={styles.price}>${courseSwipe.price} MX</Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={styles.average}>{courseSwipe.average ? courseSwipe.average : 0}</Text>
+              <Rating
+                style={{ marginRight: 3 }}
+                type='custom'
+                startingValue={courseSwipe.average ? courseSwipe.average : 0}
+                fractions="{1}"
+                imageSize={20}
+                ratingColor={Colors.PalleteYellow}
+                ratingBackgroundColor={"#c8c8c8"}
+                tintColor={Colors.PalleteGreenBackground}
+              />
+              <Text style={{ fontSize: 14 }}>({courseSwipe.comments ? 0 : courseSwipe.comments})</Text>
+            </View>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <View>
       {courses.map((course) => (
         <TouchableOpacity
+        activeOpacity={0.8}
           key={course.id}
           style={styles.container}
           onPress={() => {

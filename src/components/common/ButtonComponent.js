@@ -1,7 +1,7 @@
 import Colors from "../../utils/Colors";
 import { Icon, Button } from "react-native-elements";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 export default function ButtonComponent(props) {
   const { title, icon, btnPrimary, onPress, loading } = props;

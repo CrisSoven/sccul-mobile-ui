@@ -4,8 +4,12 @@ import Colors from "../../utils/Colors";
 import { Icon } from "react-native-elements";
 import Input from "../common/InputComponent";
 import { useNavigation } from "@react-navigation/native";
+import ModalComponent from "../common/ModalComponent";
 
-export default function PersonalInfoFormComponent() {
+export default function PersonalInfoFormComponent(props) {
+  const { user, isEditable } = props;
+  console.log(user);
+
   const navigation = useNavigation();
   const navigateTo = () => {
     navigation.navigate("ChangePass");
@@ -15,49 +19,49 @@ export default function PersonalInfoFormComponent() {
     <View style={{marginBottom: 20}}>
       <Input
         label="Nombre(s)"
-        value="Cristopher"
+        value={user.name}
         iconName="person-outline"
         iconType="MaterialIcons"
         iconSize={25}
-        editable={false}
+        editable={isEditable}
       />
       <View style={styles.row}>
         <View style={styles.column}>
           <Input
             label="Apellido paterno"
-            value="Soto"
+            value={user.lastname}
             iconName="person-outline"
             iconType="MaterialIcons"
             iconSize={25}
-            editable={false}
+            editable={isEditable}
           />
         </View>
         <View style={styles.column}>
           <Input
             label="Apellido materno"
-            value="Ventura"
+            value={user.surname}
             iconName="person-outline"
             iconType="MaterialIcons"
             iconSize={25}
-            editable={false}
+            editable={isEditable}
           />
         </View>
       </View>
       <Input
         label="Teléfono"
-        value="7775550627"
+        value={user.phoneNumber}
         iconName="phone-android"
         iconType="MaterialIcons"
         iconSize={20}
-        editable={false}
+        editable={isEditable}
       />
       <Input
         label="Correo electrónico"
-        value="cristopher.sotoventura@gmail.com"
+        value={user.email}
         iconName="mail-outline"
         iconType="MaterialIcons"
         iconSize={25}
-        editable={false}
+        editable={isEditable}
       />
       <TouchableOpacity style={styles.row} onPress={navigateTo}>
         <View style={styles.circleKey}>
@@ -65,12 +69,13 @@ export default function PersonalInfoFormComponent() {
             name="vpn-key"
             type="MaterialIcons"
             size={20}
-            editable={false}
-
           />
         </View>
         <Text style={styles.label}>Cambiar contraseña</Text>
       </TouchableOpacity>
+      {/* <ModalComponent isVisible={true} close={() => {}}>
+        <Text>hola</Text>
+      </ModalComponent> */}
     </View>
   );
 }

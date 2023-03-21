@@ -5,7 +5,6 @@ import Colors from "../../../utils/Colors";
 import ChangePasswordComponent from "../../../components/profile/ChangePasswordComponent";
 import ButtonComponent from "../../../components/common/ButtonComponent";
 import { useNavigation } from "@react-navigation/native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function ChangePasswordScreen() {
   const navigation = useNavigation();
@@ -13,7 +12,7 @@ export default function ChangePasswordScreen() {
     navigation.navigate("Profiles");
   };
   return (
-    <KeyboardAwareScrollView>
+    <View>
       <Goback title="Cambiar contraseña" />
       <Text style={styles.text}>La nueva contraseña debe ser diferente a la actual</Text>
       <ChangePasswordComponent />
@@ -28,7 +27,7 @@ export default function ChangePasswordScreen() {
           onPress={navigateTo}
         />
       </View>
-    </KeyboardAwareScrollView>
+    </View>
   );
 }
 
