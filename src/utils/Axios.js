@@ -1,10 +1,11 @@
 import axios from "axios";
 
-const baseUrl = "http://192.168.1.70:8080";
+const baseUrl = "http://192.168.34.102:8080";
 let localEmail = "no@email.com"
 let localPassword = "empty"
 let localToken = "empty"
 let token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
+//cris@gmail.com
 
 export async function checkLoginStatus() {
   try {

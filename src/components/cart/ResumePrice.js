@@ -3,10 +3,11 @@ import React from 'react'
 import PriceTotalCartComponnet from './PriceTotalCartComponent'
 import Colors from '../../utils/Colors'
 
-export default function ResumePrice() {
+export default function ResumePrice(props) {
+  const { totalInscriptions } = props
   return (
     <View style={styles.container}>
-        <Text style={styles.title}>Total a pagar (3)</Text>
+        <Text style={styles.title}>Total a pagar ({totalInscriptions})</Text>
     <PriceTotalCartComponnet
       priceText={'$'  + 599.75 + 'mx'  }
         containerStyle={styles.priceContainer}

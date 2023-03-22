@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import React, { useState, useEffect } from "react";
 import SearchBar from "../../components/common/SearchBar";
-import SelectComponent from "../../components/cart/SelectComponent";
+import SwipeNotify from "../../components/cart/SwipeNotify";
 import Colors from "../../utils/Colors";
 import TitleBtnComponent from "../../components/profile/TitleBtnComponent";
 import { useNavigation } from "@react-navigation/native";
@@ -35,6 +35,8 @@ export default function CartScreen() {
     return acc + curso.price;
   }, 0);
 
+  const finalTotal = total.toFixed(3);
+
   const navigation = useNavigation();
   const navigateTo = () => {
     navigation.navigate("PaymentMethod");
@@ -44,12 +46,12 @@ export default function CartScreen() {
     <View style={styles.container}>
       <Text style={styles.title}>Carrito de compras</Text>
       <SearchBar />
-      <SelectComponent />
-      <ScrollView style={styles.content}>
+      <SwipeNotify />
+      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <SwipeableComponent courses={filteredCourses} />
       </ScrollView>
       <TitleBtnComponent
-        textTitle= {`$${total.toFixed(3)} MX`}
+        textTitle={`$${finalTotal} MX`}
         titleStyle={styles.subtitle}
         textBtn=" Pagar "
         icon="payments"

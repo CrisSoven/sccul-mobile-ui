@@ -6,28 +6,28 @@ import Colors from '../../utils/Colors';
 import { useNavigation } from '@react-navigation/native';
 
 export default function CardsComponent(props) {
-  const { cards } = props;
+  const { cards, onPress } = props;
   const navigation = useNavigation();
   return (
-   <>
-   {
-    cards.map((card) => (
-      <TouchableOpacity
-      key={card.id}
-      style={styles.container}
-      card={card}
-      onPress={() => navigation.navigate("CreditCards", { cardId: card.id })}
-    >
-      <View style={styles.leftContainer}>
-        <Image style={styles.image} source={card.cardNumber.substr(0,1) == 4 ? require("../../../assets/img/visa.png") : require("../../../assets/img/masterCard.png")} />
-        <Text style={styles.title}>{card.alias}</Text>
-      </View>
-      <View style={styles.rightContainer}>
-        <Icon name='chevron-right' type='material-community' size={30} />
-      </View>
-    </TouchableOpacity>
-    ))}
-   </>
+    <>
+      {
+        cards.map((card) => (
+          <TouchableOpacity
+            key={card.id}
+            style={styles.container}
+            card={card}
+            onPress={onPress ? () => navigation.navigate(onPress, { cardId: card.id }) : () => navigation.navigate("CreditCards", { cardId: card.id })}
+          >
+            <View style={styles.leftContainer}>
+              <Image style={styles.image} source={card.cardNumber.substr(0, 1) == 4 ? require("../../../assets/img/visa.png") : require("../../../assets/img/masterCard.png")} />
+              <Text style={styles.title}>{card.alias}</Text>
+            </View>
+            <View style={styles.rightContainer}>
+              <Icon name='chevron-right' type='material-community' size={30} />
+            </View>
+          </TouchableOpacity>
+        ))}
+    </>
   )
 }
 
