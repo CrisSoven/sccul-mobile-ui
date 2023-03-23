@@ -28,7 +28,7 @@ export default function CoursesDetailsScreen({ route }) {
   }
 
   const caps = course.sections ? course.sections.length : 0;
-  
+
   const totalDuration = course.sections.reduce((acc, sections) => {
     const [minutes, seconds] = sections.duration.split(":").map(Number);
     const sectionDuration = minutes * 60 + seconds;
@@ -39,7 +39,7 @@ export default function CoursesDetailsScreen({ route }) {
   const minutes = totalDuration % 60;
 
   return (
-    <View style={styles.container} >
+    <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Goback title={course.name} />
         <Image source={{ uri: course.image }} style={styles.image} />
@@ -47,14 +47,17 @@ export default function CoursesDetailsScreen({ route }) {
           <View style={styles.averageContainer}>
             <Text style={styles.average}>{course.average}</Text>
             <Rating
-              style={{ marginRight: 5 }}
-              type='custom'
               startingValue={course.average}
-              fractions="{1}"
-              imageSize={20}
+              fractions={1}
+              imageSize={24}
+              readonly
               ratingColor={Colors.PalleteYellow}
+              tintColor={Colors.PalletteYellow}
+              style={{ marginRight: 10 }}
             />
-            <Text style={{ fontSize: 18 }}>({course.comments.length ? course.comments.length : 0})</Text>
+            <Text style={{ fontSize: 18 }}>
+              ({course.comments.length ? course.comments.length : 0})
+            </Text>
           </View>
           <Text style={styles.price}>${course.price} MX</Text>
           <Text style={styles.description}>{course.description}</Text>
@@ -91,9 +94,13 @@ export default function CoursesDetailsScreen({ route }) {
       </ScrollView>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.PalleteWhite,
+  },
   image: {
     width: "90%",
     height: 230,
@@ -127,10 +134,12 @@ const styles = StyleSheet.create({
   },
   categoryContainer: {
     marginTop: "4%",
-    width: 130,
+    width: "45%",
     height: 40,
     backgroundColor: Colors.PalleteGreenBackground,
     justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
     borderRadius: 16,
   },
   categoryText: {

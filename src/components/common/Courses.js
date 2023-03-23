@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import React  from "react";
+import React from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Image, Text } from "react-native-elements";
 import { Rating } from "react-native-elements";
@@ -17,70 +17,92 @@ export default function Courses(props) {
   if (courseSwipe) {
     return (
       <TouchableOpacity
-      activeOpacity={0.8}
+        activeOpacity={0.8}
         style={styles.container}
         onPress={() => {
-          navigation.navigate("CoursesDetailsScreen", { courseId: courseSwipe.id });
+          navigation.navigate("CoursesDetailsScreen", {
+            courseId: courseSwipe.id,
+          });
         }}
       >
         <View style={styles.imageContainer}>
-          <Image source={{ uri: courseSwipe.image }} style={styles.image} resizeMode="cover" />
+          <Image
+            source={{ uri: courseSwipe.image }}
+            style={styles.image}
+            resizeMode="cover"
+          />
         </View>
         <View style={styles.infoContainer}>
-          <Text style={styles.titleCourse} numberOfLines={2}>{courseSwipe.name}</Text>
+          <Text style={styles.titleCourse} numberOfLines={2}>
+            {courseSwipe.name}
+          </Text>
           <View>
             <Text style={styles.price}>${courseSwipe.price} MX</Text>
             <View style={{ flexDirection: "row" }}>
-              <Text style={styles.average}>{courseSwipe.average ? courseSwipe.average : 0}</Text>
+              <Text style={styles.average}>
+                {courseSwipe.average ? courseSwipe.average : 0}
+              </Text>
               <Rating
-                style={{ marginRight: 3 }}
-                type='custom'
                 startingValue={courseSwipe.average ? courseSwipe.average : 0}
-                fractions="{1}"
+                fractions={1}
                 imageSize={20}
+                readonly
                 ratingColor={Colors.PalleteYellow}
-                ratingBackgroundColor={"#c8c8c8"}
                 tintColor={Colors.PalleteGreenBackground}
+                style={{ marginRight: 10 }}
               />
-              <Text style={{ fontSize: 14 }}>({courseSwipe.comments ? 0 : courseSwipe.comments})</Text>
+              <Text style={{ fontSize: 14 }}>
+                ({courseSwipe.comments ? 0 : courseSwipe.comments})
+              </Text>
             </View>
           </View>
         </View>
       </TouchableOpacity>
     );
-  };
+  }
 
   return (
     <View>
       {courses.map((course) => (
         <TouchableOpacity
-        activeOpacity={0.8}
+          activeOpacity={0.8}
           key={course.id}
           style={styles.container}
           onPress={() => {
-            navigation.navigate("CoursesDetailsScreen", { courseId: course.id });
+            navigation.navigate("CoursesDetailsScreen", {
+              courseId: course.id,
+            });
           }}
         >
           <View style={styles.imageContainer}>
-            <Image source={{ uri: course.image }} style={styles.image} resizeMode="cover" />
+            <Image
+              source={{ uri: course.image }}
+              style={styles.image}
+              resizeMode="cover"
+            />
           </View>
           <View style={styles.infoContainer}>
-            <Text style={styles.titleCourse} numberOfLines={2}>{course.name}</Text>
+            <Text style={styles.titleCourse} numberOfLines={2}>
+              {course.name}
+            </Text>
             <View>
-              <Text style={styles.price}>${course.price} MX</Text>
+              <Text style={styles.price}>${course.price} MXN</Text>
               <View style={{ flexDirection: "row" }}>
-                <Text style={styles.average}>{course.average ? course.average : 0}</Text>
+                <Text style={styles.average}>
+                  {course.average ? course.average : 0}
+                </Text>
                 <Rating
-                  style={{ marginRight: 3 }}
-                  type='custom'
                   startingValue={course.average ? course.average : 0}
-                  fractions="{1}"
+                  fractions={1}
                   imageSize={20}
+                  readonly
                   ratingColor={Colors.PalleteYellow}
-                  ratingBackgroundColor={"#c8c8c8"}
                   tintColor={Colors.PalleteGreenBackground}
+                  style={{ marginRight: 10 }}
                 />
-                <Text style={{ fontSize: 14 }}>({course.comments ? 0 : course.comments})</Text>
+                <Text style={{ fontSize: 14 }}>
+                  ({course.comments ? 0 : course.comments})
+                </Text>
               </View>
             </View>
           </View>
@@ -88,7 +110,7 @@ export default function Courses(props) {
       ))}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

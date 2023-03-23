@@ -28,7 +28,7 @@ export default function ScrollViewCategories() {
               navigation.navigate("CategoryScreen", { category });
             }}
           >
-            <Text style={styles.text}>{category.name}</Text>
+            <Text style={styles.text} numberOfLines={1}>{category.name}</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     marginBottom: "3%",
   },
   container: {
-    width: 130,
+    width: "auto",
     height: 55,
     backgroundColor: Colors.PalleteGreenBackground,
     marginRight: 15,
@@ -55,5 +55,6 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     textAlign: "center",
     fontSize: 13,
+    paddingHorizontal: 20,
   },
 });
