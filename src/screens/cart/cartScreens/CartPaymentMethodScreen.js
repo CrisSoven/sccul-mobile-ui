@@ -9,6 +9,8 @@ import { getBankCards } from "../../../utils/Axios";
 import Splash from "../../sccul/SplashScreen";
 
 export default function CartPaymentMethodScreen(props) {
+  const { filteredCourses } = props.route.params;
+
   const [cards, setCards] = useState([]);
   useEffect(() => {
     const fetchCards = async () => {
@@ -24,8 +26,8 @@ export default function CartPaymentMethodScreen(props) {
 
   const navigation = useNavigation();
 
-  const navigateToAdd = () => {
-    navigation.navigate("AddCard");
+  const navigateToAddCard = () => {
+    console.log("add card???");
   };
 
   return (
@@ -38,12 +40,13 @@ export default function CartPaymentMethodScreen(props) {
           textBtn="Agregar tarjeta"
           icon="add"
           btnPrimary={true}
-          onPress={navigateToAdd}
+          onPress={navigateToAddCard}
         />
       </View>
       <View style={styles.content}>
         <CardsComponent
           cards={cards}
+          courses={filteredCourses}
           onPress={"CartPayment"} />
       </View>
     </ScrollView>

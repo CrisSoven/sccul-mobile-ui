@@ -1,3 +1,4 @@
+// pendiente por optimizar el codigo xdxd
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
@@ -6,17 +7,18 @@ import Colors from '../../utils/Colors';
 import { useNavigation } from '@react-navigation/native';
 
 export default function CardsComponent(props) {
-  const { cards, onPress } = props;
+  const { cards, card, courses, onPress } = props;
   const navigation = useNavigation();
+
   return (
     <>
       {
-        cards.map((card) => (
+        card ? (
           <TouchableOpacity
             key={card.id}
             style={styles.container}
             card={card}
-            onPress={onPress ? () => navigation.navigate(onPress, { cardId: card.id }) : () => navigation.navigate("CreditCards", { cardId: card.id })}
+            onPress={onPress ? () => navigation.navigate(onPress, { cardId: card.id, courses }) : () => navigation.navigate("CreditCards", { cardId: card.id })}
           >
             <View style={styles.leftContainer}>
               <Image style={styles.image} source={card.cardNumber.substr(0, 1) == 4 ? require("../../../assets/img/visa.png") : require("../../../assets/img/masterCard.png")} />
@@ -26,7 +28,25 @@ export default function CardsComponent(props) {
               <Icon name='chevron-right' type='material-community' size={30} />
             </View>
           </TouchableOpacity>
-        ))}
+        ) : (
+          cards.map((card) => (
+            <TouchableOpacity
+              key={card.id}
+              style={styles.container}
+              card={card}
+              onPress={onPress ? () => navigation.navigate(onPress, { cardId: card.id, courses }) : () => navigation.navigate("CreditCards", { cardId: card.id })}
+            >
+              <View style={styles.leftContainer}>
+                <Image style={styles.image} source={card.cardNumber.substr(0, 1) == 4 ? require("../../../assets/img/visa.png") : require("../../../assets/img/masterCard.png")} />
+                <Text style={styles.title}>{card.alias}</Text>
+              </View>
+              <View style={styles.rightContainer}>
+                <Icon name='chevron-right' type='material-community' size={30} />
+              </View>
+            </TouchableOpacity>
+          ))
+        )
+      }
     </>
   )
 }

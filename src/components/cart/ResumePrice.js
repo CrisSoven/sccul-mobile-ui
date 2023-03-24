@@ -4,34 +4,34 @@ import PriceTotalCartComponnet from './PriceTotalCartComponent'
 import Colors from '../../utils/Colors'
 
 export default function ResumePrice(props) {
-  const { totalInscriptions } = props
+  const { totalInscriptions, price } = props
   return (
     <View style={styles.container}>
-        <Text style={styles.title}>Total a pagar ({totalInscriptions})</Text>
-    <PriceTotalCartComponnet
-      priceText={'$'  + 599.75 + 'mx'  }
+      <Text style={styles.title}>Total a pagar ({totalInscriptions})</Text>
+      <PriceTotalCartComponnet
+        priceText={`$${price} MX`}
         containerStyle={styles.priceContainer}
         priceStyle={styles.price}
-    />        
+      />
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        paddingTop: 10,
-        paddingHorizontal: 10,
-        paddingVertical:5,
-    
-    },
-    title:{
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: Colors.PalleteBlack, 
-    },
-    price:{
-        fontSize: 50,
-        fontWeight: 'bold',
-        color: Colors.PalleteAuxiliarBlue,
-    }
+  container: {
+    paddingTop: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: Colors.PalleteBlack,
+  },
+  price: {
+    fontSize: 45,
+    fontWeight: 'bold',
+    color: Colors.PalleteAuxiliarBlue,
+  }
 })

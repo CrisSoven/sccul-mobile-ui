@@ -39,7 +39,7 @@ export default function CartScreen() {
 
   const navigation = useNavigation();
   const navigateTo = () => {
-    navigation.navigate("PaymentMethod");
+    navigation.navigate("PaymentMethod", { filteredCourses });
   };
 
   return (

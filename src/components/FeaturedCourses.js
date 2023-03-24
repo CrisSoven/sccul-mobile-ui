@@ -6,7 +6,9 @@ import Colors from "../utils/Colors";
 import { getCourses } from "../utils/Axios";
 
 export default function FeaturedCourses() {
+
   const [courses, setCourses] = useState([]);
+  
   useEffect(() => {
     const fetchCourses = async () => {
       const fetchedCourses = await getCourses();

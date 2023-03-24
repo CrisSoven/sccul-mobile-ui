@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://192.168.100.17:8080";
+const baseUrl = "http://192.168.1.64:8080";
 let localEmail = "no@email.com"
 let localPassword = "empty"
 let localToken = "empty"

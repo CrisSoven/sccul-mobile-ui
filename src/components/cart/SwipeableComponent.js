@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Animated } from 'react-native'
+import { StyleSheet, View, Animated } from 'react-native'
 import React, { useState } from 'react'
 import { Swipeable } from 'react-native-gesture-handler'
 import Courses from '../common/Courses'

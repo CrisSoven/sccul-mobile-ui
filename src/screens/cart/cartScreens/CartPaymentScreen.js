@@ -1,4 +1,4 @@
-import { StyleSheet, View, ScrollView } from "react-native";
+import { StyleSheet, View, ScrollView, Text } from "react-native";
 import React, { useState, useEffect } from "react";
 import Goback from "../../../components/common/Goback";
 import Line from "../../../components/common/Line";
@@ -8,13 +8,15 @@ import AccionsBtnComponent from "../../../components/cart/AccionsBtnComponent";
 import CardsComponent from "../../../components/cart/CardsComponent";
 import ResumePrice from "../../../components/cart/ResumePrice";
 import { useNavigation } from "@react-navigation/native";
-import { getBankCardById, getInscriptions } from "../../../utils/Axios";
+import { getBankCardById } from "../../../utils/Axios";
 import Splash from "../../sccul/SplashScreen";
+import Courses from "../../../components/common/Courses";
+import Colors from "../../../utils/Colors";
 
 export default function CartPaymentScreen(props) {
-  const { cardId } = props.route.params;
+  const { cardId, courses } = props.route.params;
+
   const [card, setCard] = useState({});
-  const [inscription, setInscription] = useState({});
 
   useEffect(() => {
     const fetchCard = async () => {
@@ -24,60 +26,69 @@ export default function CartPaymentScreen(props) {
     fetchCard();
   }, []);
 
-  useEffect(() => {
-    const fetchInscription = async () => {
-      const fetchedInscription = await getInscriptions();
-      setInscription(fetchedInscription);
-    };
-    fetchInscription();
-  }, []);
+  const total = courses.reduce((acc, curso) => {
+    return acc + curso.price;
+  }, 0);
 
-  console.log(inscription);
-
-  if (!cardId) {
-    return <Splash />;
-  }
+  const finalTotal = total.toFixed(3);
 
   const navigation = useNavigation();
   const [isPurchaseSuccessful, setIsPurchaseSuccessful] = useState(false);
   const handleAction = () => {
-    if (isPurchaseSuccessful) {
+    if (!isPurchaseSuccessful) {
       navigation.navigate("Successful");
     } else {
       navigation.navigate("Fail");
     }
   };
-  
+
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Goback title="Confirmar compra" />
-        <ResumePrice
-          totalInscriptions={inscription.length} 
-         />
-        {/* <CardsComponent card={card}/> */}
-        <Line />
-      </View>
-      <ScrollView style={styles.scrollContainer}>
-        <View style={styles.scrollContent}>
-          {/* <CartResume /> */}
-          <Line />
-          {/* <DetailsPayment /> */}
-          <AccionsBtnComponent
-            btnCancelTitle="Cancelar"
-            btnContinueTitle="Finalizar Compra"
-            action={handleAction}
-            btnPrimary={true}
-          />
-        </View>
-      </ScrollView>
-    </View>
+    <>
+      {
+        !card.id || !courses ? (
+          <Splash />
+        ) : (
+          <View style={styles.container}>
+            <View style={styles.header}>
+              <Goback title="Confirmar compra" />
+              <ResumePrice
+                price={finalTotal}
+                totalInscriptions={courses.length}
+              />
+              <CardsComponent
+                card={card}
+              />
+              <Line />
+            </View>
+            <ScrollView style={styles.scrollContainer}>
+              <View style={styles.scrollContent}>
+                <CartResume
+                  price={finalTotal}
+                />
+                <Line />
+                <Text style={styles.title}>Detalles de compra</Text>
+                <Courses
+                  courses={courses}
+                />
+              </View>
+            </ScrollView>
+            <AccionsBtnComponent
+              btnCancelTitle="Cancelar"
+              btnContinueTitle="Finalizar compra"
+              action={handleAction}
+              btnPrimary={true}
+            />
+          </View>
+        )
+      }
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginBottom: 20,
   },
   header: {
     paddingHorizontal: 20,
@@ -89,6 +100,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    padding: 20,
+    paddingBottom: 20,
+    paddingHorizontal: 20,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: Colors.PalleteBlack,
+    marginTop: 20,
+    marginBottom: 10,
+    marginLeft: 10,
   },
 });

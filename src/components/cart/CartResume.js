@@ -2,19 +2,20 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Colors from '../../utils/Colors'
 
-export default function CartResume() {
+export default function CartResume(props) {
+  const { price } = props
   return (
-    <View>
+    <>
       <Text style={styles.title}>Resumen</Text>
       <View style={styles.row}>
         <Text style={styles.rowTitle}>Coste total de cursos</Text>
-        <Text style={styles.rowValue}>$620.42 MX</Text>
+        <Text style={styles.rowValue}>{`$${price} MX`}</Text>
       </View>
       <View style={styles.row}>
         <Text style={[styles.rowTitle && styles.discount]}>Descuento total</Text>
         <Text style={[styles.rowValue && styles.discount]}>- $121.20 MX</Text>
       </View>
-    </View>
+    </>
   )
 }
 
@@ -23,7 +24,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: Colors.PalleteBlack,
-    marginTop: 20,
     marginBottom: 10,
     marginLeft: 10,
   },
