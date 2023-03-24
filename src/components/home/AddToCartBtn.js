@@ -1,14 +1,24 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Icons from "react-native-vector-icons/MaterialCommunityIcons";
 import Colors from "../../utils/Colors";
+import { addCourseCart } from "../../utils/Axios";
+import Splash from "../../screens/sccul/SplashScreen";
 
-export default function AddToCartBtn() {
+export default function AddToCartBtn(props) {
+  const { addCourse } = props;
+  const [courseCart, setCourseCart] = useState([]);
+
+    const fetchCourse = async () => {
+      const fetchedCourse = await addCourseCart(addCourse.id);
+      setCourseCart(fetchedCourse);
+    };
+    
   return (
     <View>
       <TouchableOpacity style={styles.container}>
-        <Icons name="cart-plus" size={24} color={Colors.PalleteWhite} />
+        <Icons name="cart-plus" size={24} color={Colors.PalleteWhite} onPress={fetchCourse}/>
       </TouchableOpacity>
     </View>
   );

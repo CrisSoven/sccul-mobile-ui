@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://192.168.1.64:8080";
+const baseUrl = "http://192.168.67.11:8080";
 let localEmail = "no@email.com"
 let localPassword = "empty"
 let localToken = "empty"
@@ -65,7 +65,7 @@ export async function getCategories() {
     const data = response.data;
     return data.data;
   } catch (error) {
-    console.log("error categorias");
+    throw new Error(error);
   }
 };
 
@@ -180,3 +180,27 @@ export async function getBankCardById(bankCardId) {
     console.log("error tarjeta id");
   }
 };
+
+export async function addCourseCart(courseId) {
+  console.log("courseId", courseId);
+
+  try {
+    const response = await axios.post(`${baseUrl}/api/inscriptions/`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        "course": {
+          "id": courseId
+        },
+        "user": {
+          "id": 1
+        },
+        full_percentage: 0,
+        status: "inscrito"
+      });
+    const data = response.data;
+    return data.data;
+  } catch (error) {
+    console.log(error);
+  }
+}

@@ -41,8 +41,10 @@ export default function CoursesDetailsScreen({ route }) {
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
+
         <Goback title={course.name} />
         <Image source={{ uri: course.image }} style={styles.image} />
+
         <View style={styles.infoContainer}>
           <View style={styles.averageContainer}>
             <Text style={styles.average}>{course.average}</Text>
@@ -52,7 +54,6 @@ export default function CoursesDetailsScreen({ route }) {
               imageSize={24}
               readonly
               ratingColor={Colors.PalleteYellow}
-              tintColor={Colors.PalletteYellow}
               style={{ marginRight: 10 }}
             />
             <Text style={{ fontSize: 18 }}>
@@ -68,14 +69,16 @@ export default function CoursesDetailsScreen({ route }) {
               </Text>
             </TouchableOpacity>
           </View>
+
           <View style={styles.addToCartAndBuyNowContainer}>
             <View style={styles.addToCartContainer}>
-              <AddToCartBtn />
+              <AddToCartBtn addCourse={course} />
             </View>
             <View style={styles.buyNowContainer}>
               <BuyNowBtn />
             </View>
           </View>
+
           <Text style={styles.contentOfCourse}>Contenido del curso</Text>
           <View style={styles.capsAndDurationContainer}>
             <Text style={styles.totalCaps}>{caps} Capitulos - </Text>
@@ -106,6 +109,7 @@ const styles = StyleSheet.create({
     height: 230,
     marginHorizontal: "5%",
     borderRadius: 16,
+    backgroundColor: Colors.PalleteGray,
   },
   infoContainer: {
     paddingHorizontal: 15,
