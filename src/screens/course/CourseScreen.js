@@ -5,9 +5,11 @@ import Goback from "../../components/common/Goback";
 import ContentComponent from "../../components/course/ContentComponent";
 import { ScrollView } from "react-native-gesture-handler";
 import FeedbackComponent from "../../components/course/FeedbackComponent";
+import { useNavigation } from "@react-navigation/native";
 
 export default function CourseScreen() {
   const video = React.useRef(null);
+  const navigation = useNavigation();
   const [status, setStatus] = React.useState({});
   return (
     <ScrollView style={styles.container}>
@@ -23,6 +25,11 @@ export default function CourseScreen() {
           onPlaybackStatusUpdate={(status) => setStatus(() => status)}
         />
       </View>
+      <Button
+        title="Ir a la encuesta"
+        onPress={() => navigation.navigate("Survey")}
+      />
+
       <ContentComponent />
       <FeedbackComponent />
     </ScrollView>
