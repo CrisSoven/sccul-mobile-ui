@@ -1,22 +1,25 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useState } from "react"; // Importa useState
 import Colors from "../../utils/Colors";
 import { Icon } from "react-native-elements";
 import Input from "../common/InputComponent";
 import { useNavigation } from "@react-navigation/native";
 import ModalComponent from "../common/ModalComponent";
+import ChangePasswordScreen from "../../screens/profile/profileScreens/ChangePasswordScreen";
+import ButtonComponent from "../common/ButtonComponent";
 
 export default function PersonalInfoFormComponent(props) {
   const { user, isEditable } = props;
   console.log(user);
 
   const navigation = useNavigation();
+  const [showModal, setShowModal] = useState(false);
   const navigateTo = () => {
-    navigation.navigate("ChangePass");
+    setShowModal(true);
   };
 
   return (
-    <View style={{marginBottom: 20}}>
+    <View style={{ marginBottom: 20 }}>
       <Input
         label="Nombre(s)"
         value={user.name}
@@ -65,21 +68,29 @@ export default function PersonalInfoFormComponent(props) {
       />
       <TouchableOpacity style={styles.row} onPress={navigateTo}>
         <View style={styles.circleKey}>
-          <Icon
-            name="vpn-key"
-            type="MaterialIcons"
-            size={20}
-          />
+          <Icon name="vpn-key" type="MaterialIcons" size={20} />
         </View>
         <Text style={styles.label}>Cambiar contraseña</Text>
       </TouchableOpacity>
-      {/* <ModalComponent isVisible={true} close={() => {}}>
-        <Text>hola</Text>
-      </ModalComponent> */}
+      <ModalComponent isVisible={showModal} close={() => setShowModal(false)}>
+        <View>
+          <ChangePasswordScreen />
+          <View style={styles.container}>
+            <ButtonComponent
+              title="Cancelar"
+              onPress={() => setShowModal(false)}
+            />
+            <ButtonComponent
+              title="Cambiar contraseña"
+              btnPrimary={true}
+              onPress={() => setShowModal(false)}
+            />
+          </View>
+        </View>
+      </ModalComponent>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
@@ -101,5 +112,9 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "700",
     marginLeft: 10,
+  },
+  container: {
+    flexDirection: "row",
+    marginTop: 20,
   },
 });

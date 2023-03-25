@@ -17,7 +17,7 @@ export default function ProfileScreen() {
     const fetchUser = async () => {
       const fetchedUser = await getUserInfo();
       setUser(fetchedUser);
-    }
+    };
     fetchUser();
   }, []);
 
@@ -45,11 +45,9 @@ export default function ProfileScreen() {
       />
 
       <View>
-        <BannerProfileComponent user={user}/>
-        <PocketComponent
-          onPress={navigateTo}
-        />
-        <Line />
+        <BannerProfileComponent user={user} />
+        <PocketComponent onPress={navigateTo} />
+        <Line/>
       </View>
 
       <TitleBtnComponent

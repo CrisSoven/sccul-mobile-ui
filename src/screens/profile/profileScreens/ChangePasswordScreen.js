@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Goback from "../../../components/common/Goback";
 import Colors from "../../../utils/Colors";
 import ChangePasswordComponent from "../../../components/profile/ChangePasswordComponent";
@@ -11,22 +11,13 @@ export default function ChangePasswordScreen() {
   const navigateTo = () => {
     navigation.navigate("Profiles");
   };
+  const [showModal, setShowModal] = useState(false);
   return (
     <View>
-      <Goback title="Cambiar contraseña" />
-      <Text style={styles.text}>La nueva contraseña debe ser diferente a la actual</Text>
+      <Text style={styles.text}>
+        La nueva contraseña debe ser diferente a la actual
+      </Text>
       <ChangePasswordComponent />
-      <View style={styles.container}>
-        <ButtonComponent
-          title="Cancelar"
-          onPress={navigateTo}
-        />
-        <ButtonComponent
-          title="Cambiar contraseña"
-          btnPrimary={true}
-          onPress={navigateTo}
-        />
-      </View>
     </View>
   );
 }
