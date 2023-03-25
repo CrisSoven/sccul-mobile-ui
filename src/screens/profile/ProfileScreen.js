@@ -17,7 +17,7 @@ export default function ProfileScreen() {
     const fetchUser = async () => {
       const fetchedUser = await getUserInfo();
       setUser(fetchedUser);
-    }
+    };
     fetchUser();
   }, []);
 
@@ -42,13 +42,11 @@ export default function ProfileScreen() {
             onPress={logout}
           />
 
-          <View>
-            <BannerProfileComponent user={user} />
-            <PocketComponent
-              onPress={navigateTo}
-            />
-            <Line />
-          </View>
+      <View>
+        <BannerProfileComponent user={user} />
+        <PocketComponent onPress={navigateTo} />
+        <Line/>
+      </View>
 
           <TitleBtnComponent
             textTitle="Información personal"
