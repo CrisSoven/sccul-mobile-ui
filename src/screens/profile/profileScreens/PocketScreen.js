@@ -22,9 +22,9 @@ export default function PocketScreen() {
       <TitleBtnComponent
         textTitle="Mis tarjetas"
         titleStyle={styles.title}
-        icon="add-card"
+        icon="credit-card-plus-outline"
         textBtn="Agregar tarjeta"
-        iconType="material"
+        iconType="material-community"
         btnPrimary={true}
       />
       <CardsComponent cards={cards} />

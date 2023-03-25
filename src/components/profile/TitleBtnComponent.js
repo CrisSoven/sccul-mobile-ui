@@ -24,6 +24,7 @@ export default function TitleBtnComponent(props) {
 
 const styles = StyleSheet.create({
   container: {
+    flexGlow: 1,
     paddingTop: 20,
     paddingLeft: 20,
     flexDirection: "row",

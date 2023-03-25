@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import { getCourses } from "../../utils/Axios";
 import Splash from "../../screens/sccul/SplashScreen";
 import SwipeableComponent from "../../components/cart/SwipeableComponent";
+import EmptyCart from "../../components/cart/EmptyCart";
 
 export default function CartScreen() {
   const [courses, setCourses] = useState([]);
@@ -18,11 +19,7 @@ export default function CartScreen() {
       setCourses(fetchedCourses);
     };
     fetchCourses();
-  }, []);
-
-  if (!courses.length > 0) {
-    return <Splash />;
-  }
+  }, [courses]);
 
   const filteredCourses = courses.filter((curso) => {
     const inscriptions = curso.inscriptions;
@@ -43,22 +40,33 @@ export default function CartScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Carrito de compras</Text>
-      <SearchBar />
-      <SwipeNotify />
-      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-        <SwipeableComponent courses={filteredCourses} />
-      </ScrollView>
-      <TitleBtnComponent
-        textTitle={`$${finalTotal} MX`}
-        titleStyle={styles.subtitle}
-        textBtn=" Pagar "
-        icon="payments"
-        onPress={navigateTo}
-        btnPrimary={true}
-      />
-    </View>
+    !courses.length > 0 ?
+      <Splash /> : (
+        <View style={styles.container}>
+          <Text style={styles.title}>Carrito de compras</Text>
+          <SearchBar />
+          {
+            filteredCourses.length === 0 ?
+              <EmptyCart /> : (
+                <>
+                  <SwipeNotify />
+                  <ScrollView contentContainerStyle={styles.content}>
+                    <SwipeableComponent courses={filteredCourses} />
+                  </ScrollView>
+
+                </>
+              )
+          }
+          <TitleBtnComponent
+            textTitle={`$${finalTotal} MX`}
+            titleStyle={styles.subtitle}
+            textBtn=" Pagar "
+            icon="payments"
+            onPress={navigateTo}
+            btnPrimary={true}
+          />
+        </View>
+      )
   );
 }
 
@@ -68,7 +76,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   content: {
-    flex: 1,
+    flexGrow: 1,
     paddingHorizontal: 20,
     paddingVertical: 10,
   },

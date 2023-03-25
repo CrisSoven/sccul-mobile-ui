@@ -6,6 +6,7 @@ import { View } from 'react-native';
 import Header from './src/components/common/Header';
 import ScculStack from './src/navigation/stacks/ScculStack';
 import { checkLoginStatus } from './src/utils/Axios';
+import Toast from "react-native-toast-message";
 
 export default function App() {
   const [isLogged, setIsLogged] = useState(null);
@@ -28,6 +29,7 @@ export default function App() {
           <>
             <Header />
             <AppNavigation />
+            <Toast/>
           </>
         ) : (
           <ScculStack />

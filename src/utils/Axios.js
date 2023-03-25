@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://192.168.67.11:8080";
+const baseUrl = "http://192.168.1.74:8080";
 let localEmail = "no@email.com"
 let localPassword = "empty"
 let localToken = "empty"
@@ -27,7 +27,7 @@ export async function loginUser(email, password) {
       password,
     });
     const data = response.data;
-    if (data.statusCode === 200){
+    if (data.statusCode === 200) {
       token = data.data;
       return true;
     }
@@ -46,7 +46,7 @@ export async function registerUser(name, lastname, surname, cellphone, email, pa
       password,
     });
     const data = response.data;
-    if (data.statusCode === 200){
+    if (data.statusCode === 200) {
       token = data.data;
       return true;
     }
@@ -57,7 +57,7 @@ export async function registerUser(name, lastname, surname, cellphone, email, pa
 
 export async function getCategories() {
   try {
-    const response = await axios.get(`${baseUrl}/api/categories/`,{
+    const response = await axios.get(`${baseUrl}/api/categories/`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -71,7 +71,7 @@ export async function getCategories() {
 
 export async function getCourses() {
   try {
-    const response = await axios.get(`${baseUrl}/api/courses/`,{
+    const response = await axios.get(`${baseUrl}/api/courses/`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -85,7 +85,7 @@ export async function getCourses() {
 
 export async function getCourseById(courseId) {
   try {
-    const response = await axios.get(`${baseUrl}/api/courses/${courseId}`,{
+    const response = await axios.get(`${baseUrl}/api/courses/${courseId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -99,7 +99,7 @@ export async function getCourseById(courseId) {
 
 export async function getInscriptions() {
   try {
-    const response = await axios.get(`${baseUrl}/api/inscriptions/`,{
+    const response = await axios.get(`${baseUrl}/api/inscriptions/`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -127,7 +127,7 @@ export async function deleteInscription(inscriptionId) {
 
 export async function buyCourse(inscriptionId) {
   try {
-    const response = await axios.patch(`${baseUrl}/api/inscriptions/changeStatus/${inscriptionId}`,{}, {
+    const response = await axios.patch(`${baseUrl}/api/inscriptions/changeStatus/${inscriptionId}`, {}, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -141,7 +141,7 @@ export async function buyCourse(inscriptionId) {
 
 export async function getUserInfo() {
   try {
-    const response = await axios.get(`${baseUrl}/api/users/1`,{
+    const response = await axios.get(`${baseUrl}/api/users/1`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -153,9 +153,9 @@ export async function getUserInfo() {
   }
 };
 
-export async function getBankCards(){
+export async function getBankCards() {
   try {
-    const response = await axios.get(`${baseUrl}/api/bankCards/user/1`,{
+    const response = await axios.get(`${baseUrl}/api/bankCards/user/1`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -169,7 +169,7 @@ export async function getBankCards(){
 
 export async function getBankCardById(bankCardId) {
   try {
-    const response = await axios.get(`${baseUrl}/api/bankCards/user/1/card/${bankCardId}`,{
+    const response = await axios.get(`${baseUrl}/api/bankCards/user/1/card/${bankCardId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -182,24 +182,26 @@ export async function getBankCardById(bankCardId) {
 };
 
 export async function addCourseCart(courseId) {
-  console.log("courseId", courseId);
-
   try {
     const response = await axios.post(`${baseUrl}/api/inscriptions/`, {
+      "course": {
+        "id": courseId
+      },
+      "user": {
+        "id": 1
+      },
+      full_percentage: 0,
+      status: "inscrito"
+      }, {
         headers: {
           Authorization: `Bearer ${token}`
-        },
-        "course": {
-          "id": courseId
-        },
-        "user": {
-          "id": 1
-        },
-        full_percentage: 0,
-        status: "inscrito"
+        }
       });
     const data = response.data;
-    return data.data;
+
+    if (data.message === "Ya está inscrito en este curso") return data.message;
+    
+    return "inscribed";
   } catch (error) {
     console.log(error);
   }

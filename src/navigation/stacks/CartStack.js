@@ -20,21 +20,9 @@ export default function CartStackNavigator() {
       }}
     >
       <Stack.Screen name="Cart" component={CartScreen} />
-      <Stack.Screen
-        name="PaymentMethod"
-        component={CartPaymentMethodScreen}
-        options={{ title: "Metodos de pago" }}
-      />
-      <Stack.Screen
-        name="AddCard"
-        component={AddCardScreen}
-        options={{ title: "Agregar tarjeta" }}
-      />
-      <Stack.Screen
-        name="CartPayment"
-        component={CartPaymentScreen}
-        options={{ title: "Pago" }}
-      />
+      <Stack.Screen name="PaymentMethod" component={CartPaymentMethodScreen} />
+      <Stack.Screen name="AddCard" component={AddCardScreen} />
+      <Stack.Screen name="CartPayment" component={CartPaymentScreen} />
       <Stack.Screen name="Successful" component={Successful} />
       <Stack.Screen name="Fail" component={Fail} />
     </Stack.Navigator>

@@ -1,4 +1,4 @@
-import { StyleSheet, View, Animated } from 'react-native'
+import { StyleSheet, View, Animated, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
 import { Swipeable } from 'react-native-gesture-handler'
 import Courses from '../common/Courses'
@@ -30,6 +30,7 @@ export default function SwipeableComponent(props) {
     });
     return (
       <View style={styles.swipeBackgroud}>
+        <ActivityIndicator size="small" color={Colors.PalleteGreenBackground}/>
         <Animated.Text style={[styles.textDelete, { transform: [{ translateX }] }]}>Eliminando del carrito...</Animated.Text>
         <Icon name="trash" type="font-awesome-5" color={Colors.PalleteGreenBackground} size={20} />
       </View>
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
     color: Colors.PalleteGreenBackground,
     fontSize: 14,
     fontWeight: 'bold',
-    marginRight: 15
+    marginHorizontal: 15
   },
   swipeBackgroud: {
     flexDirection: 'row',

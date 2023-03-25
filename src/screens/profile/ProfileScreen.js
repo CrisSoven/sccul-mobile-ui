@@ -21,10 +21,6 @@ export default function ProfileScreen() {
     fetchUser();
   }, []);
 
-  if (!user.id) {
-    return <Splash />;
-  }
-
   const navigation = useNavigation();
   const navigateTo = () => {
     navigation.navigate("Pockets");
@@ -33,36 +29,39 @@ export default function ProfileScreen() {
     navigation.navigate("Logins");
   };
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <TitleBtnComponent
-        textTitle="Mi perfil"
-        titleStyle={styles.title}
-        icon="logout"
-        textBtn="Cerrar sesión"
-        iconType="material-community"
-        btnPrimary={true}
-        onPress={logout}
-      />
+    !user.id ?
+      <Splash /> : (
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <TitleBtnComponent
+            textTitle="Mi perfil"
+            titleStyle={styles.title}
+            icon="logout"
+            textBtn="Cerrar sesión"
+            iconType="material-community"
+            btnPrimary={true}
+            onPress={logout}
+          />
 
-      <View>
-        <BannerProfileComponent user={user}/>
-        <PocketComponent
-          onPress={navigateTo}
-        />
-        <Line />
-      </View>
+          <View>
+            <BannerProfileComponent user={user} />
+            <PocketComponent
+              onPress={navigateTo}
+            />
+            <Line />
+          </View>
 
-      <TitleBtnComponent
-        textTitle="Información personal"
-        titleStyle={styles.subtitle}
-        icon="edit"
-        textBtn="Editar"
-        iconType="material-community"
-        btnPrimary={true}
-      />
+          <TitleBtnComponent
+            textTitle="Información personal"
+            titleStyle={styles.subtitle}
+            icon="pencil"
+            textBtn="Editar"
+            iconType="material-community"
+            btnPrimary={true}
+          />
 
-      <PersonalInfoComponent user={user} isEditable={false} />
-    </ScrollView>
+          <PersonalInfoComponent user={user} isEditable={false} />
+        </ScrollView>
+      )
   );
 }
 

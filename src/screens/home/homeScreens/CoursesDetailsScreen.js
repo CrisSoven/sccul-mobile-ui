@@ -72,7 +72,7 @@ export default function CoursesDetailsScreen({ route }) {
 
           <View style={styles.addToCartAndBuyNowContainer}>
             <View style={styles.addToCartContainer}>
-              <AddToCartBtn addCourse={course} />
+              <AddToCartBtn addCourse={course} loading={true} />
             </View>
             <View style={styles.buyNowContainer}>
               <BuyNowBtn />
