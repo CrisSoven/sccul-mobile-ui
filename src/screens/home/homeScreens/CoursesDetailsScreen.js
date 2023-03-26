@@ -4,12 +4,13 @@ import { Rating } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
 import Comments from "../../../components/common/Comments";
 import Goback from "../../../components/common/Goback";
-import Sections from "../../../components/common/Sections";
 import AddToCartBtn from "../../../components/home/AddToCartBtn";
+import ButtonComponent from "../../../components/common/ButtonComponent";
 import BuyNowBtn from "../../../components/home/BuyNowBtn";
 import Colors from "../../../utils/Colors";
 import { getCourseById } from "../../../utils/Axios";
 import Splash from "../../sccul/SplashScreen";
+import ContentComponent from "../../../components/common/ContentComponent";
 
 export default function CoursesDetailsScreen({ route }) {
   const [course, setCourse] = useState({});
@@ -23,31 +24,14 @@ export default function CoursesDetailsScreen({ route }) {
     fetchCourse();
   }, [courseId]);
 
-  if (!course.id) {
-    return <Splash />;
-  }
-
-  const caps = course.sections ? course.sections.length : 0;
-
-  const totalDuration = course.sections.reduce((acc, sections) => {
-    const [minutes, seconds] = sections.duration.split(":").map(Number);
-    const sectionDuration = minutes * 60 + seconds;
-    return acc + sectionDuration;
-  }, 0);
-
-  const hours = Math.floor(totalDuration / 60);
-  const minutes = totalDuration % 60;
-
   return (
-    <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-
-        <Goback title={course.name} />
-        <Image source={{ uri: course.image }} style={styles.image} />
-
-        <View style={styles.infoContainer}>
+    !course.id ?
+      <Splash /> : (
+        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+          <Goback title={course.name} />
+          <Image source={{ uri: course.image }} style={styles.image} />
           <View style={styles.averageContainer}>
-            <Text style={styles.average}>{course.average}</Text>
+            <Text style={styles.text}>{course.average}</Text>
             <Rating
               startingValue={course.average}
               fractions={1}
@@ -61,7 +45,7 @@ export default function CoursesDetailsScreen({ route }) {
             </Text>
           </View>
           <Text style={styles.price}>${course.price} MX</Text>
-          <Text style={styles.description}>{course.description}</Text>
+          <Text style={styles.text}>{course.description}</Text>
           <View>
             <TouchableOpacity style={styles.categoryContainer} disabled={true}>
               <Text style={styles.categoryText} numberOfLines={1}>
@@ -69,51 +53,38 @@ export default function CoursesDetailsScreen({ route }) {
               </Text>
             </TouchableOpacity>
           </View>
-
-          <View style={styles.addToCartAndBuyNowContainer}>
-            <View style={styles.addToCartContainer}>
-              <AddToCartBtn addCourse={course} loading={true} />
-            </View>
-            <View style={styles.buyNowContainer}>
-              <BuyNowBtn />
-            </View>
+          <View style={styles.btns}>
+            <AddToCartBtn addCourse={course} loading={true} />
+            <ButtonComponent
+              buttonStyle={{ paddingHorizontal: "20%" }}
+              title="Comprar ahora"
+              icon="cart-outline"
+              type="material-community"
+              btnPrimary={true}
+              onPress={() => console.log("Comprar ahora")}
+            />
           </View>
-
-          <Text style={styles.contentOfCourse}>Contenido del curso</Text>
-          <View style={styles.capsAndDurationContainer}>
-            <Text style={styles.totalCaps}>{caps} Capitulos - </Text>
-            <Text style={styles.totalDuration}>
-              {hours}h {minutes}min
-            </Text>
-          </View>
-          <View style={styles.sectionsContainer}>
-            <Sections sections={course.sections} />
-          </View>
-          <Text style={styles.commentsTitle}>Comentarios</Text>
-          <View style={styles.commentsContainer}>
-            <Comments comments={course.comments} />
-          </View>
-        </View>
-      </ScrollView>
-    </View>
+          <ContentComponent course={course} />
+          <Comments comments={course.comments} />
+        </ScrollView>
+      )
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingHorizontal: 20,
     backgroundColor: Colors.PalleteWhite,
   },
   image: {
-    width: "90%",
+    alignSelf: "center",
+    width: "100%",
     height: 230,
-    marginHorizontal: "5%",
     borderRadius: 16,
+    marginBottom: 20,
+    resizeMode: "contain",
     backgroundColor: Colors.PalleteGray,
-  },
-  infoContainer: {
-    paddingHorizontal: 15,
-    paddingTop: 15,
   },
   averageContainer: {
     flexDirection: "row",
@@ -126,74 +97,25 @@ const styles = StyleSheet.create({
     color: Colors.PalletteRed,
     marginBottom: 10,
   },
-  average: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginRight: 5,
-    color: Colors.PalletteRed,
-  },
-  description: {
+  text: {
     fontSize: 16,
     textAlign: "justify",
   },
   categoryContainer: {
-    marginTop: "4%",
+    marginVertical: 20,
     width: "45%",
     height: 40,
     backgroundColor: Colors.PalleteGreenBackground,
     justifyContent: "center",
-    alignContent: "center",
-    alignItems: "center",
     borderRadius: 16,
   },
   categoryText: {
-    color: Colors.PalleteBlack,
     fontWeight: "bold",
     textAlign: "center",
   },
-  addToCartAndBuyNowContainer: {
-    flex: 1,
+  btns: {
     flexDirection: "row",
-    marginHorizontal: "5%",
-    marginTop: "6%",
-  },
-  addToCartContainer: {
-    flex: 0.3,
-    width: 100,
-  },
-  buyNowContainer: {
-    flex: 1,
-    width: 100,
-    marginLeft: "5%",
-  },
-  contentOfCourse: {
-    fontWeight: "bold",
-    fontSize: 25,
-    marginTop: "5%",
-    marginBottom: "1%",
-  },
-  capsAndDurationContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: "5%",
-    marginHorizontal: "1%",
-  },
-  totalCaps: {
-    fontSize: 14,
-    color: Colors.PalleteBlack,
-  },
-  totalDuration: {
-    fontSize: 14,
-    color: Colors.PalleteBlack,
-    fontWeight: "bold",
-  },
-  commentsContainer: {
-    marginHorizontal: "1%",
-  },
-  commentsTitle: {
-    fontWeight: "bold",
-    fontSize: 25,
-    marginTop: "5%",
-    marginBottom: "3%",
+    justifyContent: "center",
+    marginVertical: 20,
   },
 });

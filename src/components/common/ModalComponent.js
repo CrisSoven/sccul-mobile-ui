@@ -19,8 +19,8 @@ export default function ModalComponent(props) {
 
 const styles = StyleSheet.create({
   overlay: {
-    height: "auto",
     width: "90%",
     backgroundColor: Color.PalleteWhite,
+    borderRadius: 10,
   },
 });

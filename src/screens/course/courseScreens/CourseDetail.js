@@ -1,134 +1,81 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import SearchBar from '../../../components/common/SearchBar'
-import FilterCourse from '../../../components/course/FilterCourse'
-import Courses from '../../../components/course/Courses'
-import { ScrollView } from 'react-native-gesture-handler'
+import React, { useState, useEffect, useRef } from "react";
+import { View, StyleSheet, Text, Button } from "react-native";
+import { Video } from "expo-av";
+import Goback from "../../../components/common/Goback";
+import ContentComponent from "../../../components/common/ContentComponent";
+import { ScrollView } from "react-native-gesture-handler";
+import FeedbackComponent from "../../../components/course/FeedbackComponent";
+import { useNavigation } from "@react-navigation/native";
+import Splash from "../../sccul/SplashScreen";
 
-export default function CourseDetail() {
+export default function CourseScreen(props) {
+  const { course } = props.route.params;
+  const video = useRef(null);
+  const navigation = useNavigation();
+  const [resumenVideo, setResumenVideo] = useState(0);
+  const [videoWatched, setVideoWatched] = useState(false);
+  const [resumen, setResumen] = useState({
+    video: resumenVideo,
+    watched: videoWatched,
+  });
+
+  // useEffect(() => {
+  //   setResumen({
+  //     video: resumenVideo,
+  //     watched: videoWatched,
+  //   });
+  //   console.log(resumen);
+  // }, [videoWatched]);
+
+  const calculatedStatus = (status) => {
+    if (status.didJustFinish || (status.positionMillis >= status.playableDurationMillis * 0.90)) {
+      setVideoWatched(true);
+      console.log("Video terminado");
+    }
+  };
+
+
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
-        <Text style={styles.title}>Mis cursos</Text>
-      </View>
-      <SearchBar />
-      <FilterCourse />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.row}>
-          <Courses
-            styles={styles.column}
-            title="Fundamentos de Java"
-            duration="5 episodios - 1h 24min"
-            progress={18}
-            image={require("../../../../assets/img/dev.jpg")}
-          />
-          <Courses
-            styles={styles.column}
-            title="Postres franceses"
-            duration="6 episodios - 1h 40min"
-            progress={100}
-            image={require("../../../../assets/img/diseño.jpg")}
-          />
-        </View>
-        <View style={styles.row}>
-          <Courses
-            styles={styles.column}
-            title="Postres franceses"
-            duration="6 episodios - 1h 40min"
-            progress={100}
-            image={require("../../../../assets/img/diseño.jpg")}
-          />
-          <Courses
-            styles={styles.column}
-            title="Fundamentos de Java"
-            duration="5 episodios - 1h 24min"
-            progress={18}
-            image={require("../../../../assets/img/dev.jpg")}
-          />
-          <Courses
-            styles={styles.column}
-            title="Postres franceses"
-            duration="6 episodios - 1h 40min"
-            progress={500}
-            image={require("../../../../assets/img/diseño.jpg")}
-          />
-          <Courses
-            styles={styles.column}
-            title="Fundamentos de Java"
-            duration="5 episodios - 1h 24min"
-            progress={18}
-            image={require("../../../../assets/img/dev.jpg")}
-          />
-        </View>
-        <View style={styles.row}>
-          <Courses
-            styles={styles.column}
-            title="Fundamentos de Java"
-            duration="5 episodios - 1h 24min"
-            progress={18}
-            image={require("../../../../assets/img/dev.jpg")}
-          />
-          <Courses
-            styles={styles.column}
-            title="Postres franceses"
-            duration="6 episodios - 1h 40min"
-            progress={100}
-            image={require("../../../../assets/img/diseño.jpg")}
-          />
-          <Courses
-            styles={styles.column}
-            title="Postres franceses"
-            duration="6 episodios - 1h 40min"
-            progress={80}
-            image={require("../../../../assets/img/diseño.jpg")}
-          />
-          <Courses
-            styles={styles.column}
-            title="Fundamentos de Java"
-            duration="5 episodios - 1h 24min"
-            progress={18}
-            image={require("../../../../assets/img/dev.jpg")}
-          />
-        </View>
-        <View style={styles.row}>
-          <Courses
-            styles={styles.column}
-            title="Fundamentos de Java"
-            duration="5 episodios - 1h 24min"
-            progress={18}
-            image={require("../../../../assets/img/dev.jpg")}
-          />
-          <Courses
-            styles={styles.column}
-            title="Fundamentos de Java"
-            duration="5 episodios - 1h 24min"
-            progress={18}
-            image={require("../../../../assets/img/dev.jpg")}
-          />
-        </View>
-      </ScrollView>
-    </View >
-  )
+    !course.id ?
+      <Splash /> : (
+        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+          <Goback title={course.name} />
+          <View style={styles.content}>
+            <View style={styles.videoContainer}>
+              <Video
+                style={styles.video}
+                ref={video}
+                source={{ uri: course.sections[`${resumenVideo}`].video }}
+                useNativeControls
+                resizeMode="contain"
+                onPlaybackStatusUpdate={calculatedStatus}
+              />
+            </View>
+            <ContentComponent course={course} disable={false} />
+            <FeedbackComponent />
+            <Button
+              title="Ir a la encuesta"
+              onPress={() => navigation.navigate("Survey")}
+            />
+          </View>
+        </ScrollView>
+      )
+  );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   content: {
-    paddingVertical: 20,
+    flex: 1,
+    paddingHorizontal: 20,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginLeft: 20,
+  videoContainer: {
+    width: "100%",
+    height: 215,
+    alignSelf: "center",
+    marginBottom: 20,
   },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: "50%",
+  video: {
+    height: "100%",
+    borderRadius: 20,
   },
-  column: {
-    flexDirection: 'column',
-  }
 });

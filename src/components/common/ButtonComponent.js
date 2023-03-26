@@ -4,7 +4,7 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 
 export default function ButtonComponent(props) {
-  const { title, icon, btnPrimary, onPress, loading, type } = props;
+  const { title, icon, type, btnPrimary, onPress, loading, buttonStyle } = props;
   return (
     <View style={styles.container}>
       <Button
@@ -13,7 +13,7 @@ export default function ButtonComponent(props) {
         onPress={onPress}
         titleStyle={btnPrimary ? styles.titlePrimary : styles.titleCancel}
         icon={icon && <Icon name={icon} type={type} size={24} color="white" style={{ marginRight: "8%" }} />}
-        buttonStyle={[styles.button, btnPrimary ? styles.btnPrimaryColor : styles.btnCancelColor]}
+        buttonStyle={btnPrimary ? [styles.button, styles.btnPrimaryColor, buttonStyle] : [styles.button, styles.btnCancelColor, buttonStyle]}
       />
     </View>
   );

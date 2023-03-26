@@ -13,19 +13,9 @@ export default function CourseStack() {
         headerShown: false,
       }}
     >
-      <Stack.Screen
-        name="CourseDetail"
-        component={CourseDetail}
-      />
-      <Stack.Screen
-
-        name="Course"
-        component={CourseScreen}
-      />
-      <Stack.Screen
-        name='Survey'
-        component={CourseSuvery}
-      />
+      <Stack.Screen name="Course" component={CourseScreen} />
+      <Stack.Screen name="CourseDetail" component={CourseDetail} />
+      <Stack.Screen name='Survey' component={CourseSuvery} />
     </Stack.Navigator>
   )
 }

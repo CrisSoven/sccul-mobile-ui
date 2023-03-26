@@ -6,47 +6,37 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function Courses(props) {
   const navigation = useNavigation();
-  const { title, duration, progress, image } = props;
+  const { course, title, duration, progress, image } = props;
 
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={() => navigation.navigate("Course")}
-    >
-      <View style={styles.blueBox}>
-        <Image source={image} style={styles.image} />
-        <View style={styles.data}>
+    <View style={styles.content}>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate("CourseDetail", {course})}
+      >
+        <Image source={{ uri: image }} style={styles.image} />
+        <View style={{ padding: 10 }}>
           <Text style={styles.title} numberOfLines={1}>{title}</Text>
           <Text style={styles.duration}>{duration}</Text>
           <View style={styles.progressBar}>
-            <View
-              style={[styles.progress, { width: `${progress}%` }]}
-            ></View>
+            <View style={[styles.progress, { width: `${progress}%` }]} />
           </View>
         </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  blueBox: {
+  content: {
     backgroundColor: Colors.PalleteGreenBackground,
-    margin: 10,
+    margin: 7,
+    width: "45%",
     borderRadius: 10,
-    width: "90%",
-    height: "auto",
   },
   image: {
-    width: "auto",
     height: 100,
-    resizeMode: "cover",
+    resizeMode: "contain",
     borderRadius: 10,
   },
   title: {
@@ -66,11 +56,5 @@ const styles = StyleSheet.create({
   progress: {
     height: 10,
     backgroundColor: Colors.PalleteBluePrimary,
-  },
-  data: {
-    padding: 10,
-  },
-  column: {
-    flexDirection: "column",
   },
 });

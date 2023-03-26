@@ -19,7 +19,9 @@ export default function CartScreen() {
       setCourses(fetchedCourses);
     };
     fetchCourses();
-  }, [courses]);
+  }, [
+    // courses
+  ]);
 
   const filteredCourses = courses.filter((curso) => {
     const inscriptions = curso.inscriptions;

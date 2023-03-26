@@ -13,13 +13,13 @@ export default function AddToCartBtn(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [courseCart, setCourseCart] = useState([]);
 
-  const renderToast = (type, message) => {
-    console.log(type, message);
+  const renderToast = (type, message, text) => {
+    console.log(text);
     Toast.show({
       type: type,
       position: "bottom",
       text1: message,
-      text2: "Presiona aquí para verlo tu carrito",
+      text2: text ? text : "Presiona aquí para verlo tu carrito",
       visibilityTime: 5000,
       bottomOffset: 80,
       onPress: () => navigation.navigate(),
@@ -31,8 +31,12 @@ export default function AddToCartBtn(props) {
     const fetchedCourse = await addCourseCart(addCourse.id);
     setCourseCart(fetchedCourse);
 
-    if (fetchedCourse === "Ya está inscrito en este curso") {
+    console.log(fetchedCourse);
+
+    if (fetchedCourse === "alreadyInCart") {
       renderToast("error", "¡Ya agregaste este curso!");
+    } else if (fetchedCourse === "alreadyBought") {
+      renderToast("info", `¡Ya compraste ${addCourse.name}!`, "Presiona aquí para verlo tus cursos");
     } else {
       renderToast("success", `¡Agregaste ${addCourse.name}!`);
     }
@@ -55,8 +59,9 @@ export default function AddToCartBtn(props) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.PalleteBlueSecundary,
-    width: "100%",
-    height: 50,
-    borderRadius: 10,
+    width: 45,
+    height: 45,
+    borderRadius: 16,
+    marginHorizontal: 20,
   },
 });

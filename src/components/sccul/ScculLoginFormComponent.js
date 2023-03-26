@@ -32,7 +32,6 @@ export default function LoginForm() {
 
   const handleSubmit = async (values) => {
     const { email, password } = values;
-    console.log('log');
     return await loginUser(email, password);
   };
 

@@ -20,17 +20,19 @@ export default function ScrollViewCategories() {
   return (
     <View style={styles.viewContainer}>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-        {categories.map((category) => (
-          <TouchableOpacity
-            key={category.id}
-            style={styles.container}
-            onPress={() => {
-              navigation.navigate("CategoryScreen", { category });
-            }}
-          >
-            <Text style={styles.text} numberOfLines={1}>{category.name}</Text>
-          </TouchableOpacity>
-        ))}
+        {
+          categories.map((category) => (
+            <TouchableOpacity
+              key={category.id}
+              style={styles.container}
+              onPress={() => {
+                navigation.navigate("CategoryScreen", { category });
+              }}
+            >
+              <Text style={styles.text} numberOfLines={1}>{category.name}</Text>
+            </TouchableOpacity>
+          ))
+        }
       </ScrollView>
     </View>
   );

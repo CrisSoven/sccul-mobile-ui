@@ -41,7 +41,6 @@ export default function AppNavigation() {
       />
       <Tab.Screen
         name="Carrito"
-        // Reemplaza el componente CartScreen por el CartStackNavigator
         component={CartStackNavigator}
         options={{
           tabBarIcon: ({ focused }) => (

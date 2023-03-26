@@ -6,9 +6,10 @@ import { Icon, Rating } from "react-native-elements";
 export default function Comments(comment) {
   const { comments } = comment;
   return (
-    <View>
+    <>
+      <Text style={styles.title}>Comentarios</Text>
       {comments.map((comments, index) => (
-        <View style={styles.mainContainer} key={index}>
+        <View style={styles.content} key={index}>
           <Icon
             name="user-o"
             type="font-awesome"
@@ -34,17 +35,22 @@ export default function Comments(comment) {
           </View>
         </View>
       ))}
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
+  content: {
     flexDirection: "row",
     height: "auto",
-    marginBottom: 20,
+    marginVertical: 20,
     borderRadius: 15,
     alignItems: "center",
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: 24,
+    marginTop: 20,
   },
   infoContainer: {
     flexDirection: "column",
@@ -69,4 +75,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginHorizontal: "2%",
   },
+
 });

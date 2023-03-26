@@ -4,24 +4,29 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import Colors from "../../utils/Colors";
 import { Icon } from "react-native-elements";
 
-export default function Sections(section) {
-  const { sections } = section;
+export default function Sections(props) {
+  const { sections, disable = true } = props;
+  sections.sort((a, b) => a.number - b.number);
 
   return (
     <View>
-      {sections.map((section, index) => (
-        <TouchableOpacity style={styles.container} disabled={true} key={index}>
-          <Text style={styles.number}>{`${section.number}.`}</Text>
+      {sections.map((section) => (
+        <TouchableOpacity
+          key={section.id}
+          style={disable ? styles.containerDisable : styles.containerAble}
+          onPress={() => console.log(section.video)}
+          activeOpacity={0.8}
+          disabled={disable}>
+          <Text style={[styles.number, disable ? {color:Colors.PalleteBlack} : {color:Colors.PalleteWhite}]}>{`${section.number}.`}</Text>
           <Icon
             name="play-circle-outline"
             type="community"
-            color={Colors.PalleteBlack}
-            style={{ opacity: 0.5 }}
+            color={disable ? Colors.PalleteBlack : Colors.PalleteWhite}
           />
-          <Text style={styles.title} numberOfLines={1}>
+          <Text style={[styles.title, disable ? {color:Colors.PalleteBlack} : {color:Colors.PalleteWhite}]} numberOfLines={1}>
             {section.name}
           </Text>
-          <Text style={styles.duration}>{section.duration}h</Text>
+          <Text style={[styles.duration, disable ? {color:Colors.PalleteBlack} : {color:Colors.PalleteWhite}]}>{section.duration}m</Text>
         </TouchableOpacity>
       ))}
     </View>
@@ -29,31 +34,36 @@ export default function Sections(section) {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  containerDisable: {
     flexDirection: "row",
     height: 35,
-    backgroundColor: Colors.PalleteGreenBackground,
     marginBottom: 10,
+    paddingLeft: 10,
     borderRadius: 15,
     alignItems: "center",
+    backgroundColor: Colors.PalleteGreenBackground,
+  },
+  containerAble: {
+    flexDirection: "row",
+    height: 35,
+    marginBottom: 10,
+    paddingLeft: 10,
+    borderRadius: 15,
+    alignItems: "center",
+    backgroundColor: Colors.PalleteAuxiliarBlue,
   },
   number: {
-    flex: 0.1,
     fontSize: 16,
-    fontWeight: "bold",
-    marginLeft: "5%",
-    opacity: 0.5,
+    marginHorizontal: 10,
   },
   title: {
     flex: 1,
     fontSize: 16,
-    fontWeight: "bold",
-    paddingHorizontal: "3%",
-    opacity: 0.5,
+    fontWeight: "600",
+    paddingHorizontal: 5,
   },
   duration: {
-    flex: 0.2,
     fontSize: 14,
-    opacity: 0.5,
+    marginHorizontal: 20,
   },
 });

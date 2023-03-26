@@ -6,7 +6,7 @@ export default function BuyNowBtn() {
   return (
     <View>
       <TouchableOpacity style={styles.container}>
-        <Text style={styles.text}>Comprar Ahora</Text>
+        <Text style={styles.text}> Comprar Ahora </Text>
       </TouchableOpacity>
     </View>
   );

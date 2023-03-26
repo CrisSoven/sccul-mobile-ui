@@ -97,19 +97,19 @@ export async function getCourseById(courseId) {
   }
 }
 
-export async function getInscriptions() {
-  try {
-    const response = await axios.get(`${baseUrl}/api/inscriptions/`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const data = response.data;
-    return data.data;
-  } catch (error) {
-    console.log("error inscripciones");
-  }
-}
+// export async function getInscriptions() {
+//   try {
+//     const response = await axios.get(`${baseUrl}/api/inscriptions/`, {
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     });
+//     const data = response.data;
+//     return data.data;
+//   } catch (error) {
+//     console.log("error inscripciones");
+//   }
+// }
 
 export async function deleteInscription(inscriptionId) {
   try {
@@ -192,16 +192,20 @@ export async function addCourseCart(courseId) {
       },
       full_percentage: 0,
       status: "inscrito"
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     const data = response.data;
 
-    if (data.message === "Ya está inscrito en este curso") return data.message;
-    
-    return "inscribed";
+    if (data.message === "Ya está inscrito en este curso") {
+      return "alreadyInCart";
+    } else if (data.message === "Ya compró este curso") {
+      return "alreadyBought";
+    } else {
+      return "addedToCart";
+    }
   } catch (error) {
     console.log(error);
   }

@@ -66,8 +66,8 @@ export default function Courses(props) {
     <View>
       {courses.map((course) => (
         <TouchableOpacity
-          activeOpacity={0.8}
           key={course.id}
+          activeOpacity={0.8}
           style={styles.container}
           onPress={() => {
             navigation.navigate("CoursesDetailsScreen", {
@@ -120,11 +120,12 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderRadius: 16,
     width: "100%",
-    height: 115,
+    height: 110,
   },
   image: {
     height: "100%",
     width: "100%",
+    resizeMode: "cover",
   },
   infoContainer: {
     flex: 1,

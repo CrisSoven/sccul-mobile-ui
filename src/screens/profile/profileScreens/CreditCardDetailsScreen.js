@@ -31,7 +31,7 @@ export default function CreditCardDetailsScreen({ route }) {
       <TitleBtnComponent
         textTitle={"Datos de la tarjeta"}
         titleStyle={styles.subtitle}
-        icon={"edit"}
+        icon={"pencil"}
         iconType={"material-community"}
         textBtn={"Editar"}
         btnPrimary={true}

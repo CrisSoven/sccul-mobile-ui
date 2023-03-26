@@ -22,12 +22,8 @@ export default function ProfileScreen() {
   }, []);
 
   const navigation = useNavigation();
-  const navigateTo = () => {
-    navigation.navigate("Pockets");
-  };
-  const logout = () => {
-    navigation.navigate("Logins");
-  };
+  const navigateTo = () => navigation.navigate("Pockets");
+  const logout = () => navigation.navigate("Logins");
   return (
     !user.id ?
       <Splash /> : (
@@ -41,23 +37,12 @@ export default function ProfileScreen() {
             btnPrimary={true}
             onPress={logout}
           />
-
-      <View>
-        <BannerProfileComponent user={user} />
-        <PocketComponent onPress={navigateTo} />
-        <Line/>
-      </View>
-
-          <TitleBtnComponent
-            textTitle="Información personal"
-            titleStyle={styles.subtitle}
-            icon="pencil"
-            textBtn="Editar"
-            iconType="material-community"
-            btnPrimary={true}
-          />
-
-          <PersonalInfoComponent user={user} isEditable={false} />
+          <View>
+            <BannerProfileComponent user={user} />
+            <PocketComponent onPress={navigateTo} />
+            <Line />
+          </View>
+          <PersonalInfoComponent user={user} />
         </ScrollView>
       )
   );
@@ -67,10 +52,5 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-  },
-  subtitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: Colors.PalleteGray,
   },
 });
