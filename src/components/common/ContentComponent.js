@@ -1,21 +1,34 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import Colors from '../../utils/Colors'
 import Sections from "../../components/common/Sections";
 
 export default function ContentComponent(props) {
-  const { course, disable } = props
+  const { course, disable, onSectionPress } = props
+
+  const minutes = course.sections.reduce((acc, section) => {
+    const duration = section.duration.split(':');
+    const minutes = parseInt(duration[0]);
+    const seconds = parseInt(duration[1]);
+    return acc + (minutes + (seconds / 60));
+  }, 0);
+  const decimal = minutes % 1;
+  const seconds = decimal * 60;
+  
+  const duration = `${Math.floor(minutes)}:${Math.floor(seconds)}min`;
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Contenido del curso</Text>
       <View style={styles.capsAndDurationContainer}>
-        <Text style={{fontSize: 16}}>{course.sections.length} Capitulos - </Text>
-        <Text style={styles.totalDuration}>
-          xdh xdmin
-        </Text>
+        <Text style={{ fontSize: 16 }}>{course.sections.length} Capitulos - </Text>
+        <Text style={styles.totalDuration}>{duration}</Text>
       </View>
       <View style={styles.sectionsContainer}>
-        <Sections sections={course.sections} disable={disable} />
+        <Sections
+          sections={course.sections}
+          disable={disable}
+          onSectionPress={onSectionPress}
+        />
       </View>
     </View>
   )

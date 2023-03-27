@@ -40,7 +40,7 @@ export default function CourseScreen() {
                     key={course.id}
                     course={course}
                     title={course.name}
-                    duration={`${course.sections.length} episodios - 1h 24min`}
+                    duration={course.sections}
                     progress={course.inscriptions[0].fullPercentage}
                     image={course.image}
                   />

@@ -7,33 +7,40 @@ import { ScrollView } from "react-native-gesture-handler";
 import FeedbackComponent from "../../../components/course/FeedbackComponent";
 import { useNavigation } from "@react-navigation/native";
 import Splash from "../../sccul/SplashScreen";
+import { setPercentageInscription } from "../../../utils/Axios";
 
 export default function CourseScreen(props) {
-  const { course } = props.route.params;
+  const { course, secondsDuration } = props.route.params;
+  const [status, setStatus] = React.useState({})
   const video = useRef(null);
   const navigation = useNavigation();
   const [resumenVideo, setResumenVideo] = useState(0);
   const [videoWatched, setVideoWatched] = useState(false);
-  const [resumen, setResumen] = useState({
+  const [progress, setProgress] = useState({
     video: resumenVideo,
     watched: videoWatched,
   });
 
-  // useEffect(() => {
-  //   setResumen({
-  //     video: resumenVideo,
-  //     watched: videoWatched,
-  //   });
-  //   console.log(resumen);
-  // }, [videoWatched]);
-
-  const calculatedStatus = (status) => {
-    if (status.didJustFinish || (status.positionMillis >= status.playableDurationMillis * 0.90)) {
+  useEffect(() => {
+    if (status.didJustFinish) { // if (status.didJustFinish || status.positionMillis >= (status.durationMillis / 100 * 80)) {
       setVideoWatched(true);
       console.log("Video terminado");
-    }
-  };
+      const segunds = Math.floor(status.positionMillis / 1000);
+      console.log(segunds);
 
+      //sacar la relacion entre segundsDuration y segunds
+      const percentage = (segunds * 100) / secondsDuration;
+      setProgress({
+        video: resumenVideo,
+        watched: videoWatched,
+      });
+      console.log(progress);
+    }
+  }, [status]);
+
+  const handleSectionPress = (sectionId) => {
+    setResumenVideo(sectionId);
+  };
 
   return (
     !course.id ?
@@ -46,12 +53,19 @@ export default function CourseScreen(props) {
                 style={styles.video}
                 ref={video}
                 source={{ uri: course.sections[`${resumenVideo}`].video }}
-                useNativeControls
+                shouldPlay={true}
                 resizeMode="contain"
-                onPlaybackStatusUpdate={calculatedStatus}
+                useNativeControls
+                // onPlaybackStatusUpdate={calculatedStatus}
+                onPlaybackStatusUpdate={status => setStatus(() => status)}
               />
             </View>
-            <ContentComponent course={course} disable={false} />
+            <ContentComponent
+              course={course}
+              disable={false}
+              onSectionPress={handleSectionPress}
+              videoWatched={videoWatched}
+            />
             <FeedbackComponent />
             <Button
               title="Ir a la encuesta"
@@ -77,5 +91,5 @@ const styles = StyleSheet.create({
   video: {
     height: "100%",
     borderRadius: 20,
-  },
+  }
 });

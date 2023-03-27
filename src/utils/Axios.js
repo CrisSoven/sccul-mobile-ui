@@ -210,3 +210,20 @@ export async function addCourseCart(courseId) {
     console.log(error);
   }
 }
+
+export async function setPercentageInscription(inscriptionId, percentage){
+  try {
+    // const response = await axios.patch(`${baseUrl}/api/inscriptions/changePercentage/${inscriptionId}`, {
+    //   percentage
+    // }, {
+    //   headers: {
+    //     Authorization: `Bearer ${token}`
+    //   }
+    // });
+    // const data = response.data;
+    // return data.data;
+  }
+  catch (error) {
+    console.log(error);
+  }
+}
