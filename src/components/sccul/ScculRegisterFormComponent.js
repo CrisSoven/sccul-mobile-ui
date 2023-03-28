@@ -1,302 +1,175 @@
 import React, { useState } from "react";
-import { StyleSheet, TextInput, View, Text } from "react-native";
-import { Button, Icon } from "react-native-elements";
+import { StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Formik } from "formik";
-import * as yup from "yup";
-import Colors from "../../utils/Colors";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import AccionsBtnComponent from "../../components/cart/AccionsBtnComponent";
 import { registerUser } from '../../utils/Axios';
+import { Toast } from "react-native-toast-message/lib/src/Toast";
+import Input from "../common/InputComponent";
 
 export default function LoginForm() {
-  const [showPass, setShowPass] = useState(false);
   const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(false);
+  const [password, setPassword] = useState(false);
+  const [repeatPassword, setRepeatPassword] = useState(false);
+  const showPass = () => setPassword(!password);
+  const showRepeatPass = () => setRepeatPassword(!repeatPassword);
 
-  const initialValues = {
-    names: "",
-    lastname: "",
-    surname: "",
-    cellphone: "",
-    email: "",
-    password: "",
-    repeatPassword: "",
-  };
+  const formik = useFormik({
+    initialValues: {
+      names: "",
+      lastname: "",
+      surname: "",
+      cellphone: "",
+      email: "",
+      password: "",
+      repeatPassword: "",
+    },
+    validationSchema: Yup.object({
+      names: Yup.string().required("Nombre(s) obligatorio"),
+      lastname: Yup.string().required("Apellidos obligatorios"),
+      cellphone: Yup
+        .string()
+        .required("Número de teléfono obligatorio")
+        .min(10, "Número de teléfono debe tener 10 dígitos")
+        .max(10, "Número de teléfono debe tener 10 dígitos"),
+      email: Yup
+        .string()
+        .email("Correo electrónico inválido")
+        .required("Correo electrónico obligatorio"),
+      password: Yup.string().required("Contraseña obligatoria"),
+      repeatPassword: Yup
+        .string()
+        .required("Contraseña obligatoria")
+        .oneOf([Yup.ref("password")], "Las contraseñas no coinciden"),
+    }),
+    validateOnChange: false,
 
-  const validationSchema = yup.object().shape({
-    names: yup.string().required("Nombre(s) obligatorio"),
-    lastname: yup.string().required("Apellido paterno obligatorio"),
-    cellphone: yup
-      .string()
-      .required("Número de teléfono obligatorio")
-      .min(10, "Número de teléfono debe tener 10 dígitos")
-      .max(10, "Número de teléfono debe tener 10 dígitos"),
-    email: yup
-      .string()
-      .email("Correo electrónico inválido")
-      .required("Correo electrónico obligatorio"),
-    password: yup.string().required("Contraseña obligatoria"),
-    repeatPassword: yup
-      .string()
-      .required("Contraseña obligatoria")
-      .oneOf([yup.ref("password")], "Las contraseñas no coinciden"),
+    onSubmit: async (formData) => {
+      const { names, lastname, surname, cellphone, email, password } = formData;
+      setIsLoading(true);
+      try {
+        const registed = await registerUser(names, lastname, surname, cellphone, email, password);
+        registed ? (
+          Toast.show({
+            position: 'bottom',
+            type: 'success',
+            text1: 'Usuario registrado correctamente',
+            text2: 'Inicia sesión para continuar',
+          }),
+          navigation.navigate("Logins")
+        ) :
+          Toast.show({
+            position: 'bottom',
+            type: 'error',
+            text1: 'Correo eletrónico o teléfono ya registrado',
+          });
+      }
+      catch (error) {
+        console.log(error);
+      }
+      finally {
+        setIsLoading(false);
+      }
+    }
   });
-
-  const handleFormSubmit = (handleSubmit) => {
-    return handleSubmit();
-  };
-
-  const handleSubmit = async (values) => {
-    const { names, lastname, surname, cellphone, email, password } = values;
-    console.log("registed?");
-    return await registerUser(
-      names,
-      lastname,
-      surname,
-      cellphone,
-      email,
-      password
-    );
-  };
 
   return (
     <View style={styles.header}>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        validationSchema={validationSchema}
-      >
-        {({
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          values,
-          errors,
-          touched,
-        }) => (
-          <View>
-            <View style={styles.spaceBetween}>
-              <Text style={styles.label}>Nombre(s)</Text>
-              <View style={styles.inputContainer}>
-                <Icon
-                  style={styles.icon}
-                  name="account-outline"
-                  size={24}
-                  color="black"
-                  type="material-community"
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Nombre(s)"
-                  onChangeText={handleChange("names")}
-                  onBlur={handleBlur("names")}
-                  value={values.names}
-                />
-              </View>
-              {errors.names && touched.names && (
-                <Text style={styles.error}>{errors.names}</Text>
-              )}
-            </View>
-            <View style={styles.isRow}>
-              <View style={[styles.spaceBetween, styles.isCol]}>
-                <Text style={styles.label}>Apellido paterno</Text>
-                <View style={styles.inputContainer}>
-                  <Icon
-                    style={styles.icon}
-                    name="account-outline"
-                    size={24}
-                    color="black"
-                    type="material-community"
-                  />
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Apellido paterno"
-                    onChangeText={handleChange("lastname")}
-                    onBlur={handleBlur("lastname")}
-                    value={values.lastname}
-                  />
-                </View>
-                {errors.lastname && touched.lastname && (
-                  <Text style={styles.error}>{errors.lastname}</Text>
-                )}
-              </View>
-              <View style={[styles.spaceBetween, styles.isCol]}>
-                <Text style={styles.label}>Apellido materno</Text>
-                <View style={styles.inputContainer}>
-                  <Icon
-                    style={styles.icon}
-                    name="account-outline"
-                    size={24}
-                    color="black"
-                    type="material-community"
-                  />
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Apellido materno"
-                    onChangeText={handleChange("surname")}
-                    onBlur={handleBlur("surname")}
-                    value={values.surname}
-                  />
-                </View>
-                {errors.surname && touched.surname && (
-                  <Text style={styles.error}>{errors.surname}</Text>
-                )}
-              </View>
-            </View>
-            <View style={styles.spaceBetween}>
-              <Text style={styles.label}>Número de teléfono</Text>
-              <View style={styles.inputContainer}>
-                <Icon
-                  style={styles.icon}
-                  name="cellphone"
-                  size={24}
-                  color="black"
-                  type="material-community"
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Número de teléfono"
-                  onChangeText={handleChange("cellphone")}
-                  onBlur={handleBlur("cellphone")}
-                  value={values.cellphone}
-                  keyboardType="phone-pad"
-                  maxLength={10}
-                  minLength={10}
-                />
-              </View>
-              {errors.cellphone && touched.cellphone && (
-                <Text style={styles.error}>{errors.cellphone}</Text>
-              )}
-            </View>
-            <View style={styles.spaceBetween}>
-              <Text style={styles.label}>Correo electrónico</Text>
-              <View style={styles.inputContainer}>
-                <Icon
-                  style={styles.icon}
-                  name="account-outline"
-                  size={24}
-                  color="black"
-                  type="material-community"
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Correo electronico"
-                  onChangeText={handleChange("email")}
-                  onBlur={handleBlur("email")}
-                  value={values.email}
-                  keyboardType="email-address"
-                />
-              </View>
-              {errors.email && touched.email && (
-                <Text style={styles.error}>{errors.email}</Text>
-              )}
-            </View>
-            <View style={styles.spaceBetween}>
-              <Text style={styles.label}>Contraseña</Text>
-              <View style={styles.inputContainer}>
-                <Icon
-                  style={styles.icon}
-                  name="account-outline"
-                  size={24}
-                  color="black"
-                  type="material-community"
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Contraseña"
-                  secureTextEntry={!showPass}
-                  onChangeText={handleChange("password")}
-                  onBlur={handleBlur("password")}
-                  value={values.password}
-                />
-              </View>
-              {errors.password && touched.password && (
-                <Text style={styles.error}>{errors.password}</Text>
-              )}
-            </View>
-            <View style={styles.spaceBetween}>
-              <Text style={styles.label}>Repetir contraseña</Text>
-              <View style={styles.inputContainer}>
-                <Icon
-                  style={styles.icon}
-                  name="account-outline"
-                  size={24}
-                  color="black"
-                  type="material-community"
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Repetir contra"
-                  secureTextEntry={!showPass}
-                  onChangeText={handleChange("repeatPassword")}
-                  onBlur={handleBlur("repeatPassword")}
-                  value={values.repeatPassword}
-                />
-              </View>
-              {errors.repeatPassword && touched.repeatPassword && (
-                <Text style={styles.error}>{errors.repeatPassword}</Text>
-              )}
-            </View>
-            <View style={{ marginVertical: 10 }}>
-              <AccionsBtnComponent
-                btnCancelTitle={"Regresar"}
-                btnContinueTitle={"Iniciar sesión"}
-                btnPrimary={true}
-                action={() => handleFormSubmit(handleSubmit)}
-              />
-            </View>
-          </View>
-        )}
-      </Formik>
+      <Input
+        label="Nombre(s)"
+        placeholder="Nombre(s)"
+        iconName="account-outline"
+        iconType="material-community"
+        onChangeText={(text) => formik.setFieldValue("names", text)}
+        errorMessage={formik.errors.names}
+      />
+      <View style={styles.row}>
+        <View style={styles.column}>
+          <Input
+            label="Apellido paterno"
+            placeholder="Apellido paterno"
+            iconName="account-outline"
+            iconType="material-community"
+            onChangeText={(text) => formik.setFieldValue("lastname", text)}
+            errorMessage={formik.errors.lastname}
+          />
+        </View>
+        <View style={styles.column}>
+          <Input
+            label="Apellido materno"
+            placeholder="Apellido materno"
+            iconName="account-outline"
+            iconType="material-community"
+            onChangeText={(text) => formik.setFieldValue("surname", text)}
+            errorMessage={formik.errors.lastname}
+          />
+        </View>
+      </View>
+      <Input
+        label="Numero de celular"
+        placeholder="Numero de celular"
+        iconName="cellphone"
+        iconType="material-community"
+        keyboardType="phone-pad"
+        onChangeText={(text) => formik.setFieldValue("cellphone", text)}
+        errorMessage={formik.errors.cellphone}
+      />
+      <Input
+        label="Correo electrónico"
+        placeholder="correo@ejemplo.com"
+        iconName="email-outline"
+        iconType="material-community"
+        onChangeText={(text) => formik.setFieldValue("email", text)}
+        errorMessage={formik.errors.email}
+      />
+      <Input
+        label="Contraseña"
+        placeholder="•••••••"
+        secureTextEntry={password ? false : true}
+        iconName={password ? "eye-off-outline" : "eye-outline"}
+        iconType="material-community"
+        onPressIcon={showPass}
+        onChangeText={(text) => formik.setFieldValue("password", text)}
+        errorMessage={formik.errors.password}
+      />
+      <Input
+        label="Confirmar contraseña"
+        placeholder="•••••••"
+        secureTextEntry={repeatPassword ? false : true}
+        iconName={repeatPassword ? "eye-off-outline" : "eye-outline"}
+        iconType="material-community"
+        onPressIcon={showRepeatPass}
+        onChangeText={(text) => formik.setFieldValue("repeatPassword", text)}
+        errorMessage={formik.errors.repeatPassword}
+      />
+      <AccionsBtnComponent
+        btnCancelTitle="Cancelar"
+        icon="login"
+        type="material-community"
+        btnContinueTitle="Registrar"
+        btnPrimary={true}
+        buttonStyle={{ paddingHorizontal: "10%" }}
+        loading={isLoading}
+        onPress={formik.handleSubmit}
+        isLoading={isLoading}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  label: {
-    fontSize: 15,
-    fontWeight: "bold",
-    marginBottom: 10,
+  header: {
+    marginVertical: 20,
+    marginHorizontal: 20,
   },
   row: {
     flexDirection: "row",
+    alignItems: "center",
   },
   column: {
     flexDirection: "column",
-    paddingHorizontal: 20,
-  },
-  icon: {
-    marginRight: 10,
-  },
-  inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderColor: Colors.PalleteGreenBackground,
-    backgroundColor: Colors.PalleteGreenBackground,
-    borderRadius: 10,
-    paddingLeft: 10,
-    width: "100%",
-  },
-  input: {
-    flex: 1,
-    height: 45,
-  },
-  error: {
-    color: Colors.PalletteRed,
-    fontWeight: "bold",
-    marginTop: 5,
-  },
-  header: {
-    paddingTop: 20,
-    paddingHorizontal: 20,
-  },
-  spaceBetween: {
-    marginBottom: 30,
-  },
-  isRow: {
-    flexDirection: "row",
-  },
-  isCol: {
-    flex: 1,
-    marginHorizontal: 10,
+    width: "49%",
   },
 });

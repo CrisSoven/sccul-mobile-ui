@@ -6,16 +6,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Colors from "../../utils/Colors";
-import Filter from "../common/Filter";
 import { useState } from "react";
 
 export default function FilterCourse() {
-  const [modalVisible, setModalVisible] = useState(false);
-  const handleFilterPress = () => {
-    setModalVisible(true);
-  }
-  
-
   return (
     <View style={styles.principal}> 
     <View style={styles.box}>
@@ -27,11 +20,6 @@ export default function FilterCourse() {
         </TouchableOpacity>
         <TouchableOpacity style={styles.container}>
           <Text style={styles.text}>Finalizados</Text>
-        </TouchableOpacity>
-        <TouchableOpacity >
-        <Filter
-        onPress={handleFilterPress}
-        />
         </TouchableOpacity>
       </View>
     </View> 

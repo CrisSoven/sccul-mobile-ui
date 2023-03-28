@@ -30,7 +30,7 @@ export default function BannerProfileComponent(props) {
         >
           <Avatar.Accessory
             style={{backgroundColor: Colors.PalleteBlueSecundary}}
-            iconStyle={[{ color: Colors.PalleteWhite }, { fontSize: 20 }]}
+            iconStyle={{ fontSize: 20 }}
             size={30}
             onPress={changePhoto}
             />

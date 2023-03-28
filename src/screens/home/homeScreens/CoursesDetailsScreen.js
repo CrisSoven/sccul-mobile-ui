@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     height: 230,
     borderRadius: 16,
     marginBottom: 20,
-    resizeMode: "contain",
+    resizeMode: "cover",
     backgroundColor: Colors.PalleteGray,
   },
   averageContainer: {

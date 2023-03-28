@@ -14,7 +14,6 @@ export default function AddToCartBtn(props) {
   const [courseCart, setCourseCart] = useState([]);
 
   const renderToast = (type, message, text) => {
-    console.log(text);
     Toast.show({
       type: type,
       position: "bottom",
@@ -22,7 +21,7 @@ export default function AddToCartBtn(props) {
       text2: text ? text : "Presiona aquí para verlo tu carrito",
       visibilityTime: 5000,
       bottomOffset: 80,
-      onPress: () => navigation.navigate(),
+      onPress: () => navigation.navigate("CartStack", { screen: "Cart" }),
     });
   };
 
@@ -30,8 +29,6 @@ export default function AddToCartBtn(props) {
     setIsLoading(true);
     const fetchedCourse = await addCourseCart(addCourse.id);
     setCourseCart(fetchedCourse);
-
-    console.log(fetchedCourse);
 
     if (fetchedCourse === "alreadyInCart") {
       renderToast("error", "¡Ya agregaste este curso!");

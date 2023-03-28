@@ -8,15 +8,17 @@ import { useNavigation } from "@react-navigation/native";
 import { getCourses } from "../../utils/Axios";
 import Splash from "../../screens/sccul/SplashScreen";
 import SwipeableComponent from "../../components/cart/SwipeableComponent";
-import EmptyCart from "../../components/cart/EmptyCart";
+import EmptyContainer from "../../components/common/EmptyContainer";
 
 export default function CartScreen() {
   const [courses, setCourses] = useState([]);
-
+  const [user, setUser] = useState([]);
   useEffect(() => {
     const fetchCourses = async () => {
       const fetchedCourses = await getCourses();
+      const fetchedUser = await getUser();
       setCourses(fetchedCourses);
+      setUser(fetchedUser);
     };
     fetchCourses();
   }, [
@@ -25,7 +27,7 @@ export default function CartScreen() {
 
   const filteredCourses = courses.filter((curso) => {
     const inscriptions = curso.inscriptions;
-    if (inscriptions && inscriptions.length > 0) {
+    if (inscriptions && inscriptions.length > 0 && inscriptions[0].user.id === user.id) {
       return inscriptions[0].status.includes("inscrito");
     }
   });
@@ -34,7 +36,6 @@ export default function CartScreen() {
     return acc + curso.price;
   }, 0);
 
-  const finalTotal = total.toFixed(3);
 
   const navigation = useNavigation();
   const navigateTo = () => {
@@ -42,31 +43,30 @@ export default function CartScreen() {
   };
 
   return (
-    !courses.length > 0 ?
+    !filteredCourses ?
       <Splash /> : (
         <View style={styles.container}>
           <Text style={styles.title}>Carrito de compras</Text>
           <SearchBar />
           {
             filteredCourses.length === 0 ?
-              <EmptyCart /> : (
+              <EmptyContainer icon="cart-minus" type="material-community" text="Tu carrito está vacío" /> : (
                 <>
                   <SwipeNotify />
                   <ScrollView contentContainerStyle={styles.content}>
                     <SwipeableComponent courses={filteredCourses} />
                   </ScrollView>
-
+                  <TitleBtnComponent
+                    textTitle={`$${total} MX`}
+                    titleStyle={styles.subtitle}
+                    textBtn=" Pagar "
+                    icon="payments"
+                    onPress={navigateTo}
+                    btnPrimary={true}
+                  />
                 </>
               )
           }
-          <TitleBtnComponent
-            textTitle={`$${finalTotal} MX`}
-            titleStyle={styles.subtitle}
-            textBtn=" Pagar "
-            icon="payments"
-            onPress={navigateTo}
-            btnPrimary={true}
-          />
         </View>
       )
   );

@@ -28,6 +28,7 @@ export default function LandingScreen() {
             title="Iniciar sesión"
             icon="login"
             btnPrimary={true}
+            buttonStyle={{ paddingHorizontal: "15%" }}
             onPress={navigateToL}
           />
           <Text style={styles.registerText}>¿No tienes una cuenta?
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   footer: {
-    marginTop: 70,
+    marginTop: 30,
     marginBottom: 30,
     alignItems: 'center',
   },

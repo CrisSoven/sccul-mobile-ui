@@ -4,7 +4,7 @@ import ButtonComponent from "../common/ButtonComponent";
 import { useNavigation } from "@react-navigation/core";
 
 export default function AccionsBtnComponent(props) {
-  const { btnCancelTitle, btnContinueTitle, action, btnPrimary, loading, icon, type } = props;
+  const { btnCancelTitle, btnContinueTitle, buttonStyle, onPress, btnPrimary, loading, icon, type } = props;
   const navigation = useNavigation();
 
   return (
@@ -16,8 +16,9 @@ export default function AccionsBtnComponent(props) {
       <ButtonComponent
         icon={icon}
         type={type}
+        buttonStyle={buttonStyle}
         title={btnContinueTitle}
-        onPress={action}
+        onPress={onPress}
         loading={loading}
         btnPrimary={btnPrimary}
       />

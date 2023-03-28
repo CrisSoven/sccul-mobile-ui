@@ -65,7 +65,6 @@ export default function PersonalInfoFormComponent(props) {
   return (
     <>
       <View style={styles.container}>
-
         <TitleBtnComponent
           textTitle="Información personal"
           titleStyle={styles.subtitle}
@@ -75,7 +74,6 @@ export default function PersonalInfoFormComponent(props) {
           btnPrimary={true}
           onPress={disabled ? () => setDisabled(!disabled) : formik.handleSubmit}
         />
-
         <Input
           label="Nombre(s)"
           value={user.name}

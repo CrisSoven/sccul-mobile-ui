@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React, { useState } from "react";
 import Input from "../common/InputComponent";
 import { useFormik } from "formik";
@@ -36,8 +36,6 @@ export default function ChangePasswordComponent() {
       console.log(formData);
       setIsLoading(false);
     },
-
-
   });
 
   return (

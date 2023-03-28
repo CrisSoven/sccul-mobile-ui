@@ -1,26 +1,57 @@
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const baseUrl = "http://192.168.1.74:8080";
-let localEmail = "no@email.com"
-let localPassword = "empty"
-let localToken = "empty"
 let token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
 //cris@gmail.com
 
-export async function checkLoginStatus() {
+export async function deleteToken() {
   try {
-    loginUser(localEmail, localPassword)
-    if (localToken === token) {
-      return true;
-    }
+    await AsyncStorage.removeItem("token");
+    await AsyncStorage.removeItem("user");
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export async function saveCredentials(token, user) {
+  try {
+    await AsyncStorage.setItem("token", token);
+    await AsyncStorage.setItem("user", user.toString());
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export async function getToken() {
+  try {
+    const token = await AsyncStorage.getItem("token");
+    return token;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export async function getUser() {
+  try {
+    const user = await AsyncStorage.getItem("user");
+    return user;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export async function checkLoginStatus() {
+  await saveCredentials(token, 1);
+  try {
+    const token = await getToken();
+    return token === null ? false : true;
   } catch (error) {
     return false;
   }
 };
 
 export async function loginUser(email, password) {
-  localEmail = email;
-  localPassword = password;
   try {
     const response = await axios.post(`${baseUrl}/api/auth/mobile/login`, {
       username: email,
@@ -28,10 +59,11 @@ export async function loginUser(email, password) {
     });
     const data = response.data;
     if (data.statusCode === 200) {
-      token = data.data;
+      saveCredentials(data.data.token, data.data.id);
       return true;
     }
   } catch (error) {
+    throw new Error(error);
   }
 };
 
@@ -47,11 +79,12 @@ export async function registerUser(name, lastname, surname, cellphone, email, pa
     });
     const data = response.data;
     if (data.statusCode === 200) {
-      token = data.data;
       return true;
+    } else {
+      return false;
     }
   } catch (error) {
-    throw new Error(error);
+    return false;
   }
 };
 
@@ -59,7 +92,7 @@ export async function getCategories() {
   try {
     const response = await axios.get(`${baseUrl}/api/categories/`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${await getToken()}`,
       },
     });
     const data = response.data;
@@ -73,13 +106,13 @@ export async function getCourses() {
   try {
     const response = await axios.get(`${baseUrl}/api/courses/`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${await getToken()}`,
       },
     });
     const data = response.data;
     return data.data;
   } catch (error) {
-    console.log("error cursos");
+    throw new Error(error);
   }
 };
 
@@ -87,13 +120,13 @@ export async function getCourseById(courseId) {
   try {
     const response = await axios.get(`${baseUrl}/api/courses/${courseId}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${await getToken()}`,
       },
     });
     const data = response.data;
     return data.data;
   } catch (error) {
-    console.log("error curso id");
+    throw new Error(error);
   }
 }
 
@@ -101,7 +134,7 @@ export async function getCourseById(courseId) {
 //   try {
 //     const response = await axios.get(`${baseUrl}/api/inscriptions/`, {
 //       headers: {
-//         Authorization: `Bearer ${token}`,
+//         Authorization: `Bearer ${await getToken()}`,
 //       },
 //     });
 //     const data = response.data;
@@ -115,7 +148,7 @@ export async function deleteInscription(inscriptionId) {
   try {
     const response = await axios.delete(`${baseUrl}/api/inscriptions/${inscriptionId}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${await getToken()}`,
       },
     });
     const data = response.data;
@@ -129,7 +162,7 @@ export async function buyCourse(inscriptionId) {
   try {
     const response = await axios.patch(`${baseUrl}/api/inscriptions/changeStatus/${inscriptionId}`, {}, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${await getToken()}`,
       },
     });
     const data = response.data;
@@ -141,9 +174,9 @@ export async function buyCourse(inscriptionId) {
 
 export async function getUserInfo() {
   try {
-    const response = await axios.get(`${baseUrl}/api/users/1`, {
+    const response = await axios.get(`${baseUrl}/api/users/${await getUser()}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${await getToken()}`,
       },
     });
     const data = response.data;
@@ -155,9 +188,9 @@ export async function getUserInfo() {
 
 export async function getBankCards() {
   try {
-    const response = await axios.get(`${baseUrl}/api/bankCards/user/1`, {
+    const response = await axios.get(`${baseUrl}/api/bankCards/user/${await getUser()}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${await getToken()}`,
       },
     });
     const data = response.data;
@@ -169,9 +202,9 @@ export async function getBankCards() {
 
 export async function getBankCardById(bankCardId) {
   try {
-    const response = await axios.get(`${baseUrl}/api/bankCards/user/1/card/${bankCardId}`, {
+    const response = await axios.get(`${baseUrl}/api/bankCards/user/${await getUser()}/card/${bankCardId}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${await getToken()}`,
       },
     });
     const data = response.data;
@@ -188,13 +221,13 @@ export async function addCourseCart(courseId) {
         "id": courseId
       },
       "user": {
-        "id": 1
+        "id": `${await getUser()}`
       },
       full_percentage: 0,
       status: "inscrito"
     }, {
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${await getToken()}`
       }
     });
     const data = response.data;
@@ -211,13 +244,13 @@ export async function addCourseCart(courseId) {
   }
 }
 
-export async function setPercentageInscription(inscriptionId, percentage){
+export async function setPercentageInscription(inscriptionId, percentage) {
   try {
     // const response = await axios.patch(`${baseUrl}/api/inscriptions/changePercentage/${inscriptionId}`, {
     //   percentage
     // }, {
     //   headers: {
-    //     Authorization: `Bearer ${token}`
+    //     Authorization: `Bearer ${await getToken()}`
     //   }
     // });
     // const data = response.data;

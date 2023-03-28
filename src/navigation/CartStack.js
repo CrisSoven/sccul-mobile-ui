@@ -1,18 +1,15 @@
-import React, { useRef } from 'react';
+import React from 'react';
+import CartScreen from '../screens/cart/CartScreen';
+import CartPaymentMethodScreen from '../screens/cart/cartScreens/CartPaymentMethodScreen';
+import AddCardScreen from '../screens/cart/cartScreens/AddCardScreen';
+import CartPaymentScreen from '../screens/cart/cartScreens/CartPaymentScreen';
+import Successful from '../screens/cart/cartScreens/Successful';
+import Fail from '../screens/cart/cartScreens/Fail';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native';
-import CartScreen from '../../screens/cart/CartScreen';
-import CartPaymentMethodScreen from '../../screens/cart/cartScreens/CartPaymentMethodScreen';
-import AddCardScreen from '../../screens/cart/cartScreens/AddCardScreen';
-import CartPaymentScreen from '../../screens/cart/cartScreens/CartPaymentScreen';
-import Successful from '../../screens/cart/cartScreens/Successful';
-import Fail from '../../screens/cart/cartScreens/Fail';
 
 const Stack = createStackNavigator();
 
-export default function CartStackNavigator() {
-  const navigation = useNavigation();
-
+export default function CartStack() {
   return (
     <Stack.Navigator
       screenOptions={{

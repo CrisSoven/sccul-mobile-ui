@@ -4,8 +4,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Icon } from "react-native-elements";
 import Colors from "../../utils/Colors";
 
-export default function CardsComponent(props) {
-  const { onPress } = props;
+export default function CardsComponent({onPress}) {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.leftContainer}>

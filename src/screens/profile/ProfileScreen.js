@@ -7,7 +7,7 @@ import TitleBtnComponent from "../../components/profile/TitleBtnComponent";
 import Colors from "../../utils/Colors";
 import PersonalInfoComponent from "../../components/profile/PersonalInfoFormComponent";
 import { useNavigation } from "@react-navigation/native";
-import { getUserInfo } from "../../utils/Axios";
+import { deleteToken, getUserInfo } from "../../utils/Axios";
 import Splash from "../../screens/sccul/SplashScreen";
 
 export default function ProfileScreen() {
@@ -23,7 +23,10 @@ export default function ProfileScreen() {
 
   const navigation = useNavigation();
   const navigateTo = () => navigation.navigate("Pockets");
-  const logout = () => navigation.navigate("Logins");
+  const logout = async() => {
+    await deleteToken();
+    navigation.navigate("Landings");
+  };
   return (
     !user.id ?
       <Splash /> : (

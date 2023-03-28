@@ -1,164 +1,91 @@
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, View, Text } from 'react-native';
-import { Button, Icon } from 'react-native-elements';
-import { useNavigation } from '@react-navigation/native';
-import { Formik } from 'formik';
-import * as yup from 'yup';
-import Colors from '../../utils/Colors';
+import { StyleSheet, View } from 'react-native';
+import Input from "../common/InputComponent";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import AccionsBtnComponent from '../../components/cart/AccionsBtnComponent';
 import { loginUser } from '../../utils/Axios';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
+import { useNavigation } from '@react-navigation/native';
 
 export default function LoginForm() {
-  const [showPass, setShowPass] = useState(false);
+  const [password, setPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const showPass = () => setPassword(!password);
   const navigation = useNavigation();
 
-  const initialValues = {
-    email: '',
-    password: '',
-  };
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
 
-  const validationSchema = yup.object().shape({
-    email: yup
-      .string()
-      .required('Correo electrónico obligatorio')
-      .email('Correc electrónico no valido'),
-    password: yup.string().required('Contraseña obligatoria'),
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .required('Correo electrónico obligatorio')
+        .email('Correo electrónico no valido'),
+      password: Yup.string().required('Contraseña obligatoria'),
+    }),
+    validateOnChange: false,
+
+    onSubmit: async (formData) => {
+      const { email, password } = formData;
+      setIsLoading(true);
+      try {
+        await loginUser(email, password);
+        navigation.navigate('HomeStack', { screen: 'HomeS' });
+      }
+      catch (error) {
+        Toast.show({
+          position: 'bottom',
+          type: 'error',
+          text1: 'Correo electrónico o contraseña incorrectos',
+        });
+      }
+      finally {
+        setIsLoading(false);
+      }
+    }
   });
-
-  const handleFormSubmit = (handleSubmit) => {
-    return handleSubmit();
-  };
-
-  const handleSubmit = async (values) => {
-    const { email, password } = values;
-    return await loginUser(email, password);
-  };
-
-  const hidePass = () => {
-    setShowPass(!showPass);
-  };
 
   return (
     <View style={styles.header}>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        validationSchema={validationSchema}
-      >
-        {({
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          values,
-          errors,
-          touched,
-        }) => (
-          <View>
-            <View style={styles.spaceBetween}>
-              <Text style={styles.label}>Correo electrónico</Text>
-              <View style={styles.inputContainer}>
-                <Icon
-                  style={styles.icon}
-                  name='account-outline'
-                  size={24}
-                  color='black'
-                  type='material-community'
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder='Correo electronico'
-                  onChangeText={handleChange('email')}
-                  onBlur={handleBlur('email')}
-                  value={values.email}
-                  keyboardType='email-address'
-                />
-              </View>
-              {errors.email && touched.email && (
-                <Text style={styles.error}>{errors.email}</Text>
-              )}
-            </View>
-            <View style={styles.spaceBetween}>
-              <Text style={styles.label}>Contraseña</Text>
-              <View style={styles.inputContainer}>
-                <Icon
-                  style={styles.icon}
-                  name= {showPass ? 'eye-off-outline' : 'eye-outline'}
-                  onPress={hidePass}
-                  size={24}
-                  color='black'
-                  type='material-community'
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder='Contraseña'
-                  secureTextEntry={!showPass}
-                  onChangeText={handleChange('password')}
-                  onBlur={handleBlur('password')}
-                  value={values.password}
-                />
-              </View>
-              {errors.password && touched.password && (
-                <Text style={styles.error}>
-                  {errors.password}
-                </Text>
-              )}
-              <View style={{ marginVertical: 10 }}>
-                <AccionsBtnComponent
-                  btnCancelTitle={'Regresar'}
-                  btnContinueTitle={'Iniciar sesión'}
-                  btnPrimary={true}
-                  loading={isLoading}
-                  action={() => handleFormSubmit(handleSubmit)}
-                />
-              </View>
-            </View>
-          </View>
-        )}
-      </Formik>
+      <Input
+        label="Correo electrónico"
+        placeholder="correo@ejemplo.com"
+        iconName="email-outline"
+        iconType="material-community"
+        onChangeText={(text) => formik.setFieldValue("email", text)}
+        errorMessage={formik.errors.email}
+      />
+      <Input
+        label="Contraseña"
+        placeholder="•••••••"
+        secureTextEntry={password ? false : true}
+        iconName={password ? "eye-off-outline" : "eye-outline"}
+        iconType="material-community"
+        onPressIcon={showPass}
+        onChangeText={(text) => formik.setFieldValue("password", text)}
+        errorMessage={formik.errors.password}
+      />
+      <AccionsBtnComponent
+        btnCancelTitle="Cancelar"
+        icon="login"
+        type="material-community"
+        btnContinueTitle="Iniciar sesión"
+        btnPrimary={true}
+        buttonStyle={{ paddingHorizontal: "10%" }}
+        loading={isLoading}
+        onPress={formik.handleSubmit}
+        isLoading={isLoading}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  label: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  row: {
-    flexDirection: 'row',
-  },
-  column: {
-    flexDirection: 'column',
-    width: '40%',
-    paddingHorizontal: 20,
-  },
-  icon: {
-    marginRight: 10,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderColor: Colors.PalleteGreenBackground,
-    backgroundColor: Colors.PalleteGreenBackground,
-    borderRadius: 10,
-    paddingLeft: 10,
-  },
-  input: {
-    flex: 1,
-    height: 45,
-  },
-  error: {
-    color: Colors.PalletteRed,
-    fontWeight: 'bold',
-    marginTop: 5,
-  },
   header: {
     paddingTop: 20,
     paddingHorizontal: 20,
-  },
-  spaceBetween: {
-    marginBottom: 30,
   },
 });

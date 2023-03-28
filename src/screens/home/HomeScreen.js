@@ -7,27 +7,20 @@ import FeaturedCourses from "../../components/FeaturedCourses";
 
 export default function HomeScreen() {
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.container}>
-        <SearchBar />
-        <Banner />
-        <Text style={styles.title}>Categorías</Text>
-        <ScrollViewCategories />
-        <FeaturedCourses />
-      </View>
-    </ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.container}>
+          <SearchBar />
+          <Banner />
+          <ScrollViewCategories />
+          <FeaturedCourses />
+        </View>
+      </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: "5%",
-  },
-  title: {
-    fontWeight: "bold",
-    fontSize: 24,
-    marginBottom: "3%",
-    marginHorizontal: "2%",
+    marginTop: 20,
   },
 });

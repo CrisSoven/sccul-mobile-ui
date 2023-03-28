@@ -19,6 +19,7 @@ export default function ScrollViewCategories() {
 
   return (
     <View style={styles.viewContainer}>
+      <Text style={styles.title}>Categorías</Text>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         {
           categories.map((category) => (
@@ -42,6 +43,11 @@ const styles = StyleSheet.create({
   viewContainer: {
     marginHorizontal: "4%",
     marginBottom: "3%",
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: 24,
+    marginBottom: 20,
   },
   container: {
     width: "auto",

@@ -4,32 +4,34 @@ import AppNavigation from './src/navigation/AppNavigation';
 import Splash from './src/screens/sccul/SplashScreen';
 import { View } from 'react-native';
 import Header from './src/components/common/Header';
-import ScculStack from './src/navigation/stacks/ScculStack';
-import { checkLoginStatus } from './src/utils/Axios';
+import ScculStack from './src/navigation/ScculStack';
+import { checkLoginStatus, deleteToken } from './src/utils/Axios';
 import Toast from "react-native-toast-message";
 
 export default function App() {
-  const [isLogged, setIsLogged] = useState(null);
+  const [session, setSession] = useState(null);
 
   useEffect(() => {
-    async function checkStatus() {
-      const status = await checkLoginStatus();
-      setIsLogged(true);
-    }
-    checkStatus();
-  }, []);
+    const fetchSession = async () => {
+      // const fetchedSession = await deleteToken();
+      const fetchedSession = await checkLoginStatus();
 
-  if (isLogged === null) {
+      setSession(fetchedSession);
+    };
+    fetchSession();
+  }, [session]);
+
+  if (session === null) {
     return <Splash />;
   }
   return (
     <View style={{ flex: 1 }}>
       <NavigationContainer>
-        {isLogged ? (
+        { session ? (
           <>
             <Header />
             <AppNavigation />
-            <Toast/>
+            <Toast />
           </>
         ) : (
           <ScculStack />

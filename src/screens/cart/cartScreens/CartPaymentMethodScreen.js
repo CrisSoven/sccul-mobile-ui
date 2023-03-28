@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React, { useState, useEffect } from "react";
 import GoBack from "../../../components/common/Goback";
 import CardsComponent from "../../../components/cart/CardsComponent";
@@ -27,7 +27,7 @@ export default function CartPaymentMethodScreen(props) {
   };
 
   return (
-    !cards.length > 0 ?
+    !cards ?
       <Splash /> : (
         <ScrollView>
           <View style={styles.header}>

@@ -5,7 +5,7 @@ import Colors from "../../utils/Colors";
 
 export default function InputComponent(props) {
   const { label, iconName, iconType, onPressIcon, placeholder, value, secureTextEntry, disabled, onChangeText, errorMessage, keyboardType } = props;
-  
+
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
@@ -15,17 +15,20 @@ export default function InputComponent(props) {
             name={iconName}
             type={iconType}
             onPress={onPressIcon}
+            size={20}
+            color={Colors.PalleteGreen}
           />
         }
-        placeholder={placeholder}
         value={value}
-        secureTextEntry={secureTextEntry}
         disabled={disabled}
+        style={{fontSize: 15}}
+        placeholder={placeholder}
         onChangeText={onChangeText}
         errorMessage={errorMessage}
         keyboardType={keyboardType}
+        secureTextEntry={secureTextEntry}
         containerStyle={styles.inputContainer}
-        inputContainerStyle = {{borderBottomWidth: 0}}
+        inputContainerStyle={{ borderBottomWidth: 0 }}
       />
     </View>
   );

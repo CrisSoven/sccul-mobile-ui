@@ -3,11 +3,11 @@ import React from 'react'
 import { Icon } from 'react-native-elements'
 import Colors from '../../utils/Colors'
 
-export default function EmptyCart() {
+export default function EmptyContainer({icon, type, text}) {
   return (
     <View style={styles.container}>
-        <Icon size={100} name="cart-minus" type="material-community" color={Colors.PalleteGray} />
-        <Text style={styles.text}>Tu carrito está vacío</Text>
+        <Icon size={100} name={icon} type={type} color={Colors.PalleteGray} />
+        <Text style={styles.text}>{text}</Text>
     </View>
   )
 }

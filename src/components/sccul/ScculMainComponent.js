@@ -19,7 +19,7 @@ export default function ScculMainComponent(props) {
 
 const styles = StyleSheet.create({
   appName: {
-    marginTop: 60,
+    marginTop: 40,
     marginBottom: 20,
     flexDirection: 'row',
     alignItems: 'center',
