@@ -19,7 +19,7 @@ export default function Goback(props) {
           size={30}
           style={{marginLeft: 1}}
         />
-        <Text style={styles.title} numberOfLines={1}>{title}</Text>
+        <Text style={styles.title} numberOfLines={3}>{title}</Text>
       </TouchableOpacity>
     </View>
   );
