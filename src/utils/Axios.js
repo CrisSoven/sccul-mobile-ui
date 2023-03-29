@@ -2,7 +2,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const baseUrl = "http://192.168.1.74:8080";
-let token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
+// let token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
 //cris@gmail.com
 
 export async function deleteToken() {
@@ -10,6 +10,7 @@ export async function deleteToken() {
     await AsyncStorage.removeItem("token");
     await AsyncStorage.removeItem("user");
   } catch (error) {
+    console.log("delete token error");
     throw new Error(error);
   }
 }
@@ -19,6 +20,7 @@ export async function saveCredentials(token, user) {
     await AsyncStorage.setItem("token", token);
     await AsyncStorage.setItem("user", user.toString());
   } catch (error) {
+    console.log("save credentials error");
     throw new Error(error);
   }
 }
@@ -37,18 +39,20 @@ export async function getUser() {
     const user = await AsyncStorage.getItem("user");
     return user;
   } catch (error) {
+    console.log("get user error");
     throw new Error(error);
   }
 }
 
 export async function checkLoginStatus() {
-  await saveCredentials(token, 1);
   try {
     const token = await getToken();
+    console.log("token:", token);
     return token === null ? false : true;
   } catch (error) {
+    console.log("check login status error");
     return false;
-  }
+  } 
 };
 
 export async function loginUser(email, password) {
@@ -59,10 +63,14 @@ export async function loginUser(email, password) {
     });
     const data = response.data;
     if (data.statusCode === 200) {
-      saveCredentials(data.data.token, data.data.id);
+      await saveCredentials(data.data.token, data.data.id);
+      console.log(data.data.token, data.data.id);
       return true;
+    } else {
+      return false;
     }
   } catch (error) {
+    console.log("login error");
     throw new Error(error);
   }
 };
@@ -84,11 +92,13 @@ export async function registerUser(name, lastname, surname, cellphone, email, pa
       return false;
     }
   } catch (error) {
+    console.log("register error");
     return false;
   }
 };
 
 export async function getCategories() {
+  console.log(await getToken());
   try {
     const response = await axios.get(`${baseUrl}/api/categories/`, {
       headers: {
@@ -98,6 +108,7 @@ export async function getCategories() {
     const data = response.data;
     return data.data;
   } catch (error) {
+    console.log("get categories error");
     throw new Error(error);
   }
 };
@@ -112,6 +123,7 @@ export async function getCourses() {
     const data = response.data;
     return data.data;
   } catch (error) {
+    console.log("get courses error");
     throw new Error(error);
   }
 };
@@ -126,6 +138,7 @@ export async function getCourseById(courseId) {
     const data = response.data;
     return data.data;
   } catch (error) {
+    console.log("get course by id error");
     throw new Error(error);
   }
 }
@@ -155,6 +168,7 @@ export async function deleteInscription(inscriptionId) {
     return data.data;
   } catch (error) {
     console.log("error inscripciones");
+    throw new Error(error);
   }
 };
 
@@ -168,7 +182,8 @@ export async function buyCourse(inscriptionId) {
     const data = response.data;
     return data.data;
   } catch (error) {
-    console.log(error);
+    console.log("error inscripciones");
+    throw new Error(error);
   }
 }
 
@@ -183,6 +198,7 @@ export async function getUserInfo() {
     return data.data;
   } catch (error) {
     console.log("error info usuario");
+    throw new Error(error);
   }
 };
 
@@ -197,6 +213,7 @@ export async function getBankCards() {
     return data.data;
   } catch (error) {
     console.log("error tarjetas");
+    throw new Error(error);
   }
 }
 
@@ -213,6 +230,38 @@ export async function getBankCardById(bankCardId) {
     console.log("error tarjeta id");
   }
 };
+
+export async function addBankCard(ownerName, alias, cardNumber, cardExpiration, cardCvv) {
+  const user = await getUserInfo();
+  try {
+    const response = await axios.post(`${baseUrl}/api/bankCards/`, {
+      ownerName,
+      alias,
+      cardNumber,
+      cardExpiration,
+      cardCvv,
+      user: {
+        id : user.id,
+        name: user.name,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+      },
+    }, {
+      headers: {
+        Authorization: `Bearer ${await getToken()}`,
+      },
+    });
+    
+    if (response.data.statusCode === 200) {
+      return true;
+    } else if (response.data.message === "Tarjeta ya registrada") {
+      return false;
+    }
+  } catch (error) {
+    console.log("error agregar tarjeta");
+    throw new Error(error);
+  }
+}
 
 export async function addCourseCart(courseId) {
   try {

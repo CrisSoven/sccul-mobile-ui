@@ -27,22 +27,22 @@ export default function AppNavigation() {
       <Tab.Screen
         component={HomeStack}
         name="Inicio"
-        options={{ tabBarIcon: icon("home-outline")}}
+        options={{ tabBarIcon: icon("home-outline") }}
       />
       <Tab.Screen
         name="Mi carrito"
         component={CartStack}
-        options={{ tabBarIcon: icon("cart-outline")}}
+        options={{ tabBarIcon: icon("cart-outline") }}
       />
       <Tab.Screen
         component={CourseStack}
         name="Mis cursos"
-        options={{ tabBarIcon: icon("bookmark-box-multiple-outline")}}
+        options={{ tabBarIcon: icon("bookmark-box-multiple-outline") }}
       />
       <Tab.Screen
         component={ProfileStack}
         name="Perfil"
-        options={{ tabBarIcon: icon("account-outline")}}
+        options={{ tabBarIcon: icon("account-outline") }}
       />
     </Tab.Navigator>
   );

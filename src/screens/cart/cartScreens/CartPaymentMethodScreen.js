@@ -23,33 +23,31 @@ export default function CartPaymentMethodScreen(props) {
   const navigation = useNavigation();
 
   const navigateToAddCard = () => {
-    console.log("add card???");
+    navigation.navigate("AddCard");
   };
 
   return (
-    !cards ?
-      <Splash /> : (
-        <ScrollView>
-          <View style={styles.header}>
-            <GoBack title="Metodos de pago" />
-            <TitleBtnComponent
-              textTitle="Mis tarjetas"
-              titleStyle={styles.title}
-              icon="credit-card-plus-outline"
-              textBtn="Agregar tarjeta"
-              iconType="material-community"
-              btnPrimary={true}
-              onPress={navigateToAddCard}
-            />
-          </View>
-          <View style={styles.content}>
-            <CardsComponent
-              cards={cards}
-              courses={filteredCourses}
-              onPress={"CartPayment"} />
-          </View>
-        </ScrollView>
-      )
+    <ScrollView>
+      <View style={styles.header}>
+        <GoBack title="Metodos de pago" />
+        <TitleBtnComponent
+          textTitle="Mis tarjetas"
+          titleStyle={styles.title}
+          icon="credit-card-plus-outline"
+          textBtn="Agregar tarjeta"
+          iconType="material-community"
+          btnPrimary={true}
+          onPress={navigateToAddCard}
+        />
+      </View>
+      <View style={styles.content}>
+        <CardsComponent
+          cards={cards}
+          courses={filteredCourses}
+          onPress={"CartPayment"}
+        />
+      </View>
+    </ScrollView>
   );
 }
 

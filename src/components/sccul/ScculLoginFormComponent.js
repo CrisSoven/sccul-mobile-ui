@@ -33,13 +33,14 @@ export default function LoginForm() {
       setIsLoading(true);
       try {
         await loginUser(email, password);
-        navigation.navigate('HomeStack', { screen: 'HomeS' });
+        return true;
       }
       catch (error) {
+        console.log(error);
         Toast.show({
           position: 'bottom',
           type: 'error',
-          text1: 'Correo electrónico o contraseña incorrectos',
+          text1: 'Correo o contraseña incorrectos',
         });
       }
       finally {

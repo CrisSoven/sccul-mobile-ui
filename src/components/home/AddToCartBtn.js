@@ -21,7 +21,9 @@ export default function AddToCartBtn(props) {
       text2: text ? text : "Presiona aquí para verlo tu carrito",
       visibilityTime: 5000,
       bottomOffset: 80,
-      onPress: () => navigation.navigate("CartStack", { screen: "Cart" }),
+      onPress: () => {
+        navigation.navigate("Cart");
+      }
     });
   };
 

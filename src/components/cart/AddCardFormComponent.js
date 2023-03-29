@@ -1,242 +1,179 @@
 import React from "react";
-import { StyleSheet, Text, TextInput, View, KeyboardAvoidingView, } from "react-native";
-import { Formik } from "formik";
-import * as yup from "yup";
-import { Icon } from "react-native-elements";
+import { StyleSheet, View, KeyboardAvoidingView, } from "react-native";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import { useState } from "react";
-import Colors from "../../utils/Colors";
+import Input from "../common/InputComponent";
+import AccionsBtnComponent from "./AccionsBtnComponent";
+import SaveCardBtnComponent from "../cart/SaveCardBtnComponent";
+import { addBankCard } from "../../utils/Axios";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
-export default function AddCardFormComponent(props) {
-  const { card, isEditable } = props;
-  const [showData, setShowData] = useState(false);
+export default function AddCardFormComponent({ card, isEditable }) {
+  const [isLoading, setIsLoading] = useState(false);
 
-  const initialValues = {
-    cardName: "",
-    cardNumber: "",
-    // expirationMonth: new Date().getMonth() + 1,
-    // expirationYear: new Date().getFullYear(),
-    expirationMonth: "",
-    expirationYear: "",
-    ccv: "",
-  };
-
-  const validationSchema = yup.object().shape({
-    cardName: yup.string().required("El nombre de la tarjeta es requerido"),
-    cardNumber: yup
-      .string()
-      .required("El número de la tarjeta es requerido")
-      .matches(/^[0-9]{16}$/, "El número de la tarjeta debe tener 16 dígitos"),
-    expirationMonth: yup
-      .number()
-      .min(1, "El mes debe estar entre 1 y 12")
-      .max(12, "El mes debe estar entre 1 y 12")
-      .required("El mes de expiración es requerido"),
-    expirationYear: yup
-      .number()
-      .min(
-        new Date().getFullYear(),
-        "El año de expiración debe ser igual o mayor al año actual"
-      )
-      .required("El año de expiración es requerido"),
-    ccv: yup
-      .string()
-      .matches(/^[0-9]{3}$/, "El CCV debe tener 3 dígitos")
-      .required("El código CCV es requerido"),
+  const formik = useFormik({
+    initialValues: {
+      alias : card ? card.alias : "",
+      cardName: card ? card.cardName : "",
+      cardNumber: card ? card.cardNumber : "",
+      expirationMonth: card ? card.expirationMonth : "",
+      expirationYear: card ? card.expirationYear : "",
+      CardCvv: card ? card.CardCvv : "",
+    },
+    validationSchema: Yup.object({
+      cardName: Yup.string().required("El nombre de la tarjeta es requerido"),
+      cardNumber: Yup.string()
+        .required("El número de la tarjeta es requerido")
+        .matches(/^[0-9]{16}$/, "El número de la tarjeta debe tener 16 dígitos"),
+      expirationMonth: Yup.number()
+        .min(1, "El mes debe ser entre 1 y 12")
+        .max(12, "El mes debe ser entre 1 y 12")
+        .required("Mes requerido"),
+      expirationYear: Yup.number()
+        .min(
+          new Date().getFullYear(),
+          "El año debe ser igual o mayor al año actual"
+        )
+        .required("Año requerido"),
+      CardCvv: Yup.string()
+        .matches(/^[0-9]{3}$/, "El CCV debe tener 3 dígitos")
+        .required("CCV requerido"),
+    }),
+    validateOnChange: false,
+    onSubmit: async ({cardName, alias, cardNumber, CardCvv, expirationMonth, expirationYear}) => {
+      try {
+        const year = expirationYear % 100;
+        const cardExpiration = `${expirationMonth < 10 ? "0" : ""}${expirationMonth}/${year}`;
+        const response = await addBankCard(cardName, alias, cardNumber, cardExpiration, CardCvv);
+        response ? Toast.show({
+          type: "success",
+          position: "bottom",
+          text1: "¡Tarjeta registrada correctamente!",
+        }) :
+        Toast.show({
+          type: "error",
+          position: "bottom",
+          text1: "¡La tarjeta ya se encuentra registrada!",
+        });
+      } catch (error) {
+        
+      }
+    },
   });
-
-  const [date, setDate] = useState(
-    new Date(initialValues.expirationYear, initialValues.expirationMonth - 1)
-  );
-
-  const handleChangeDate = (newDate) => {
-    setDate(newDate);
-  };
-
-  const handleBlurDate = () => {
-    setShowDatePicker(false);
-  };
-
-  const handleSubmit = (values) => {
-    console.log(values);
-    // Aquí puedes enviar los valores del formulario al servidor
-  };
-
   return (
     <KeyboardAvoidingView>
       <View style={styles.header}>
-        <Formik
-          initialValues={initialValues}
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}
-        >
-          {({ handleChange, handleBlur, handleSubmit, values, errors, touched, }) => (
-            <View>
-              <View style={styles.spaceBetween}>
+      <Input
+          label="Alias de la tarjeta"
+          placeholder="Alias de la tarjeta"
+          iconName="account-outline"
+          iconType="material-community"
+          // value={isEditable ? values.cardName : card.cardName}
+          editable={isEditable}
+          onChangeText={(text) => formik.setFieldValue("alias", text)}
+        />
+        <Input
+          label="Nombre en tarjeta"
+          placeholder="Nombre en tarjeta"
+          iconName="account-outline"
+          iconType="material-community"
+          // value={isEditable ? values.cardName : card.cardName}
+          editable={isEditable}
+          onChangeText={(text) => formik.setFieldValue("cardName", text)}
+          errorMessage={formik.errors.cardName}
+        />
+        <Input
+          label="Número de tarjeta"
+          placeholder="************1234"
+          iconName="credit-card-outline"
+          iconType="material-community"
+          keyboardType="phone-pad"
+          // value={isEditable ? values.cardNumber : card.cardNumber.replace(/(\d{4})/g, '$1 ')}
+          maxLength={isEditable ? 16 : 19}
+          minLength={isEditable ? 16 : 19}
+          editable={isEditable}
+          onChangeText={(text) => formik.setFieldValue("cardNumber", text)}
+          errorMessage={formik.errors.cardNumber}
+        />
 
-                <Text style={styles.label}>Nombre en tarjeta</Text>
-                <View style={styles.inputContainer}>
-                  <Icon
-                    style={styles.icon}
-                    name="account-outline"
-                    size={24}
-                    color="black"
-                    type="material-community"
-                  />
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Nombre en tarjeta"
-                    onChangeText={handleChange("cardName")}
-                    onBlur={handleBlur("cardName")}
-                    value={isEditable ? values.cardName : card.ownerName}
-                    editable={isEditable}
-                  />
-                </View>
-                {errors.cardName && touched.cardName && (
-                  <Text style={styles.error}>{errors.cardName}</Text>
-                )}
-              </View>
-              <View style={styles.spaceBetween}>
-                
-                <Text style={styles.label}>Número de tarjeta</Text>
-                <View style={styles.inputContainer}>
-                  <Icon
-                    style={styles.icon}
-                    name="credit-card"
-                    size={24}
-                    color="black"
-                  />
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Numero de tarjeta"
-                    onChangeText={handleChange("cardNumber")}
-                    onBlur={handleBlur("cardNumber")}
-                    value={isEditable ? values.cardNumber : card.cardNumber.replace(/(\d{4})/g, '$1 ')}
-                    keyboardType="numeric"
-                    maxLength={isEditable ? 16 : 19}
-                    minLength={isEditable ? 16 : 19}
-                    editable={isEditable}
-                  />
-                </View>
-                {errors.cardNumber && touched.cardNumber && (
-                  <Text style={styles.error}>{errors.cardNumber}</Text>
-                )}
-              </View>
-
-              <View style={styles.row}>
-                <View stlye={styles.column}>
-                  <Text style={styles.label}>Fecha de expiración</Text>
-                  <View style={styles.inputContainer}>
-                    <Icon
-                      style={styles.icon}
-                      name="calendar-range"
-                      size={24}
-                      color="black"
-                      type="material-community"
-                    />
-                    <TextInput
-                      style={styles.input}
-                      placeholder="MM"
-                      onChangeText={handleChange("expirationMonth")}
-                      onBlur={handleBlur("expirationMonth")}
-                      value={isEditable ? values.expirationMonth.toString() : card.cardExpiration}
-                      keyboardType="numeric"
-                      maxLength={2}
-                      editable={isEditable}
-                    />
-                    <Text>/</Text>
-                    <TextInput
-                      style={styles.input}
-                      placeholder="AAAA"
-                      onChangeText={handleChange("expirationYear")}
-                      onBlur={handleBlur("expirationYear")}
-                      value={values.expirationYear.toString()}
-                      keyboardType="numeric"
-                      maxLength={4}
-                      editable={isEditable}
-                    />
-                  </View>
-                  {errors.expirationMonth && touched.expirationMonth && (
-                    <Text style={styles.error}>{errors.expirationMonth}</Text>
-                  )}
-                  {errors.expirationYear && touched.expirationYear && (
-                    <Text style={styles.error}>{errors.expirationYear}</Text>
-                  )}
-                </View>
-                <View style={styles.column}>
-                  <Text style={styles.label}>CCV</Text>
-                  <View style={styles.inputContainer}>
-                    <Icon
-                      style={styles.icon}
-                      name="lock-outline"
-                      size={24}
-                      color="black"
-                      type="material-community"
-                    />
-                    <TextInput
-                      style={styles.input}
-                      placeholder="CCV"
-                      onChangeText={handleChange("ccv")}
-                      onBlur={handleBlur("ccv")}
-                      secureTextEntry={true}
-                      value={isEditable ? values.ccv : card.cardCvv}
-                      keyboardType="numeric"
-                      maxLength={3}
-                      minLength={3}
-                      editable={isEditable}
-                    />
-                  </View>
-                  {errors.ccv && touched.ccv && (
-                    <Text style={styles.error}>{errors.ccv}</Text>
-                  )}
-                </View>
-              </View>
-            </View>
-          )}
-        </Formik>
+        <View style={styles.row}>
+          <View style={styles.column}>
+            <Input
+              label="Fecha de expiración"
+              placeholder="MM"
+              iconName="calendar-range"
+              iconType="material-community"
+              keyboardType="phone-pad"
+              // value={isEditable ? values.expirationMonth.toString() : card.cardExpiration}
+              minLength={2}
+              maxLength={2}
+              editable={isEditable}
+              onChangeText={(text) => formik.setFieldValue("expirationMonth", text)}
+              errorMessage={formik.errors.expirationMonth}
+            />
+          </View>
+          <View style={styles.column}>
+            <Input
+              placeholder="YYYY"
+              iconName="calendar-range"
+              iconType="material-community"
+              keyboardType="phone-pad"
+              // value={isEditable ? values.expirationMonth.toString() : card.cardExpiration}
+              mixLength={4}
+              maxLength={4}
+              editable={isEditable}
+              onChangeText={(text) => formik.setFieldValue("expirationYear", text)}
+              errorMessage={formik.errors.expirationYear}
+            />
+          </View>
+        </View>
+        <View style={styles.row}>
+          <View style={styles.column}>
+            <Input
+              label="CVV"
+              placeholder="***"
+              iconName="lock-outline"
+              iconType="material-community"
+              keyboardType="phone-pad"
+              // value={isEditable ? values.expirationMonth.toString() : card.cardExpiration}
+              maxLength={3}
+              minLength={3}
+              editable={isEditable}
+              onChangeText={(text) => formik.setFieldValue("CardCvv", text)}
+              errorMessage={formik.errors.CardCvv}
+            />
+          </View>
+          <View style={styles.column}>
+            <SaveCardBtnComponent />
+          </View>
+        </View>
+        <AccionsBtnComponent
+          btnCancelTitle=" Cancelar "
+          // icon="close-circle-outline"
+          type="material-community"
+          btnContinueTitle="Continuar"
+          btnPrimary={true}
+          buttonStyle={{ paddingHorizontal: "10%" }}
+          loading={isLoading}
+          onPress={formik.handleSubmit}
+          isLoading={isLoading}
+          // action={() => navigation.navigate('CartPayment')}
+        />
       </View>
     </KeyboardAvoidingView>
   );
 }
 const styles = StyleSheet.create({
-  label: {
-    fontSize: 15,
-    fontWeight: "bold",
-    marginBottom: 10,
+  header: {
+    paddingHorizontal: 10,
   },
   row: {
     flexDirection: "row",
+    alignItems: "center",
   },
   column: {
     flexDirection: "column",
-    width: "50%",
-    paddingHorizontal: 20,
-  },
-  icon: {
-    marginRight: 10,
-  },
-  inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderColor: Colors.PalleteGreenBackground,
-    backgroundColor: Colors.PalleteGreenBackground,
-    borderRadius: 10,
-    paddingLeft: 10,
-  },
-  input: {
-    flex: 1,
-    height: 45,
-    paddingRight: "20%",
-  },
-  error: {
-    color: Colors.PalletteRed,
-    fontWeight: "bold",
-    marginTop: 5,
-  },
-  header: {
-    paddingTop: 20,
-    paddingHorizontal: 20,
-  },
-  spaceBetween: {
-    marginBottom: 30,
+    width: "49%",
   },
 });

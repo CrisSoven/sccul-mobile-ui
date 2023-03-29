@@ -15,7 +15,6 @@ export default function App() {
     const fetchSession = async () => {
       // const fetchedSession = await deleteToken();
       const fetchedSession = await checkLoginStatus();
-
       setSession(fetchedSession);
     };
     fetchSession();
@@ -27,14 +26,17 @@ export default function App() {
   return (
     <View style={{ flex: 1 }}>
       <NavigationContainer>
-        { session ? (
+        {session ? (
           <>
             <Header />
             <AppNavigation />
             <Toast />
           </>
         ) : (
-          <ScculStack />
+          <>
+            <ScculStack />
+            <Toast />
+          </>
         )}
       </NavigationContainer>
     </View>
