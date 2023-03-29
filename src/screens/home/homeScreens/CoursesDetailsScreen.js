@@ -24,50 +24,98 @@ export default function CoursesDetailsScreen({ route }) {
     fetchCourse();
   }, [courseId]);
 
-  return (
-    !course.id ?
-      <Splash /> : (
-        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-          <Goback title={course.name} />
-          <Image source={{ uri: course.image }} style={styles.image} />
-          <View style={styles.averageContainer}>
-            <Text style={styles.text}>{course.average}</Text>
-            <Rating
-              startingValue={course.average}
-              fractions={1}
-              imageSize={24}
-              readonly
-              ratingColor={Colors.PalleteYellow}
-              style={{ marginRight: 10 }}
-            />
-            <Text style={{ fontSize: 18 }}>
-              ({course.comments.length ? course.comments.length : 0})
+  const calcPrice = () => {
+    if (course.discount > 0) {
+      return {
+        price: course.price - course.price * (course.discount / 100),
+        originalPrice: course.price,
+      };
+    } else {
+      return course.price;
+    }
+  };
+
+  const updatedCourse = calcPrice();
+
+  return !course.id ? (
+    <Splash />
+  ) : (
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <Goback title={course.name} />
+      <Image source={{ uri: course.image }} style={styles.image} />
+      <View style={styles.averageContainer}>
+        <Text style={styles.text}>{course.average}</Text>
+        <Rating
+          startingValue={course.average}
+          fractions={1}
+          imageSize={24}
+          readonly
+          ratingColor={Colors.PalleteYellow}
+          style={{ marginRight: 10 }}
+        />
+        <Text style={{ fontSize: 18 }}>
+          ({course.comments.length ? course.comments.length : 0})
+        </Text>
+      </View>
+      {course.discount > 0 && (
+        <View style={{ flexDirection: "column" }}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignContent: "center",
+              alignItems: "center",
+              marginTop: "4%",
+            }}
+          >
+            <Text
+              style={{
+                ...styles.price,
+                color: Colors.PalletteRed,
+                fontWeight: "bold",
+                marginRight: "2%",
+              }}
+            >
+              ${updatedCourse.price} MXN
             </Text>
+            <Text style={styles.discount}>-{course.discount}%</Text>
           </View>
-          <Text style={styles.price}>${course.price} MX</Text>
-          <Text style={styles.text}>{course.description}</Text>
-          <View>
-            <TouchableOpacity style={styles.categoryContainer} disabled={true}>
-              <Text style={styles.categoryText} numberOfLines={1}>
-                {course.category.name}
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.btns}>
-            <AddToCartBtn addCourse={course} loading={true} />
-            <ButtonComponent
-              buttonStyle={{ paddingHorizontal: "20%" }}
-              title="Comprar ahora"
-              icon="cart-outline"
-              type="material-community"
-              btnPrimary={true}
-              onPress={() => console.log("Comprar ahora")}
-            />
-          </View>
-          <ContentComponent course={course} />
-          <Comments comments={course.comments} />
-        </ScrollView>
-      )
+          <Text
+            style={{
+              ...styles.price,
+              fontSize: 20,
+              textDecorationLine: "line-through",
+              color: Colors.PalleteBlack,
+            }}
+          >
+            ${updatedCourse.originalPrice} MXN
+          </Text>
+        </View>
+      )}
+      {(course.discount == 0 || course.discount == null) && (
+        <Text style={styles.price}>${course.price} MXN</Text>
+      )}
+      <Text style={styles.text}>{course.description}</Text>
+      <View>
+        <TouchableOpacity style={styles.categoryContainer} disabled={true}>
+          <Text style={styles.categoryText} numberOfLines={1}>
+            {course.category.name}
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.btns}>
+        <AddToCartBtn addCourse={course} loading={true} />
+        <ButtonComponent
+          buttonStyle={{ paddingHorizontal: "20%" }}
+          title="Comprar ahora"
+          icon="cart-outline"
+          type="material-community"
+          btnPrimary={true}
+          onPress={() => console.log("Comprar ahora")}
+        />
+      </View>
+      <ContentComponent course={course} />
+      <Comments comments={course.comments} />
+    </ScrollView>
   );
 }
 
@@ -93,9 +141,14 @@ const styles = StyleSheet.create({
   },
   price: {
     fontSize: 35,
-    fontWeight: "bold",
     color: Colors.PalletteRed,
     marginBottom: 10,
+  },
+  discount: {
+    color: Colors.PalletteRed,
+    fontSize: 24,
+    marginBottom: "2.5%",
+    marginLeft: "2.5%",
   },
   text: {
     fontSize: 16,

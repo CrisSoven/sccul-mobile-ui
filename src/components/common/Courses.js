@@ -15,6 +15,22 @@ export default function Courses(props) {
     console.log("hola");
   };
 
+  const calcPrice = () => {
+    return courses.map((course) => {
+      if (course.discount > 0) {
+        return {
+          ...course,
+          price: course.price - course.price * (course.discount / 100),
+          originalPrice: course.price,
+        };
+      } else {
+        return course;
+      }
+    });
+  };
+
+  const updatedCourses = calcPrice();
+
   if (courseSwipe) {
     return (
       <TouchableOpacity
@@ -38,7 +54,34 @@ export default function Courses(props) {
             {courseSwipe.name}
           </Text>
           <View>
-            <Text style={styles.price}>${courseSwipe.price} MX</Text>
+            {courseSwipe.discount > 0 && (
+              <View style={{ flexDirection: "column" }}>
+                <Text
+                  style={{
+                    ...styles.price,
+                    color: Colors.PalletteRed,
+                    fontWeight: "bold",
+                    fontSize: 14,
+                    marginRight: "2%",
+                    marginTop: "4%",
+                  }}
+                >
+                  ${courseSwipe.price} MXN
+                </Text>
+                <Text
+                  style={{
+                    ...styles.price,
+                    fontSize: 12,
+                    textDecorationLine: "line-through",
+                  }}
+                >
+                  ${courseSwipe.originalPrice} MXN
+                </Text>
+              </View>
+            )}
+            {(courseSwipe.discount == 0 || courseSwipe.discount == null) && (
+              <Text style={styles.price}>${courseSwipe.price} MXN</Text>
+            )}
             <View style={{ flexDirection: "row" }}>
               <Text style={styles.average}>
                 {courseSwipe.average ? courseSwipe.average : 0}
@@ -64,7 +107,7 @@ export default function Courses(props) {
 
   return (
     <View>
-      {courses.map((course) => (
+      {updatedCourses.map((course) => (
         <TouchableOpacity
           key={course.id}
           activeOpacity={0.8}
@@ -87,7 +130,34 @@ export default function Courses(props) {
               {course.name}
             </Text>
             <View>
-              <Text style={styles.price}>${course.price} MXN</Text>
+              {course.discount > 0 && (
+                <View style={{ flexDirection: "row" }}>
+                  <Text
+                    style={{
+                      ...styles.price,
+                      color: Colors.PalletteRed,
+                      fontWeight: "bold",
+                      fontSize: 15,
+                      marginRight: "4%",
+                    }}
+                  >
+                    ${course.price} MXN
+                  </Text>
+                  <Text
+                    style={{
+                      ...styles.price,
+                      fontSize: 11.5,
+                      textDecorationLine: "line-through",
+                      marginTop: "1%",
+                    }}
+                  >
+                    ${course.originalPrice} MXN
+                  </Text>
+                </View>
+              )}
+              {(course.discount == 0 || course.discount == null) && (
+                <Text style={styles.price}>${course.price} MXN</Text>
+              )}
               <View style={{ flexDirection: "row" }}>
                 <Text style={styles.average}>
                   {course.average ? course.average : 0}
@@ -138,8 +208,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   price: {
-    fontSize: 17,
-    marginBottom: "2%",
+    fontSize: 16,
   },
   average: {
     fontSize: 14,
