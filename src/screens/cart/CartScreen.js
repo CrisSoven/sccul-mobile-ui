@@ -5,66 +5,60 @@ import SwipeNotify from "../../components/cart/SwipeNotify";
 import Colors from "../../utils/Colors";
 import TitleBtnComponent from "../../components/profile/TitleBtnComponent";
 import { useNavigation } from "@react-navigation/native";
-import { getCourses, getUser } from "../../utils/Axios";
-import Splash from "../../screens/sccul/SplashScreen";
+import { getCoursesCart } from "../../utils/Axios";
 import SwipeableComponent from "../../components/cart/SwipeableComponent";
+import SplashScreen from "../../screens/sccul/SplashScreen";
 import EmptyContainer from "../../components/common/EmptyContainer";
 
 export default function CartScreen() {
-  const [courses, setCourses] = useState([]);
-  const [user, setUser] = useState([]);
-
+  const [courses, setCourses] = useState(null);
   useEffect(() => {
     const fetchCourses = async () => {
-      const fetchedCourses = await getCourses();
-      const fetchedUser = await getUser();
+      const fetchedCourses = await getCoursesCart();
       setCourses(fetchedCourses);
-      setUser(fetchedUser);
     };
     fetchCourses();
   }, [
-    
+    // courses
   ]);
 
-  const filteredCourses = courses.filter((curso) => {
-    return curso.inscriptions.some((inscrito) => {
-      return inscrito.user.id == user && inscrito.status === "inscrito";
-    });
-  });
-  
-  const total = filteredCourses.reduce((acc, curso) => {
-    return acc + curso.price;
-  }, 0);
+  // const total = courses.reduce((acc, curso) => {
+  //   return acc + curso.price;
+  // }, 0);
 
   const navigation = useNavigation();
-  const navigateTo = () => {
-    navigation.navigate("PaymentMethod", { filteredCourses });
+  const handlePaymentMethod = () => {
+    navigation.navigate("PaymentMethod", { courses });
   };
 
   return (
-    <View style={styles.container}>
+    courses === null ? (
+      <SplashScreen />
+    ) : (
+      <View style={styles.container}>
       <Text style={styles.title}>Carrito de compras</Text>
       <SearchBar />
       {
-        filteredCourses.length === 0 ?
+        !courses.length ?
           <EmptyContainer icon="cart-minus" type="material-community" text="Tu carrito está vacío" /> : (
             <>
               <SwipeNotify />
               <ScrollView contentContainerStyle={styles.content}>
-                <SwipeableComponent courses={filteredCourses} />
+                <SwipeableComponent courses={courses} />
               </ScrollView>
               <TitleBtnComponent
-                textTitle={`$${total} MX`}
+                textTitle={`$ MX`}
                 titleStyle={styles.subtitle}
                 textBtn=" Pagar "
                 icon="payments"
-                onPress={navigateTo}
+                onPress={handlePaymentMethod}
                 btnPrimary={true}
               />
             </>
           )
       }
     </View>
+    )
   );
 }
 

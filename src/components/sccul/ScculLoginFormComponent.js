@@ -32,15 +32,31 @@ export default function LoginForm() {
       const { email, password } = formData;
       setIsLoading(true);
       try {
-        await loginUser(email, password);
-        return true;
+        const response = await loginUser(email, password);
+        console.log(response);
+
+        response ?  (
+          Toast.show({
+            type: 'success',
+            position: 'bottom',
+            text1: 'Iniciando sesión...',
+          })
+        ) : (
+          Toast.show({
+            type: 'error',
+            position: 'bottom',
+            text1: 'Correo o contraseña incorrectos',
+          })
+        )
+
       }
       catch (error) {
         console.log(error);
         Toast.show({
           position: 'bottom',
           type: 'error',
-          text1: 'Correo o contraseña incorrectos',
+          text1: 'Ha ocurrido un error',
+          text2: 'Intente de nuevo',
         });
       }
       finally {

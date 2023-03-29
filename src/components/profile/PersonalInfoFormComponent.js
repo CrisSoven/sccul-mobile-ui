@@ -135,6 +135,8 @@ export default function PersonalInfoFormComponent(props) {
           value={formik.values.phoneNumber}
           iconName="phone-android"
           iconType="MaterialIcons"
+          minLeght={10}
+          maxLength={10}
           onChangeText={(text) => formik.setFieldValue("phoneNumber", text)}
           errorMessage={formik.errors.phoneNumber}
           disabled={disabled}

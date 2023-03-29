@@ -1,4 +1,4 @@
-import { StyleSheet, View, Animated, ActivityIndicator } from 'react-native'
+import { StyleSheet, Text, View, Animated } from 'react-native'
 import React, { useState } from 'react'
 import { Swipeable } from 'react-native-gesture-handler'
 import Courses from '../common/Courses'
@@ -6,8 +6,7 @@ import Colors from '../../utils/Colors'
 import { Icon } from 'react-native-elements'
 import { deleteInscription } from '../../utils/Axios'
 
-export default function SwipeableComponent(props) {
-  const { courses } = props;
+export default function SwipeableComponent({ courses }) {
   const [inscription, setInscription] = useState([]);
 
   const SwipeDelete = (courseId) => {
@@ -30,7 +29,6 @@ export default function SwipeableComponent(props) {
     });
     return (
       <View style={styles.swipeBackgroud}>
-        <ActivityIndicator size="small" color={Colors.PalleteGreenBackground}/>
         <Animated.Text style={[styles.textDelete, { transform: [{ translateX }] }]}>Eliminando del carrito...</Animated.Text>
         <Icon name="trash" type="font-awesome-5" color={Colors.PalleteGreenBackground} size={20} />
       </View>
@@ -40,14 +38,14 @@ export default function SwipeableComponent(props) {
   return (
     <>
       {
-        courses.map((course) => (
+        courses.map((courseSwipe) => (
           <Swipeable
-            key={course.id}
+            key={courseSwipe.id}
             renderRightActions={deleteAction}
-            onSwipeableOpen={() => SwipeDelete(course.id)}
+            onSwipeableOpen={() => SwipeDelete(courseSwipe.id)}
           >
             <View style={styles.container}>
-              <Courses courseSwipe={course} />
+              <Courses courseSwipe={courseSwipe} />
             </View>
           </Swipeable>
         ))
@@ -65,7 +63,7 @@ const styles = StyleSheet.create({
     color: Colors.PalleteGreenBackground,
     fontSize: 14,
     fontWeight: 'bold',
-    marginHorizontal: 15
+    marginRight: 15
   },
   swipeBackgroud: {
     flexDirection: 'row',

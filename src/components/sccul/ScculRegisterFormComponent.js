@@ -113,6 +113,8 @@ export default function LoginForm() {
         iconName="cellphone"
         iconType="material-community"
         keyboardType="phone-pad"
+        minLeght={10}
+        maxLength={10}
         onChangeText={(text) => formik.setFieldValue("cellphone", text)}
         errorMessage={formik.errors.cellphone}
       />
