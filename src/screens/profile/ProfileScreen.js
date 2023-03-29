@@ -4,7 +4,6 @@ import BannerProfileComponent from "../../components/profile/BannerProfileCompon
 import PocketComponent from "../../components/profile/PocketComponent";
 import Line from "../../components/common/Line";
 import TitleBtnComponent from "../../components/profile/TitleBtnComponent";
-import Colors from "../../utils/Colors";
 import PersonalInfoComponent from "../../components/profile/PersonalInfoFormComponent";
 import { useNavigation } from "@react-navigation/native";
 import { deleteToken, getUserInfo } from "../../utils/Axios";
@@ -12,6 +11,8 @@ import Splash from "../../screens/sccul/SplashScreen";
 
 export default function ProfileScreen() {
   const [user, setUser] = useState({});
+  const [reload, setReload] = useState(false);
+  const onReload = () => setReload((prevState) => !prevState);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -19,35 +20,33 @@ export default function ProfileScreen() {
       setUser(fetchedUser);
     };
     fetchUser();
-  }, []);
-
+  }, [reload]);
   const navigation = useNavigation();
   const navigateTo = () => navigation.navigate("Pockets");
-  const logout = async() => {
+  const logout = async () => {
     await deleteToken();
     navigation.navigate("Landings");
   };
-  return (
-    !user.id ?
-      <Splash /> : (
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <TitleBtnComponent
-            textTitle="Mi perfil"
-            titleStyle={styles.title}
-            icon="logout"
-            textBtn="Cerrar sesión"
-            iconType="material-community"
-            btnPrimary={true}
-            onPress={logout}
-          />
-          <View>
-            <BannerProfileComponent user={user} />
-            <PocketComponent onPress={navigateTo} />
-            <Line />
-          </View>
-          <PersonalInfoComponent user={user} />
-        </ScrollView>
-      )
+  return !user.id ? (
+    <Splash />
+  ) : (
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <TitleBtnComponent
+        textTitle="Mi perfil"
+        titleStyle={styles.title}
+        icon="logout"
+        textBtn="Cerrar sesión"
+        iconType="material-community"
+        btnPrimary={true}
+        onPress={logout}
+      />
+      <View>
+        <BannerProfileComponent user={user} onReload={onReload} />
+        <PocketComponent onPress={navigateTo} />
+        <Line />
+      </View>
+      <PersonalInfoComponent user={user} onReload={onReload} />
+    </ScrollView>
   );
 }
 

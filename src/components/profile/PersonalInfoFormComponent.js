@@ -1,28 +1,28 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import Colors from "../../utils/Colors";
 import { Icon } from "react-native-elements";
 import Input from "../common/InputComponent";
-import { useNavigation } from "@react-navigation/native";
 import ModalComponent from "../common/ModalComponent";
 import ChangePasswordScreen from "../../screens/profile/profileScreens/ChangePasswordScreen";
 import TitleBtnComponent from "../../components/profile/TitleBtnComponent";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { updateUserInfo } from "../../utils/Axios";
 
 export default function PersonalInfoFormComponent(props) {
-  const { user } = props;
+  const { user, onReload } = props;
   const [showModal, setShowModal] = useState(false);
   const [disabled, setDisabled] = useState(true);
 
   const formik = useFormik({
     initialValues: {
-      name: "",
-      lastname: "",
-      surname: "",
-      phoneNumber: "",
-      email: "",
+      name: user.name,
+      lastname: user.lastname,
+      surname: user.surname,
+      phoneNumber: user.phoneNumber,
+      email: user.email,
     },
 
     validationSchema: Yup.object({
@@ -40,26 +40,43 @@ export default function PersonalInfoFormComponent(props) {
     validateOnChange: false,
 
     onSubmit: async (formData) => {
-      console.log(formData);
-      disabled ? Toast.show({
-        type: "info",
-        position: "bottom",
-        text1: "Ahora puedes actualizar tu información",
-        visibilityTime: 1500,
-        bottomOffset: 80,
-      })
-        : Toast.show({
+      try {
+        const updatedUser = await updateUserInfo(
+          formData.name,
+          formData.lastname,
+          formData.surname,
+          formData.phoneNumber,
+          formData.email
+        );
+        formik.setValues({
+          name: updatedUser.name,
+          lastname: updatedUser.lastname,
+          surname: updatedUser.surname,
+          phoneNumber: updatedUser.phoneNumber,
+          email: updatedUser.email,
+        });
+        setDisabled(true);
+        onReload();
+        Toast.show({
           type: "info",
           position: "bottom",
           text1: "Tu información ha sido actualizada",
           visibilityTime: 1500,
           bottomOffset: 80,
         });
-
+      } catch (error) {
+        console.log(error);
+        Toast.show({
+          type: "error",
+          position: "bottom",
+          text1: "Ha ocurrido un error, inténtalo de nuevo",
+          visibilityTime: 1500,
+          bottomOffset: 80,
+        });
+      }
     },
   });
 
-  const navigation = useNavigation();
   const navigateTo = () => setShowModal(true);
 
   return (
@@ -72,63 +89,74 @@ export default function PersonalInfoFormComponent(props) {
           textBtn={disabled ? "Editar" : "Guardar"}
           iconType="material-community"
           btnPrimary={true}
-          onPress={disabled ? () => setDisabled(!disabled) : formik.handleSubmit}
+          onPress={
+            disabled ? () => setDisabled(!disabled) : formik.handleSubmit
+          }
         />
         <Input
           label="Nombre(s)"
-          value={user.name}
+          value={formik.values.name}
           iconName="person-outline"
           iconType="MaterialIcons"
           onChangeText={(text) => formik.setFieldValue("name", text)}
-          errorMessage={formik.errors.name}
+          onBlur={formik.handleBlur("name")}
+          errorMessage={formik.touched.name && formik.errors.name}
           disabled={disabled}
+          shouldUpdate={false}
         />
         <View style={styles.row}>
           <View style={styles.column}>
             <Input
               label="Apellido paterno"
-              value={user.lastname}
+              value={formik.values.lastname}
               iconName="person-outline"
               iconType="MaterialIcons"
               onChangeText={(text) => formik.setFieldValue("lastname", text)}
               errorMessage={formik.errors.lastname}
               disabled={disabled}
+              shouldUpdate={false}
             />
           </View>
           <View style={styles.column}>
             <Input
               label="Apellido materno"
-              value={user.surname}
+              value={formik.values.surname}
               iconName="person-outline"
               iconType="MaterialIcons"
               onChangeText={(text) => formik.setFieldValue("surname", text)}
               errorMessage={formik.errors.surname}
               disabled={disabled}
+              shouldUpdate={false}
             />
           </View>
         </View>
         <Input
           label="Teléfono"
-          value={user.phoneNumber}
+          value={formik.values.phoneNumber}
           iconName="phone-android"
           iconType="MaterialIcons"
           onChangeText={(text) => formik.setFieldValue("phoneNumber", text)}
           errorMessage={formik.errors.phoneNumber}
           disabled={disabled}
           keyboardType="phone-pad"
+          shouldUpdate={false}
         />
         <Input
           label="Correo electrónico"
-          value={user.email}
+          value={formik.values.email}
           iconName="mail-outline"
           iconType="MaterialIcons"
           onChangeText={(text) => formik.setFieldValue("email", text)}
           errorMessage={formik.errors.email}
           disabled={disabled}
           keyboardType="email-address"
+          shouldUpdate={false}
         />
       </View>
-      <TouchableOpacity style={[styles.row, { marginBottom: 20 }]} onPress={navigateTo}>
+      <TouchableOpacity
+        style={[styles.row, { marginBottom: 20 }]}
+        onPress={navigateTo}
+      >
         <View style={styles.circleKey}>
           <Icon name="vpn-key" type="MaterialIcons" size={20} />
         </View>

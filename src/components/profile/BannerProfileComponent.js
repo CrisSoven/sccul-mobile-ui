@@ -7,7 +7,7 @@ import * as ImagePicker from "expo-image-picker";
 export default function BannerProfileComponent(props) {
   const { user } = props;
   const fullName = user.name + " " + user.lastname + " " + user.surname;
-    
+
   const changePhoto = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -23,22 +23,19 @@ export default function BannerProfileComponent(props) {
         <Avatar
           size="xlarge"
           rounded
-          source={{uri: user.image}}
+          source={{ uri: user.image }}
           title={user.name[0] + user.lastname[0]}
           titleStyle={styles.textProfile}
           containerStyle={styles.iconProfile}
         >
           <Avatar.Accessory
-            style={{backgroundColor: Colors.PalleteBlueSecundary}}
+            style={{ backgroundColor: Colors.PalleteBlueSecundary }}
             iconStyle={{ fontSize: 20 }}
             size={30}
             onPress={changePhoto}
-            />
+          />
         </Avatar>
       </View>
-
-
-
       <Text style={styles.textName}>{fullName}</Text>
     </>
   );
