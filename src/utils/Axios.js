@@ -169,6 +169,22 @@ export async function getCoursesCart() {
   }
 }
 
+export async function getBoughtCourses() {
+  try {
+    const user = await getUser();
+    const response = await getCourses();
+    const courses = response.filter((course) => {
+      return course.inscriptions.some((inscription) => {
+        return inscription.user.id == user && inscription.status == "comprado";
+      });
+    });
+    return courses;
+  } catch (error) {
+    console.log("get bought courses error");
+    throw new Error(error);
+  }
+}
+
 export async function getInscriptions() {
   try {
     const response = await axios.get(`${baseUrl}/api/inscriptions/`, {
