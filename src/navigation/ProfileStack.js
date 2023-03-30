@@ -5,7 +5,7 @@ import ChangePasswordScreen from "../screens/profile/profileScreens/ChangePasswo
 import PocketScreen from "../screens/profile/profileScreens/PocketScreen";
 import CreditCardDetailsScreen from "../screens/profile/profileScreens/CreditCardDetailsScreen";
 import ModalComponent from "../components/common/ModalComponent";
-
+import AddCardScreen from "../screens/cart/cartScreens/AddCardScreen";
 
 const Stack = createStackNavigator();
 
@@ -19,6 +19,7 @@ export default function ProfileStack() {
       <Stack.Screen name="Profiles" component={ProfileScreen} />
       <Stack.Screen name="ChangePass" component={ChangePasswordScreen} />
       <Stack.Screen name="Pockets" component={PocketScreen} />
+      <Stack.Screen name="AddCard" component={AddCardScreen} />
       <Stack.Screen name="CreditCards" component={CreditCardDetailsScreen} />
       <Stack.Screen name="ModalComponent" component={ModalComponent}/>
     </Stack.Navigator>

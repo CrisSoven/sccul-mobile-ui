@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, KeyboardAvoidingView, } from "react-native";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useState } from "react";
 import Input from "../common/InputComponent";
 import AccionsBtnComponent from "./AccionsBtnComponent";
 import SaveCardBtnComponent from "../cart/SaveCardBtnComponent";
@@ -12,7 +11,12 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function AddCardFormComponent({ card, filteredCourses, isEditable }) {
   const navigation = useNavigation();
+  const [cardNumber, setCardNumber] = useState(false);
+  const [cvv, setCvv] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const handleShowCardNumber = () => setCardNumber(!cardNumber);
+  const handleShowCvv = () => setCvv(!cvv);
+
 
   const formik = useFormik({
     initialValues: {
@@ -46,7 +50,7 @@ export default function AddCardFormComponent({ card, filteredCourses, isEditable
     onSubmit: async ({ cardName, alias, cardNumber, CardCvv, expirationMonth, expirationYear }) => {
       try {
         const year = expirationYear % 100;
-        const cardExpiration = `${expirationMonth < 10 ? "0" : ""}${expirationMonth}/${year}`;
+        const cardExpiration = `${expirationMonth < 10 ? "" : ""}${expirationMonth}/${year}`;
         const response = await addBankCard(cardName, alias, cardNumber, cardExpiration, CardCvv);
         console.log(response);
         response ? (
@@ -91,10 +95,12 @@ export default function AddCardFormComponent({ card, filteredCourses, isEditable
         />
         <Input
           label="Número de tarjeta"
-          placeholder="************1234"
-          iconName="credit-card-outline"
+          placeholder="••••••••••••••••"
+          iconName={cardNumber ? "credit-card-off-outline" : "credit-card-outline"}
           iconType="material-community"
           keyboardType="phone-pad"
+          onPressIcon={handleShowCardNumber}
+          secureTextEntry={cardNumber ? false : true}
           // value={isEditable ? values.cardNumber : card.cardNumber.replace(/(\d{4})/g, '$1 ')}
           maxLength={isEditable ? 16 : 19}
           minLength={isEditable ? 16 : 19}
@@ -138,9 +144,11 @@ export default function AddCardFormComponent({ card, filteredCourses, isEditable
           <View style={styles.column}>
             <Input
               label="CVV"
-              placeholder="***"
-              iconName="lock-outline"
+              placeholder="•••"
+              secureTextEntry={cvv ? false : true}
+              iconName={cvv ? "lock-off-outline" : "lock-outline"}
               iconType="material-community"
+              onPressIcon={handleShowCvv}
               keyboardType="phone-pad"
               // value={isEditable ? values.expirationMonth.toString() : card.cardExpiration}
               maxLength={3}
@@ -151,8 +159,9 @@ export default function AddCardFormComponent({ card, filteredCourses, isEditable
             />
           </View>
           <View style={styles.column}>
-            <SaveCardBtnComponent />
+            {/* <SaveCardBtnComponent /> */}
           </View>
+          
         </View>
         <AccionsBtnComponent
           btnCancelTitle=" Cancelar "
@@ -173,6 +182,7 @@ export default function AddCardFormComponent({ card, filteredCourses, isEditable
 const styles = StyleSheet.create({
   header: {
     paddingHorizontal: 10,
+    paddingVertical: 20,
   },
   row: {
     flexDirection: "row",

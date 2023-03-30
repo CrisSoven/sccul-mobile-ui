@@ -19,7 +19,7 @@ export default function CartScreen() {
     };
     fetchCourses();
   }, [
-    courses
+    // courses
   ]);
 
   let total;
@@ -47,7 +47,7 @@ export default function CartScreen() {
                     <SwipeableComponent courses={courses} />
                   </ScrollView>
                   <TitleBtnComponent
-                    textTitle={`$ MX`}
+                    textTitle={`$${total} MX`}
                     titleStyle={styles.subtitle}
                     textBtn=" Pagar "
                     icon="payments"

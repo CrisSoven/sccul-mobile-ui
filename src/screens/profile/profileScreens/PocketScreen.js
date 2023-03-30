@@ -5,8 +5,10 @@ import TitleBtnComponent from '../../../components/profile/TitleBtnComponent'
 import CardsComponent from "../../../components/cart/CardsComponent"
 import Line from '../../../components/common/Line'
 import { getBankCards } from "../../../utils/Axios"
+import { useNavigation } from "@react-navigation/native";
 
 export default function PocketScreen() {
+  const navigation = useNavigation();
   const [cards, setCards] = useState([])
   useEffect(() => {
     const fetchBankCards = async () => {
@@ -15,6 +17,10 @@ export default function PocketScreen() {
     }
     fetchBankCards();
   }, [])
+
+  const handleAddCard = () => {
+    navigation.navigate("AddCard");
+  }
 
   return (
     <ScrollView>
@@ -26,6 +32,7 @@ export default function PocketScreen() {
         textBtn="Agregar tarjeta"
         iconType="material-community"
         btnPrimary={true}
+        onPress={handleAddCard}
       />
       <CardsComponent cards={cards} />
       <Line />

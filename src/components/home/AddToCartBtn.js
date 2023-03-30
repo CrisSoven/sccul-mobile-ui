@@ -13,16 +13,16 @@ export default function AddToCartBtn(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [courseCart, setCourseCart] = useState([]);
 
-  const renderToast = (type, message, text) => {
+  const renderToast = (type, message, text, inCourse) => {
     Toast.show({
       type: type,
       position: "bottom",
       text1: message,
-      text2: text ? text : "Presiona aquí para verlo tu carrito",
+      text2: text ? text : "Presiona aquí para verlo en tu carrito",
       visibilityTime: 5000,
       bottomOffset: 80,
       onPress: () => {
-        navigation.navigate("CartStack", {screen: 'Cart'});
+        inCourse ? navigation.navigate("CourseStack", {screen: 'Course'}) : navigation.navigate("CartStack", {screen: 'Cart'});
       }
     });
   };
@@ -35,7 +35,7 @@ export default function AddToCartBtn(props) {
     if (fetchedCourse === "alreadyInCart") {
       renderToast("error", "¡Ya agregaste este curso!");
     } else if (fetchedCourse === "alreadyBought") {
-      renderToast("info", `¡Ya compraste ${addCourse.name}!`, "Presiona aquí para verlo tus cursos");
+      renderToast("info", `¡Ya compraste ${addCourse.name}!`, "Presiona aquí para verlo en tus cursos", true);
     } else {
       renderToast("success", `¡Agregaste ${addCourse.name}!`);
     }

@@ -297,6 +297,7 @@ export async function getBankCardById(bankCardId) {
 }
 
 export async function addBankCard(ownerName, alias, cardNumber, cardExpiration, cardCvv) {
+  console.log(ownerName, alias, cardNumber, cardExpiration, cardCvv);
   const user = await getUserInfo();
   try {
     const response = await axios.post(`${baseUrl}/api/bankCards/`, {
