@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 // import Icons from "react-native-vector-icons/MaterialCommunityIcons";
 import { Icon } from "react-native-elements";
@@ -7,45 +7,75 @@ import CartStack from "./CartStack";
 import ProfileStack from "./ProfileStack";
 import HomeStack from "./HomeStack";
 import CourseStack from "./CourseStack";
+import { checkLoginStatus, deleteToken } from '../utils/Axios';
+import Splash from '../screens/sccul/SplashScreen';
+import ScculStack from "./ScculStack";
+import { createStackNavigator } from "@react-navigation/stack";
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 export default function AppNavigation() {
+  const [session, setSession] = useState(null);
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      // const fetchedSession = await deleteToken();
+      const fetchedSession = await checkLoginStatus();
+      setSession(fetchedSession);
+    };
+    fetchSession();
+  }, [session]);
+
+  if (session === null) {
+    return <Splash />;
+  }
+
   return (
-    <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarActiveTintColor: Colors.PalleteBlack,
-        tabBarInactiveTintColor: Colors.PalleteGray,
-        tabBarStyle: {
-          padding: 9,
-          paddingBottom: 10,
-          height: 65,
-        },
-      }}
-    >
-      <Tab.Screen
-        component={HomeStack}
-        name="Inicio"
-        options={{ tabBarIcon: icon("home-outline") }}
-      />
-      <Tab.Screen
-        name="Mi carrito"
-        component={CartStack}
-        options={{ tabBarIcon: icon("cart-outline") }}
-      />
-      <Tab.Screen
-        component={CourseStack}
-        name="Mis cursos"
-        options={{ tabBarIcon: icon("bookmark-box-multiple-outline") }}
-      />
-      <Tab.Screen
-        component={ProfileStack}
-        name="Perfil"
-        options={{ tabBarIcon: icon("account-outline") }}
-      />
-    </Tab.Navigator>
-  );
+    session ? (
+      <Tab.Navigator
+        screenOptions={{
+          headerShown: false,
+          tabBarActiveTintColor: Colors.PalleteBlack,
+          tabBarInactiveTintColor: Colors.PalleteGray,
+          tabBarStyle: {
+            padding: 9,
+            paddingBottom: 10,
+            height: 65,
+          },
+        }}
+      >
+        <Tab.Screen
+          component={HomeStack}
+          name="HomeStack"
+          options={{ title: "Inicio", tabBarIcon: icon("home-outline") }}
+        />
+        <Tab.Screen
+          name="CartStack"
+          component={CartStack}
+          options={{ title: "Mi carrito", tabBarIcon: icon("cart-outline"), unmountOnBlur: true }}
+        />
+        <Tab.Screen
+          name="CourseStack"
+          component={CourseStack}
+          options={{ title: "Mis cursos", tabBarIcon: icon("bookmark-box-multiple-outline"), unmountOnBlur: true }}
+        />
+        <Tab.Screen
+          name="ProfileStack"
+          component={ProfileStack}
+          options={{ title: "Perfil", tabBarIcon: icon("account-outline"), unmountOnBlur: true }}
+        />
+      </Tab.Navigator>
+    ) : (
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="ScculStack" component={ScculStack} />
+      </Stack.Navigator>
+    )
+  )
 }
 
 const icon = (iconName) => ({ focused }) => (

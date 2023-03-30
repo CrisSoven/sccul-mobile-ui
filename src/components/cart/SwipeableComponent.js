@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Animated } from 'react-native'
+import { StyleSheet, Text, View, Animated, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
 import { Swipeable } from 'react-native-gesture-handler'
 import Courses from '../common/Courses'
@@ -8,7 +8,6 @@ import { deleteInscription } from '../../utils/Axios'
 
 export default function SwipeableComponent({ courses }) {
   const [inscription, setInscription] = useState([]);
-
   const SwipeDelete = (courseId) => {
     const fetchCourses = async () => {
       courses.map((course) => {
@@ -20,7 +19,6 @@ export default function SwipeableComponent({ courses }) {
     }
     fetchCourses();
   };
-
   const deleteAction = (progress, dragX) => {
     const translateX = dragX.interpolate({
       inputRange: [-300, 0],
@@ -28,13 +26,13 @@ export default function SwipeableComponent({ courses }) {
       extrapolate: 'clamp'
     });
     return (
-      <View style={styles.swipeBackgroud}>
+      <View style={styles.swipeBackground}>
+        <ActivityIndicator size="small" color={Colors.PalleteGreenBackground} />
         <Animated.Text style={[styles.textDelete, { transform: [{ translateX }] }]}>Eliminando del carrito...</Animated.Text>
         <Icon name="trash" type="font-awesome-5" color={Colors.PalleteGreenBackground} size={20} />
       </View>
     )
   };
-
   return (
     <>
       {
@@ -63,16 +61,16 @@ const styles = StyleSheet.create({
     color: Colors.PalleteGreenBackground,
     fontSize: 14,
     fontWeight: 'bold',
-    marginRight: 15
+    marginHorizontal: 15
   },
-  swipeBackgroud: {
+  swipeBackground: {
     flexDirection: 'row',
     width: "100%",
-    height: 115,
+    height: 110,
     borderRadius: 16,
     backgroundColor: Colors.PalletteRed,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    paddingRight: 20,
+    paddingHorizontal: 20,
   },
 })

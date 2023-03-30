@@ -7,13 +7,10 @@ import { useNavigation } from "@react-navigation/native";
 import Colors from "../../utils/Colors";
 
 export default function Courses({ courses, courseSwipe }) {
-  console.log(courseSwipe);
   const navigation = useNavigation();
 
   const onPressHandler = (courseId) => {
-    navigation.navigate("CoursesDetailsScreen", {
-      courseId: courseId,
-    });
+    navigation.navigate("CoursesDetailsScreen", { courseId: courseId } );
   };
 
   const renderCourse = (course) => (

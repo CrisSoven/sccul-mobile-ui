@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Colors from '../../utils/Colors'
+import Line from '../common/Line'
 
-export default function CartResume(props) {
-  const { price } = props
+export default function CartResume({ price , discount }) {
   return (
     <>
       <Text style={styles.title}>Resumen</Text>
@@ -13,8 +13,9 @@ export default function CartResume(props) {
       </View>
       <View style={styles.row}>
         <Text style={[styles.rowTitle && styles.discount]}>Descuento total</Text>
-        <Text style={[styles.rowValue && styles.discount]}>- $121.20 MX</Text>
+        <Text style={[styles.rowValue && styles.discount]}>{`- $${discount} MX`}</Text>
       </View>
+      <Line />
     </>
   )
 }

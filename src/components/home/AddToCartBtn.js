@@ -22,7 +22,7 @@ export default function AddToCartBtn(props) {
       visibilityTime: 5000,
       bottomOffset: 80,
       onPress: () => {
-        navigation.navigate("Cart");
+        navigation.navigate("CartStack", {screen: 'Cart'});
       }
     });
   };
