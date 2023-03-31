@@ -1,8 +1,9 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const baseUrl = "http://192.168.1.74:8080";
-// let token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
+const baseUrl = "http:/192.168.1.64:8080";
+// let token =
+//   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
 //cris@gmail.com
 
 export async function deleteToken() {
@@ -54,7 +55,7 @@ export async function checkLoginStatus() {
     console.log("check login status error");
     return false;
   }
-};
+}
 
 export async function loginUser(email, password) {
   try {
@@ -132,7 +133,7 @@ export async function getCourses() {
     return data.data;
   } catch (error) {
     console.log("get courses error");
-    console.log("user token: " + await getToken());
+    console.log("user token: " + (await getToken()));
     throw new Error(error);
   }
 }
@@ -198,7 +199,7 @@ export async function getInscriptions() {
     console.log("get inscriptions error");
     throw new Error(error);
   }
-};
+}
 
 export async function deleteInscription(inscriptionId) {
   try {
@@ -296,26 +297,36 @@ export async function getBankCardById(bankCardId) {
   }
 }
 
-export async function addBankCard(ownerName, alias, cardNumber, cardExpiration, cardCvv) {
+export async function addBankCard(
+  ownerName,
+  alias,
+  cardNumber,
+  cardExpiration,
+  cardCvv
+) {
   const user = await getUserInfo();
   try {
-    const response = await axios.post(`${baseUrl}/api/bankCards/`, {
-      ownerName,
-      alias,
-      cardNumber,
-      cardExpiration,
-      cardCvv,
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        phoneNumber: user.phoneNumber,
+    const response = await axios.post(
+      `${baseUrl}/api/bankCards/`,
+      {
+        ownerName,
+        alias,
+        cardNumber,
+        cardExpiration,
+        cardCvv,
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          phoneNumber: user.phoneNumber,
+        },
       },
-    }, {
-      headers: {
-        Authorization: `Bearer ${await getToken()}`,
-      },
-    });
+      {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+      }
+    );
 
     if (response.data.statusCode === 201) {
       return response.data.data.id;
@@ -376,7 +387,7 @@ export async function setPercentageInscription(inscriptionId, percentage) {
   } catch (error) {
     console.log(error);
   }
-  }
+}
 
 export async function updateUserInfo(
   name,
@@ -408,12 +419,22 @@ export async function updateUserInfo(
   }
 }
 
-export async function changePassword(password) {
+export const changePassword = async (
+  id,
+  currentPassword,
+  newPassword,
+  token
+) => {
   try {
-    const response = await axios.put(
-      `${baseUrl}/api/users/changePassword/${await getUser()}`,
+    const url = `${baseUrl}/api/auth/reset-password/${await getToken()}`;
+    console.log("URL:", url);
+    const response = await axios.post(
+      url,
       {
-        password,
+        id: id,
+        password: currentPassword,
+        newPassword: newPassword,
+        repeatNewPassword: newPassword,
       },
       {
         headers: {
@@ -421,9 +442,8 @@ export async function changePassword(password) {
         },
       }
     );
-    const data = response.data;
-    return data.data;
+    return response.data;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
-}
+};

@@ -9,13 +9,14 @@ import { changePassword, deleteToken, getUser } from "../../utils/Axios";
 
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 
-export default function ChangePasswordComponent() {
+export default function ChangePasswordComponent(props) {
   const [password, setPassword] = useState(false);
   const [newPassword, setNewPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  // const [isModalVisible, setIsModalVisible] = useState(false);
   const navigation = useNavigation();
+  const { close } = props;
 
   const showPass = () => setPassword(!password);
   const showNewPass = () => setNewPassword(!newPassword);
@@ -50,7 +51,7 @@ export default function ChangePasswordComponent() {
           visibilityTime: 1500,
           bottomOffset: 80,
         });
-        setIsModalVisible(false);
+        // close()
       } catch (error) {
         console.log(error);
         Toast.show({
