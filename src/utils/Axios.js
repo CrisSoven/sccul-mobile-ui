@@ -1,8 +1,10 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import bcrypt from "bcryptjs";
 
-const baseUrl = "http://192.168.1.74:8080";
-// let token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
+const baseUrl = "http://192.168.1.64:8080";
+let token =
+  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
 //cris@gmail.com
 
 export async function deleteToken() {
@@ -54,8 +56,27 @@ export async function checkLoginStatus() {
     console.log("check login status error");
     return false;
   }
-};
+}
 
+// export async function loginUser(email, password) {
+//   try {
+//     const response = await axios.post(`${baseUrl}/api/auth/mobile/login`, {
+//       username: email,
+//       password,
+//     });
+//     const data = response.data;
+//     if (data.statusCode === 200) {
+//       await saveCredentials(data.data.token, data.data.id);
+//       console.log(data.data.token, data.data.id);
+//       return true;
+//     } else {
+//       return false;
+//     }
+//   } catch (error) {
+//     console.log("login error");
+//     throw new Error(error);
+//   }
+// }
 export async function loginUser(email, password) {
   try {
     const response = await axios.post(`${baseUrl}/api/auth/mobile/login`, {
@@ -66,12 +87,12 @@ export async function loginUser(email, password) {
     if (data.statusCode === 200) {
       await saveCredentials(data.data.token, data.data.id);
       console.log(data.data.token, data.data.id);
-      return true;
+      return { success: true, token: data.data.token };
     } else {
-      return false;
+      return { success: false };
     }
   } catch (error) {
-    console.log("login error");
+    console.log("login error", error);
     throw new Error(error);
   }
 }
@@ -132,7 +153,7 @@ export async function getCourses() {
     return data.data;
   } catch (error) {
     console.log("get courses error");
-    console.log("user token: " + await getToken());
+    console.log("user token: " + (await getToken()));
     throw new Error(error);
   }
 }
@@ -161,108 +182,116 @@ export async function getCoursesCart() {
         return inscription.user.id == user && inscription.status == "inscrito";
       });
     });
-    
-      return courses;
-    } catch (error) {
-      console.log("get courses cart error");
-      throw new Error(error);
-    }
+
+    return courses;
+  } catch (error) {
+    console.log("get courses cart error");
+    throw new Error(error);
   }
+}
 
 export async function deleteInscription(inscriptionId) {
-    try {
-      const response = await axios.delete(
-        `${baseUrl}/api/inscriptions/${inscriptionId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${await getToken()}`,
-          },
-        }
-      );
-      const data = response.data;
-      return data.data;
-    } catch (error) {
-      console.log("error inscripciones");
-      throw new Error(error);
-    }
+  try {
+    const response = await axios.delete(
+      `${baseUrl}/api/inscriptions/${inscriptionId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+      }
+    );
+    const data = response.data;
+    return data.data;
+  } catch (error) {
+    console.log("error inscripciones");
+    throw new Error(error);
   }
+}
 
-  export async function buyCourse(inscriptionId) {
-    try {
-      const response = await axios.patch(
-        `${baseUrl}/api/inscriptions/changeStatus/${inscriptionId}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${await getToken()}`,
-          },
-        }
-      );
-      const data = response.data;
-      return data.data;
-    } catch (error) {
-      console.log("error inscripciones");
-      throw new Error(error);
-    }
+export async function buyCourse(inscriptionId) {
+  try {
+    const response = await axios.patch(
+      `${baseUrl}/api/inscriptions/changeStatus/${inscriptionId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+      }
+    );
+    const data = response.data;
+    return data.data;
+  } catch (error) {
+    console.log("error inscripciones");
+    throw new Error(error);
   }
+}
 
-  export async function getUserInfo() {
-    try {
-      const response = await axios.get(
-        `${baseUrl}/api/users/${await getUser()}`,
-        {
-          headers: {
-            Authorization: `Bearer ${await getToken()}`,
-          },
-        }
-      );
-      const data = response.data;
-      return data.data;
-    } catch (error) {
-      console.log("error info usuario");
-      throw new Error(error);
-    }
+export async function getUserInfo() {
+  try {
+    const response = await axios.get(
+      `${baseUrl}/api/users/${await getUser()}`,
+      {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+      }
+    );
+    const data = response.data;
+    return data.data;
+  } catch (error) {
+    console.log("error info usuario");
+    throw new Error(error);
   }
+}
 
-  export async function getBankCards() {
-    try {
-      const response = await axios.get(
-        `${baseUrl}/api/bankCards/user/${await getUser()}`,
-        {
-          headers: {
-            Authorization: `Bearer ${await getToken()}`,
-          },
-        }
-      );
-      const data = response.data;
-      return data.data;
-    } catch (error) {
-      console.log("error tarjetas");
-      throw new Error(error);
-    }
+export async function getBankCards() {
+  try {
+    const response = await axios.get(
+      `${baseUrl}/api/bankCards/user/${await getUser()}`,
+      {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+      }
+    );
+    const data = response.data;
+    return data.data;
+  } catch (error) {
+    console.log("error tarjetas");
+    throw new Error(error);
   }
+}
 
-  export async function getBankCardById(bankCardId) {
-    try {
-      const response = await axios.get(
-        `${baseUrl}/api/bankCards/user/${await getUser()}/card/${bankCardId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${await getToken()}`,
-          },
-        }
-      );
-      const data = response.data;
-      return data.data;
-    } catch (error) {
-      console.log("error tarjeta id");
-    }
+export async function getBankCardById(bankCardId) {
+  try {
+    const response = await axios.get(
+      `${baseUrl}/api/bankCards/user/${await getUser()}/card/${bankCardId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+      }
+    );
+    const data = response.data;
+    return data.data;
+  } catch (error) {
+    console.log("error tarjeta id");
   }
+}
 
-  export async function addBankCard(ownerName, alias, cardNumber, cardExpiration, cardCvv) {
-    const user = await getUserInfo();
-    try {
-      const response = await axios.post(`${baseUrl}/api/bankCards/`, {
+export async function addBankCard(
+  ownerName,
+  alias,
+  cardNumber,
+  cardExpiration,
+  cardCvv
+) {
+  const user = await getUserInfo();
+  try {
+    const response = await axios.post(
+      `${baseUrl}/api/bankCards/`,
+      {
         ownerName,
         alias,
         cardNumber,
@@ -274,119 +303,146 @@ export async function deleteInscription(inscriptionId) {
           email: user.email,
           phoneNumber: user.phoneNumber,
         },
-      }, {
+      },
+      {
         headers: {
           Authorization: `Bearer ${await getToken()}`,
         },
-      });
-
-      if (response.data.statusCode === 200) {
-        return true;
-      } else if (response.data.message === "Tarjeta ya registrada") {
-        return false;
       }
-    } catch (error) {
-      console.log("error agregar tarjeta");
-      throw new Error(error);
+    );
+
+    if (response.data.statusCode === 200) {
+      return true;
+    } else if (response.data.message === "Tarjeta ya registrada") {
+      return false;
     }
+  } catch (error) {
+    console.log("error agregar tarjeta");
+    throw new Error(error);
   }
+}
 
-  export async function addCourseCart(courseId) {
-    try {
-      const response = await axios.post(
-        `${baseUrl}/api/inscriptions/`,
-        {
-          course: {
-            id: courseId,
-          },
-          user: {
-            id: `${await getUser()}`,
-          },
-          full_percentage: 0,
-          status: "inscrito",
+export async function addCourseCart(courseId) {
+  try {
+    const response = await axios.post(
+      `${baseUrl}/api/inscriptions/`,
+      {
+        course: {
+          id: courseId,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${await getToken()}`,
-          },
-        }
-      );
-      const data = response.data;
-
-      if (data.message === "Ya está inscrito en este curso") {
-        return "alreadyInCart";
-      } else if (data.message === "Ya compró este curso") {
-        return "alreadyBought";
-      } else {
-        return "addedToCart";
+        user: {
+          id: `${await getUser()}`,
+        },
+        full_percentage: 0,
+        status: "inscrito",
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
       }
-    } catch (error) {
-      console.log(error);
-    }
-  }
+    );
+    const data = response.data;
 
-  export async function setPercentageInscription(inscriptionId, percentage) {
-    try {
-      // const response = await axios.patch(`${baseUrl}/api/inscriptions/changePercentage/${inscriptionId}`, {
-      //   percentage
-      // }, {
-      //   headers: {
-      //     Authorization: `Bearer ${await getToken()}`
-      //   }
-      // });
-      // const data = response.data;
-      // return data.data;
-    } catch (error) {
-      console.log(error);
+    if (data.message === "Ya está inscrito en este curso") {
+      return "alreadyInCart";
+    } else if (data.message === "Ya compró este curso") {
+      return "alreadyBought";
+    } else {
+      return "addedToCart";
     }
+  } catch (error) {
+    console.log(error);
   }
+}
 
-  export async function updateUserInfo(
-    name,
-    lastname,
-    surname,
-    cellphone,
-    email
-  ) {
-    try {
-      const response = await axios.put(
-        `${baseUrl}/api/users/${await getUser()}`,
-        {
-          name,
-          lastname,
-          surname,
-          phoneNumber: cellphone,
-          email,
+export async function setPercentageInscription(inscriptionId, percentage) {
+  try {
+    // const response = await axios.patch(`${baseUrl}/api/inscriptions/changePercentage/${inscriptionId}`, {
+    //   percentage
+    // }, {
+    //   headers: {
+    //     Authorization: `Bearer ${await getToken()}`
+    //   }
+    // });
+    // const data = response.data;
+    // return data.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function updateUserInfo(
+  name,
+  lastname,
+  surname,
+  cellphone,
+  email
+) {
+  try {
+    const response = await axios.put(
+      `${baseUrl}/api/users/${await getUser()}`,
+      {
+        name,
+        lastname,
+        surname,
+        phoneNumber: cellphone,
+        email,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${await getToken()}`,
-          },
-        }
-      );
-      const data = response.data;
-      return data.data;
-    } catch (error) {
-      console.log(error);
-    }
+      }
+    );
+    const data = response.data;
+    return data.data;
+  } catch (error) {
+    console.log(error);
   }
+}
 
-  export async function changePassword(password) {
-    try {
-      const response = await axios.put(
-        `${baseUrl}/api/users/changePassword/${await getUser()}`,
-        {
-          password,
+export const changePassword = async (id, currentPassword, newPassword) => {
+  console.log("Antes del try");
+  try {
+    const url = `http://192.168.1.64:8080/api/auth/reset-password/${await getToken()}`;
+    console.log("URL:", url);
+    console.log("ya entro al try");
+    const response = await axios.post(
+      url,
+      {
+        id: id,
+        password: currentPassword,
+        newPassword: newPassword,
+        repeatNewPassword: newPassword,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${await getToken()}`,
-          },
-        }
-      );
-      const data = response.data;
-      return data.data;
-    } catch (error) {
-      console.log(error);
-    }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
   }
+};
+
+
+export async function renewToken(token) {
+  try {
+    const response = await axios.get(
+      "http://192.168.1.64:8080/api/auth/renew",
+      {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+      }
+    );
+    const newToken = response.data.payload.token;
+    await AsyncStorage.setItem("token", newToken);
+    return newToken;
+  } catch (error) {
+    throw new Error(error);
+  }
+}

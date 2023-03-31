@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Colors from "../../utils/Colors";
 import { Icon } from "react-native-elements";
 import Input from "../common/InputComponent";
@@ -9,12 +9,16 @@ import TitleBtnComponent from "../../components/profile/TitleBtnComponent";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { updateUserInfo } from "../../utils/Axios";
+import { getToken, renewToken, updateUserInfo } from "../../utils/Axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 export default function PersonalInfoFormComponent(props) {
   const { user, onReload } = props;
   const [showModal, setShowModal] = useState(false);
   const [disabled, setDisabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const formik = useFormik({
     initialValues: {
@@ -40,6 +44,7 @@ export default function PersonalInfoFormComponent(props) {
     validateOnChange: false,
 
     onSubmit: async (formData) => {
+      setIsLoading(true);
       try {
         const updatedUser = await updateUserInfo(
           formData.name,
@@ -48,13 +53,6 @@ export default function PersonalInfoFormComponent(props) {
           formData.phoneNumber,
           formData.email
         );
-        formik.setValues({
-          name: updatedUser.name,
-          lastname: updatedUser.lastname,
-          surname: updatedUser.surname,
-          phoneNumber: updatedUser.phoneNumber,
-          email: updatedUser.email,
-        });
         setDisabled(true);
         onReload();
         Toast.show({
@@ -74,8 +72,52 @@ export default function PersonalInfoFormComponent(props) {
           bottomOffset: 80,
         });
       }
+      setIsLoading(false);
     },
+    // onSubmit: async (formData) => {
+    //   setIsLoading(true);
+    //   try {
+    //     const updatedUser = await updateUserInfo(
+    //       formData.name,
+    //       formData.lastname,
+    //       formData.surname,
+    //       formData.phoneNumber,
+    //       formData.email
+    //     );
+    //     setDisabled(true);
+    //     onReload();
+    //     Toast.show({
+    //       type: "info",
+    //       position: "bottom",
+    //       text1: "Tu información ha sido actualizada",
+    //       visibilityTime: 1500,
+    //       bottomOffset: 80,
+    //     });
+    //     const token = await renewToken();
+    //     await AsyncStorage.setItem("token", token);
+    //   } catch (error) {
+    //     console.log(error);
+    //     Toast.show({
+    //       type: "error",
+    //       position: "bottom",
+    //       text1: "Ha ocurrido un error, inténtalo de nuevo",
+    //       visibilityTime: 1500,
+    //       bottomOffset: 80,
+    //     });
+    //   }
+    //   setIsLoading(false);
+    // },
   });
+
+  useEffect(() => {
+    formik.setValues({
+      name: user.name,
+      lastname: user.lastname,
+      surname: user.surname,
+      phoneNumber: user.phoneNumber,
+      email: user.email,
+    });
+  }, [user]);
 
   const navigateTo = () => setShowModal(true);
 
@@ -135,8 +177,6 @@ export default function PersonalInfoFormComponent(props) {
           value={formik.values.phoneNumber}
           iconName="phone-android"
           iconType="MaterialIcons"
-          minLeght={10}
-          maxLength={10}
           onChangeText={(text) => formik.setFieldValue("phoneNumber", text)}
           errorMessage={formik.errors.phoneNumber}
           disabled={disabled}

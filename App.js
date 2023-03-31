@@ -13,8 +13,8 @@ export default function App() {
 
   useEffect(() => {
     const fetchSession = async () => {
-      // const fetchedSession = await deleteToken();
-      const fetchedSession = await checkLoginStatus();
+              // const fetchedSession = await deleteToken();
+        const fetchedSession = await checkLoginStatus();
       setSession(fetchedSession);
     };
     fetchSession();

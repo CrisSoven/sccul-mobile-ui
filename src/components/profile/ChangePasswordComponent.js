@@ -4,12 +4,18 @@ import Input from "../common/InputComponent";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import ButtonComponent from "../common/ButtonComponent";
+import { useNavigation } from "@react-navigation/native";
+import { changePassword, deleteToken, getUser } from "../../utils/Axios";
+
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 export default function ChangePasswordComponent() {
   const [password, setPassword] = useState(false);
   const [newPassword, setNewPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const navigation = useNavigation();
 
   const showPass = () => setPassword(!password);
   const showNewPass = () => setNewPassword(!newPassword);
@@ -29,15 +35,35 @@ export default function ChangePasswordComponent() {
         .required("Confirmar contraseña requerida")
         .oneOf([Yup.ref("newPassword")], "Las contraseñas no coinciden"),
     }),
-    validateOnChange: false,
-
     onSubmit: async (formData) => {
       setIsLoading(true);
-      console.log(formData);
+      const { password, newPassword } = formData;
+      try {
+        const user = await getUser();
+        console.log("User:", user);
+        await changePassword(user.id, password, newPassword, user.token);
+        await deleteToken();
+        Toast.show({
+          type: "info",
+          position: "bottom",
+          text1: "Tu contraseña ha sido actualizada",
+          visibilityTime: 1500,
+          bottomOffset: 80,
+        });
+        setIsModalVisible(false);
+      } catch (error) {
+        console.log(error);
+        Toast.show({
+          type: "error",
+          position: "bottom",
+          text1: "Ha ocurrido un error, inténtalo de nuevo",
+          visibilityTime: 1500,
+          bottomOffset: 80,
+        });
+      }
       setIsLoading(false);
     },
   });
-
   return (
     <>
       <View style={styles.form}>
@@ -79,14 +105,13 @@ export default function ChangePasswordComponent() {
         loading={isLoading}
         btnPrimary={true}
         onPress={formik.handleSubmit}
-      // action={() => handleFormSubmit(handleSubmit)}
       />
     </>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   form: {
     marginVertical: 15,
   },
-})
+});
