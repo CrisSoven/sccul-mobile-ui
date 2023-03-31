@@ -8,14 +8,14 @@ import AccionsBtnComponent from "../../../components/cart/AccionsBtnComponent";
 import CardsComponent from "../../../components/cart/CardsComponent";
 import ResumePrice from "../../../components/cart/ResumePrice";
 import { useNavigation } from "@react-navigation/native";
-import { getBankCardById } from "../../../utils/Axios";
+import { buyCourse, getBankCardById } from "../../../utils/Axios";
 import Splash from "../../sccul/SplashScreen";
 import Courses from "../../../components/common/Courses";
 import Colors from "../../../utils/Colors";
+import Toast from "react-native-toast-message";
 
 export default function CartPaymentScreen(props) {
   const { cardId, courses } = props.route.params;
-
   const [card, setCard] = useState({});
 
   useEffect(() => {
@@ -24,24 +24,35 @@ export default function CartPaymentScreen(props) {
       setCard(fetchedCard);
     };
     fetchCard();
-  }, []);
+  }, [card]);
 
   const total = courses.reduce((acc, curso) => {
     return acc + curso.price;
   }, 0);
-
-  const finalTotal = total.toFixed(3);
-
+  const discount = courses.reduce((acc, curso) => {
+    return acc + curso.discount;
+  }, 0);
+  const totalPrice = total - discount;
   const navigation = useNavigation();
   const [isPurchaseSuccessful, setIsPurchaseSuccessful] = useState(false);
-  const handleAction = () => {
-    if (!isPurchaseSuccessful) {
-      navigation.navigate("Successful");
-    } else {
-      navigation.navigate("Fail");
+  const handleAction = async (courses) => {
+    try {
+      courses.forEach(async (course) => {
+        course.inscriptions.forEach(async (inscription) => {
+          const response = await buyCourse(inscription);
+          response ? setIsPurchaseSuccessful(true) : setIsPurchaseSuccessful(false);
+          isPurchaseSuccessful ? navigation.navigate("Successful") : navigation.navigate("Fail");
+        });
+      });
+    } catch (error) {
+      Toast.show({
+        type: "error",
+        position: "bottom",
+        text1: "Error",
+        text2: "No se pudo realizar la compra",
+      });
     }
   };
-
   return (
     <>
       {
@@ -52,20 +63,27 @@ export default function CartPaymentScreen(props) {
             <View style={styles.header}>
               <Goback title="Confirmar compra" />
               <ResumePrice
-                price={finalTotal}
+                price={totalPrice}
                 totalInscriptions={courses.length}
               />
               <CardsComponent
                 card={card}
+                onPress="ProfileStack"
               />
               <Line />
             </View>
             <ScrollView style={styles.scrollContainer}>
               <View style={styles.scrollContent}>
-                <CartResume
-                  price={finalTotal}
-                />
-                <Line />
+                {
+                  discount === 0 ? (
+                    <></>
+                  ) : (
+                    <CartResume
+                      price={total}
+                      discount={discount}
+                    />
+                  )
+                }
                 <Text style={styles.title}>Detalles de compra</Text>
                 <Courses
                   courses={courses}
@@ -73,9 +91,9 @@ export default function CartPaymentScreen(props) {
               </View>
             </ScrollView>
             <AccionsBtnComponent
-              btnCancelTitle="Cancelar"
-              btnContinueTitle="Finalizar compra"
-              action={handleAction}
+              btnCancelTitle=" Regresar "
+              btnContinueTitle=" Finalizar compra "
+              onPress={() => handleAction(courses)}
               btnPrimary={true}
             />
           </View>

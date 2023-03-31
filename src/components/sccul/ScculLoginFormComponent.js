@@ -36,6 +36,7 @@ export default function LoginForm() {
         console.log(response);
 
         response ?  (
+          // navigation.navigate("HomeStack", { screen: "HomeS" }),
           Toast.show({
             type: 'success',
             position: 'bottom',

@@ -25,7 +25,7 @@ export default function ProfileScreen() {
   const navigateTo = () => navigation.navigate("Pockets");
   const logout = async () => {
     await deleteToken();
-    navigation.navigate("Landings");
+    navigation.navigate("HomeStack", { screen: "Landings" });
   };
   return !user.id ? (
     <Splash />

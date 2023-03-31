@@ -19,12 +19,13 @@ export default function CartScreen() {
     };
     fetchCourses();
   }, [
-    // courses
+    courses
   ]);
 
-  // const total = courses.reduce((acc, curso) => {
-  //   return acc + curso.price;
-  // }, 0);
+  let total;
+  courses === null ? total : total = courses.reduce((acc, curso) => {
+    return acc + curso.price;
+  }, 0);
 
   const navigation = useNavigation();
   const handlePaymentMethod = () => {
@@ -32,33 +33,32 @@ export default function CartScreen() {
   };
 
   return (
-    courses === null ? (
-      <SplashScreen />
-    ) : (
-      <View style={styles.container}>
-      <Text style={styles.title}>Carrito de compras</Text>
-      <SearchBar />
-      {
-        !courses.length ?
-          <EmptyContainer icon="cart-minus" type="material-community" text="Tu carrito está vacío" /> : (
-            <>
-              <SwipeNotify />
-              <ScrollView contentContainerStyle={styles.content}>
-                <SwipeableComponent courses={courses} />
-              </ScrollView>
-              <TitleBtnComponent
-                textTitle={`$ MX`}
-                titleStyle={styles.subtitle}
-                textBtn=" Pagar "
-                icon="payments"
-                onPress={handlePaymentMethod}
-                btnPrimary={true}
-              />
-            </>
-          )
-      }
-    </View>
-    )
+    courses === null ?
+      <SplashScreen /> : (
+        <View style={styles.container}>
+          <Text style={styles.title}>Carrito de compras</Text>
+          <SearchBar />
+          {
+            !courses.length ?
+              <EmptyContainer icon="cart-minus" type="material-community" text="Tu carrito está vacío" /> : (
+                <>
+                  <SwipeNotify />
+                  <ScrollView contentContainerStyle={styles.content}>
+                    <SwipeableComponent courses={courses} />
+                  </ScrollView>
+                  <TitleBtnComponent
+                    textTitle={`$ MX`}
+                    titleStyle={styles.subtitle}
+                    textBtn=" Pagar "
+                    icon="payments"
+                    onPress={handlePaymentMethod}
+                    btnPrimary={true}
+                  />
+                </>
+              )
+          }
+        </View>
+      )
   );
 }
 

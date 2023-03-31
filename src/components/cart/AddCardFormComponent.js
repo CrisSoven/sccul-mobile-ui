@@ -8,13 +8,15 @@ import AccionsBtnComponent from "./AccionsBtnComponent";
 import SaveCardBtnComponent from "../cart/SaveCardBtnComponent";
 import { addBankCard } from "../../utils/Axios";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
+import { useNavigation } from "@react-navigation/native";
 
-export default function AddCardFormComponent({ card, isEditable }) {
+export default function AddCardFormComponent({ card, filteredCourses, isEditable }) {
+  const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
 
   const formik = useFormik({
     initialValues: {
-      alias : card ? card.alias : "",
+      alias: card ? card.alias : "",
       cardName: card ? card.cardName : "",
       cardNumber: card ? card.cardNumber : "",
       expirationMonth: card ? card.expirationMonth : "",
@@ -41,30 +43,34 @@ export default function AddCardFormComponent({ card, isEditable }) {
         .required("CCV requerido"),
     }),
     validateOnChange: false,
-    onSubmit: async ({cardName, alias, cardNumber, CardCvv, expirationMonth, expirationYear}) => {
+    onSubmit: async ({ cardName, alias, cardNumber, CardCvv, expirationMonth, expirationYear }) => {
       try {
         const year = expirationYear % 100;
         const cardExpiration = `${expirationMonth < 10 ? "0" : ""}${expirationMonth}/${year}`;
         const response = await addBankCard(cardName, alias, cardNumber, cardExpiration, CardCvv);
-        response ? Toast.show({
-          type: "success",
-          position: "bottom",
-          text1: "¡Tarjeta registrada correctamente!",
-        }) :
-        Toast.show({
-          type: "error",
-          position: "bottom",
-          text1: "¡La tarjeta ya se encuentra registrada!",
-        });
+        console.log(response);
+        response ? (
+          navigation.navigate("CartPayment", { cardId: response.id, courses: filteredCourses }),
+          Toast.show({
+            type: "success",
+            position: "bottom",
+            text1: "¡Tarjeta registrada correctamente!",
+          })
+        ) :
+          Toast.show({
+            type: "error",
+            position: "bottom",
+            text1: "¡La tarjeta ya se encuentra registrada!",
+          });
       } catch (error) {
-        
+
       }
     },
   });
   return (
     <KeyboardAvoidingView>
       <View style={styles.header}>
-      <Input
+        <Input
           label="Alias de la tarjeta"
           placeholder="Alias de la tarjeta"
           iconName="account-outline"
@@ -158,7 +164,7 @@ export default function AddCardFormComponent({ card, isEditable }) {
           loading={isLoading}
           onPress={formik.handleSubmit}
           isLoading={isLoading}
-          // action={() => navigation.navigate('CartPayment')}
+        // action={() => navigation.navigate('CartPayment')}
         />
       </View>
     </KeyboardAvoidingView>
