@@ -79,39 +79,6 @@ export default function PersonalInfoFormComponent(props) {
 			}
 			setIsLoading(false);
 		},
-		// onSubmit: async (formData) => {
-		//   setIsLoading(true);
-		//   try {
-		//     const updatedUser = await updateUserInfo(
-		//       formData.name,
-		//       formData.lastname,
-		//       formData.surname,
-		//       formData.phoneNumber,
-		//       formData.email
-		//     );
-		//     setDisabled(true);
-		//     onReload();
-		//     Toast.show({
-		//       type: "info",
-		//       position: "bottom",
-		//       text1: "Tu información ha sido actualizada",
-		//       visibilityTime: 1500,
-		//       bottomOffset: 80,
-		//     });
-		//     const token = await renewToken();
-		//     await AsyncStorage.setItem("token", token);
-		//   } catch (error) {
-		//     console.log(error);
-		//     Toast.show({
-		//       type: "error",
-		//       position: "bottom",
-		//       text1: "Ha ocurrido un error, inténtalo de nuevo",
-		//       visibilityTime: 1500,
-		//       bottomOffset: 80,
-		//     });
-		//   }
-		//   setIsLoading(false);
-		// },
 	});
 
 	useEffect(() => {
