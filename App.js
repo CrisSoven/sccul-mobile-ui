@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import SplashScreen from './src/screens/sccul/SplashScreen';
 import { checkLoginStatus, deleteToken } from './src/utils/Axios';
+import AuthContextProvider from './src/context/auth/AuthContextProvider';
 
 export default function App() {
 	const [session, setSession] = useState(null);
@@ -25,12 +26,14 @@ export default function App() {
 		return <SplashScreen />;
 	}
 	return (
-		<View style={{ flex: 1 }}>
-			<NavigationContainer>
-				<Header />
-				<AppNavigation />
-				<Toast />
-			</NavigationContainer>
-		</View>
+		<AuthContextProvider>
+			<View style={{ flex: 1 }}>
+				<NavigationContainer>
+					<Header />
+					<AppNavigation />
+					<Toast />
+				</NavigationContainer>
+			</View>
+		</AuthContextProvider>
 	);
 }
