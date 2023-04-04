@@ -9,6 +9,7 @@ import { useState } from 'react';
 import SplashScreen from './src/screens/sccul/SplashScreen';
 import { checkLoginStatus, deleteToken } from './src/utils/Axios';
 import AuthContextProvider from './src/context/auth/AuthContextProvider';
+import { StripeProvider } from '@stripe/stripe-react-native';
 
 export default function App() {
 	const [session, setSession] = useState(null);
@@ -27,13 +28,15 @@ export default function App() {
 	}
 	return (
 		<AuthContextProvider>
-			<View style={{ flex: 1 }}>
-				<NavigationContainer>
-					<Header />
-					<AppNavigation />
-					<Toast />
-				</NavigationContainer>
-			</View>
+			<StripeProvider publishableKey='pk_test_51MnoaKBTa0KYEe2P3JfJXyc9DDAqwuUjshuAWpDZU4LzoDP0I6yiKQbAPrD72lYBDZ1xiUQ2ZuY1YYp2GN1sMadd00BLvaxXYW'>
+				<View style={{ flex: 1 }}>
+					<NavigationContainer>
+						<Header />
+						<AppNavigation />
+						<Toast />
+					</NavigationContainer>
+				</View>
+			</StripeProvider>
 		</AuthContextProvider>
 	);
 }

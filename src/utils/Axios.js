@@ -6,6 +6,31 @@ const baseUrl = 'http:/192.168.1.72:8080';
 //   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
 //cris@gmail.com
 
+export const checkout = async (amount) => {
+	console.log('checkout', amount);
+	try {
+		const response = await axios.post(
+			`${baseUrl}/api/payments/`,
+			{
+				amount: Math.floor(amount * 100),
+			},
+			{
+				headers: {
+					Authorization: `Bearer ${await getToken()}`,
+				},
+			}
+		);
+		const data = response.data;
+
+		// console.log('checkout', data);
+		return data.data;
+	} catch (error) {
+		console.log('checkout error');
+		console.log(error);
+		throw new Error(error);
+	}
+};
+
 export async function deleteToken() {
 	try {
 		await AsyncStorage.removeItem('token');

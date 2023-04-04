@@ -24,7 +24,7 @@ export default function AppNavigation() {
 	useEffect(() => {
 		//Creo que ya no es necesario esto
 		const fetchSession = async () => {
-			// const fetchedSession = await deleteToken();
+			const fetchedSession = await deleteToken();
 			// const fetchedSession = await checkLoginStatus();
 			// setSession(fetchedSession);
 		};
