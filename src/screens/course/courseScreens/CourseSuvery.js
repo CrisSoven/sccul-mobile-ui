@@ -6,42 +6,15 @@ import { ScrollView } from "react-native-gesture-handler";
 import { TouchableOpacity } from "react-native";
 import Colors from "../../../utils/Colors";
 
-export default function CourseSurvey() {
-  const [survey, setSurvey] = useState({
-    name: "Curso de React",
-    questions: [
-      {
-        question:
-          "¿Está satisfecho con la calidad de los videos presentado en el curso?",
-      },
-      {
-        question:
-          "¿El curso cumplió con sus expectativas y objetivos de aprendizaje?",
-      },
-      {
-        question:
-          "¿La estructura y organización del curso fue clara y fácil de seguir?",
-      },
-      {
-        question:
-          "¿Está satisfecho con la calidad de los videos presentado en el curso?",
-      },
-      {
-        question:
-          "¿El curso cumplió con sus expectativas y objetivos de aprendizaje?",
-      },
-      {
-        question:
-          "¿La estructura y organización del curso fue clara y fácil de seguir?",
-      },
-    ],
-  });
+export default function CourseSurvey(props) {
+  
+  const { survey } = props.route.params;
 
   return (
     <ScrollView>
       <View>
         <Goback title="Encuesta" />
-        <Text style={styles.title}>{survey.name}</Text>
+        <Text style={styles.title} numberOfLines={2}>{survey.name}</Text>
         <SurveyCourse survey={survey} />
       </View>
       <View style={styles.containerBtn}>
@@ -55,10 +28,10 @@ export default function CourseSurvey() {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 25,
+    fontSize: 24,
     fontWeight: "bold",
     marginTop: 20,
-    marginLeft: 20,
+    marginHorizontal: 20,
   },
   sendButton: {
     width: "60%",

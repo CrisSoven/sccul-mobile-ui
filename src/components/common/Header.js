@@ -10,7 +10,7 @@ export default function Header() {
         source={require("../../../assets/img/sccullogo.png")}
         style={styles.logo}
       /> */}
-      <Text style={styles.text}>SCCUL</Text>
+      <Text style={styles.text}>SIOCU</Text>
     </View>
   );
 }
