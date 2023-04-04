@@ -1,3 +1,4 @@
+//*
 import { StyleSheet, View } from "react-native";
 import React from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -8,9 +9,8 @@ import Colors from "../../utils/Colors";
 
 export default function Courses({ courses, courseSwipe }) {
   const navigation = useNavigation();
-
   const onPressHandler = (courseId) => {
-    navigation.navigate("CoursesDetailsScreen", { courseId: courseId } );
+    navigation.navigate("CoursesDetailsScreen", { courseId: courseId });
   };
 
   const renderCourse = (course) => (
@@ -32,34 +32,34 @@ export default function Courses({ courses, courseSwipe }) {
           {course.name}
         </Text>
         <View>
-        {course.discount > 0 && (
-                <View style={{ flexDirection: "row" }}>
-                  <Text
-                    style={{
-                      ...styles.price,
-                      color: Colors.PalletteRed,
-                      fontWeight: "bold",
-                      fontSize: 15,
-                      marginRight: "4%",
-                    }}
-                  >
-                    ${course.price} MXN
-                  </Text>
-                  <Text
-                    style={{
-                      ...styles.price,
-                      fontSize: 11.5,
-                      textDecorationLine: "line-through",
-                      marginTop: "1.5%",
-                    }}
-                  >
-                    ${course.originalPrice} MXN
-                  </Text>
-                </View>
-              )}
-              {(course.discount == 0 || course.discount == null) && (
-                <Text style={styles.price}>${course.price} MXN</Text>
-              )}
+          {course.discount > 0 && (
+            <View style={{ flexDirection: "row" }}>
+              <Text
+                style={{
+                  ...styles.price,
+                  color: Colors.PalletteRed,
+                  fontWeight: "bold",
+                  fontSize: 15,
+                  marginRight: "4%",
+                }}
+              >
+                ${parseFloat(course.price.toFixed(2))} MXN
+              </Text>
+              <Text
+                style={{
+                  ...styles.price,
+                  fontSize: 11.5,
+                  textDecorationLine: "line-through",
+                  marginTop: "1.5%",
+                }}
+              >
+                ${course.originalPrice} MXN
+              </Text>
+            </View>
+          )}
+          {(course.discount == 0 || course.discount == null) && (
+            <Text style={styles.price}>${course.price} MXN</Text>
+          )}
           <View style={{ flexDirection: "row" }}>
             <Text style={styles.average}>
               {course.average ? course.average : 0}
@@ -83,7 +83,15 @@ export default function Courses({ courses, courseSwipe }) {
   );
 
   if (courseSwipe) {
-    return renderCourse(courseSwipe);
+    if (courseSwipe.discount > 0) {
+      return renderCourse({
+        ...courseSwipe,
+        price: courseSwipe.price - courseSwipe.price * (courseSwipe.discount / 100),
+        originalPrice: courseSwipe.price,
+      });
+    } else {
+      return renderCourse(courseSwipe);
+    }
   } else if (courses) {
     const updatedCourses = courses.map((course) => {
       if (course.discount > 0) {

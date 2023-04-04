@@ -3,10 +3,8 @@ import React from "react";
 import Goback from "../../../components/common/Goback";
 import AddCardFormComponent from "../../../components/cart/AddCardFormComponent";
 import { ScrollView } from "react-native-gesture-handler";
-import { useNavigation } from "@react-navigation/native";
 
 export default function AddCardScreen() {
-  const navigation = useNavigation();
   return (
     <ScrollView>
       <Goback title="Agregar tarjeta" />

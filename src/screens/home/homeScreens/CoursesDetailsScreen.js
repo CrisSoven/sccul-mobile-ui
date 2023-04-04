@@ -75,7 +75,7 @@ export default function CoursesDetailsScreen({ route }) {
                 marginRight: "2%",
               }}
             >
-              ${updatedCourse.price} MXN
+              ${parseFloat(updatedCourse.price.toFixed(2))} MXN
             </Text>
             <Text style={styles.discount}>-{course.discount}%</Text>
           </View>

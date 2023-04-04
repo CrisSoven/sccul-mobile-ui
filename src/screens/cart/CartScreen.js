@@ -47,7 +47,7 @@ export default function CartScreen() {
                     <SwipeableComponent courses={courses} />
                   </ScrollView>
                   <TitleBtnComponent
-                    textTitle={`$${total} MX`}
+                    textTitle={`Subtotal: $${total} MXN`}
                     titleStyle={styles.subtitle}
                     textBtn=" Pagar "
                     icon="payments"
