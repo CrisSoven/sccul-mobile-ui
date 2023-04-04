@@ -72,7 +72,10 @@ export default function AppNavigation() {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="ScculStack" component={ScculStack} />
+        <Stack.Screen
+          name="ScculStack"
+          component={ScculStack}
+        />
       </Stack.Navigator>
     )
   )

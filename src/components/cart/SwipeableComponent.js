@@ -11,7 +11,7 @@ export default function SwipeableComponent({ courses }) {
   const SwipeDelete = (courseId) => {
     const fetchCourses = async () => {
       courses.map((course) => {
-        if (course.id === courseId) {
+        if (course.id == courseId) {
           const fetchedInscription = deleteInscription(course.inscriptions[0].id);
           setInscription(fetchedInscription);
         }

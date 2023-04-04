@@ -34,7 +34,7 @@ export default function CartPaymentScreen(props) {
   }, 0);
   const totalPrice = total - discount;
   const navigation = useNavigation();
-  const [isPurchaseSuccessful, setIsPurchaseSuccessful] = useState(false);
+  const [isPurchaseSuccessful, setIsPurchaseSuccessful] = useState(true);
   const handleAction = async (courses) => {
     try {
       courses.forEach(async (course) => {

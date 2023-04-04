@@ -1,9 +1,14 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const baseUrl = "http://192.168.1.74:8080";
+const baseUrl = "http://192.168.190.176:8080";
 // let token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
 //cris@gmail.com
+
+// Respuestas para la encuenta (en palabras)
+//1: malo, 2: regular, 3: bueno, 4: muy bueno, 5: excelente
+// 13 o 14 examen cds
+//
 
 export async function deleteToken() {
   try {
@@ -211,6 +216,7 @@ export async function deleteInscription(inscriptionId) {
       }
     );
     const data = response.data;
+    console.log("deleted data ", data);
     return data.data;
   } catch (error) {
     console.log("error inscripciones");
