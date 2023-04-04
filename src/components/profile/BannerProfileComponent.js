@@ -1,20 +1,38 @@
 import { StyleSheet, Text, View } from "react-native";
-import { Avatar } from "react-native-elements";
+import { Avatar, Button } from "react-native-elements";
 import React from "react";
 import Colors from "../../utils/Colors";
 import * as ImagePicker from "expo-image-picker";
+import { useState } from "react";
+import { getUser, uploadImage } from "../../utils/Axios";
 
 export default function BannerProfileComponent(props) {
-  const { user } = props;
+  const { user, setUser } = props;
+  const [uploading, setUploading] = useState(false);
   const fullName = user.name + " " + user.lastname + " " + user.surname;
 
   const changePhoto = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-    });
-    console.log("result: ", result.assets[0].uri);
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+      });
+      if (!result.canceled) {
+        const imageUrl = result.assets[0].uri;
+        console.log("Image URL:", imageUrl);
+        const image = {
+          uri: imageUrl,
+          type: "image/jpeg",
+          name: `${user.email}.jpg`,
+        };
+        await uploadImage(user.email, image);
+        const updatedUser = { ...user, image: imageUrl };
+        setUser(updatedUser);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -35,6 +53,7 @@ export default function BannerProfileComponent(props) {
             onPress={changePhoto}
           />
         </Avatar>
+        {uploading && <Text>Uploading image...</Text>}
       </View>
       <Text style={styles.textName}>{fullName}</Text>
     </>

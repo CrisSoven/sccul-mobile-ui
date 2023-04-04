@@ -41,7 +41,7 @@ export default function ProfileScreen() {
         onPress={logout}
       />
       <View>
-        <BannerProfileComponent user={user} onReload={onReload} />
+        <BannerProfileComponent user={user}  />
         <PocketComponent onPress={navigateTo} />
         <Line />
       </View>

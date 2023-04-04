@@ -41,6 +41,7 @@ export default function LoginForm() {
             type: 'success',
             position: 'bottom',
             text1: 'Iniciando sesión...',
+            
           })
         ) : (
           Toast.show({
