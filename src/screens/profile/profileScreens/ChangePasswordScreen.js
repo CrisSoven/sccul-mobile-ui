@@ -1,19 +1,13 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import Colors from "../../../utils/Colors";
 import ChangePasswordComponent from "../../../components/profile/ChangePasswordComponent";
-import { useNavigation } from "@react-navigation/native";
 
-export default function ChangePasswordScreen() {
-  const navigation = useNavigation();
-  const navigateTo = () => {
-    navigation.navigate("Profiles");
-  };
-  const [showModal, setShowModal] = useState(false);
+export default function ChangePasswordScreen({onClose}) {
   return (
     <View>
       <Text style={styles.title}>Cambiar contraseña</Text>
-      <ChangePasswordComponent />
+      <ChangePasswordComponent onClose={onClose}/>
     </View>
   );
 }

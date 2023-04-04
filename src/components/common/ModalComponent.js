@@ -3,9 +3,7 @@ import React from "react";
 import { Overlay } from "react-native-elements";
 import Color from "../../utils/Colors";
 
-export default function ModalComponent(props) {
-  const { isVisible, close, children } = props;
-
+export default function ModalComponent({isVisible, close, children}) {
   return (
     <Overlay
       isVisible={isVisible}

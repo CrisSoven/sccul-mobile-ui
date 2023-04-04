@@ -9,9 +9,7 @@ import Colors from "../../utils/Colors";
 
 export default function Courses({ courses, courseSwipe }) {
   const navigation = useNavigation();
-  const onPressHandler = (courseId) => {
-    navigation.navigate("CoursesDetailsScreen", { courseId: courseId });
-  };
+  const onPressHandler = (courseId) => navigation.navigate("CoursesDetailsScreen", { courseId: courseId });
 
   const renderCourse = (course) => (
     <TouchableOpacity
@@ -62,10 +60,10 @@ export default function Courses({ courses, courseSwipe }) {
           )}
           <View style={{ flexDirection: "row" }}>
             <Text style={styles.average}>
-              {course.average ? course.average : 0}
+              {course.averageRatings ? course.averageRatings.toFixed(1) : 0}
             </Text>
             <Rating
-              startingValue={course.average ? course.average : 0}
+              startingValue={course.averageRatings ? Math.floor(course.averageRatings * 2)/2 : 0}
               fractions={1}
               imageSize={20}
               readonly
@@ -74,7 +72,7 @@ export default function Courses({ courses, courseSwipe }) {
               style={{ marginRight: 10 }}
             />
             <Text style={{ fontSize: 14 }}>
-              ({course.comments ? 0 : course.comments})
+              ({course.comments.length ? course.comments.length : 0})
             </Text>
           </View>
         </View>
@@ -140,7 +138,6 @@ const styles = StyleSheet.create({
   },
   average: {
     fontSize: 14,
-    fontWeight: "bold",
     marginRight: 3,
     color: Colors.PalletteRed,
   },

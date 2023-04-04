@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Animated, ActivityIndicator } from 'react-native'
+import { StyleSheet, View, Animated, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
 import { Swipeable } from 'react-native-gesture-handler'
 import Courses from '../common/Courses'
@@ -6,18 +6,15 @@ import Colors from '../../utils/Colors'
 import { Icon } from 'react-native-elements'
 import { deleteInscription } from '../../utils/Axios'
 
-export default function SwipeableComponent({ courses }) {
-  const [inscription, setInscription] = useState([]);
-  const SwipeDelete = (courseId) => {
-    const fetchCourses = async () => {
-      courses.map((course) => {
-        if (course.id == courseId) {
-          const fetchedInscription = deleteInscription(course.inscriptions[0].id);
-          setInscription(fetchedInscription);
-        }
-      })
+export default function SwipeableComponent({ courses, onReload }) {
+  const SwipeDelete = async (courseId) => {
+    const courseToDelete = courses.find(course => course.id === courseId);
+    if (courseToDelete) {
+      const response = await deleteInscription(courseToDelete);
+      if (response) {
+        onReload();
+      }
     }
-    fetchCourses();
   };
   const deleteAction = (progress, dragX) => {
     const translateX = dragX.interpolate({

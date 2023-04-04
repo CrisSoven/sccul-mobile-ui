@@ -4,19 +4,15 @@ import Input from '../common/InputComponent';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import ButtonComponent from '../common/ButtonComponent';
-import { useNavigation } from '@react-navigation/native';
 import { changePassword, deleteToken, getUser } from '../../utils/Axios';
 
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
-export default function ChangePasswordComponent(props) {
+export default function ChangePasswordComponent({ onClose }) {
 	const [password, setPassword] = useState(false);
 	const [newPassword, setNewPassword] = useState(false);
 	const [confirmPassword, setConfirmPassword] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
-	// const [isModalVisible, setIsModalVisible] = useState(false);
-	const navigation = useNavigation();
-	const { close } = props;
 
 	const showPass = () => setPassword(!password);
 	const showNewPass = () => setNewPassword(!newPassword);
@@ -39,6 +35,7 @@ export default function ChangePasswordComponent(props) {
 					'Las contraseñas no coinciden'
 				),
 		}),
+		validateOnChange: false,
 		onSubmit: async (formData) => {
 			setIsLoading(true);
 			const { password, newPassword } = formData;
@@ -59,7 +56,7 @@ export default function ChangePasswordComponent(props) {
 					visibilityTime: 1500,
 					bottomOffset: 80,
 				});
-				// close()
+				onClose();
 			} catch (error) {
 				console.log(error);
 				Toast.show({

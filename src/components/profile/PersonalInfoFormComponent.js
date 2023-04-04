@@ -22,6 +22,8 @@ export default function PersonalInfoFormComponent(props) {
 	const [showModal, setShowModal] = useState(false);
 	const [disabled, setDisabled] = useState(true);
 	const [isLoading, setIsLoading] = useState(false);
+	const handleShowModal = () => setShowModal(true);
+	const onClose = () => setShowModal((prevState) => !prevState);
 
 	const formik = useFormik({
 		initialValues: {
@@ -90,8 +92,6 @@ export default function PersonalInfoFormComponent(props) {
 			email: user.email,
 		});
 	}, [user]);
-
-	const navigateTo = () => setShowModal(true);
 
 	return (
 		<>
@@ -177,7 +177,7 @@ export default function PersonalInfoFormComponent(props) {
 			</View>
 			<TouchableOpacity
 				style={[styles.row, { marginBottom: 20 }]}
-				onPress={navigateTo}
+				onPress={handleShowModal}
 			>
 				<View style={styles.circleKey}>
 					<Icon name='vpn-key' type='MaterialIcons' size={20} />
@@ -189,7 +189,7 @@ export default function PersonalInfoFormComponent(props) {
 				close={() => setShowModal(false)}
 			>
 				<View>
-					<ChangePasswordScreen />
+					<ChangePasswordScreen onClose={onClose}/>
 				</View>
 			</ModalComponent>
 		</>

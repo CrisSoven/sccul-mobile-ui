@@ -24,7 +24,7 @@ export default function CartPaymentScreen(props) {
       setCard(fetchedCard);
     };
     fetchCard();
-  }, [card]);
+  }, []);
 
   const total = courses.reduce((acc, curso) => {
     return acc + curso.price;
@@ -32,7 +32,7 @@ export default function CartPaymentScreen(props) {
   const discount = courses.reduce((acc, curso) => {
     return acc + curso.discount;
   }, 0);
-  const totalPrice = total - discount;
+  const totalPrice = total - total * (discount/100);
   const navigation = useNavigation();
   const [isPurchaseSuccessful, setIsPurchaseSuccessful] = useState(true);
   const handleAction = async (courses) => {
@@ -63,7 +63,7 @@ export default function CartPaymentScreen(props) {
             <View style={styles.header}>
               <Goback title="Confirmar compra" />
               <ResumePrice
-                price={totalPrice}
+                price={parseFloat(totalPrice).toFixed(2)}
                 totalInscriptions={courses.length}
               />
               <CardsComponent

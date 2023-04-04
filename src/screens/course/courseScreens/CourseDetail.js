@@ -46,8 +46,7 @@ export default function CourseScreen(props) {
     !course.id ?
       <Splash /> : (
         <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-          <Goback title={course.name} />
-          <View style={styles.content}>
+            <Goback title={course.name} />
             <View style={styles.videoContainer}>
               <Video
                 style={styles.video}
@@ -71,14 +70,13 @@ export default function CourseScreen(props) {
               title="Ir a la encuesta"
               onPress={() => navigation.navigate("Survey")}
             />
-          </View>
         </ScrollView>
       )
   );
 }
 
 const styles = StyleSheet.create({
-  content: {
+  container: {
     flex: 1,
     paddingHorizontal: 20,
   },

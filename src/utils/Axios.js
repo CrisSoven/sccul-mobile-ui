@@ -63,7 +63,7 @@ export async function getUser() {
 export async function checkLoginStatus() {
   try {
     const token = await getToken();
-    console.log("token:", token);
+    // console.log("token:", token);
     return token === null ? false : true;
   } catch (error) {
     console.log("check login status error");
@@ -215,7 +215,12 @@ export async function getInscriptions() {
   }
 }
 
-export async function deleteInscription(inscriptionId) {
+export async function deleteInscription(course) {
+  const user = await getUser();
+  const inscription = course.inscriptions.find(
+    (inscription) => inscription.user.id == user
+  );
+  const inscriptionId = inscription.id;
   try {
     const response = await axios.delete(
       `${baseUrl}/api/inscriptions/${inscriptionId}`,
@@ -226,8 +231,7 @@ export async function deleteInscription(inscriptionId) {
       }
     );
     const data = response.data;
-    console.log("deleted data ", data);
-    return data.data;
+    return data;
   } catch (error) {
     console.log("error inscripciones");
     throw new Error(error);

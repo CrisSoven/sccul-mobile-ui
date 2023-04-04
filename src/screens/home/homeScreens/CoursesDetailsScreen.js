@@ -44,16 +44,15 @@ export default function CoursesDetailsScreen({ route }) {
       <Goback title={course.name} />
       <Image source={{ uri: course.image }} style={styles.image} />
       <View style={styles.averageContainer}>
-        <Text style={styles.text}>{course.average}</Text>
+        <Text style={styles.text}>{course.averageRatings}</Text>
         <Rating
-          startingValue={course.average}
-          fractions={1}
-          imageSize={24}
+          startingValue={course.averageRatings ? Math.floor(course.averageRatings * 2)/2 : 0}
+          imageSize={20}
           readonly
           ratingColor={Colors.PalleteYellow}
-          style={{ marginRight: 10 }}
+          style={{ marginRight: 5 }}
         />
-        <Text style={{ fontSize: 18 }}>
+        <Text style={styles.text}>
           ({course.comments.length ? course.comments.length : 0})
         </Text>
       </View>
@@ -64,7 +63,6 @@ export default function CoursesDetailsScreen({ route }) {
               flexDirection: "row",
               alignContent: "center",
               alignItems: "center",
-              marginTop: "4%",
             }}
           >
             <Text
@@ -72,7 +70,6 @@ export default function CoursesDetailsScreen({ route }) {
                 ...styles.price,
                 color: Colors.PalletteRed,
                 fontWeight: "bold",
-                marginRight: "2%",
               }}
             >
               ${parseFloat(updatedCourse.price.toFixed(2))} MXN
@@ -114,7 +111,7 @@ export default function CoursesDetailsScreen({ route }) {
         />
       </View>
       <ContentComponent course={course} />
-      <Comments comments={course.comments} />
+      <Comments comments={course.comments} rating={course.scores} />
     </ScrollView>
   );
 }
@@ -130,7 +127,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 230,
     borderRadius: 16,
-    marginBottom: 20,
+    marginBottom: 15,
     resizeMode: "cover",
     backgroundColor: Colors.PalleteGray,
   },
@@ -153,6 +150,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     textAlign: "justify",
+    marginRight: 5,
   },
   categoryContainer: {
     marginVertical: 20,

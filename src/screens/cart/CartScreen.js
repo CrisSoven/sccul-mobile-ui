@@ -9,28 +9,31 @@ import { getCoursesCart } from "../../utils/Axios";
 import SwipeableComponent from "../../components/cart/SwipeableComponent";
 import SplashScreen from "../../screens/sccul/SplashScreen";
 import EmptyContainer from "../../components/common/EmptyContainer";
-
 export default function CartScreen() {
   const [courses, setCourses] = useState(null);
+  const [reload, setReload] = useState(false);
+  const onReload = () => setReload((prevState) => !prevState);
+  
+  const fetchCourses = async () => {
+    const fetchedCourses = await getCoursesCart();
+    setCourses(fetchedCourses);
+  };
+  
   useEffect(() => {
-    const fetchCourses = async () => {
-      const fetchedCourses = await getCoursesCart();
-      setCourses(fetchedCourses);
-    };
     fetchCourses();
-  }, [
-    // courses
-  ]);
-
-  let total;
-  courses === null ? total : total = courses.reduce((acc, curso) => {
-    return acc + curso.price;
-  }, 0);
+  }, [reload]);
 
   const navigation = useNavigation();
   const handlePaymentMethod = () => {
     navigation.navigate("PaymentMethod", { courses });
   };
+
+  let total = 0;
+  if (courses !== null) {
+    total = courses.reduce((acc, curso) => {
+      return acc + curso.price;
+    }, 0);
+  }
 
   return (
     courses === null ?
@@ -44,10 +47,10 @@ export default function CartScreen() {
                 <>
                   <SwipeNotify />
                   <ScrollView contentContainerStyle={styles.content}>
-                    <SwipeableComponent courses={courses} />
+                    <SwipeableComponent courses={courses} onReload={onReload} />
                   </ScrollView>
                   <TitleBtnComponent
-                    textTitle={`Subtotal: $${total} MXN`}
+                    textTitle={`Subtotal: $${parseFloat(total.toFixed(2))} MXN`}
                     titleStyle={styles.subtitle}
                     textBtn=" Pagar "
                     icon="payments"
@@ -61,6 +64,7 @@ export default function CartScreen() {
       )
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {

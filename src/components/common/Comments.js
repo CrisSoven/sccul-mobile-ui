@@ -1,40 +1,53 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Colors from "../../utils/Colors";
-import { Icon, Rating } from "react-native-elements";
+import { Avatar, Rating } from "react-native-elements";
 
-export default function Comments(comment) {
-  const { comments } = comment;
+export default function Comments({ comments, rating }) {
   return (
     <>
-      <Text style={styles.title}>Comentarios</Text>
-      {comments.map((comments, index) => (
-        <View style={styles.content} key={index}>
-          <Icon
-            name="user-o"
-            type="font-awesome"
-            color={Colors.PalleteBlack}
-            size={30}
-          />
-          <View style={styles.infoContainer}>
-            <View style={styles.nameContainer}>
-              <Text style={styles.name} numberOfLines={1}>
-                {comments.user.name + " " + comments.user.surname}
-              </Text>
-              <Text style={styles.createdAt}>{comments.createdAt}</Text>
-              <Rating
-                startingValue={comments.score}
-                fractions={1}
-                imageSize={16}
-                readonly
-                ratingColor="#FFAA0D"
-                style={{ flex: 1 }}
-              />
+      <Text style={styles.title}>Comentarios ({comments.length})</Text>
+      {
+        comments.map((comment) => (
+          <View style={styles.content} key={comment.id}>
+            {
+              comment.user.image ? (
+                <Avatar
+                  rounded
+                  source={{ uri: comment.user.image }}
+                />
+              ) : (
+                <Avatar
+                  rounded
+                  title={comment.user.name[0]}
+                  overlayContainerStyle={{ backgroundColor: Colors.PalleteAuxiliarBlue }}
+                />
+              )
+            }
+            <View style={styles.infoContainer}>
+              <View style={styles.commentHeader}>
+                <Text style={styles.name} numberOfLines={1}>
+                  {comment.user.name + " " + comment.user.lastname}
+                </Text>
+                <Text style={styles.createdAt}>{comment.created_at.split(" ")[0]}</Text>
+                {
+                  rating.map((score) => (
+                    comment.user.id === score.user.id ? (
+                      <Rating
+                        key={score.id}
+                        startingValue={score.score}
+                        imageSize={16}
+                        readonly
+                      />
+                    ) : (<></>)
+                  ))
+                }
+              </View>
+              <Text>{comment.comment}</Text>
             </View>
-            <Text style={styles.comment}>{comments.comment}</Text>
           </View>
-        </View>
-      ))}
+        ))
+      }
     </>
   );
 }
@@ -42,38 +55,31 @@ export default function Comments(comment) {
 const styles = StyleSheet.create({
   content: {
     flexDirection: "row",
-    height: "auto",
     marginVertical: 20,
-    borderRadius: 15,
     alignItems: "center",
   },
   title: {
     fontWeight: "bold",
     fontSize: 24,
     marginTop: 20,
+
   },
   infoContainer: {
-    flexDirection: "column",
-    marginHorizontal: "3%",
+    flex: 1,
+    marginLeft: 10,
+    justifyContent: "space-between",
   },
-  nameContainer: {
+  commentHeader: {
     flexDirection: "row",
-    marginBottom: "2%",
+    justifyContent: "space-evenly",
+    alignItems: "center",
   },
   name: {
     flex: 1,
-    fontSize: 14,
     fontWeight: "bold",
-    marginLeft: "2%",
   },
   createdAt: {
-    fontSize: 14,
     opacity: 0.5,
-    marginLeft: "3%",
+    marginHorizontal: 10,
   },
-  comment: {
-    fontSize: 14,
-    marginHorizontal: "2%",
-  },
-
 });

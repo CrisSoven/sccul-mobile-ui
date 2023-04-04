@@ -3,7 +3,7 @@ import React from "react";
 import { Icon, Input } from "react-native-elements";
 import Colors from "../../utils/Colors";
 
-export default function InputComponent({ label, iconName, iconType, onPressIcon, placeholder, maxLength, minLeght, value, secureTextEntry, disabled, onChangeText, errorMessage, keyboardType }) {
+export default function InputComponent({ label, iconName, iconType, onPressIcon, placeholder, maxLength, minLeght, value, secureTextEntry, disabled, onChangeText, errorMessage, keyboardType, numberOfLines, multiline }) {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
@@ -21,11 +21,13 @@ export default function InputComponent({ label, iconName, iconType, onPressIcon,
         disabled={disabled}
         minLeght={minLeght}
         maxLength={maxLength}
+        multiline={multiline}
         style={{ fontSize: 15 }}
         placeholder={placeholder}
         onChangeText={onChangeText}
         errorMessage={errorMessage}
         keyboardType={keyboardType}
+        numberOfLines={numberOfLines}
         secureTextEntry={secureTextEntry}
         containerStyle={styles.inputContainer}
         inputContainerStyle={{ borderBottomWidth: 0 }}
