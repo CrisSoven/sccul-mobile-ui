@@ -22,54 +22,90 @@ export default function SurveyCourse(props) {
         <View key={index} style={styles.questionContainer}>
           <Text style={styles.question}>{question.question}</Text>
           <View style={styles.buttonsContainer}>
-            <TouchableOpacity
-              style={[
-                styles.button,
-                answers[index] === 0 && styles.selectedButton,
-              ]}
-              onPress={() => handlePress(index, 0)}
-            >
-              <Text
+            <View style={{flexDirection: "row", marginBottom: 10}}>
+              <TouchableOpacity
                 style={[
-                  styles.textBtn,
-                  answers[index] === 0 && styles.textBtnSelected,
+                  styles.button,
+                  answers[index] === 0 && styles.selectedButton,
                 ]}
+                onPress={() => handlePress(index, 0)}
               >
-                Si
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                styles.buttonMiddle,
-                answers[index] === 1 && styles.selectedButton,
-              ]}
-              onPress={() => handlePress(index, 1)}
-            >
-              <Text
+                <Text
+                  style={[
+                    styles.textBtn,
+                    answers[index] === 0 && styles.textBtnSelected,
+                  ]}
+                >
+                  Malo
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
                 style={[
-                  styles.textBtn,
-                  answers[index] === 1 && styles.textBtnSelected,
+                  styles.button,
+                  answers[index] === 1 && styles.selectedButton,
                 ]}
+                onPress={() => handlePress(index, 1)}
               >
-                Puede mejorar
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                styles.button,
-                answers[index] === 2 && styles.selectedButton,
-              ]}
-              onPress={() => handlePress(index, 2)}
-            >
-              <Text
+                <Text
+                  style={[
+                    styles.textBtn,
+                    answers[index] === 1 && styles.textBtnSelected,
+                  ]}
+                >
+                  Regular
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
                 style={[
-                  styles.textBtn,
-                  answers[index] === 2 && styles.textBtnSelected,
+                  styles.button,
+                  answers[index] === 2 && styles.selectedButton,
                 ]}
+                onPress={() => handlePress(index, 2)}
               >
-                No
-              </Text>
-            </TouchableOpacity>
+                <Text
+                  style={[
+                    styles.textBtn,
+                    answers[index] === 2 && styles.textBtnSelected,
+                  ]}
+                >
+                  Bueno
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{flexDirection: "row", marginHorizontal: 30}}>
+              <TouchableOpacity
+                style={[
+                  styles.button,
+                  answers[index] === 3 && styles.selectedButton,
+                ]}
+                onPress={() => handlePress(index, 3)}
+              >
+                <Text
+                  style={[
+                    styles.textBtn,
+                    answers[index] === 3 && styles.textBtnSelected,
+                  ]}
+                >
+                  Muy bueno
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.button,
+                  answers[index] === 4 && styles.selectedButton,
+                ]}
+                onPress={() => handlePress(index, 4)}
+              >
+                <Text
+                  style={[
+                    styles.textBtn,
+                    answers[index] === 4 && styles.textBtnSelected,
+                  ]}
+                >
+                  Excelente
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
           <Line />
         </View>
@@ -88,28 +124,17 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   buttonsContainer: {
-    flexDirection: "row",
+    flexDirection: "column",
     alignContent: "center",
     alignItems: "center",
     justifyContent: "center",
   },
   button: {
-    width: "22%",
+    flex: 1,
     borderWidth: 1,
     borderRadius: 15,
     borderColor: Colors.PalleteAuxiliarBlue,
-    padding: 10,
-    marginRight: 15,
-    textAlign: "center",
-    alignContent: "center",
-    alignItems: "center",
-  },
-  buttonMiddle: {
-    width: "40%",
-    borderWidth: 1,
-    borderRadius: 15,
-    borderColor: Colors.PalleteAuxiliarBlue,
-    padding: 10,
+    padding: 8,
     marginRight: 15,
     textAlign: "center",
     alignContent: "center",
@@ -119,7 +144,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.PalleteAuxiliarBlue,
   },
   textBtn: {
-    fontSize: 16,
+    fontSize: 14,
     color: Colors.PalleteAuxiliarBlue,
   },
   textBtnSelected: {

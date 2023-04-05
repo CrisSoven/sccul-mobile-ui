@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Sections from "../../components/common/Sections";
+import SectionSurvey from '../course/SectionSurvey';
 
 export default function ContentComponent(props) {
-  const { course, disable, onSectionPress } = props
+  const { course, disable, onSectionPress, navigation } = props
 
   const minutes = course.sections.reduce((acc, section) => {
     const duration = section.duration.split(':');
@@ -29,6 +30,7 @@ export default function ContentComponent(props) {
           disable={disable}
           onSectionPress={onSectionPress}
         />
+        <SectionSurvey navigation={navigation} survey={course.survey}/>
       </View>
     </View>
   )

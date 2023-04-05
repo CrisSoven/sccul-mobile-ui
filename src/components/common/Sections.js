@@ -11,29 +11,56 @@ export default function Sections(props) {
   sections.sort((a, b) => a.number - b.number);
 
   const handlePress = (sectionId) => {
-    onSectionPress(sectionId - 1);
+    const sectionPosition = sections.findIndex(
+      (section) => section.id === sectionId
+    );
+    onSectionPress(sectionPosition);
   };
+
   return (
     <View>
       {sections.map((section) => (
         <TouchableOpacity
           key={section.id}
-          style={[styles.container, disable ? { opacity: 0.5 } : {}]}
+          style={[styles.container, selectedSection === section.id ? { height: 40, marginHorizontal: 0 } : {}]}
           onPress={() => {
-            handlePress(section.id)
+            handlePress(section.id);
             setSelectedSection(section.id);
           }}
           activeOpacity={0.8}
-          disabled={disable}>
-          <Text style={[styles.infoVideo, selectedSection === section.id ? { fontWeight: "bold" } : {}]}>{`${section.number}.`}</Text>
+          disabled={disable}
+        >
+          <Text
+            style={[
+              styles.infoVideo,
+              selectedSection === section.id ? { fontWeight: "bold" } : {},
+            ]}
+          >{`${section.number}.`}</Text>
           <Icon
-            name={selectedSection === section.id ? "motion-pause-outline" : "play-circle-outline"}
+            name={
+              selectedSection === section.id
+                ? "motion-pause-outline"
+                : "play-circle-outline"
+            }
             type="material-community"
           />
-          <Text style={[styles.title, selectedSection === section.id ? { fontWeight: "bold" } : {}]} numberOfLines={1}>
+          <Text
+            style={[
+              styles.title,
+              selectedSection === section.id ? { fontWeight: "bold" } : {},
+            ]}
+            numberOfLines={1}
+          >
             {section.name}
           </Text>
-          <Text style={[styles.infoVideo, selectedSection === section.id ? { fontWeight: "bold" } : {}]}>{section.duration}</Text>
+          <Text
+            style={[
+              styles.infoVideo,
+              selectedSection === section.id ? { fontWeight: "bold" } : {},
+            ]}
+          >
+            {section.duration}
+          </Text>
         </TouchableOpacity>
       ))}
     </View>
@@ -49,6 +76,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     alignItems: "center",
     backgroundColor: Colors.PalleteGreenBackground,
+    marginHorizontal: 5,
   },
   infoVideo: {
     fontSize: 14,

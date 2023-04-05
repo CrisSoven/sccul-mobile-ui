@@ -21,6 +21,8 @@ export default function CourseScreen(props) {
     watched: videoWatched,
   });
 
+  console.log(course.inscriptions);
+
   useEffect(() => {
     if (status.didJustFinish) { // if (status.didJustFinish || status.positionMillis >= (status.durationMillis / 100 * 80)) {
       setVideoWatched(true);
@@ -51,7 +53,7 @@ export default function CourseScreen(props) {
               <Video
                 style={styles.video}
                 ref={video}
-                source={{ uri: course.sections[`${resumenVideo}`].video }}
+                source={{ uri: course.sections[resumenVideo].video }}
                 shouldPlay={true}
                 resizeMode="contain"
                 useNativeControls
@@ -64,12 +66,9 @@ export default function CourseScreen(props) {
               disable={false}
               onSectionPress={handleSectionPress}
               videoWatched={videoWatched}
+              navigation={navigation}
             />
             <FeedbackComponent />
-            <Button
-              title="Ir a la encuesta"
-              onPress={() => navigation.navigate("Survey")}
-            />
         </ScrollView>
       )
   );

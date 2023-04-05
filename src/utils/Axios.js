@@ -6,10 +6,30 @@ const baseUrl = "http:/192.168.1.64:8080";
 //   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
 //cris@gmail.com
 
-// Respuestas para la encuenta (en palabras)
-//1: malo, 2: regular, 3: bueno, 4: muy bueno, 5: excelente
-// 13 o 14 examen cds
-//
+export const checkout = async (amount) => {
+  console.log("checkout", amount);
+  try {
+    const response = await axios.post(
+      `${baseUrl}/api/payments/`,
+      {
+        amount: Math.floor(amount * 100),
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+      }
+    );
+    const data = response.data;
+
+    // console.log('checkout', data);
+    return data.data;
+  } catch (error) {
+    console.log("checkout error");
+    console.log(error);
+    throw new Error(error);
+  }
+};
 
 export async function deleteToken() {
   try {
@@ -63,7 +83,6 @@ export async function getUser() {
 export async function checkLoginStatus() {
   try {
     const token = await getToken();
-    // console.log("token:", token);
     return token === null ? false : true;
   } catch (error) {
     console.log("check login status error");
@@ -237,6 +256,24 @@ export async function deleteInscription(course) {
     throw new Error(error);
   }
 }
+
+// export async function deleteInscription(inscriptionId) {
+// 	try {
+// 		const response = await axios.delete(
+// 			`${baseUrl}/api/inscriptions/${inscriptionId}`,
+// 			{
+// 				headers: {
+// 					Authorization: `Bearer ${await getToken()}`,
+// 				},
+// 			}
+// 		);
+// 		const data = response.data;
+// 		return data.data;
+// 	} catch (error) {
+// 		console.log('error inscripciones');
+// 		throw new Error(error);
+// 	}
+// }
 
 export async function buyCourse(inscription) {
   const user = await getUser();
@@ -521,6 +558,23 @@ export const verifyPassword = async (
     );
   }
 };
+
+//     const response = await axios.patch(
+//       `${baseUrl}/api/auth/loadimage`,
+//       formData,
+//       {
+//         headers: {
+//           Authorization: `Bearer ${await getToken()}`,
+//           "Content-Type": "multipart/form-data",
+//         },
+//       }
+//     );
+
+//     return response.data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
 export async function uploadImage(email, image) {
   try {
