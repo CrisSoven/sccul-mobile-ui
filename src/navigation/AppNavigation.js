@@ -20,7 +20,7 @@ export default function AppNavigation() {
 
   useEffect(() => {
     const fetchSession = async () => {
-      // const fetchedSession = await deleteToken();
+          // const fetchedSession = await deleteToken();
       const fetchedSession = await checkLoginStatus();
       setSession(fetchedSession);
     };

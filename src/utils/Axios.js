@@ -1,7 +1,7 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const baseUrl = "http:/192.168.1.74:8080";
+const baseUrl = "http:/192.168.1.64:8080";
 // let token =
 //   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
 //cris@gmail.com
@@ -439,22 +439,46 @@ export async function updateUserInfo(
   }
 }
 
-export const changePassword = async (
-  id,
-  currentPassword,
-  newPassword,
-  token
-) => {
+// export const changePassword = async (
+//   id,
+//   currentPassword,
+//   newPassword,
+//   token
+// ) => {
+//   try {
+//     const url = `${baseUrl}/api/auth/reset-password/${await getToken()}`;
+//     console.log("URL:", url);
+//     const response = await axios.post(
+//       url,
+//       {
+//         id: id,
+//         password: currentPassword,
+//         newPassword: newPassword,
+//         repeatNwPassword: newPassword,
+//       },e
+//       {
+//         headers: {
+//           Authorization: `Bearer ${await getToken()}`,
+//         },
+//       }
+//     );
+//     return response.data;
+//   } catch (error) {
+//     throw error;
+//   }
+// };
+
+export const changePassword = async (currentPassword, newPassword) => {
   try {
-    const url = `${baseUrl}/api/auth/reset-password/${await getToken()}`;
+    const url = `${baseUrl}/api/users/changePass/${await getUser()}`;
+    // console.log("user:", getUser());
     console.log("URL:", url);
-    const response = await axios.post(
+    const response = await axios.patch(
       url,
       {
-        id: id,
         password: currentPassword,
         newPassword: newPassword,
-        repeatNewPassword: newPassword,
+        repeatNwPassword: newPassword,
       },
       {
         headers: {
@@ -464,32 +488,40 @@ export const changePassword = async (
     );
     return response.data;
   } catch (error) {
+    if (error.response && error.response.status === 403) {
+      throw new Error("La contraseña actual es incorrecta");
+    }
     throw error;
   }
 };
 
-// export async function uploadImage(email, image) {
-//   try {
-//     const formData = new FormData();
-//     formData.append("email", email);
-//     formData.append("image", image);
+export const verifyPassword = async (
+  currentPassword,
+  newPassword,
+  confirmPassword
+) => {
+  try {
+    const url = `${baseUrl}/api/users/confirmPass/${await getUser()}`;
+    console.log(url);
+    const response = await axios.post(
+      url,
+      {
+        password: currentPassword,
+        newPassword: newPassword,
+        repeatNewPassword: confirmPassword,
+      },
+      { headers: { Authorization: `Bearer ${await getToken()}` } }
+    );
+    return response.data;
+    console.log(response.data);
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message ||
+        "Ha ocurrido un error al actualizar la contraseña"
+    );
+  }
+};
 
-//     const response = await axios.patch(
-//       `${baseUrl}/api/auth/loadimage`,
-//       formData,
-//       {
-//         headers: {
-//           Authorization: `Bearer ${await getToken()}`,
-//           "Content-Type": "multipart/form-data",
-//         },
-//       }
-//     );
-
-//     return response.data;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
 export async function uploadImage(email, image) {
   try {
     const formData = new FormData();
