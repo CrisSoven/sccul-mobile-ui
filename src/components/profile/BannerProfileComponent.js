@@ -4,10 +4,11 @@ import React from "react";
 import Colors from "../../utils/Colors";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
+import { ActivityIndicator } from "react-native";
 import { getUser, uploadImage } from "../../utils/Axios";
 
 export default function BannerProfileComponent(props) {
-  const { user, setUser } = props;
+  const { user, setUser, onReload } = props;
   const [uploading, setUploading] = useState(false);
   const fullName = user.name + " " + user.lastname + " " + user.surname;
 
@@ -26,12 +27,16 @@ export default function BannerProfileComponent(props) {
           type: "image/jpeg",
           name: `${user.email}.jpg`,
         };
+        setUploading(true);
         await uploadImage(user.email, image);
         const updatedUser = { ...user, image: imageUrl };
         setUser(updatedUser);
+        onReload();
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setUploading(false); // establecer uploading en false para ocultar el loader
     }
   };
 
@@ -53,7 +58,7 @@ export default function BannerProfileComponent(props) {
             onPress={changePhoto}
           />
         </Avatar>
-        {uploading && <Text>Uploading image...</Text>}
+        {uploading && <Text>Cargando imagen...</Text>}
       </View>
       <Text style={styles.textName}>{fullName}</Text>
     </>
