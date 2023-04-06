@@ -552,29 +552,17 @@ export const verifyPassword = async (
     return response.data;
     console.log(response.data);
   } catch (error) {
+    if (
+      error.response?.data?.message === "La contraseña actual es incorrecta"
+    ) {
+      return false;
+    }
     throw new Error(
       error.response?.data?.message ||
         "Ha ocurrido un error al actualizar la contraseña"
     );
   }
 };
-
-//     const response = await axios.patch(
-//       `${baseUrl}/api/auth/loadimage`,
-//       formData,
-//       {
-//         headers: {
-//           Authorization: `Bearer ${await getToken()}`,
-//           "Content-Type": "multipart/form-data",
-//         },
-//       }
-//     );
-
-//     return response.data;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
 
 export async function uploadImage(email, image) {
   try {

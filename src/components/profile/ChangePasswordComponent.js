@@ -73,17 +73,6 @@ export default function ChangePasswordComponent({ onClose }) {
           visibilityTime: 1500,
           bottomOffset: 80,
         });
-        if (
-          error.message === "Ha ocurrido un error al actualizar la contraseña"
-        ) {
-          Toast.show({
-            type: "warning",
-            position: "bottom",
-            text1: "La contraseña actual no coincide",
-            visibilityTime: 1500,
-            bottomOffset: 80,
-          });
-        }
       }
       setIsLoading(false);
     },
