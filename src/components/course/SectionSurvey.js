@@ -5,17 +5,19 @@ import { Icon } from "react-native-elements";
 import Colors from "../../utils/Colors";
 
 export default function SectionSurvey(props) {
-  const { navigation, survey } = props;
+  const { navigation, survey, disableSurvey } = props;
 
   return (
     <View>
       <TouchableOpacity
         style={styles.container}
         onPress={() => navigation.navigate("Survey", { survey })}
+        {...disableSurvey ? null : { disabled: true }}
       >
         <Text style={styles.punto}>•</Text>
-        {/* <Icon name="lock-outline" type="material-community" /> */}
-        <Icon name="lock-open-outline" type="material-community" />
+        {disableSurvey ? (
+            <Icon name="lock-open-variant-outline" type="material-community" />
+          ) : <Icon name="lock-outline" type="material-community" />}
         <Text style={styles.survey}>Encuesta del curso</Text>
       </TouchableOpacity>
     </View>

@@ -10,67 +10,67 @@ import Splash from "../../sccul/SplashScreen";
 import { setPercentageInscription } from "../../../utils/Axios";
 
 export default function CourseScreen(props) {
-  const { course, secondsDuration } = props.route.params;
-  const [status, setStatus] = React.useState({})
+  const { course } = props.route.params;
+  const [status, setStatus] = React.useState({});
   const video = useRef(null);
   const navigation = useNavigation();
   const [resumenVideo, setResumenVideo] = useState(0);
-  const [videoWatched, setVideoWatched] = useState(false);
-  const [progress, setProgress] = useState({
-    video: resumenVideo,
-    watched: videoWatched,
+  const [videoWatched, setVideoWatched] = useState({
+    sections: course.sections.map((section) => ({
+      id: section.id,
+      watched: false,
+    })),
   });
-
-  console.log(course.inscriptions);
+  const [videosWatchedCount, setVideosWatchedCount] = useState(0);
 
   useEffect(() => {
-    if (status.didJustFinish) { // if (status.didJustFinish || status.positionMillis >= (status.durationMillis / 100 * 80)) {
-      setVideoWatched(true);
-      console.log("Video terminado");
-      const segunds = Math.floor(status.positionMillis / 1000);
-      console.log(segunds);
-
-      //sacar la relacion entre segundsDuration y segunds
-      const percentage = (segunds * 100) / secondsDuration;
-      setProgress({
-        video: resumenVideo,
-        watched: videoWatched,
-      });
-      console.log(progress);
+    if (status.didJustFinish) {
+      const updatedSections = [...videoWatched.sections];
+      updatedSections[resumenVideo].watched = true;
+      setVideoWatched((prevState) => ({
+        ...prevState,
+        sections: updatedSections,
+      }));
+      setVideosWatchedCount((prevState) => prevState + 1);
+      setPercentageInscription(course.id, 100);
     }
+
+    console.log(status);
   }, [status]);
+
+  console.log(videoWatched);
 
   const handleSectionPress = (sectionId) => {
     setResumenVideo(sectionId);
   };
 
-  return (
-    !course.id ?
-      <Splash /> : (
-        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-            <Goback title={course.name} />
-            <View style={styles.videoContainer}>
-              <Video
-                style={styles.video}
-                ref={video}
-                source={{ uri: course.sections[resumenVideo].video }}
-                shouldPlay={true}
-                resizeMode="contain"
-                useNativeControls
-                // onPlaybackStatusUpdate={calculatedStatus}
-                onPlaybackStatusUpdate={status => setStatus(() => status)}
-              />
-            </View>
-            <ContentComponent
-              course={course}
-              disable={false}
-              onSectionPress={handleSectionPress}
-              videoWatched={videoWatched}
-              navigation={navigation}
-            />
-            <FeedbackComponent />
-        </ScrollView>
-      )
+  const allVideosWatched = videosWatchedCount === course.sections.length;
+
+  return !course.id ? (
+    <Splash />
+  ) : (
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <Goback title={course.name} />
+      <View style={styles.videoContainer}>
+        <Video
+          style={styles.video}
+          ref={video}
+          source={{ uri: course.sections[resumenVideo].video }}
+          shouldPlay={false}
+          resizeMode="contain"
+          useNativeControls
+          onPlaybackStatusUpdate={(status) => setStatus(() => status)}
+        />
+      </View>
+      <ContentComponent
+        course={course}
+        disable={false}
+        onSectionPress={handleSectionPress}
+        navigation={navigation}
+        disableSurvey={allVideosWatched}
+      />
+      <FeedbackComponent />
+    </ScrollView>
   );
 }
 
@@ -88,5 +88,5 @@ const styles = StyleSheet.create({
   video: {
     height: "100%",
     borderRadius: 20,
-  }
+  },
 });
