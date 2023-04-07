@@ -505,6 +505,32 @@ export async function updateUserInfo(
 //   }
 // };
 
+// export const changePassword = async (currentPassword, newPassword) => {
+//   try {
+//     const url = `${baseUrl}/api/users/changePass/${await getUser()}`;
+//     // console.log("user:", getUser());
+//     console.log("URL:", url);
+//     const response = await axios.patch(
+//       url,
+//       {
+//         password: currentPassword,
+//         newPassword: newPassword,
+//         repeatNwPassword: newPassword,
+//       },
+//       {
+//         headers: {
+//           Authorization: `Bearer ${await getToken()}`,
+//         },
+//       }
+//     );
+//     return response.data;
+//   } catch (error) {
+//     if (error.response && error.response.status === 403) {
+//       throw new Error("La contraseña actual es incorrecta");
+//     }
+//     throw error;
+//   }
+// };
 export const changePassword = async (currentPassword, newPassword) => {
   try {
     const url = `${baseUrl}/api/users/changePass/${await getUser()}`;
@@ -523,14 +549,15 @@ export const changePassword = async (currentPassword, newPassword) => {
         },
       }
     );
-    return response.data;
+    return { success: true, message: "Contraseña cambiada con éxito" };
   } catch (error) {
     if (error.response && error.response.status === 403) {
       throw new Error("La contraseña actual es incorrecta");
     }
-    throw error;
+    return { success: false, message: error.message };
   }
 };
+
 
 export const verifyPassword = async (
   currentPassword,
@@ -550,7 +577,7 @@ export const verifyPassword = async (
       { headers: { Authorization: `Bearer ${await getToken()}` } }
     );
     return response.data;
-    console.log(response.data);
+ 
   } catch (error) {
     if (
       error.response?.data?.message === "La contraseña actual es incorrecta"

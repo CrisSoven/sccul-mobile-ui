@@ -17,14 +17,12 @@ export default function ChangePasswordComponent({ onClose }) {
   const showPass = () => setPassword(!password);
   const showNewPass = () => setNewPassword(!newPassword);
   const showConfirmPass = () => setConfirmPassword(!confirmPassword);
-
   const formik = useFormik({
     initialValues: {
       password: "",
       newPassword: "",
       confirmPassword: "",
     },
-
     validationSchema: Yup.object({
       password: Yup.string().required("Contraseña actual requerida"),
       newPassword: Yup.string().required("Nueva contraseña requerida"),
@@ -36,14 +34,16 @@ export default function ChangePasswordComponent({ onClose }) {
     onSubmit: async (formData) => {
       setIsLoading(true);
       const { password, newPassword } = formData;
+      console.log("formData:", formData);
       try {
+        console.log("Antes de verificar la contraseña actual");
         const isPasswordValid = await verifyPassword(
           password,
           newPassword,
-          confirmPassword
+          formData.confirmPassword
         );
-
-        if (!isPasswordValid) {
+        console.log("Respuesta del servicio verifyPassword:", isPasswordValid);
+        if (isPasswordValid.error) {
           Toast.show({
             type: "error",
             position: "bottom",
@@ -51,11 +51,13 @@ export default function ChangePasswordComponent({ onClose }) {
             visibilityTime: 1500,
             bottomOffset: 80,
           });
+          onClose();
+          setIsLoading(false);
           return;
         }
-        await changePassword(password, newPassword);
-        console.log(password);
-        console.log(newPassword);
+        console.log("Antes de cambiar la contraseña");
+        const response = await changePassword(password, newPassword);
+        console.log("Respuesta del servicio changePassword  :", response);
         Toast.show({
           type: "info",
           position: "bottom",
@@ -65,11 +67,11 @@ export default function ChangePasswordComponent({ onClose }) {
         });
         onClose();
       } catch (error) {
-        console.log(error);
+        console.log("Error:", error);
         Toast.show({
           type: "error",
           position: "bottom",
-          text1: error.message || "Ha ocurrido un error, inténtalo de nuevo",
+          text1: "Ha ocurrido un error, inténtalo de nuevo",
           visibilityTime: 1500,
           bottomOffset: 80,
         });
