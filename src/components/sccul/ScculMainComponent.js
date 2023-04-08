@@ -8,7 +8,7 @@ export default function ScculMainComponent(props) {
     <>
       <View style={styles.appName}>
         <Image style={styles.img} source={require('../../../assets/img/sccullogo.png')} />
-        <Text style={styles.title}>SCCUL</Text>
+        <Text style={styles.title}>SIOCU</Text>
       </View>
       <Text style={styles.text}>
         {text}

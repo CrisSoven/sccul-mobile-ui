@@ -35,10 +35,10 @@ export default function CourseScreen(props) {
       setPercentageInscription(course.id, 100);
     }
 
-    console.log(status);
+    // console.log(status);
   }, [status]);
 
-  console.log(videoWatched);
+  // console.log(videoWatched);
 
   const handleSectionPress = (sectionId) => {
     setResumenVideo(sectionId);
@@ -69,7 +69,7 @@ export default function CourseScreen(props) {
         navigation={navigation}
         disableSurvey={allVideosWatched}
       />
-      <FeedbackComponent />
+      <FeedbackComponent courseId={course.id} />
     </ScrollView>
   );
 }
@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
+    backgroundColor: "#fff",
   },
   videoContainer: {
     width: "100%",

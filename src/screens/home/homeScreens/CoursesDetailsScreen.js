@@ -102,7 +102,6 @@ export default function CoursesDetailsScreen({ route }) {
       <View style={styles.btns}>
         <AddToCartBtn addCourse={course} loading={true} />
         <ButtonComponent
-          buttonStyle={{ paddingHorizontal: "20%" }}
           title="Comprar ahora"
           icon="cart-outline"
           type="material-community"

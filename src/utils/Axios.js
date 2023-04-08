@@ -1,7 +1,7 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const baseUrl = "http:/192.168.100.17:8080";
+const baseUrl = "http:/192.168.1.71:8080";
 // let token =
 //   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
 //cris@gmail.com
@@ -611,5 +611,66 @@ export async function uploadImage(email, image) {
     return response.data;
   } catch (error) {
     console.log(error);
+  }
+}
+
+export async function postScore(score, courseId) {
+  console.log("score", score);
+  console.log("courseId", courseId);
+  try {
+    const response = await axios.post(
+      `${baseUrl}/api/scores/`,
+      {
+        user: {
+          id: `${await getUser()}`,
+        },
+        course: {
+          id: courseId,
+        },
+        score,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+      }
+    );
+    const data = response.data;
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log("error score")
+    throw error;
+  }
+}
+
+export async function postComment(comment, courseId) {
+  console.log("comment", comment);
+  console.log("courseId", courseId);
+  console.log("User", await getUser());
+  try {
+    const response = await axios.post(
+      `${baseUrl}/api/comments/`,
+      {
+        user: {
+          id: `${await getUser()}`,
+        },
+        course: {
+          id: courseId,
+        },
+        comment,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+      }
+    );
+    const data = response.data;
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log("error comment");
+    throw error;
   }
 }

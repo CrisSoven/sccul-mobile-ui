@@ -121,6 +121,7 @@ export default function ChangePasswordComponent({ onClose }) {
         loading={isLoading}
         btnPrimary={true}
         onPress={formik.handleSubmit}
+        style={{alignSelf: "center"}}
       />
     </>
   );

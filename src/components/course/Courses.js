@@ -1,13 +1,11 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, FlatList } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Colors from "../../utils/Colors";
 import { useNavigation } from "@react-navigation/native";
 
-export default function Courses(props) {
+export default function Courses({ course, title, duration, progress, image }) {
   const navigation = useNavigation();
-  const { course, title, duration, progress, image } = props;
-
   const minutes = duration.reduce((acc, section) => {
     const duration = section.duration.split(':');
     const minutes = parseInt(duration[0]);
@@ -17,9 +15,7 @@ export default function Courses(props) {
   const decimal = minutes % 1;
   const seconds = decimal * 60;
   const totalDuration = `${Math.floor(minutes)}:${Math.floor(seconds)}min`;
-
   const secondsDuration = Math.floor(minutes)*60+Math.floor(seconds);
-
   return (
     <View style={styles.content}>
       <TouchableOpacity
@@ -33,6 +29,7 @@ export default function Courses(props) {
           <View style={styles.progressBar}>
             <View style={[styles.progress, { width: `${progress}%` }]} />
           </View>
+          <Text style={styles.progressText}>{`${progress}%`}</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -42,9 +39,10 @@ export default function Courses(props) {
 const styles = StyleSheet.create({
   content: {
     backgroundColor: Colors.PalleteGreenBackground,
-    margin: 7,
+    margin: 5,
     width: "45%",
     borderRadius: 10,
+    height: 200,
   },
   image: {
     height: 100,
@@ -64,9 +62,17 @@ const styles = StyleSheet.create({
     width: "90%",
     height: 10,
     backgroundColor: Colors.PalleteGray,
+    borderRadius: 10,
   },
   progress: {
     height: 10,
     backgroundColor: Colors.PalleteBluePrimary,
+    borderRadius: 10,
+  },
+  progressText: {
+    fontSize: 12,
+    marginVertical: 5,
+    fontWeight: "bold",
+    color: Colors.PalleteBluePrimary,
   },
 });

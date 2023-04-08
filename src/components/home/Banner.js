@@ -26,13 +26,13 @@ export default function Banner() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: "3%",
+    padding: 20,
     height: 270,
   },
   image: {
     width: "99%",
     height: 230,
     borderRadius: 10,
-    marginHorizontal: "1%",
+    resizeMode: "contain",
   },
 });

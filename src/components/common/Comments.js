@@ -4,6 +4,7 @@ import Colors from "../../utils/Colors";
 import { Avatar, Rating } from "react-native-elements";
 
 export default function Comments({ comments, rating }) {
+
   return (
     <>
       <Text style={styles.title}>Comentarios ({comments.length})</Text>

@@ -30,7 +30,6 @@ export default function AddToCartBtn(props) {
   const fetchCourse = async () => {
     setIsLoading(true);
     const fetchedCourse = await addCourseCart(addCourse.id);
-    setCourseCart(fetchedCourse);
 
     if (fetchedCourse === "alreadyInCart") {
       renderToast("error", "¡Ya agregaste este curso!");

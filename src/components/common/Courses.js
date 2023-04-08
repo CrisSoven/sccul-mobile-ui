@@ -113,10 +113,10 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     backgroundColor: Colors.PalleteGreenBackground,
-    marginBottom: 15,
+    marginBottom: 10,
     borderRadius: 16,
-    width: "100%",
     height: 110,
+    width: "100%",
   },
   image: {
     height: "100%",
@@ -143,7 +143,6 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: "45%",
-    height: "100%",
     borderRadius: 16,
     overflow: "hidden",
   },

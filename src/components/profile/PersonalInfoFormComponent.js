@@ -193,9 +193,7 @@ export default function PersonalInfoFormComponent(props) {
         <Text style={styles.label}>Cambiar contraseña</Text>
       </TouchableOpacity>
       <ModalComponent isVisible={showModal} close={() => setShowModal(false)}>
-        <View>
           <ChangePasswordScreen onClose={onClose} />
-        </View>
       </ModalComponent>
     </>
   );
@@ -218,7 +216,7 @@ const styles = StyleSheet.create({
   },
   column: {
     flexDirection: "column",
-    width: "49%",
+    width: "50%",
   },
   circleKey: {
     width: 40,

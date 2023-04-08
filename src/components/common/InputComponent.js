@@ -3,9 +3,9 @@ import React from "react";
 import { Icon, Input } from "react-native-elements";
 import Colors from "../../utils/Colors";
 
-export default function InputComponent({ label, iconName, iconType, onPressIcon, placeholder, maxLength, minLeght, value, secureTextEntry, disabled, onChangeText, errorMessage, keyboardType, numberOfLines, multiline }) {
+export default function InputComponent({ label, iconName, iconType, onPressIcon, placeholder, maxLength, minLeght, value, secureTextEntry, disabled, onChangeText, errorMessage, keyboardType, multiline }) {
   return (
-    <View style={styles.container}>
+    <>
       <Text style={styles.label}>{label}</Text>
       <Input
         leftIcon={
@@ -27,33 +27,34 @@ export default function InputComponent({ label, iconName, iconType, onPressIcon,
         onChangeText={onChangeText}
         errorMessage={errorMessage}
         keyboardType={keyboardType}
-        numberOfLines={numberOfLines}
         secureTextEntry={secureTextEntry}
-        containerStyle={styles.inputContainer}
-        inputContainerStyle={{ borderBottomWidth: 0 }}
+        inputContainerStyle={[
+          styles.inputContainer,
+          disabled ? styles.border : styles.borderless,
+          multiline ? [{ height: 100 }, { alignItems: "flex-start" }] : null,
+        ]}
       />
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    alignContent: "center",
-    justifyContent: "center",
-  },
   label: {
     fontSize: 15,
     fontWeight: "700",
-    marginTop: 20,
     marginLeft: 20,
+    marginBottom: 5,
   },
   inputContainer: {
-    width: "95%",
-    marginTop: 5,
-    marginBottom: 15,
-    height: 50,
+    borderWidth: 1,
     borderRadius: 16,
+    paddingHorizontal: 10,
+  },
+  border: {
     backgroundColor: Colors.PalleteGreenBackground,
-    marginHorizontal: 10,
-  }
+    borderColor: Colors.PalleteGray,
+  },
+  borderless: {
+    borderColor: Colors.PalleteGray,
+  },
 });

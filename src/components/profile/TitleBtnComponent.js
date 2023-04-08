@@ -15,29 +15,24 @@ export default function TitleBtnComponent(props) {
 	} = props;
 	return (
 		<View style={styles.container}>
-			<View style={styles.column}>
-				<Text style={titleStyle}>{textTitle}</Text>
-			</View>
-			<View style={styles.column}>
-				<ButtonComponent
-					icon={icon}
-					title={textBtn}
-					type={iconType}
-					btnPrimary={btnPrimary}
-					onPress={onPress}
-					loading={loading}
-				/>
-			</View>
+			<Text style={titleStyle}>{textTitle}</Text>
+			<ButtonComponent
+				icon={icon}
+				title={textBtn}
+				type={iconType}
+				btnPrimary={btnPrimary}
+				onPress={onPress}
+				loading={loading}
+			/>
 		</View>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
-		flexGlow: 1,
-		paddingTop: 20,
-		paddingLeft: 20,
 		flexDirection: 'row',
+		marginVertical: 20,
+    marginHorizontal: 20,
 		alignItems: 'center',
 		justifyContent: 'space-between',
 	},

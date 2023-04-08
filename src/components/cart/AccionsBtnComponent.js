@@ -3,8 +3,7 @@ import React from "react";
 import ButtonComponent from "../common/ButtonComponent";
 import { useNavigation } from "@react-navigation/core";
 
-export default function AccionsBtnComponent(props) {
-  const { btnCancelTitle, btnContinueTitle, buttonStyle, onPress, btnPrimary, loading, icon, type } = props;
+export default function AccionsBtnComponent({ btnCancelTitle, btnContinueTitle, onPress, btnPrimary, loading, icon, type }) {
   const navigation = useNavigation();
 
   return (
@@ -16,7 +15,6 @@ export default function AccionsBtnComponent(props) {
       <ButtonComponent
         icon={icon}
         type={type}
-        buttonStyle={buttonStyle}
         title={btnContinueTitle}
         onPress={onPress}
         loading={loading}
@@ -30,7 +28,5 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "center",
-    marginTop: 20,
-    alignSelf: "center",
   }
 });

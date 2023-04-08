@@ -20,19 +20,19 @@ export default function LandingScreen() {
         <ScculMainComponent
           text="Aprende sin límites a tu propio tiempo y espacio"
         />
-        <View>
-          <Image style={styles.img} source={require('../../../assets/img/landingImage.png')} />
-        </View>
-        <View style={styles.footer}>
+        <Image style={styles.img} source={require('../../../assets/img/landingImage.png')} />
+        <View style={styles.btnContainer}>
           <ButtonComponent
             title="Iniciar sesión"
             icon="login"
             btnPrimary={true}
-            buttonStyle={{ paddingHorizontal: "15%" }}
             onPress={navigateToL}
           />
-          <Text style={styles.registerText}>¿No tienes una cuenta?
-            <Text style={styles.registerNow} onPress={navigateToR}> Registrate aquí</Text></Text>
+        </View>
+        <View style={{ alignItems: 'center' }}>
+          <Text style={{ marginTop: 10 }}>¿No tienes una cuenta?
+            <Text style={styles.registerNow} onPress={navigateToR}> Registrate aquí</Text>
+          </Text>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -44,15 +44,9 @@ const styles = StyleSheet.create({
     width: '100%',
     resizeMode: 'contain',
   },
-  footer: {
+  btnContainer: {
+    marginHorizontal: 20,
     marginTop: 30,
-    marginBottom: 30,
-    alignItems: 'center',
-  },
-  registerText: {
-    color: Colors.PalleteBlack,
-    fontSize: 16,
-    marginTop: 10,
   },
   registerNow: {
     color: Colors.PalletteRed,

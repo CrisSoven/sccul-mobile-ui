@@ -1,35 +1,28 @@
 import Colors from "../../utils/Colors";
 import { Icon, Button } from "react-native-elements";
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 
 export default function ButtonComponent(props) {
-  const { title, icon, type, btnPrimary, onPress, loading, buttonStyle } = props;
+  const { title, icon, type, btnPrimary, onPress, loading } = props;
   return (
-    <View style={styles.container}>
       <Button
         title={title}
         loading={loading}
         onPress={onPress}
         titleStyle={btnPrimary ? styles.titlePrimary : styles.titleCancel}
         icon={icon && <Icon name={icon} type={type} size={24} color="white" style={{ marginRight: "8%" }} />}
-        buttonStyle={btnPrimary ? [styles.button, styles.btnPrimaryColor, buttonStyle] : [styles.button, styles.btnCancelColor, buttonStyle]}
+        buttonStyle={[styles.button, btnPrimary ? styles.btnPrimaryColor: styles.btnCancelColor]}
       />
-    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginRight: 20,
-  },
   button: {
     borderRadius: 20,
-    paddingVertical: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
     height: 45,
+    paddingHorizontal: 20,
+    marginLeft: 20,
   },
   btnPrimaryColor: {
     backgroundColor: Colors.PalleteBluePrimary,

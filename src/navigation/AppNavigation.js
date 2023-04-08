@@ -21,17 +21,6 @@ export default function AppNavigation() {
 	const { authState, checkSession } = useContext(AuthContext);
 	const [session, setSession] = useState(null);
 
-	useEffect(() => {
-		//Creo que ya no es necesario esto
-		const fetchSession = async () => {
-			const fetchedSession = await deleteToken();
-			// const fetchedSession = await checkLoginStatus();
-			// setSession(fetchedSession);
-		};
-		// fetchSession();
-		checkSession();
-	}, [checkSession]);
-
 	if (authState.session === null) {
 		return <Splash />;
 	}
