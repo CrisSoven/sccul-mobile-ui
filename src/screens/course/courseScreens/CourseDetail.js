@@ -32,13 +32,12 @@ export default function CourseScreen(props) {
         sections: updatedSections,
       }));
       setVideosWatchedCount((prevState) => prevState + 1);
-      setPercentageInscription(course.id, 100);
+      setPercentageInscription(course.id, course.sections[resumenVideo].id);
+      console.log("ver section", course.sections[resumenVideo].id);
     }
-
-    // console.log(status);
   }, [status]);
 
-  // console.log(videoWatched);
+  console.log(videoWatched);
 
   const handleSectionPress = (sectionId) => {
     setResumenVideo(sectionId);

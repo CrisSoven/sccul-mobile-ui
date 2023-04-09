@@ -1,7 +1,7 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const baseUrl = "http:/192.168.1.71:8080";
+const baseUrl = "http:/192.168.100.17:8080";
 // let token =
 //   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
 //cris@gmail.com
@@ -429,17 +429,34 @@ export async function addCourseCart(courseId) {
   }
 }
 
-export async function setPercentageInscription(inscriptionId, percentage) {
+export async function setPercentageInscription(courseId, sectionId) {
   try {
-    // const response = await axios.patch(`${baseUrl}/api/inscriptions/changePercentage/${inscriptionId}`, {
-    //   percentage
-    // }, {
-    //   headers: {
-    //     Authorization: `Bearer ${await getToken()}`
-    //   }
-    // });
-    // const data = response.data;
-    // return data.data;
+    const userId = await getUser();
+    console.log("userId", userId);
+    console.log("sectionId", sectionId);
+    console.log("courseId", courseId);
+    const response = await axios.put(
+      `${baseUrl}/api/inscriptions/changePercentage/`,
+      {
+        user: {
+          id: userId,
+        },
+        section: {
+          id: sectionId,
+        },
+        course: {
+          id: courseId,
+        },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+      }
+    );
+    const data = response.data;
+    console.log("data de setPercentage", data);
+    return data.data;
   } catch (error) {
     console.log(error);
   }
@@ -558,7 +575,6 @@ export const changePassword = async (currentPassword, newPassword) => {
   }
 };
 
-
 export const verifyPassword = async (
   currentPassword,
   newPassword,
@@ -577,7 +593,6 @@ export const verifyPassword = async (
       { headers: { Authorization: `Bearer ${await getToken()}` } }
     );
     return response.data;
- 
   } catch (error) {
     if (
       error.response?.data?.message === "La contraseña actual es incorrecta"
@@ -639,7 +654,7 @@ export async function postScore(score, courseId) {
     console.log(data);
     return data;
   } catch (error) {
-    console.log("error score")
+    console.log("error score");
     throw error;
   }
 }
