@@ -1,27 +1,37 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import SearchBar from '../../components/common/SearchBar';
 import SwipeNotify from '../../components/cart/SwipeNotify';
 import Colors from '../../utils/Colors';
 import TitleBtnComponent from '../../components/profile/TitleBtnComponent';
 import { useNavigation } from '@react-navigation/native';
-import { checkout, getCoursesCart } from '../../utils/Axios';
+import {
+	buyCourses,
+	checkout,
+	getCoursesCart,
+	getUser,
+} from '../../utils/Axios';
 import SwipeableComponent from '../../components/cart/SwipeableComponent';
 import SplashScreen from '../../screens/sccul/SplashScreen';
 import EmptyContainer from '../../components/common/EmptyContainer';
 import { useStripe } from '@stripe/stripe-react-native';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 export default function CartScreen() {
-	const [courses, setCourses] = useState(null);
 	const { initPaymentSheet, presentPaymentSheet } = useStripe();
+
+	const navigation = useNavigation();
+
+	const [courses, setCourses] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
 	const [total, setTotal] = useState(0);
+	const [user, setUser] = useState(null);
 
 	const onCheckout = async () => {
 		setIsLoading(true);
 		console.log('Total: ' + total);
 
-		const { paymentIntent, ephemeralKey, customer } = await checkout(total );
+		const { paymentIntent, ephemeralKey, customer } = await checkout(total);
 
 		const { error } = await initPaymentSheet({
 			paymentIntentClientSecret: paymentIntent,
@@ -32,21 +42,39 @@ export default function CartScreen() {
 			setIsLoading(false);
 			return;
 		} else {
-			// setIsLoading(true);
+			setIsLoading(false);
 		}
 
 		const { errorPresent } = await presentPaymentSheet();
 
 		if (errorPresent) {
 			setIsLoading(false);
-			console.log('Error', errorPresent.code, errorPresent.message);
+			// console.log('Error', errorPresent.code, errorPresent.message);
 			return;
 			// Alert.alert(`Error code: ${error.code}`, error.message);
-		} else {
-			// Alert.alert('Success', 'Your order is confirmed!');
 		}
 
+		const { data, error: errorBuy } = await buyCourses(courses, user);
+		console.log('data: ' + data);
 		setIsLoading(false);
+
+		if (errorBuy) {
+			Toast.show({
+				type: 'error',
+				text1: 'Error',
+				text2: 'No se actualizar los cursos. Contacte con un administrador',
+			});
+		} else {
+			Toast.show({
+				type: 'success',
+				text1: 'Compra realizada',
+				text2: 'Se ha realizado la compra correctamente',
+			});
+
+			navigation.navigate('CourseStack', {
+				screen: 'Courses',
+			});
+		}
 	};
 
 	// const fetchPaymentSheetParams = async () => {
@@ -96,8 +124,12 @@ export default function CartScreen() {
 
 	useEffect(() => {
 		const fetchCourses = async () => {
+			setIsLoading(true);
 			const fetchedCourses = await getCoursesCart();
 			setCourses(fetchedCourses);
+			// fetchedCourses.map((course) => {
+			// 	console.log('Course: ' + course.inscriptions[0].id);
+			// });
 			let totalProv;
 			fetchedCourses === null
 				? totalProv
@@ -106,13 +138,21 @@ export default function CartScreen() {
 				  }, 0));
 
 			setTotal(totalProv);
-			console.log('Total: ' + totalProv);
+			// console.log('Total: ' + totalProv);
 			setIsLoading(false);
 		};
+
+		const getInfoUser = async () => {
+			setIsLoading(true);
+			const user = await getUser();
+			setUser(user);
+			setIsLoading(false);
+		};
+
 		fetchCourses();
+		getInfoUser();
 	}, []);
 
-	const navigation = useNavigation();
 	const handlePaymentMethod = () => {
 		// navigation.navigate('PaymentMethod', { courses });
 	};
@@ -136,7 +176,7 @@ export default function CartScreen() {
 						<SwipeableComponent courses={courses} />
 					</ScrollView>
 					<TitleBtnComponent
-						textTitle={`$ MX`}
+						textTitle={`$${total} MX`}
 						titleStyle={styles.subtitle}
 						textBtn=' Pagar '
 						icon='payments'
@@ -149,7 +189,6 @@ export default function CartScreen() {
 		</View>
 	);
 }
-
 
 const styles = StyleSheet.create({
 	container: {
