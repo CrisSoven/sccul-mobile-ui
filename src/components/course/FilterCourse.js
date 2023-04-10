@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Colors from "../../utils/Colors";
-import { useState } from "react";
 
 export default function FilterCourse() {
   return (

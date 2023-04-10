@@ -1,17 +1,15 @@
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet } from "react-native";
 import React, { useState } from "react";
-import { Button } from "react-native-elements";
-import Icons from "react-native-vector-icons/MaterialCommunityIcons";
+import { Button, Icon } from "react-native-elements";
+// import Icons from "react-native-vector-icons/MaterialCommunityIcons";
 import Colors from "../../utils/Colors";
 import { addCourseCart } from "../../utils/Axios";
 import Toast from "react-native-toast-message";
 import { useNavigation } from "@react-navigation/native";
 
-export default function AddToCartBtn(props) {
-  const { addCourse } = props;
+export default function AddToCartBtn({ addCourse }) {
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
-  const [courseCart, setCourseCart] = useState([]);
 
   const renderToast = (type, message, text, inCourse) => {
     Toast.show({
@@ -30,7 +28,6 @@ export default function AddToCartBtn(props) {
   const fetchCourse = async () => {
     setIsLoading(true);
     const fetchedCourse = await addCourseCart(addCourse.id);
-
     if (fetchedCourse === "alreadyInCart") {
       renderToast("error", "¡Ya agregaste este curso!");
     } else if (fetchedCourse === "alreadyBought") {
@@ -38,19 +35,16 @@ export default function AddToCartBtn(props) {
     } else {
       renderToast("success", `¡Agregaste ${addCourse.name}!`);
     }
-
     setIsLoading(false);
   };
 
   return (
-    <View>
       <Button
         buttonStyle={styles.container}
-        icon={<Icons name="cart-plus" size={24} color={Colors.PalleteWhite} />}
+        icon={<Icon name="cart-plus" type="material-community" size={24} color={Colors.PalleteWhite} />}
         onPress={fetchCourse}
         loading={isLoading}
       />
-    </View>
   );
 }
 

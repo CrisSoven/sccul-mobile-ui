@@ -90,13 +90,15 @@ export default function FeedbackComponent({ courseId }) {
           value={formik.values.comment}
           disabled={sent}
         />
-        <ButtonComponent
-          btnPrimary={true}
-          title='Calificar'
-          icon='comment-text-outline'
-          type='material-community'
-          onPress={formik.handleSubmit}
-        />
+        <View style={{ marginBottom: 20 }}>
+          <ButtonComponent
+            btnPrimary={true}
+            title='Calificar'
+            icon='comment-text-outline'
+            type='material-community'
+            onPress={formik.handleSubmit}
+          />
+        </View>
         <ModalComponent isVisible={showModal} close={() => setShowModal(false)}>
           <ConfirmFeedbackComponent
             handleSent={handleSent}

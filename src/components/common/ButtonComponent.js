@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     height: 45,
     paddingHorizontal: 20,
-    marginLeft: 20,
+    marginHorizontal: 5,
   },
   btnPrimaryColor: {
     backgroundColor: Colors.PalleteBluePrimary,

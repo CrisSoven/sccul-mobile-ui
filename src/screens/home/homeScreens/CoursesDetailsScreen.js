@@ -46,7 +46,7 @@ export default function CoursesDetailsScreen({ route }) {
       <View style={styles.averageContainer}>
         <Text style={styles.text}>{course.averageRatings}</Text>
         <Rating
-          startingValue={course.averageRatings ? Math.floor(course.averageRatings * 2)/2 : 0}
+          startingValue={course.averageRatings ? Math.floor(course.averageRatings * 2) / 2 : 0}
           imageSize={20}
           readonly
           ratingColor={Colors.PalleteYellow}
@@ -58,13 +58,7 @@ export default function CoursesDetailsScreen({ route }) {
       </View>
       {course.discount > 0 && (
         <View style={{ flexDirection: "column" }}>
-          <View
-            style={{
-              flexDirection: "row",
-              alignContent: "center",
-              alignItems: "center",
-            }}
-          >
+          <View style={styles.priceContainer}>
             <Text
               style={{
                 ...styles.price,
@@ -101,6 +95,7 @@ export default function CoursesDetailsScreen({ route }) {
       </View>
       <View style={styles.btns}>
         <AddToCartBtn addCourse={course} loading={true} />
+        {/* <BuyNowBtn addCourse={course} loading={true} /> */}
         <ButtonComponent
           title="Comprar ahora"
           icon="cart-outline"
@@ -135,6 +130,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 10,
   },
+  priceContainer: {
+    flexDirection: "row",
+    alignContent: "center",
+    alignItems: "center",
+  },
   price: {
     fontSize: 35,
     color: Colors.PalletteRed,
@@ -166,6 +166,5 @@ const styles = StyleSheet.create({
   btns: {
     flexDirection: "row",
     justifyContent: "center",
-    marginVertical: 20,
   },
 });
