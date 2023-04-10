@@ -43,7 +43,11 @@ export default function AppNavigation() {
 			<Tab.Screen
 				component={HomeStack}
 				name='HomeStack'
-				options={{ title: 'Inicio', tabBarIcon: icon('home-outline') }}
+				options={{
+					title: 'Inicio',
+					tabBarIcon: icon('home-outline'),
+					unmountOnBlur: true,
+				}}
 			/>
 			<Tab.Screen
 				name='CartStack'
