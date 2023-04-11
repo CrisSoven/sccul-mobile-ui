@@ -26,6 +26,7 @@ export default function CartScreen() {
 	const [isLoading, setIsLoading] = useState(true);
 	const [total, setTotal] = useState(0);
 	const [user, setUser] = useState(null);
+	const [inputText, setInputText] = useState('');
 
 	const onCheckout = async () => {
 		setIsLoading(true);
@@ -35,45 +36,59 @@ export default function CartScreen() {
 
 		const { error } = await initPaymentSheet({
 			paymentIntentClientSecret: paymentIntent,
-			merchantDisplayName: 'Example Inc.',
+			customerId: customer,
+			customerEphemeralKeySecret: ephemeralKey,
+			merchantDisplayName: 'SCCUL Inc.',
+			defaultBillingDetails: {
+				address: {
+					country: 'mx',
+				},
+			},
 		});
 		if (error) {
-			console.log('Error', error);
+			Toast.show({
+				type: 'error',
+				text1: 'Error',
+				text2: 'No se ha podido realizar la compra',
+			});
 			setIsLoading(false);
 			return;
-		} else {
-			setIsLoading(false);
 		}
 
-		const { errorPresent } = await presentPaymentSheet();
+		const { error: errorPresent, ...presetData } =
+			await presentPaymentSheet();
 
 		if (errorPresent) {
 			setIsLoading(false);
 			// console.log('Error', errorPresent.code, errorPresent.message);
-			return;
-			// Alert.alert(`Error code: ${error.code}`, error.message);
-		}
-
-		const { data, error: errorBuy } = await buyCourses(courses, user);
-		console.log('data: ' + data);
-		setIsLoading(false);
-
-		if (errorBuy) {
 			Toast.show({
 				type: 'error',
 				text1: 'Error',
-				text2: 'No se actualizar los cursos. Contacte con un administrador',
+				text2: errorPresent.message,
 			});
+			return;
+			// Alert.alert(`Error code: ${error.code}`, error.message);
 		} else {
-			Toast.show({
-				type: 'success',
-				text1: 'Compra realizada',
-				text2: 'Se ha realizado la compra correctamente',
-			});
+			const { data, error: errorBuy } = await buyCourses(courses, user);
+			setIsLoading(false);
 
-			navigation.navigate('CourseStack', {
-				screen: 'Courses',
-			});
+			if (errorBuy) {
+				Toast.show({
+					type: 'error',
+					text1: 'Error',
+					text2: 'No se actualizaron los cursos. Contacte con un administrador',
+				});
+			} else {
+				Toast.show({
+					type: 'success',
+					text1: 'Compra realizada',
+					text2: 'Se ha realizado la compra correctamente',
+				});
+
+				navigation.navigate('CourseStack', {
+					screen: 'Courses',
+				});
+			}
 		}
 	};
 
@@ -134,7 +149,10 @@ export default function CartScreen() {
 			fetchedCourses === null
 				? totalProv
 				: (totalProv = fetchedCourses.reduce((acc, curso) => {
-						return acc + curso.price;
+						return (
+							acc +
+							(curso.price - (curso.discount * curso.price) / 100)
+						);
 				  }, 0));
 
 			setTotal(totalProv);
@@ -157,12 +175,22 @@ export default function CartScreen() {
 		// navigation.navigate('PaymentMethod', { courses });
 	};
 
+	const listOfCourses = () => {
+		if (inputText === '') {
+			return courses;
+		}
+
+		return courses.filter((course) => {
+			return course.name.toLowerCase().includes(inputText.toLowerCase());
+		});
+	};
+
 	return courses === null ? (
 		<SplashScreen />
 	) : (
 		<View style={styles.container}>
 			<Text style={styles.title}>Carrito de compras</Text>
-			<SearchBar />
+			<SearchBar setInputValue={setInputText} value={inputText} />
 			{!courses.length ? (
 				<EmptyContainer
 					icon='cart-minus'
@@ -173,7 +201,7 @@ export default function CartScreen() {
 				<>
 					<SwipeNotify />
 					<ScrollView contentContainerStyle={styles.content}>
-						<SwipeableComponent courses={courses} />
+						<SwipeableComponent courses={listOfCourses()} />
 					</ScrollView>
 					<TitleBtnComponent
 						textTitle={`$${total} MX`}
