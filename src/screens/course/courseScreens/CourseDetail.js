@@ -24,20 +24,47 @@ export default function CourseScreen(props) {
   const [videosWatchedCount, setVideosWatchedCount] = useState(0);
 
   useEffect(() => {
+    if (course.inscriptions[0].fullPercentage !== null) {
+      const sectionWatched = course.inscriptions[0].fullPercentage.split(",");
+
+      const sectionWatchedId = sectionWatched
+        .filter((section) => section !== "")
+        .map((section) => parseInt(section));
+
+      const updatedSections = videoWatched.sections.map((section) => {
+        if (sectionWatchedId.includes(section.id)) {
+          return { ...section, watched: true };
+        } else {
+          return section;
+        }
+      });
+
+      setVideoWatched((prevState) => ({
+        ...prevState,
+        sections: updatedSections,
+      }));
+
+      setVideosWatchedCount(sectionWatchedId.length);
+    }
+  }, []);
+
+  console.log("videoWatched", videoWatched);
+  console.log("el video ya visto", videoWatched.sections[resumenVideo].watched);
+
+  useEffect(() => {
     if (status.didJustFinish) {
+      if (!videoWatched.sections[resumenVideo].watched) {
+        setVideosWatchedCount((prevState) => prevState + 1);
+        setPercentageInscription(course.id, course.sections[resumenVideo].id);
+      }
       const updatedSections = [...videoWatched.sections];
       updatedSections[resumenVideo].watched = true;
       setVideoWatched((prevState) => ({
         ...prevState,
         sections: updatedSections,
       }));
-      setVideosWatchedCount((prevState) => prevState + 1);
-      setPercentageInscription(course.id, course.sections[resumenVideo].id);
-      console.log("ver section", course.sections[resumenVideo].id);
     }
   }, [status]);
-
-  console.log(videoWatched);
 
   const handleSectionPress = (sectionId) => {
     setResumenVideo(sectionId);

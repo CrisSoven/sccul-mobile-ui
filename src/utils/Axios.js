@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const baseUrl = "http:/192.168.1.76:8080";
+const baseUrl = "http:/192.168.100.17:8080";
 // let token =
 //   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
 //cris@gmail.com
@@ -438,9 +438,6 @@ export async function addCourseCart(courseId) {
 export async function setPercentageInscription(courseId, sectionId) {
 	try {
 		const userId = await getUser();
-		console.log('userId', userId);
-		console.log('sectionId', sectionId);
-		console.log('courseId', courseId);
 		const response = await axios.put(
 			`${baseUrl}/api/inscriptions/changePercentage/`,
 			{

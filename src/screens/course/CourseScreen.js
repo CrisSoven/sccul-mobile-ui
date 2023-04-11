@@ -16,7 +16,7 @@ export default function CourseScreen() {
       setCourses(fetchedCourses);
     };
     fetchCourses();
-  }, []);
+  }, [courses]);
 
   return (
     courses === null ?
