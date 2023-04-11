@@ -4,15 +4,21 @@ import Colors from "../../utils/Colors";
 import Line from "../common/Line";
 
 export default function SurveyCourse(props) {
-  const { survey } = props;
+  const { survey, answers, setAnswers, questions, setQuestions } = props;
 
-  const [answers, setAnswers] = useState(survey.questions.map(() => -1));
+  console.log("answers", answers);
+  console.log("questions", questions);
 
   const handlePress = (questionIndex, answerIndex) => {
     setAnswers((prevAnswers) => {
       const newAnswers = [...prevAnswers];
       newAnswers[questionIndex] = answerIndex;
       return newAnswers;
+    });
+    setQuestions((prevQuestions) => {
+      const newQuestions = [...prevQuestions];
+      newQuestions[questionIndex] = survey.questions[questionIndex];
+      return newQuestions;
     });
   };
 
