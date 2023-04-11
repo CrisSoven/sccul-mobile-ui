@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const baseUrl = "http:/192.168.100.17:8080";
+const baseUrl = 'http:/192.168.67.60:8080';
 // let token =
 //   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
 //cris@gmail.com
@@ -281,30 +281,30 @@ export async function deleteInscription(course) {
 // 	}
 // }
 
-export async function buyCourse(inscription) {
-	const user = await getUser();
-	try {
-		if (inscription.user.id == user) {
-			const response = await axios.patch(
-				`${baseUrl}/api/inscriptions/changeStatus/${inscription.id}`,
-				{},
-				{
-					headers: {
-						Authorization: `Bearer ${await getToken()}`,
-					},
-				}
-			);
-			console.log(response.data);
-			return true;
-		} else {
-			console.log('nop');
-			return false;
-		}
-	} catch (error) {
-		console.log('error inscripciones');
-		throw new Error(error);
-	}
-}
+// export async function buyCourse(inscription) {
+// 	const user = await getUser();
+// 	try {
+// 		if (inscription.user.id == user) {
+// 			const response = await axios.patch(
+// 				`${baseUrl}/api/inscriptions/changeStatus/${inscription.id}`,
+// 				{},
+// 				{
+// 					headers: {
+// 						Authorization: `Bearer ${await getToken()}`,
+// 					},
+// 				}
+// 			);
+// 			console.log(response.data);
+// 			return true;
+// 		} else {
+// 			console.log('nop');
+// 			return false;
+// 		}
+// 	} catch (error) {
+// 		console.log('error inscripciones');
+// 		throw new Error(error);
+// 	}
+// }
 
 export async function getUserInfo() {
 	try {
@@ -703,6 +703,31 @@ export const buyCourses = async (courses, userId) => {
 				user: {
 					id: userId,
 				},
+			},
+			{
+				headers: {
+					Authorization: `Bearer ${await getToken()}`,
+				},
+			}
+		);
+		return response.data;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const buyCourse = async (courseId, userId) => {
+	try {
+		const response = await axios.post(
+			`${baseUrl}/api/inscriptions/`,
+			{
+				course: {
+					id: courseId,
+				},
+				user: {
+					id: userId,
+				},
+				status: 'comprado',
 			},
 			{
 				headers: {
