@@ -305,6 +305,30 @@ export async function buyCourse(inscription) {
     throw new Error(error);
   }
 }
+// export async function buyCourse(inscription) {
+// 	const user = await getUser();
+// 	try {
+// 		if (inscription.user.id == user) {
+// 			const response = await axios.patch(
+// 				`${baseUrl}/api/inscriptions/changeStatus/${inscription.id}`,
+// 				{},
+// 				{
+// 					headers: {
+// 						Authorization: `Bearer ${await getToken()}`,
+// 					},
+// 				}
+// 			);
+// 			console.log(response.data);
+// 			return true;
+// 		} else {
+// 			console.log('nop');
+// 			return false;
+// 		}
+// 	} catch (error) {
+// 		console.log('error inscripciones');
+// 		throw new Error(error);
+// 	}
+// }
 
 export async function getUserInfo() {
   try {
@@ -709,4 +733,135 @@ export const buyCourses = async (courses, userId) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const saveAnswers = async (questions, answers, courseId) => {
+	try {
+		const response = await axios.post(
+			`${baseUrl}/api/user_answers/saveAll`,
+			{
+				answers: [
+					{
+						question: {
+							id: questions[0].id,
+						},
+						answer: {
+							id: answers[0],
+						},
+					},
+					{
+						question: {
+							id: questions[1].id,
+						},
+						answer: {
+							id: answers[1],
+						},
+					},
+					{
+						question: {
+							id: questions[2].id,
+						},
+						answer: {
+							id: answers[2],
+						},
+					},
+					{
+						question: {
+							id: questions[3].id,
+						},
+						answer: {
+							id: answers[3],
+						},
+					},
+					{
+						question: {
+							id: questions[4].id,
+						},
+						answer: {
+							id: answers[4],
+						},
+					},
+					{
+						question: {
+							id: questions[5].id,
+						},
+						answer: {
+							id: answers[5],
+						},
+					},
+					{
+						question: {
+							id: questions[6].id,
+						},
+						answer: {
+							id: answers[6],
+						},
+					},
+					{
+						question: {
+							id: questions[7].id,
+						},
+						answer: {
+							id: answers[7],
+						},
+					},
+					{
+						question: {
+							id: questions[8].id,
+						},
+						answer: {
+							id: answers[8],
+						},
+					},
+					{
+						question: {
+							id: questions[9].id,
+						},
+						answer: {
+							id: answers[9],
+						},
+					},
+				],
+				user: {
+					id: await getUser(),
+				},
+				course: {
+					id: courseId,
+				},
+			},
+			{
+				headers: {
+					Authorization: `Bearer ${await getToken()}`,
+				},
+			}
+		);
+		return response.data;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const buyCourse = async (courseId, userId) => {
+	try {
+		const response = await axios.post(
+			`${baseUrl}/api/inscriptions/`,
+			{
+				course: {
+					id: courseId,
+				},
+				user: {
+					id: userId,
+				},
+				status: 'comprado',
+			},
+			{
+				headers: {
+					Authorization: `Bearer ${await getToken()}`,
+				},
+			}
+		);
+		return response.data;
+	} catch (error) {
+		console.log(error);
+	}
 };

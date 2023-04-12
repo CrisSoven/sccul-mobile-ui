@@ -5,20 +5,37 @@ import SurveyCourse from "../../../components/course/SurveyCourse";
 import { ScrollView } from "react-native-gesture-handler";
 import { TouchableOpacity } from "react-native";
 import Colors from "../../../utils/Colors";
+import { saveAnswers } from "../../../utils/Axios";
 
 export default function CourseSurvey(props) {
-  
-  const { survey } = props.route.params;
+  const [answers, setAnswers] = useState([]);
+  const [questions, setQuestions] = useState([]);
+
+  const { course } = props.route.params;
+  const courseId = course.id;
+  console.log("course", courseId);
+  console.log("answer", answers[0]);
 
   return (
     <ScrollView>
       <View>
         <Goback title="Encuesta" />
-        <Text style={styles.title} numberOfLines={2}>{survey.name}</Text>
-        <SurveyCourse survey={survey} />
+        <Text style={styles.title} numberOfLines={2}>
+          {course.survey.name}
+        </Text>
+        <SurveyCourse
+          survey={course.survey}
+          answers={answers}
+          setAnswers={setAnswers}
+          questions={questions}
+          setQuestions={setQuestions}
+        />
       </View>
       <View style={styles.containerBtn}>
-        <TouchableOpacity style={styles.sendButton}>
+        <TouchableOpacity
+          style={styles.sendButton}
+          onPress={() => saveAnswers(questions, answers, courseId)}
+        >
           <Text style={styles.sendButtonText}>Enviar encuesta</Text>
         </TouchableOpacity>
       </View>

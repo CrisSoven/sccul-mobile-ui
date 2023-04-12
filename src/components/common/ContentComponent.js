@@ -34,7 +34,7 @@ export default function ContentComponent(props) {
         />
         <SectionSurvey
           navigation={navigation}
-          survey={course.survey}
+          course={course}
           disableSurvey={disableSurvey}
         />
       </View>
