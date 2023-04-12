@@ -250,7 +250,7 @@ export async function deleteInscription(course) {
       }
     );
     const data = response.data;
-    return data;
+    return true;
   } catch (error) {
     console.log("error inscripciones");
     throw new Error(error);
@@ -275,6 +275,30 @@ export async function deleteInscription(course) {
 // 	}
 // }
 
+export async function buyCourse(inscription) {
+  const user = await getUser();
+  try {
+    if (inscription.user.id == user) {
+      const response = await axios.patch(
+        `${baseUrl}/api/inscriptions/changeStatus/${inscription.id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${await getToken()}`,
+          },
+        }
+      );
+      console.log(response.data);
+      return true;
+    } else {
+      console.log("nop");
+      return false;
+    }
+  } catch (error) {
+    console.log("error inscripciones");
+    throw new Error(error);
+  }
+}
 // export async function buyCourse(inscription) {
 // 	const user = await getUser();
 // 	try {
@@ -627,8 +651,6 @@ export async function uploadImage(email, image) {
 }
 
 export async function postScore(score, courseId) {
-  console.log("score", score);
-  console.log("courseId", courseId);
   try {
     const response = await axios.post(
       `${baseUrl}/api/scores/`,
@@ -657,9 +679,6 @@ export async function postScore(score, courseId) {
 }
 
 export async function postComment(comment, courseId) {
-  console.log("comment", comment);
-  console.log("courseId", courseId);
-  console.log("User", await getUser());
   try {
     const response = await axios.post(
       `${baseUrl}/api/comments/`,
@@ -719,81 +738,61 @@ export const saveAnswers = async (questions, answers, courseId) => {
             question: {
               id: questions[0].id,
             },
-            answer: {
-              id: answers[0],
-            },
+            answer: answers[0] + 1,
           },
           {
             question: {
               id: questions[1].id,
             },
-            answer: {
-              id: answers[1],
-            },
+            answer: answers[1] + 1,
           },
           {
             question: {
               id: questions[2].id,
             },
-            answer: {
-              id: answers[2],
-            },
+            answer: answers[2] + 1,
           },
           {
             question: {
               id: questions[3].id,
             },
-            answer: {
-              id: answers[3],
-            },
+            answer: answers[3] + 1,
           },
           {
             question: {
               id: questions[4].id,
             },
-            answer: {
-              id: answers[4],
-            },
+            answer: answers[4] + 1,
           },
           {
             question: {
               id: questions[5].id,
             },
-            answer: {
-              id: answers[5],
-            },
+            answer: answers[5] + 1,
           },
           {
             question: {
               id: questions[6].id,
             },
-            answer: {
-              id: answers[6],
-            },
+            answer: answers[6] + 1,
           },
           {
             question: {
               id: questions[7].id,
             },
-            answer: {
-              id: answers[7],
-            },
+            answer: answers[7] + 1,
           },
           {
             question: {
               id: questions[8].id,
             },
-            answer: {
-              id: answers[8],
-            },
+            answer: answers[8] + 1,
           },
           {
             question: {
               id: questions[9].id,
             },
-            answer: {
-              id: answers[9],
-            },
+            answer: answers[9] + 1,
           },
         ],
         user: {

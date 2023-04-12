@@ -5,7 +5,6 @@ import { Icon } from 'react-native-elements'
 import { postScore, postComment } from '../../utils/Axios';
 
 export default function ConfirmFeedbackComponent({ handleSent, onClose, courseId, rating, comment }) {
-  console.log(courseId, rating, comment);
   const [isLoading, setIsLoading] = useState(false);
   const handleSend = () => {
     const fetchScores = async () => {
@@ -26,7 +25,6 @@ export default function ConfirmFeedbackComponent({ handleSent, onClose, courseId
         <Text style={styles.title}>Enviar tu calificación</Text>
       </View>
       <Text style={styles.body}>Una vez que envíes tu puntuación y comentario, no podrás modificarlo ni eliminarlo.</Text>
-      {/* <Comments comments={comment}/> */}
       <ButtonComponent
         title='Enviar'
         btnPrimary={true}

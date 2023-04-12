@@ -12,6 +12,7 @@ export default function SwipeableComponent({ courses, onReload }) {
     if (courseToDelete) {
       const response = await deleteInscription(courseToDelete);
       if (response) {
+        console.log("eliminando");
         onReload();
       }
     }
