@@ -224,7 +224,7 @@ export default function CoursesDetailsScreen({ route }) {
 				{/* <BuyNowBtn addCourse={course} loading={true} /> */}
 				<ButtonComponent
 					title={hasBoughtCourse ? 'Ver curso' : 'Comprar curso'}
-					icon={hasBoughtCourse ? 'eye' : 'cart-plus'}
+					icon={hasBoughtCourse ? 'eye-outline' : 'cart-outline'}
 					type='material-community'
 					btnPrimary={true}
 					onPress={() => handleBuyCourse()}

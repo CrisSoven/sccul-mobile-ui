@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   container: {
-    width: "auto",
     height: 55,
     backgroundColor: Colors.PalleteGreenBackground,
     marginRight: 15,
@@ -59,7 +58,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    color: Colors.PalleteBlack,
     fontWeight: "500",
     textAlign: "center",
     fontSize: 13,

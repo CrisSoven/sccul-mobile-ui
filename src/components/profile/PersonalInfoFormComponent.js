@@ -110,19 +110,19 @@ export default function PersonalInfoFormComponent(props) {
   }, [user]);
 
   return (
-    <>
-      <View style={styles.container}>
-        <TitleBtnComponent
-          textTitle="Información personal"
-          titleStyle={styles.subtitle}
-          icon={disabled ? "pencil" : "check"}
-          textBtn={disabled ? "Editar" : "Guardar"}
-          iconType="material-community"
-          btnPrimary={true}
-          onPress={
-            disabled ? () => setDisabled(!disabled) : formik.handleSubmit
-          }
-        />
+    <View style={styles.container}>
+      <TitleBtnComponent
+        textTitle="Información personal"
+        titleStyle={styles.subtitle}
+        icon={disabled ? "pencil" : "check"}
+        textBtn={disabled ? "Editar" : "Guardar"}
+        iconType="material-community"
+        btnPrimary={true}
+        onPress={
+          disabled ? () => setDisabled(!disabled) : formik.handleSubmit
+        }
+      />
+      <View style={styles.content}>
         <Input
           label="Nombre(s)"
           value={formik.values.name}
@@ -193,13 +193,16 @@ export default function PersonalInfoFormComponent(props) {
         <Text style={styles.label}>Cambiar contraseña</Text>
       </TouchableOpacity>
       <ModalComponent isVisible={showModal} close={() => setShowModal(false)}>
-          <ChangePasswordScreen onClose={onClose} />
+        <ChangePasswordScreen onClose={onClose} />
       </ModalComponent>
-    </>
+    </View>
   );
 }
 const styles = StyleSheet.create({
   container: {
+    marginVertical: 10,
+  },
+  content: {
     flex: 1,
     paddingHorizontal: 10,
     justifyContent: "center",

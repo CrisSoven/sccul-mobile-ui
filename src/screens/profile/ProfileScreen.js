@@ -49,8 +49,8 @@ export default function ProfileScreen() {
           setUser={setUser}
           onReload={onReload}
         />
-        <PocketComponent onPress={navigateTo} />
-        <Line />
+        {/* <PocketComponent onPress={navigateTo} /> */}
+        {/* <Line /> */}
       </View>
       <PersonalInfoComponent user={user} onReload={onReload} />
     </ScrollView>

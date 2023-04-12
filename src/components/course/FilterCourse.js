@@ -9,47 +9,39 @@ import Colors from "../../utils/Colors";
 
 export default function FilterCourse() {
   return (
-    <View style={styles.principal}> 
     <View style={styles.box}>
-        <TouchableOpacity style={styles.container}>
-          <Text style={styles.text}>Todos</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.container}>
-          <Text style={styles.text}>En progreso</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.container}>
-          <Text style={styles.text}>Finalizados</Text>
-        </TouchableOpacity>
-      </View>
-    </View> 
+      <TouchableOpacity style={styles.container}>
+        <Text style={styles.text}>Todos</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.container}>
+        <Text style={styles.text}>En progreso</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.container}>
+        <Text style={styles.text}>Finalizados</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   box: {
-    marginVertical: 10,
-    marginLeft: 10,
+    marginVertical: 15,
+    marginHorizontal: 20,
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
   },
   container: {
-    width: 90,
-    height: 60,
+    height: 55,
     backgroundColor: Colors.PalleteGreenBackground,
-    marginRight: 20,
+    marginRight: 15,
+    borderRadius: 15,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 15,
   },
   text: {
-    color: Colors.PalleteBlack,
-    fontWeight: "bold",
+    fontWeight: "500",
     textAlign: "center",
-    fontSize: 14,
-  },
-  principal: {
-    marginLeft:2,
-    marginRight:1,
+    fontSize: 13,
+    paddingHorizontal: 20,
   },
 })
