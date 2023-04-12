@@ -257,7 +257,7 @@ export async function deleteInscription(course) {
 			}
 		);
 		const data = response.data;
-		return data;
+		return true;
 	} catch (error) {
 		console.log('error inscripciones');
 		throw new Error(error);
@@ -647,8 +647,6 @@ export async function uploadImage(email, image) {
 }
 
 export async function postScore(score, courseId) {
-	console.log('score', score);
-	console.log('courseId', courseId);
 	try {
 		const response = await axios.post(
 			`${baseUrl}/api/scores/`,
@@ -677,9 +675,6 @@ export async function postScore(score, courseId) {
 }
 
 export async function postComment(comment, courseId) {
-	console.log('comment', comment);
-	console.log('courseId', courseId);
-	console.log('User', await getUser());
 	try {
 		const response = await axios.post(
 			`${baseUrl}/api/comments/`,
@@ -729,6 +724,92 @@ export const buyCourses = async (courses, userId) => {
 	}
 };
 
+export const saveAnswers = async (questions, answers, courseId) => {
+	try {
+		const response = await axios.post(
+			`${baseUrl}/api/user_answers/saveAll`,
+			{
+				answers: [
+					{
+						question: {
+							id: questions[0].id,
+						},
+						answer: answers[0] + 1,
+					},
+					{
+						question: {
+							id: questions[1].id,
+						},
+						answer: answers[1] + 1,
+					},
+					{
+						question: {
+							id: questions[2].id,
+						},
+						answer: answers[2] + 1,
+					},
+					{
+						question: {
+							id: questions[3].id,
+						},
+						answer: answers[3] + 1,
+					},
+					{
+						question: {
+							id: questions[4].id,
+						},
+						answer: answers[4] + 1,
+					},
+					{
+						question: {
+							id: questions[5].id,
+						},
+						answer: answers[5] + 1,
+					},
+					{
+						question: {
+							id: questions[6].id,
+						},
+						answer: answers[6] + 1,
+					},
+					{
+						question: {
+							id: questions[7].id,
+						},
+						answer: answers[7] + 1,
+					},
+					{
+						question: {
+							id: questions[8].id,
+						},
+						answer: answers[8] + 1,
+					},
+					{
+						question: {
+							id: questions[9].id,
+						},
+						answer: answers[9] + 1,
+					},
+				],
+				user: {
+					id: await getUser(),
+				},
+				course: {
+					id: courseId,
+				},
+			},
+			{
+				headers: {
+					Authorization: `Bearer ${await getToken()}`,
+				},
+			}
+		);
+		return response.data;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 export const buyCourse = async (courseId, userId) => {
 	try {
 		const response = await axios.post(
@@ -751,5 +832,70 @@ export const buyCourse = async (courseId, userId) => {
 		return response.data;
 	} catch (error) {
 		console.log(error);
+	}
+};
+
+// export const forgotPassword = async (email) => {
+//   try {
+//     const response = await axios.post(`${baseUrl}/api/auth/forgot-password`, {
+//       email,
+//     });
+//     console.log(response.data.message);
+//     return { success: true, message: response.data.message };
+//   } catch (error) {
+//     console.log(error);
+//     return {
+//       success: false,
+//       message:
+//         "Ha ocurrido un error al enviar el correo de restablecimiento de contraseña",
+//     };
+//   }
+// };
+// export const forgotPassword = async (email) => {
+//   try {
+//     const response = await axios.post(`${baseUrl}/api/auth/forgot-password`, {
+//       email,
+//     });
+//     console.log(response.data.message);
+//     return { success: true, message: response.data.message };
+//   } catch (error) {
+//     console.log(error);
+//     if (
+//       error.response?.data?.message ===
+//       "El email no esta registrado en la aplicación"
+//     ) {
+//       return { success: false, message: "El correo no está registrado" };
+//     }
+//     return {
+//       success: false,
+//       message:
+//         "Ha ocurrido un error al enviar el correo de restablecimiento de contraseña",
+//     };
+//   }
+// };
+export const forgotPassword = async (email) => {
+	try {
+		const response = await axios.post(
+			`${baseUrl}/api/auth/forgot-password`,
+			{
+				email,
+			}
+		);
+		console.log(response.data.message);
+		return { success: true, message: response.data.message };
+	} catch (error) {
+		console.log(error);
+		if (error.response && error.response.status === 404) {
+			return {
+				success: false,
+				message: ' El email no esta registrado en la aplicación',
+			};
+		} else {
+			return {
+				success: false,
+				message:
+					'Ha ocurrido un error al enviar el correo de restablecimiento de contraseña',
+			};
+		}
 	}
 };

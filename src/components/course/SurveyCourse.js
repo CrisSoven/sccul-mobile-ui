@@ -4,15 +4,18 @@ import Colors from "../../utils/Colors";
 import Line from "../common/Line";
 
 export default function SurveyCourse(props) {
-  const { survey } = props;
-
-  const [answers, setAnswers] = useState(survey.questions.map(() => -1));
+  const { survey, answers, setAnswers, questions, setQuestions } = props;
 
   const handlePress = (questionIndex, answerIndex) => {
     setAnswers((prevAnswers) => {
       const newAnswers = [...prevAnswers];
       newAnswers[questionIndex] = answerIndex;
       return newAnswers;
+    });
+    setQuestions((prevQuestions) => {
+      const newQuestions = [...prevQuestions];
+      newQuestions[questionIndex] = survey.questions[questionIndex];
+      return newQuestions;
     });
   };
 
@@ -22,7 +25,7 @@ export default function SurveyCourse(props) {
         <View key={index} style={styles.questionContainer}>
           <Text style={styles.question}>{question.question}</Text>
           <View style={styles.buttonsContainer}>
-            <View style={{flexDirection: "row", marginBottom: 10}}>
+            <View style={{ flexDirection: "row", marginBottom: 10 }}>
               <TouchableOpacity
                 style={[
                   styles.button,
@@ -72,7 +75,7 @@ export default function SurveyCourse(props) {
                 </Text>
               </TouchableOpacity>
             </View>
-            <View style={{flexDirection: "row", marginHorizontal: 30}}>
+            <View style={{ flexDirection: "row", marginHorizontal: 30 }}>
               <TouchableOpacity
                 style={[
                   styles.button,

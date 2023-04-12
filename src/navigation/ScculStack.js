@@ -3,6 +3,7 @@ import LoginScreen from "../screens/sccul/LoginScreen";
 import LandingScreen from "../screens/sccul/LandingScreen";
 import RegisterScreen from "../screens/sccul/RegisterScreen";
 import React from "react";
+import ResetPasswordScreen from "../screens/sccul/ResetPasswordScreen";
 
 const Stack = createStackNavigator();
 export default function ScculStack() {
@@ -11,6 +12,7 @@ export default function ScculStack() {
       <Stack.Screen name="Landings" component={LandingScreen} />
       <Stack.Screen name="Logins" component={LoginScreen} />
       <Stack.Screen name="Registers" component={RegisterScreen} />
+      <Stack.Screen name='ResetPass' component={ResetPasswordScreen}/>
     </Stack.Navigator>
   );
 }

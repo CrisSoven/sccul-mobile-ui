@@ -5,13 +5,14 @@ import { Icon } from "react-native-elements";
 import Colors from "../../utils/Colors";
 
 export default function SectionSurvey(props) {
-  const { navigation, survey, disableSurvey } = props;
+  const { navigation, course, disableSurvey } = props;
+  const checkUser = course.userAnsewers;
 
   return (
     <View>
       <TouchableOpacity
         style={styles.container}
-        onPress={() => navigation.navigate("Survey", { survey })}
+        onPress={() => navigation.navigate("Survey", { course })}
         {...disableSurvey ? null : { disabled: true }}
       >
         <Text style={styles.punto}>•</Text>
