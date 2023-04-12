@@ -8,7 +8,9 @@ import { getBoughtCourses } from '../../utils/Axios';
 import Splash from '../sccul/SplashScreen';
 import EmptyContainer from '../../components/common/EmptyContainer';
 
-export default function CourseScreen() {
+export default function CourseScreen({ route }) {
+	const { filter } = route.params;
+
 	const [courses, setCourses] = useState(null);
 	useEffect(() => {
 		const fetchCourses = async () => {

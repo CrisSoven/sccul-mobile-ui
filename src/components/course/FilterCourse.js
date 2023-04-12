@@ -1,22 +1,20 @@
-import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Colors from "../../utils/Colors";
+import { useNavigation } from "@react-navigation/native";
 
 export default function FilterCourse() {
+  const navigation = useNavigation();
+  const [filter, setFilter] = useState("Todos");
   return (
-    <View style={styles.box}>
-      <TouchableOpacity style={styles.container}>
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.content} onPress={() => navigation.navigate('Course', {filter})}>
         <Text style={styles.text}>Todos</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity style={styles.content}>
         <Text style={styles.text}>En progreso</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity style={styles.content}>
         <Text style={styles.text}>Finalizados</Text>
       </TouchableOpacity>
     </View>
@@ -24,13 +22,13 @@ export default function FilterCourse() {
 }
 
 const styles = StyleSheet.create({
-  box: {
+  container: {
     marginVertical: 15,
     marginHorizontal: 20,
     flexDirection: "row",
     justifyContent: "space-evenly",
   },
-  container: {
+  content: {
     height: 55,
     backgroundColor: Colors.PalleteGreenBackground,
     marginRight: 15,

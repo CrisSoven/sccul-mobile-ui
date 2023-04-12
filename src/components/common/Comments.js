@@ -2,9 +2,11 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Colors from "../../utils/Colors";
 import { Avatar, Rating } from "react-native-elements";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Comments({ comments, rating, sent }) {
-
+  const navigation = useNavigation();
   return (
     <>
       <Text style={styles.title}>
@@ -12,7 +14,12 @@ export default function Comments({ comments, rating, sent }) {
       </Text>
       {
         comments.map((comment) => (
-          <View style={styles.content} key={comment.id}>
+          <TouchableOpacity
+            style={styles.content}
+            key={comment.id}
+            activeOpacity={sent ? 0.5 : 1}
+            onPress={sent ? () => navigation.navigate('HomeStack', {screen: 'HomeS'}) : () => { }}
+          >
             {
               comment.user.image ? (
                 <Avatar
@@ -48,7 +55,7 @@ export default function Comments({ comments, rating, sent }) {
               </View>
               <Text>{comment.comment}</Text>
             </View>
-          </View>
+          </TouchableOpacity>
         ))
       }
     </>
@@ -65,6 +72,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 24,
     marginTop: 20,
+
   },
   infoContainer: {
     flex: 1,

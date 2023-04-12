@@ -43,22 +43,21 @@ export default function LoginForm() {
 
         response
           ? Toast.show({
-              type: "success",
-              position: "bottom",
-              text1: "Iniciando sesión...",
-            })
-          : Toast.show({
-              type: "error",
-              position: "bottom",
-              text1: "Correo o contraseña incorrectos",
-            });
+            type: "success",
+            position: "bottom",
+            text1: `¡Bienvenido de nuevo ${response}!`,
+            text2: "Cargando recursos...",
+            visibilityTime: 5000,
+            bottomOffset: 80,
+          }) : {};
       } catch (error) {
         console.log(error);
         Toast.show({
-          position: "bottom",
           type: "error",
-          text1: "Ha ocurrido un error",
-          text2: "Intente de nuevo",
+          position: "bottom",
+          text1: "Correo o contraseña incorrectos",
+          visibilityTime: 5000,
+          bottomOffset: 80,
         });
       } finally {
         setIsLoading(false);

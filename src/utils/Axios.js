@@ -2,10 +2,8 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
-const baseUrl = "http:/192.168.1.76:8080";
-// let token =
-//   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
-//cris@gmail.com
+const baseUrl = "http:/192.168.1.71:8080";
+// "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
 
 export const checkout = async (amount) => {
 	console.log('checkout', amount);
@@ -22,8 +20,6 @@ export const checkout = async (amount) => {
 			}
 		);
 		const data = response.data;
-
-		// console.log('checkout', data);
 		return data.data;
 	} catch (error) {
 		console.log('checkout error');
@@ -100,8 +96,7 @@ export async function loginUser(email, password) {
 		const data = response.data;
 		if (data.statusCode === 200) {
 			await saveCredentials(data.data.token, data.data.id);
-			console.log(data.data.token, data.data.id);
-			return true;
+			return(data.data.fullName.split(" ")[0]);
 		} else {
 			return false;
 		}
@@ -111,14 +106,7 @@ export async function loginUser(email, password) {
 	}
 }
 
-export async function registerUser(
-	name,
-	lastname,
-	surname,
-	cellphone,
-	email,
-	password
-) {
+export async function registerUser(name, lastname, surname, cellphone, email, password) {
 	try {
 		const response = await axios.post(`${baseUrl}/api/auth/register`, {
 			name,
@@ -263,24 +251,6 @@ export async function deleteInscription(course) {
 		throw new Error(error);
 	}
 }
-
-// export async function deleteInscription(inscriptionId) {
-// 	try {
-// 		const response = await axios.delete(
-// 			`${baseUrl}/api/inscriptions/${inscriptionId}`,
-// 			{
-// 				headers: {
-// 					Authorization: `Bearer ${await getToken()}`,
-// 				},
-// 			}
-// 		);
-// 		const data = response.data;
-// 		return data.data;
-// 	} catch (error) {
-// 		console.log('error inscripciones');
-// 		throw new Error(error);
-// 	}
-// }
 
 export async function buyCourseByCart(inscription) {
 	const user = await getUser();
@@ -509,65 +479,9 @@ export async function updateUserInfo(
 	}
 }
 
-// export const changePassword = async (
-//   id,
-//   currentPassword,
-//   newPassword,
-//   token
-// ) => {
-//   try {
-//     const url = `${baseUrl}/api/auth/reset-password/${await getToken()}`;
-//     console.log("URL:", url);
-//     const response = await axios.post(
-//       url,
-//       {
-//         id: id,
-//         password: currentPassword,
-//         newPassword: newPassword,
-//         repeatNwPassword: newPassword,
-//       },e
-//       {
-//         headers: {
-//           Authorization: `Bearer ${await getToken()}`,
-//         },
-//       }
-//     );
-//     return response.data;
-//   } catch (error) {
-//     throw error;
-//   }
-// };
-
-// export const changePassword = async (currentPassword, newPassword) => {
-//   try {
-//     const url = `${baseUrl}/api/users/changePass/${await getUser()}`;
-//     // console.log("user:", getUser());
-//     console.log("URL:", url);
-//     const response = await axios.patch(
-//       url,
-//       {
-//         password: currentPassword,
-//         newPassword: newPassword,
-//         repeatNwPassword: newPassword,
-//       },
-//       {
-//         headers: {
-//           Authorization: `Bearer ${await getToken()}`,
-//         },
-//       }
-//     );
-//     return response.data;
-//   } catch (error) {
-//     if (error.response && error.response.status === 403) {
-//       throw new Error("La contraseña actual es incorrecta");
-//     }
-//     throw error;
-//   }
-// };
 export const changePassword = async (currentPassword, newPassword) => {
 	try {
 		const url = `${baseUrl}/api/users/changePass/${await getUser()}`;
-		// console.log("user:", getUser());
 		console.log('URL:', url);
 		const response = await axios.patch(
 			url,
@@ -639,7 +553,6 @@ export async function uploadImage(email, image) {
 				},
 			}
 		);
-
 		return response.data;
 	} catch (error) {
 		console.log(error);
@@ -666,7 +579,6 @@ export async function postScore(score, courseId) {
 			}
 		);
 		const data = response.data;
-		console.log(data);
 		return data;
 	} catch (error) {
 		console.log('error score');
@@ -694,7 +606,6 @@ export async function postComment(comment, courseId) {
 			}
 		);
 		const data = response.data;
-		console.log(data);
 		return data;
 	} catch (error) {
 		console.log('error comment');
@@ -835,44 +746,6 @@ export const buyCourse = async (courseId, userId) => {
 	}
 };
 
-// export const forgotPassword = async (email) => {
-//   try {
-//     const response = await axios.post(`${baseUrl}/api/auth/forgot-password`, {
-//       email,
-//     });
-//     console.log(response.data.message);
-//     return { success: true, message: response.data.message };
-//   } catch (error) {
-//     console.log(error);
-//     return {
-//       success: false,
-//       message:
-//         "Ha ocurrido un error al enviar el correo de restablecimiento de contraseña",
-//     };
-//   }
-// };
-// export const forgotPassword = async (email) => {
-//   try {
-//     const response = await axios.post(`${baseUrl}/api/auth/forgot-password`, {
-//       email,
-//     });
-//     console.log(response.data.message);
-//     return { success: true, message: response.data.message };
-//   } catch (error) {
-//     console.log(error);
-//     if (
-//       error.response?.data?.message ===
-//       "El email no esta registrado en la aplicación"
-//     ) {
-//       return { success: false, message: "El correo no está registrado" };
-//     }
-//     return {
-//       success: false,
-//       message:
-//         "Ha ocurrido un error al enviar el correo de restablecimiento de contraseña",
-//     };
-//   }
-// };
 export const forgotPassword = async (email) => {
 	try {
 		const response = await axios.post(

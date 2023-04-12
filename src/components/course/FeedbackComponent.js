@@ -18,7 +18,6 @@ export default function FeedbackComponent({ courseId }) {
   const [showModal, setShowModal] = useState(false);
   const handleShowModal = () => setShowModal(true);
   const onClose = () => setShowModal((prevState) => !prevState);
-  const onLoading = () => setLoading((prevState) => !prevState);
   const handleSent = () => setSent(true);
   useEffect(() => {
     const fetchCourse = async () => {
@@ -32,13 +31,11 @@ export default function FeedbackComponent({ courseId }) {
       setSent(isSent);
     };
     fetchCourse();
-  }, []);
-
-
+  }, [showModal]);
   const formik = useFormik({
     initialValues: {
-      comment: '',
-      rating: '',
+      comment: comment,
+      rating: rating,
     },
     validationSchema: Yup.object({
       comment: Yup.string().required('Ingresa un comentario'),
@@ -46,7 +43,8 @@ export default function FeedbackComponent({ courseId }) {
     }),
     validateOnChange: false,
     onSubmit: (formData) => {
-      setComment(formData.comment);
+      setComment(comment);
+      setRating(rating);
       handleShowModal();
     },
   });
@@ -55,7 +53,7 @@ export default function FeedbackComponent({ courseId }) {
     setRating(value);
   };
   return (
-    sent === null && comment != undefined ? <></> : (
+    sent === null ? <></> : (
       !sent ? (
         <>
           <View style={styles.titleContainer}>
@@ -100,18 +98,20 @@ export default function FeedbackComponent({ courseId }) {
             <ConfirmFeedbackComponent
               handleSent={handleSent}
               courseId={courseId}
-              comment={comment}
+              comment={formik.values.comment}
+              rating={formik.values.rating}
               onClose={onClose}
-              rating={rating}
             />
           </ModalComponent>
         </>
       ) : (
-        <Comment
-          comments={comment}
-          rating={rating}
-          sent={sent}
-        />
+        comment === [] || rating === [] ? <></> : (
+          <Comment
+            comments={comment}
+            rating={rating}
+            sent={sent}
+          />
+        )
       )
     )
   );
