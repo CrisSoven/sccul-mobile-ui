@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import SearchBar from '../../components/common/SearchBar';
 import SwipeNotify from '../../components/cart/SwipeNotify';
 import Colors from '../../utils/Colors';
@@ -18,6 +18,9 @@ import { useStripe } from '@stripe/stripe-react-native';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 export default function CartScreen() {
+	const [reload, setReload] = useState(false);
+	const onReload = () => setReload((prevState) => !prevState);
+
 	const { initPaymentSheet, presentPaymentSheet } = useStripe();
 
 	const navigation = useNavigation();
@@ -169,7 +172,7 @@ export default function CartScreen() {
 
 		fetchCourses();
 		getInfoUser();
-	}, []);
+	}, [reload]);
 
 	const handlePaymentMethod = () => {
 		// navigation.navigate('PaymentMethod', { courses });
@@ -201,7 +204,7 @@ export default function CartScreen() {
 				<>
 					<SwipeNotify />
 					<ScrollView contentContainerStyle={styles.content}>
-						<SwipeableComponent courses={listOfCourses()} />
+						<SwipeableComponent courses={listOfCourses()} onReload={onReload} />
 					</ScrollView>
 					<TitleBtnComponent
 						textTitle={`$${total} MX`}
