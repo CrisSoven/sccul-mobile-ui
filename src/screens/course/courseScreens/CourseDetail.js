@@ -8,9 +8,11 @@ import FeedbackComponent from "../../../components/course/FeedbackComponent";
 import { useNavigation } from "@react-navigation/native";
 import Splash from "../../sccul/SplashScreen";
 import { setPercentageInscription } from "../../../utils/Axios";
+import { getCourseById } from "../../../utils/Axios";
 
 export default function CourseScreen(props) {
   const { course } = props.route.params;
+  const [courseOne, setCourse] = useState(course);
   const [status, setStatus] = React.useState({});
   const video = useRef(null);
   const navigation = useNavigation();
@@ -24,8 +26,16 @@ export default function CourseScreen(props) {
   const [videosWatchedCount, setVideosWatchedCount] = useState(0);
 
   useEffect(() => {
-    if (course.inscriptions[0].fullPercentage !== null) {
-      const sectionWatched = course.inscriptions[0].fullPercentage.split(",");
+    const fetchCourse = async () => {
+      const fetchedCourse = await getCourseById(course.id);
+      setCourse(fetchedCourse);
+    };
+    fetchCourse();
+  }, []);
+
+  useEffect(() => {
+    if (courseOne.inscriptions[0].fullPercentage !== null) {
+      const sectionWatched = courseOne.inscriptions[0].fullPercentage.split(",");
 
       const sectionWatchedId = sectionWatched
         .filter((section) => section !== "")

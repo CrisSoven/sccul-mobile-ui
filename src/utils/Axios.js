@@ -1,13 +1,13 @@
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const baseUrl = "http:/192.168.1.76:8080";
+const baseUrl = "http:/192.168.1.64:8080";
 // let token =
 //   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
 //cris@gmail.com
 
 export const checkout = async (amount) => {
-  console.log('checkout', amount);
+  console.log("checkout", amount);
   try {
     const response = await axios.post(
       `${baseUrl}/api/payments/`,
@@ -25,7 +25,7 @@ export const checkout = async (amount) => {
     // console.log('checkout', data);
     return data.data;
   } catch (error) {
-    console.log('checkout error');
+    console.log("checkout error");
     console.log(error);
     throw new Error(error);
   }
@@ -33,37 +33,37 @@ export const checkout = async (amount) => {
 
 export async function deleteToken() {
   try {
-    await AsyncStorage.removeItem('token');
-    await AsyncStorage.removeItem('user');
-    console.log('token deleted');
+    await AsyncStorage.removeItem("token");
+    await AsyncStorage.removeItem("user");
+    console.log("token deleted");
   } catch (error) {
-    console.log('delete token error');
+    console.log("delete token error");
     throw new Error(error);
   }
 }
 
 export async function saveCredentials(token, user) {
   try {
-    await AsyncStorage.setItem('token', token);
-    await AsyncStorage.setItem('user', user.toString());
+    await AsyncStorage.setItem("token", token);
+    await AsyncStorage.setItem("user", user.toString());
   } catch (error) {
-    console.log('save credentials error');
+    console.log("save credentials error");
     throw new Error(error);
   }
 }
 
 export const saveToken = async (token) => {
   try {
-    await AsyncStorage.setItem('token', token);
+    await AsyncStorage.setItem("token", token);
   } catch (error) {
-    console.log('save token error');
+    console.log("save token error");
     throw new Error(error);
   }
 };
 
 export async function getToken() {
   try {
-    const token = await AsyncStorage.getItem('token');
+    const token = await AsyncStorage.getItem("token");
     return token;
   } catch (error) {
     throw new Error(error);
@@ -72,10 +72,10 @@ export async function getToken() {
 
 export async function getUser() {
   try {
-    const user = await AsyncStorage.getItem('user');
+    const user = await AsyncStorage.getItem("user");
     return user;
   } catch (error) {
-    console.log('get user error');
+    console.log("get user error");
     throw new Error(error);
   }
 }
@@ -85,7 +85,7 @@ export async function checkLoginStatus() {
     const token = await getToken();
     return token === null ? false : true;
   } catch (error) {
-    console.log('check login status error');
+    console.log("check login status error");
     return false;
   }
 }
@@ -105,7 +105,7 @@ export async function loginUser(email, password) {
       return false;
     }
   } catch (error) {
-    console.log('login error');
+    console.log("login error");
     throw new Error(error);
   }
 }
@@ -134,7 +134,7 @@ export async function registerUser(
       return false;
     }
   } catch (error) {
-    console.log('register error');
+    console.log("register error");
     return false;
   }
 }
@@ -150,7 +150,7 @@ export async function getCategories() {
     const data = response.data;
     return data.data;
   } catch (error) {
-    console.log('get categories error');
+    console.log("get categories error");
     throw new Error(error);
   }
 }
@@ -165,8 +165,8 @@ export async function getCourses() {
     const data = response.data;
     return data.data;
   } catch (error) {
-    console.log('get courses error');
-    console.log('user token: ' + (await getToken()));
+    console.log("get courses error");
+    console.log("user token: " + (await getToken()));
     throw new Error(error);
   }
 }
@@ -181,7 +181,7 @@ export async function getCourseById(courseId) {
     const data = response.data;
     return data.data;
   } catch (error) {
-    console.log('get course by id error');
+    console.log("get course by id error");
     throw new Error(error);
   }
 }
@@ -192,16 +192,13 @@ export async function getCoursesCart() {
     const response = await getCourses();
     const courses = response.filter((course) => {
       return course.inscriptions.some((inscription) => {
-        return (
-          inscription.user.id == user &&
-          inscription.status == 'inscrito'
-        );
+        return inscription.user.id == user && inscription.status == "inscrito";
       });
     });
 
     return courses;
   } catch (error) {
-    console.log('get courses cart error');
+    console.log("get courses cart error");
     throw new Error(error);
   }
 }
@@ -212,15 +209,12 @@ export async function getBoughtCourses() {
     const response = await getCourses();
     const courses = response.filter((course) => {
       return course.inscriptions.some((inscription) => {
-        return (
-          inscription.user.id == user &&
-          inscription.status == 'comprado'
-        );
+        return inscription.user.id == user && inscription.status == "comprado";
       });
     });
     return courses;
   } catch (error) {
-    console.log('get bought courses error');
+    console.log("get bought courses error");
     throw new Error(error);
   }
 }
@@ -235,7 +229,7 @@ export async function getInscriptions() {
     const data = response.data;
     return data.data;
   } catch (error) {
-    console.log('get inscriptions error');
+    console.log("get inscriptions error");
     throw new Error(error);
   }
 }
@@ -258,7 +252,7 @@ export async function deleteInscription(course) {
     const data = response.data;
     return true;
   } catch (error) {
-    console.log('error inscripciones');
+    console.log("error inscripciones");
     throw new Error(error);
   }
 }
@@ -343,7 +337,7 @@ export async function getUserInfo() {
     const data = response.data;
     return data.data;
   } catch (error) {
-    console.log('error info usuario');
+    console.log("error info usuario");
     throw new Error(error);
   }
 }
@@ -361,7 +355,7 @@ export async function getBankCards() {
     const data = response.data;
     return data.data;
   } catch (error) {
-    console.log('error tarjetas');
+    console.log("error tarjetas");
     throw new Error(error);
   }
 }
@@ -379,7 +373,7 @@ export async function getBankCardById(bankCardId) {
     const data = response.data;
     return data.data;
   } catch (error) {
-    console.log('error tarjeta id');
+    console.log("error tarjeta id");
   }
 }
 
@@ -416,11 +410,11 @@ export async function addBankCard(
 
     if (response.data.statusCode === 201) {
       return response.data.data.id;
-    } else if (response.data.message === 'Tarjeta ya registrada') {
+    } else if (response.data.message === "Tarjeta ya registrada") {
       return false;
     }
   } catch (error) {
-    console.log('error agregar tarjeta');
+    console.log("error agregar tarjeta");
     throw new Error(error);
   }
 }
@@ -437,7 +431,7 @@ export async function addCourseCart(courseId) {
           id: `${await getUser()}`,
         },
         full_percentage: 0,
-        status: 'inscrito',
+        status: "inscrito",
       },
       {
         headers: {
@@ -447,12 +441,12 @@ export async function addCourseCart(courseId) {
     );
     const data = response.data;
 
-    if (data.message === 'Ya está inscrito en este curso') {
-      return 'alreadyInCart';
-    } else if (data.message === 'Ya compró este curso') {
-      return 'alreadyBought';
+    if (data.message === "Ya está inscrito en este curso") {
+      return "alreadyInCart";
+    } else if (data.message === "Ya compró este curso") {
+      return "alreadyBought";
     } else {
-      return 'addedToCart';
+      return "addedToCart";
     }
   } catch (error) {
     console.log(error);
@@ -482,7 +476,7 @@ export async function setPercentageInscription(courseId, sectionId) {
       }
     );
     const data = response.data;
-    console.log('data de setPercentage', data);
+    console.log("data de setPercentage", data);
     return data.data;
   } catch (error) {
     console.log(error);
@@ -579,7 +573,7 @@ export const changePassword = async (currentPassword, newPassword) => {
   try {
     const url = `${baseUrl}/api/users/changePass/${await getUser()}`;
     // console.log("user:", getUser());
-    console.log('URL:', url);
+    console.log("URL:", url);
     const response = await axios.patch(
       url,
       {
@@ -593,10 +587,10 @@ export const changePassword = async (currentPassword, newPassword) => {
         },
       }
     );
-    return { success: true, message: 'Contraseña cambiada con éxito' };
+    return { success: true, message: "Contraseña cambiada con éxito" };
   } catch (error) {
     if (error.response && error.response.status === 403) {
-      throw new Error('La contraseña actual es incorrecta');
+      throw new Error("La contraseña actual es incorrecta");
     }
     return { success: false, message: error.message };
   }
@@ -622,14 +616,13 @@ export const verifyPassword = async (
     return response.data;
   } catch (error) {
     if (
-      error.response?.data?.message ===
-      'La contraseña actual es incorrecta'
+      error.response?.data?.message === "La contraseña actual es incorrecta"
     ) {
       return false;
     }
     throw new Error(
       error.response?.data?.message ||
-      'Ha ocurrido un error al actualizar la contraseña'
+        "Ha ocurrido un error al actualizar la contraseña"
     );
   }
 };
@@ -637,8 +630,8 @@ export const verifyPassword = async (
 export async function uploadImage(email, image) {
   try {
     const formData = new FormData();
-    formData.append('email', email);
-    formData.append('image', image);
+    formData.append("email", email);
+    formData.append("image", image);
 
     const response = await axios.patch(
       `${baseUrl}/api/users/loadimage`,
@@ -646,7 +639,7 @@ export async function uploadImage(email, image) {
       {
         headers: {
           Authorization: `Bearer ${await getToken()}`,
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
       }
     );
@@ -680,7 +673,7 @@ export async function postScore(score, courseId) {
     console.log(data);
     return data;
   } catch (error) {
-    console.log('error score');
+    console.log("error score");
     throw error;
   }
 }
@@ -708,7 +701,7 @@ export async function postComment(comment, courseId) {
     console.log(data);
     return data;
   } catch (error) {
-    console.log('error comment');
+    console.log("error comment");
     throw error;
   }
 }
@@ -736,132 +729,174 @@ export const buyCourses = async (courses, userId) => {
 };
 
 export const saveAnswers = async (questions, answers, courseId) => {
-	try {
-		const response = await axios.post(
-			`${baseUrl}/api/user_answers/saveAll`,
-			{
-				answers: [
-					{
-						question: {
-							id: questions[0].id,
-						},
-						answer: {
-							id: answers[0],
-						},
-					},
-					{
-						question: {
-							id: questions[1].id,
-						},
-						answer: {
-							id: answers[1],
-						},
-					},
-					{
-						question: {
-							id: questions[2].id,
-						},
-						answer: {
-							id: answers[2],
-						},
-					},
-					{
-						question: {
-							id: questions[3].id,
-						},
-						answer: {
-							id: answers[3],
-						},
-					},
-					{
-						question: {
-							id: questions[4].id,
-						},
-						answer: {
-							id: answers[4],
-						},
-					},
-					{
-						question: {
-							id: questions[5].id,
-						},
-						answer: {
-							id: answers[5],
-						},
-					},
-					{
-						question: {
-							id: questions[6].id,
-						},
-						answer: {
-							id: answers[6],
-						},
-					},
-					{
-						question: {
-							id: questions[7].id,
-						},
-						answer: {
-							id: answers[7],
-						},
-					},
-					{
-						question: {
-							id: questions[8].id,
-						},
-						answer: {
-							id: answers[8],
-						},
-					},
-					{
-						question: {
-							id: questions[9].id,
-						},
-						answer: {
-							id: answers[9],
-						},
-					},
-				],
-				user: {
-					id: await getUser(),
-				},
-				course: {
-					id: courseId,
-				},
-			},
-			{
-				headers: {
-					Authorization: `Bearer ${await getToken()}`,
-				},
-			}
-		);
-		return response.data;
-	} catch (error) {
-		console.log(error);
-	}
+  try {
+    const response = await axios.post(
+      `${baseUrl}/api/user_answers/saveAll`,
+      {
+        answers: [
+          {
+            question: {
+              id: questions[0].id,
+            },
+            answer: answers[0] + 1,
+          },
+          {
+            question: {
+              id: questions[1].id,
+            },
+            answer: answers[1] + 1,
+          },
+          {
+            question: {
+              id: questions[2].id,
+            },
+            answer: answers[2] + 1,
+          },
+          {
+            question: {
+              id: questions[3].id,
+            },
+            answer: answers[3] + 1,
+          },
+          {
+            question: {
+              id: questions[4].id,
+            },
+            answer: answers[4] + 1,
+          },
+          {
+            question: {
+              id: questions[5].id,
+            },
+            answer: answers[5] + 1,
+          },
+          {
+            question: {
+              id: questions[6].id,
+            },
+            answer: answers[6] + 1,
+          },
+          {
+            question: {
+              id: questions[7].id,
+            },
+            answer: answers[7] + 1,
+          },
+          {
+            question: {
+              id: questions[8].id,
+            },
+            answer: answers[8] + 1,
+          },
+          {
+            question: {
+              id: questions[9].id,
+            },
+            answer: answers[9] + 1,
+          },
+        ],
+        user: {
+          id: await getUser(),
+        },
+        course: {
+          id: courseId,
+        },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const buyCourse = async (courseId, userId) => {
-	try {
-		const response = await axios.post(
-			`${baseUrl}/api/inscriptions/`,
-			{
-				course: {
-					id: courseId,
-				},
-				user: {
-					id: userId,
-				},
-				status: 'comprado',
-			},
-			{
-				headers: {
-					Authorization: `Bearer ${await getToken()}`,
-				},
-			}
-		);
-		return response.data;
-	} catch (error) {
-		console.log(error);
-	}
+  try {
+    const response = await axios.post(
+      `${baseUrl}/api/inscriptions/`,
+      {
+        course: {
+          id: courseId,
+        },
+        user: {
+          id: userId,
+        },
+        status: "comprado",
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// export const forgotPassword = async (email) => {
+//   try {
+//     const response = await axios.post(`${baseUrl}/api/auth/forgot-password`, {
+//       email,
+//     });
+//     console.log(response.data.message);
+//     return { success: true, message: response.data.message };
+//   } catch (error) {
+//     console.log(error);
+//     return {
+//       success: false,
+//       message:
+//         "Ha ocurrido un error al enviar el correo de restablecimiento de contraseña",
+//     };
+//   }
+// };
+// export const forgotPassword = async (email) => {
+//   try {
+//     const response = await axios.post(`${baseUrl}/api/auth/forgot-password`, {
+//       email,
+//     });
+//     console.log(response.data.message);
+//     return { success: true, message: response.data.message };
+//   } catch (error) {
+//     console.log(error);
+//     if (
+//       error.response?.data?.message ===
+//       "El email no esta registrado en la aplicación"
+//     ) {
+//       return { success: false, message: "El correo no está registrado" };
+//     }
+//     return {
+//       success: false,
+//       message:
+//         "Ha ocurrido un error al enviar el correo de restablecimiento de contraseña",
+//     };
+//   }
+// };
+export const forgotPassword = async (email) => {
+  try {
+    const response = await axios.post(`${baseUrl}/api/auth/forgot-password`, {
+      email,
+    });
+    console.log(response.data.message);
+    return { success: true, message: response.data.message };
+  } catch (error) {
+    console.log(error);
+    if (error.response && error.response.status === 404) {
+      return {
+        success: false,
+        message: " El email no esta registrado en la aplicación",
+      };
+    } else {
+      return {
+        success: false,
+        message:
+          "Ha ocurrido un error al enviar el correo de restablecimiento de contraseña",
+      };
+    }
+  }
 };

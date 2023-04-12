@@ -10,11 +10,10 @@ import { saveAnswers } from "../../../utils/Axios";
 export default function CourseSurvey(props) {
   const [answers, setAnswers] = useState([]);
   const [questions, setQuestions] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { course } = props.route.params;
   const courseId = course.id;
-  console.log("course", courseId);
-  console.log("answer", answers[0]);
 
   return (
     <ScrollView>
