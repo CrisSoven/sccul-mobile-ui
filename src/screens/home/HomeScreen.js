@@ -10,6 +10,7 @@ import { getCourses } from '../../utils/Axios';
 export default function HomeScreen() {
 	const [courses, setCourses] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
+	const [inputText, setInputText] = useState('');
 
 	useEffect(() => {
 		const fetchCourses = async () => {
@@ -21,6 +22,16 @@ export default function HomeScreen() {
 		fetchCourses();
 	}, []);
 
+	const listOfCourses = () => {
+		if (inputText === '') {
+			return courses;
+		}
+
+		return courses.filter((course) => {
+			return course.name.toLowerCase().includes(inputText.toLowerCase());
+		});
+	};
+
 	if (isLoading) {
 		return <SplashScreen />;
 	}
@@ -28,10 +39,10 @@ export default function HomeScreen() {
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
 			<View style={styles.container}>
-				<SearchBar />
+				<SearchBar setInputValue={setInputText} value={inputText} />
 				<Banner />
 				<ScrollViewCategories />
-				<FeaturedCourses courses={courses} />
+				<FeaturedCourses courses={listOfCourses()} />
 			</View>
 		</ScrollView>
 	);

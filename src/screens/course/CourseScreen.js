@@ -10,6 +10,8 @@ import EmptyContainer from '../../components/common/EmptyContainer';
 
 export default function CourseScreen() {
 	const [courses, setCourses] = useState(null);
+	const [inputText, setInputText] = useState('');
+
 	useEffect(() => {
 		const fetchCourses = async () => {
 			const fetchedCourses = await getBoughtCourses();
@@ -18,6 +20,16 @@ export default function CourseScreen() {
 		fetchCourses();
 	}, []);
 
+	const listOfCourses = () => {
+		if (inputText === '') {
+			return courses;
+		}
+
+		return courses.filter((course) => {
+			return course.name.toLowerCase().includes(inputText.toLowerCase());
+		});
+	};
+
 	return courses === null ? (
 		<Splash />
 	) : (
@@ -25,7 +37,7 @@ export default function CourseScreen() {
 			<View style={styles.content}>
 				<Text style={styles.title}>Mis cursos</Text>
 			</View>
-			<SearchBar />
+			<SearchBar setInputValue={setInputText} value={inputText} />
 			{!courses.length ? (
 				<EmptyContainer
 					icon='tag-outline'
@@ -37,7 +49,7 @@ export default function CourseScreen() {
 					<FilterCourse />
 					<ScrollView showsVerticalScrollIndicator={false}>
 						<View style={styles.container}>
-							{courses.map((course) => (
+							{listOfCourses().map((course) => (
 								<Courses
 									key={course.id}
 									course={course}
