@@ -281,30 +281,30 @@ export async function deleteInscription(course) {
 // 	}
 // }
 
-export async function buyCourse(inscription) {
-  const user = await getUser();
-  try {
-    if (inscription.user.id == user) {
-      const response = await axios.patch(
-        `${baseUrl}/api/inscriptions/changeStatus/${inscription.id}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${await getToken()}`,
-          },
-        }
-      );
-      console.log(response.data);
-      return true;
-    } else {
-      console.log('nop');
-      return false;
-    }
-  } catch (error) {
-    console.log('error inscripciones');
-    throw new Error(error);
-  }
-}
+// export async function buyCourse(inscription) {
+//   const user = await getUser();
+//   try {
+//     if (inscription.user.id == user) {
+//       const response = await axios.patch(
+//         `${baseUrl}/api/inscriptions/changeStatus/${inscription.id}`,
+//         {},
+//         {
+//           headers: {
+//             Authorization: `Bearer ${await getToken()}`,
+//           },
+//         }
+//       );
+//       console.log(response.data);
+//       return true;
+//     } else {
+//       console.log('nop');
+//       return false;
+//     }
+//   } catch (error) {
+//     console.log('error inscripciones');
+//     throw new Error(error);
+//   }
+// }
 // export async function buyCourse(inscription) {
 // 	const user = await getUser();
 // 	try {
