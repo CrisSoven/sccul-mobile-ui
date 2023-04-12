@@ -6,9 +6,6 @@ import Line from "../common/Line";
 export default function SurveyCourse(props) {
   const { survey, answers, setAnswers, questions, setQuestions } = props;
 
-  console.log("answers", answers);
-  console.log("questions", questions);
-
   const handlePress = (questionIndex, answerIndex) => {
     setAnswers((prevAnswers) => {
       const newAnswers = [...prevAnswers];
@@ -28,7 +25,7 @@ export default function SurveyCourse(props) {
         <View key={index} style={styles.questionContainer}>
           <Text style={styles.question}>{question.question}</Text>
           <View style={styles.buttonsContainer}>
-            <View style={{flexDirection: "row", marginBottom: 10}}>
+            <View style={{ flexDirection: "row", marginBottom: 10 }}>
               <TouchableOpacity
                 style={[
                   styles.button,
@@ -78,7 +75,7 @@ export default function SurveyCourse(props) {
                 </Text>
               </TouchableOpacity>
             </View>
-            <View style={{flexDirection: "row", marginHorizontal: 30}}>
+            <View style={{ flexDirection: "row", marginHorizontal: 30 }}>
               <TouchableOpacity
                 style={[
                   styles.button,

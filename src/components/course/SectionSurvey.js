@@ -6,6 +6,7 @@ import Colors from "../../utils/Colors";
 
 export default function SectionSurvey(props) {
   const { navigation, course, disableSurvey } = props;
+  const checkUser = course.userAnsewers;
 
   return (
     <View>

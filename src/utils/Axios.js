@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const baseUrl = "http:/192.168.100.17:8080";
+const baseUrl = "http://192.168.100.17:8080";
 // let token =
 //   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
 //cris@gmail.com
@@ -726,81 +726,61 @@ export const saveAnswers = async (questions, answers, courseId) => {
 						question: {
 							id: questions[0].id,
 						},
-						answer: {
-							id: answers[0],
-						},
+						answer: answers[0] + 1,
 					},
 					{
 						question: {
 							id: questions[1].id,
 						},
-						answer: {
-							id: answers[1],
-						},
+						answer: answers[1] + 1,
 					},
 					{
 						question: {
 							id: questions[2].id,
 						},
-						answer: {
-							id: answers[2],
-						},
+						answer: answers[2] + 1,
 					},
 					{
 						question: {
 							id: questions[3].id,
 						},
-						answer: {
-							id: answers[3],
-						},
+						answer: answers[3] + 1,
 					},
 					{
 						question: {
 							id: questions[4].id,
 						},
-						answer: {
-							id: answers[4],
-						},
+						answer: answers[4] + 1,
 					},
 					{
 						question: {
 							id: questions[5].id,
 						},
-						answer: {
-							id: answers[5],
-						},
+						answer: answers[5] + 1,
 					},
 					{
 						question: {
 							id: questions[6].id,
 						},
-						answer: {
-							id: answers[6],
-						},
+						answer: answers[6] + 1,
 					},
 					{
 						question: {
 							id: questions[7].id,
 						},
-						answer: {
-							id: answers[7],
-						},
+						answer: answers[7] + 1,
 					},
 					{
 						question: {
 							id: questions[8].id,
 						},
-						answer: {
-							id: answers[8],
-						},
+						answer: answers[8] + 1,
 					},
 					{
 						question: {
 							id: questions[9].id,
 						},
-						answer: {
-							id: answers[9],
-						},
+						answer: answers[9] + 1,
 					},
 				],
 				user: {
