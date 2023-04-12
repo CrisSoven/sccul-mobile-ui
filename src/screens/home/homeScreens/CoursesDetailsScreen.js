@@ -10,6 +10,7 @@ import BuyNowBtn from '../../../components/home/BuyNowBtn';
 import Colors from '../../../utils/Colors';
 import {
 	buyCourse,
+	buyCourseByCart,
 	buyCourses,
 	checkout,
 	getCourseById,
@@ -26,6 +27,9 @@ export default function CoursesDetailsScreen({ route }) {
 
 	const [course, setCourse] = useState({});
 	const [hasBoughtCourse, setHasBoughtCourse] = useState(false);
+	const [hasInscriptionCourse, setHasInscriptionCourse] = useState(false);
+	const [userInscription, setUserInscription] = useState();
+
 	const [isLoading, setIsLoading] = useState(false);
 	const [user, setUser] = useState(null);
 	const [total, setTotal] = useState(0);
@@ -42,7 +46,9 @@ export default function CoursesDetailsScreen({ route }) {
 			const hasInscription = fetchedCourse.inscriptions.find(
 				(inscription) => inscription.user.user.id === userIdNumber
 			);
+			setUserInscription(hasInscription);
 			const hasBoughtCourse = hasInscription?.status === 'comprado';
+			const hasInscriptionCourse = hasInscription?.status === 'inscrito';
 
 			const totalToPay =
 				fetchedCourse.price -
@@ -51,6 +57,8 @@ export default function CoursesDetailsScreen({ route }) {
 			setTotal(totalToPay);
 
 			setHasBoughtCourse(hasBoughtCourse);
+			setHasInscriptionCourse(hasInscriptionCourse);
+			setHasInscriptionCourse(hasInscriptionCourse);
 			setCourse(fetchedCourse);
 		};
 
@@ -117,10 +125,10 @@ export default function CoursesDetailsScreen({ route }) {
 			// Alert.alert(`Error code: ${error.code}`, error.message);
 		} else {
 			try {
-				const { data, error: errorBuy } = await buyCourse(
-					course.id,
-					user
-				);
+				const { data, error: errorBuy } = hasInscriptionCourse
+					? await buyCourseByCart(userInscription)
+					: await buyCourse(course.id, user);
+
 				setIsLoading(false);
 
 				if (errorBuy) {

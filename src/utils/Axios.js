@@ -1,7 +1,8 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
-const baseUrl = 'http:/192.168.67.60:8080';
+const baseUrl = 'http://192.168.1.72:8080';
 // let token =
 //   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
 //cris@gmail.com
@@ -281,30 +282,42 @@ export async function deleteInscription(course) {
 // 	}
 // }
 
-// export async function buyCourse(inscription) {
-// 	const user = await getUser();
-// 	try {
-// 		if (inscription.user.id == user) {
-// 			const response = await axios.patch(
-// 				`${baseUrl}/api/inscriptions/changeStatus/${inscription.id}`,
-// 				{},
-// 				{
-// 					headers: {
-// 						Authorization: `Bearer ${await getToken()}`,
-// 					},
-// 				}
-// 			);
-// 			console.log(response.data);
-// 			return true;
-// 		} else {
-// 			console.log('nop');
-// 			return false;
-// 		}
-// 	} catch (error) {
-// 		console.log('error inscripciones');
-// 		throw new Error(error);
-// 	}
-// }
+export async function buyCourseByCart(inscription) {
+	const user = await getUser();
+	console.log(inscription);
+	console.log(inscription.user.user.id);
+	try {
+		if (inscription.user.user.id == user) {
+			const response = await axios.patch(
+				`${baseUrl}/api/inscriptions/changeStatus/${inscription.id}`,
+				{},
+				{
+					headers: {
+						Authorization: `Bearer ${await getToken()}`,
+					},
+				}
+			);
+			console.log(response.data);
+			return true;
+		} else {
+			console.log('nop');
+			Toast.show({
+				type: 'error',
+				text1: 'Error',
+				text2: 'No se pudo comprar el curso',
+			});
+			return false;
+		}
+	} catch (error) {
+		console.log('error inscripciones');
+		Toast.show({
+			type: 'error',
+			text1: 'Error',
+			text2: 'No se pudo comprar el curso',
+		});
+		throw new Error(error);
+	}
+}
 
 export async function getUserInfo() {
 	try {
