@@ -3,11 +3,13 @@ import React from "react";
 import Colors from "../../utils/Colors";
 import { Avatar, Rating } from "react-native-elements";
 
-export default function Comments({ comments, rating }) {
+export default function Comments({ comments, rating, sent }) {
 
   return (
     <>
-      <Text style={styles.title}>Comentarios ({comments.length})</Text>
+      <Text style={styles.title}>
+        {sent ? "Tu calificación del curso" : `Comentarios (${comments.length})`}
+      </Text>
       {
         comments.map((comment) => (
           <View style={styles.content} key={comment.id}>
@@ -63,7 +65,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 24,
     marginTop: 20,
-
   },
   infoContainer: {
     flex: 1,

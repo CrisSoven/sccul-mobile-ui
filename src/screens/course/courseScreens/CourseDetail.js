@@ -48,8 +48,8 @@ export default function CourseScreen(props) {
     }
   }, []);
 
-  console.log("videoWatched", videoWatched);
-  console.log("el video ya visto", videoWatched.sections[resumenVideo].watched);
+  // console.log("videoWatched", videoWatched);
+  // console.log("el video ya visto", videoWatched.sections[resumenVideo].watched);
 
   useEffect(() => {
     if (status.didJustFinish) {
