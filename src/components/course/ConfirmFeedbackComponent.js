@@ -11,11 +11,11 @@ export default function ConfirmFeedbackComponent({ handleSent, onClose, courseId
       setIsLoading(true);
       await postScore(rating, courseId)
       await postComment(comment, courseId)
+      handleSent();
       setIsLoading(false);
+      onClose();
     }
     fetchScores();
-    handleSent();
-    onClose();
   }
 
   return (
