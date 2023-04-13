@@ -2,7 +2,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
-const baseUrl = 'http:/192.168.1.72:8080';
+const baseUrl = 'http:/192.168.100.17:8080';
 // let token =
 //   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
 //cris@gmail.com
@@ -645,72 +645,77 @@ export const buyCourses = async (courses, userId) => {
 };
 
 export const saveAnswers = async (questions, answers, courseId) => {
+
+	const answersArr = [
+		{
+			question: {
+				id: questions[0].id,
+			},
+			answer: answers[0].answer + 1,
+		},
+		{
+			question: {
+				id: questions[1].id,
+			},
+			answer: answers[1].answer + 1,
+		},
+		{
+			question: {
+				id: questions[2].id,
+			},
+			answer: answers[2].answer + 1,
+		},
+		{
+			question: {
+				id: questions[3].id,
+			},
+			answer: answers[3].answer + 1,
+		},
+		{
+			question: {
+				id: questions[4].id,
+			},
+			answer: answers[4].answer + 1,
+		},
+		{
+			question: {
+				id: questions[5].id,
+			},
+			answer: answers[5].answer + 1,
+		},
+		{
+			question: {
+				id: questions[6].id,
+			},
+			answer: answers[6].answer + 1,
+		},
+		{
+			question: {
+				id: questions[7].id,
+			},
+			answer: answers[7].answer + 1,
+		},
+		{
+			question: {
+				id: questions[8].id,
+			},
+			answer: answers[8].answer + 1,
+		},
+		{
+			question: {
+				id: questions[9].id,
+			},
+			answer: answers[9].answer + 1,
+		},
+	]
+
 	try {
+
+
 		const response = await axios.post(
 			`${baseUrl}/api/user_answers/saveAll`,
 			{
-				answers: [
-					{
-						question: {
-							id: questions[0].id,
-						},
-						answer: answers[0] + 1,
-					},
-					{
-						question: {
-							id: questions[1].id,
-						},
-						answer: answers[1] + 1,
-					},
-					{
-						question: {
-							id: questions[2].id,
-						},
-						answer: answers[2] + 1,
-					},
-					{
-						question: {
-							id: questions[3].id,
-						},
-						answer: answers[3] + 1,
-					},
-					{
-						question: {
-							id: questions[4].id,
-						},
-						answer: answers[4] + 1,
-					},
-					{
-						question: {
-							id: questions[5].id,
-						},
-						answer: answers[5] + 1,
-					},
-					{
-						question: {
-							id: questions[6].id,
-						},
-						answer: answers[6] + 1,
-					},
-					{
-						question: {
-							id: questions[7].id,
-						},
-						answer: answers[7] + 1,
-					},
-					{
-						question: {
-							id: questions[8].id,
-						},
-						answer: answers[8] + 1,
-					},
-					{
-						question: {
-							id: questions[9].id,
-						},
-						answer: answers[9] + 1,
-					},
-				],
+				answers: answersArr,
 				user: {
 					id: await getUser(),
 				},
@@ -724,6 +729,11 @@ export const saveAnswers = async (questions, answers, courseId) => {
 				},
 			}
 		);
+
+		
+
+		
+
 		return response.data;
 	} catch (error) {
 		console.log(error);

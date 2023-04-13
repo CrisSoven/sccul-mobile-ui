@@ -27,7 +27,6 @@ export default function Sections(props) {
             handlePress(section.id);
             setSelectedSection(section.id);
           }}
-          activeOpacity={0.8}
           disabled={disable}
         >
           <Text

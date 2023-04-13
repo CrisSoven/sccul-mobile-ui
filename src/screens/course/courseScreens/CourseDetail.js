@@ -7,72 +7,49 @@ import { ScrollView } from "react-native-gesture-handler";
 import FeedbackComponent from "../../../components/course/FeedbackComponent";
 import { useNavigation } from "@react-navigation/native";
 import Splash from "../../sccul/SplashScreen";
-import { setPercentageInscription } from "../../../utils/Axios";
+import { getUser, setPercentageInscription } from "../../../utils/Axios";
 import { getCourseById } from "../../../utils/Axios";
 
 export default function CourseScreen(props) {
   const { course } = props.route.params;
-  const [courseOne, setCourse] = useState(course);
   const [status, setStatus] = React.useState({});
   const video = useRef(null);
   const navigation = useNavigation();
   const [resumenVideo, setResumenVideo] = useState(0);
-  const [videoWatched, setVideoWatched] = useState({
-    sections: course.sections.map((section) => ({
-      id: section.id,
-      watched: false,
-    })),
-  });
   const [videosWatchedCount, setVideosWatchedCount] = useState(0);
+  const [percentage, setPercentage] = useState(null);
 
   useEffect(() => {
     const fetchCourse = async () => {
-      const fetchedCourse = await getCourseById(course.id);
-      setCourse(fetchedCourse);
+      const userId = Number(await getUser());
+      const response = await getCourseById(course.id);
+      const userInscription = response.inscriptions.filter(
+        (inscription) => inscription.user.user.id === userId
+      );
+      setPercentage(userInscription[0].fullPercentage);
     };
     fetchCourse();
   }, []);
 
   useEffect(() => {
-    if (courseOne.inscriptions[0].fullPercentage !== null) {
-      const sectionWatched = courseOne.inscriptions[0].fullPercentage.split(",");
+    if (percentage !== null) {
+      const sectionWatched = percentage.split(",");
 
       const sectionWatchedId = sectionWatched
         .filter((section) => section !== "")
         .map((section) => parseInt(section));
 
-      const updatedSections = videoWatched.sections.map((section) => {
-        if (sectionWatchedId.includes(section.id)) {
-          return { ...section, watched: true };
-        } else {
-          return section;
-        }
-      });
-
-      setVideoWatched((prevState) => ({
-        ...prevState,
-        sections: updatedSections,
-      }));
 
       setVideosWatchedCount(sectionWatchedId.length);
     }
-  }, []);
-
-  // console.log("videoWatched", videoWatched);
-  // console.log("el video ya visto", videoWatched.sections[resumenVideo].watched);
+  }, [percentage]);
 
   useEffect(() => {
     if (status.didJustFinish) {
-      if (!videoWatched.sections[resumenVideo].watched) {
+      if (!percentage?.includes(course.sections[resumenVideo].id)) {
         setVideosWatchedCount((prevState) => prevState + 1);
         setPercentageInscription(course.id, course.sections[resumenVideo].id);
       }
-      const updatedSections = [...videoWatched.sections];
-      updatedSections[resumenVideo].watched = true;
-      setVideoWatched((prevState) => ({
-        ...prevState,
-        sections: updatedSections,
-      }));
     }
   }, [status]);
 

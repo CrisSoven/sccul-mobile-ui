@@ -4,20 +4,36 @@ import Colors from "../../utils/Colors";
 import Line from "../common/Line";
 
 export default function SurveyCourse(props) {
-  const { survey, answers, setAnswers, questions, setQuestions } = props;
+  const {
+    survey,
+    answers,
+    setAnswers,
+    questions,
+    setQuestions,
+    errors,
+    values,
+    setFieldValue,
+  } = props;
 
-  const handlePress = (questionIndex, answerIndex) => {
-    setAnswers((prevAnswers) => {
-      const newAnswers = [...prevAnswers];
-      newAnswers[questionIndex] = answerIndex;
-      return newAnswers;
-    });
+  const handlePress = (questionIndex, answerIndex, setFieldValue) => {
+    const answer = {
+      answer: answerIndex,
+    };
+    setFieldValue(`answers[${questionIndex}]`, answer);
+
+    // setAnswers((prevAnswers) => {
+    //   const newAnswers = [...prevAnswers];
+    //   newAnswers[.answerquestionIndex] = answerIndex;
+    //   return newAnswers;
+    // });
     setQuestions((prevQuestions) => {
       const newQuestions = [...prevQuestions];
       newQuestions[questionIndex] = survey.questions[questionIndex];
       return newQuestions;
     });
   };
+
+  // console.log("errors", errors);
 
   return (
     <View>
@@ -29,14 +45,15 @@ export default function SurveyCourse(props) {
               <TouchableOpacity
                 style={[
                   styles.button,
-                  answers[index] === 0 && styles.selectedButton,
+                  values.answers[index]?.answer === 0 && styles.selectedButton,
                 ]}
-                onPress={() => handlePress(index, 0)}
+                onPress={() => handlePress(index, 0, setFieldValue)}
               >
                 <Text
                   style={[
                     styles.textBtn,
-                    answers[index] === 0 && styles.textBtnSelected,
+                    values.answers[index]?.answer === 0 &&
+                      styles.textBtnSelected,
                   ]}
                 >
                   Malo
@@ -45,14 +62,15 @@ export default function SurveyCourse(props) {
               <TouchableOpacity
                 style={[
                   styles.button,
-                  answers[index] === 1 && styles.selectedButton,
+                  values.answers[index]?.answer === 1 && styles.selectedButton,
                 ]}
-                onPress={() => handlePress(index, 1)}
+                onPress={() => handlePress(index, 1, setFieldValue)}
               >
                 <Text
                   style={[
                     styles.textBtn,
-                    answers[index] === 1 && styles.textBtnSelected,
+                    values.answers[index]?.answer === 1 &&
+                      styles.textBtnSelected,
                   ]}
                 >
                   Regular
@@ -61,14 +79,15 @@ export default function SurveyCourse(props) {
               <TouchableOpacity
                 style={[
                   styles.button,
-                  answers[index] === 2 && styles.selectedButton,
+                  values.answers[index]?.answer === 2 && styles.selectedButton,
                 ]}
-                onPress={() => handlePress(index, 2)}
+                onPress={() => handlePress(index, 2, setFieldValue)}
               >
                 <Text
                   style={[
                     styles.textBtn,
-                    answers[index] === 2 && styles.textBtnSelected,
+                    values.answers[index]?.answer === 2 &&
+                      styles.textBtnSelected,
                   ]}
                 >
                   Bueno
@@ -79,14 +98,15 @@ export default function SurveyCourse(props) {
               <TouchableOpacity
                 style={[
                   styles.button,
-                  answers[index] === 3 && styles.selectedButton,
+                  values.answers[index]?.answer === 3 && styles.selectedButton,
                 ]}
-                onPress={() => handlePress(index, 3)}
+                onPress={() => handlePress(index, 3, setFieldValue)}
               >
                 <Text
                   style={[
                     styles.textBtn,
-                    answers[index] === 3 && styles.textBtnSelected,
+                    values.answers[index]?.answer === 3 &&
+                      styles.textBtnSelected,
                   ]}
                 >
                   Muy bueno
@@ -95,14 +115,15 @@ export default function SurveyCourse(props) {
               <TouchableOpacity
                 style={[
                   styles.button,
-                  answers[index] === 4 && styles.selectedButton,
+                  values.answers[index]?.answer === 4 && styles.selectedButton,
                 ]}
-                onPress={() => handlePress(index, 4)}
+                onPress={() => handlePress(index, 4, setFieldValue)}
               >
                 <Text
                   style={[
                     styles.textBtn,
-                    answers[index] === 4 && styles.textBtnSelected,
+                    values.answers[index]?.answer === 4 &&
+                      styles.textBtnSelected,
                   ]}
                 >
                   Excelente
@@ -110,6 +131,11 @@ export default function SurveyCourse(props) {
               </TouchableOpacity>
             </View>
           </View>
+
+          <View>
+            <Text style={styles.error}>{errors?.answers?.[index]?.answer}</Text>
+          </View>
+
           <Line />
         </View>
       ))}
@@ -152,5 +178,11 @@ const styles = StyleSheet.create({
   },
   textBtnSelected: {
     color: Colors.PalleteWhite,
+  },
+  error: {
+    color: Colors.PalletteRed,
+    fontSize: 12,
+    marginHorizontal: 20,
+    marginTop: 5,
   },
 });
