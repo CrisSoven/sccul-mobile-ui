@@ -4,7 +4,9 @@ import Sections from "../../components/common/Sections";
 import SectionSurvey from "../course/SectionSurvey";
 
 export default function ContentComponent(props) {
-  const { course, disable, onSectionPress, navigation, disableSurvey } = props;
+  const { course, disable, onSectionPress, navigation, disableSurvey, continueVideo, isCourseScreen } = props;
+
+  console.log(disable);
 
   const minutes = course.sections.reduce((acc, section) => {
     const duration = section.duration.split(":");
@@ -28,9 +30,11 @@ export default function ContentComponent(props) {
       </View>
       <View style={styles.sectionsContainer}>
         <Sections
+          continueVideo={continueVideo}
           sections={course.sections}
           disable={disable}
           onSectionPress={onSectionPress}
+          isCourseScreen={isCourseScreen}
         />
         <SectionSurvey
           navigation={navigation}

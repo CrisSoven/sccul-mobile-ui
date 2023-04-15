@@ -66,7 +66,7 @@ export default function SectionSurvey(props) {
           <Icon name="lock-outline" type="material-community" />
         )}
         <Text style={styles.survey}>{
-          userAnswers.length > 0 ? "Encuesta completada" : "Contestar encuesta"
+          userAnswers.length > 0 ? "Encuesta completada" : "Encuesta"
         }</Text>
       </TouchableOpacity>
     </View>

@@ -1,12 +1,28 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Colors from "../../utils/Colors";
 import { Icon } from "react-native-elements";
 
 export default function Sections(props) {
-  const { sections, disable = true, onSectionPress } = props;
-  const [selectedSection, setSelectedSection] = useState(disable ? 0 : 1);
+  const {
+    sections,
+    disable = true,
+    onSectionPress,
+    continueVideo,
+    isCourseScreen,
+  } = props;
+  const [selectedSection, setSelectedSection] = useState(0);
+
+  console.log(continueVideo);
+  console.log("selectedSection", selectedSection);
+
+  useEffect(() => {
+    if (!isCourseScreen && sections.length > 0) {
+      setSelectedSection(sections[continueVideo].id);
+      onSectionPress(continueVideo);
+    }
+  }, [continueVideo]);
 
   sections.sort((a, b) => a.number - b.number);
 
@@ -22,7 +38,12 @@ export default function Sections(props) {
       {sections.map((section) => (
         <TouchableOpacity
           key={section.id}
-          style={[styles.container, selectedSection === section.id ? { height: 40, marginHorizontal: 0 } : {}]}
+          style={[
+            styles.container,
+            selectedSection === section.id
+              ? { height: 40, marginHorizontal: 0 }
+              : {},
+          ]}
           onPress={() => {
             handlePress(section.id);
             setSelectedSection(section.id);

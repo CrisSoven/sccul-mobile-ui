@@ -36,6 +36,7 @@ export default function CourseSurvey(props) {
 
   const handleSubmit = async (values) => {
     const data = await saveAnswers(questions, values.answers, courseId);
+    navigation.navigate("CourseDetail", { course });
   };
 
   const handleCloseSurvey = () => {
@@ -72,6 +73,7 @@ export default function CourseSurvey(props) {
                 errors={errors}
                 values={values}
                 setFieldValue={setFieldValue}
+                isSurveyCompleted={isSurveyCompleted}
               />
             </View>
             <View style={styles.containerBtn}>
@@ -104,7 +106,9 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginTop: 20,
-    marginHorizontal: 20,
+    marginBottom: 10,
+    marginHorizontal: 10,
+    textAlign: "center",
   },
   sendButton: {
     width: "60%",

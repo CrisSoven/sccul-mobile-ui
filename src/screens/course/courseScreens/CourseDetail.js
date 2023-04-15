@@ -18,6 +18,7 @@ export default function CourseScreen(props) {
   const [resumenVideo, setResumenVideo] = useState(0);
   const [videosWatchedCount, setVideosWatchedCount] = useState(0);
   const [percentage, setPercentage] = useState(null);
+  const [continueVideo, setContinueVideo] = useState(0);
 
   useEffect(() => {
     const fetchCourse = async () => {
@@ -39,6 +40,21 @@ export default function CourseScreen(props) {
         .filter((section) => section !== "")
         .map((section) => parseInt(section));
 
+      const videoMissed = course.sections.filter(
+        (section) => !percentage?.includes(section.id)
+      );
+
+      if (videoMissed.length > 0) {
+        const videoMissedPosition = course.sections.findIndex(
+          (section) => section.id === videoMissed[0].id
+        );
+        setContinueVideo(videoMissedPosition);
+      } else {
+        const firstVideoPosition = course.sections.findIndex(
+          (section) => section.id === course.sections[0].id
+        );
+        setContinueVideo(firstVideoPosition);
+      }
 
       setVideosWatchedCount(sectionWatchedId.length);
     }
@@ -56,6 +72,10 @@ export default function CourseScreen(props) {
   const handleSectionPress = (sectionId) => {
     setResumenVideo(sectionId);
   };
+
+  // const reloadCourses = async () => {
+  //   await getCourseById(course.id);
+  // };
 
   const allVideosWatched = videosWatchedCount === course.sections.length;
 
@@ -75,7 +95,11 @@ export default function CourseScreen(props) {
           onPlaybackStatusUpdate={(status) => setStatus(() => status)}
         />
       </View>
+      <Text style={styles.nameSection}>
+        {course.sections[resumenVideo].name}
+      </Text>
       <ContentComponent
+        continueVideo={continueVideo}
         course={course}
         disable={false}
         onSectionPress={handleSectionPress}
@@ -102,5 +126,11 @@ const styles = StyleSheet.create({
   video: {
     height: "100%",
     borderRadius: 20,
+  },
+  nameSection: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 10,
+    textAlign: "center",
   },
 });

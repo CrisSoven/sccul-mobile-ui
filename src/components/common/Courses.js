@@ -7,7 +7,7 @@ import { Rating } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import Colors from "../../utils/Colors";
 
-export default function Courses({ courses, courseSwipe }) {
+export default function Courses({ courses, courseSwipe, isHomeCourse }) {
   const navigation = useNavigation();
   const onPressHandler = (courseId) => navigation.navigate("CoursesDetailsScreen", { courseId: courseId });
 
@@ -17,6 +17,7 @@ export default function Courses({ courses, courseSwipe }) {
       activeOpacity={0.8}
       style={styles.container}
       onPress={() => onPressHandler(course.id)}
+      disabled={isHomeCourse}
     >
       <View style={styles.imageContainer}>
         <Image

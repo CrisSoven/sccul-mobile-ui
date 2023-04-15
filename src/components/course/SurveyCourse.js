@@ -13,6 +13,7 @@ export default function SurveyCourse(props) {
     errors,
     values,
     setFieldValue,
+    isSurveyCompleted,
   } = props;
 
   const handlePress = (questionIndex, answerIndex, setFieldValue) => {
@@ -48,6 +49,7 @@ export default function SurveyCourse(props) {
                   values.answers[index]?.answer === 0 && styles.selectedButton,
                 ]}
                 onPress={() => handlePress(index, 0, setFieldValue)}
+                disabled={isSurveyCompleted}
               >
                 <Text
                   style={[
@@ -65,6 +67,7 @@ export default function SurveyCourse(props) {
                   values.answers[index]?.answer === 1 && styles.selectedButton,
                 ]}
                 onPress={() => handlePress(index, 1, setFieldValue)}
+                disabled={isSurveyCompleted}
               >
                 <Text
                   style={[
@@ -82,6 +85,7 @@ export default function SurveyCourse(props) {
                   values.answers[index]?.answer === 2 && styles.selectedButton,
                 ]}
                 onPress={() => handlePress(index, 2, setFieldValue)}
+                disabled={isSurveyCompleted}
               >
                 <Text
                   style={[
@@ -101,6 +105,7 @@ export default function SurveyCourse(props) {
                   values.answers[index]?.answer === 3 && styles.selectedButton,
                 ]}
                 onPress={() => handlePress(index, 3, setFieldValue)}
+                disabled={isSurveyCompleted}
               >
                 <Text
                   style={[
@@ -118,6 +123,7 @@ export default function SurveyCourse(props) {
                   values.answers[index]?.answer === 4 && styles.selectedButton,
                 ]}
                 onPress={() => handlePress(index, 4, setFieldValue)}
+                disabled={isSurveyCompleted}
               >
                 <Text
                   style={[
