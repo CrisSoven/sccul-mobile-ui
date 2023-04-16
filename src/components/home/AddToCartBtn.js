@@ -14,7 +14,7 @@ export default function AddToCartBtn({ addCourse }) {
   const renderToast = (type, message, text, inCourse) => {
     Toast.show({
       type: type,
-      position: "bottom",
+      position: "top",
       text1: message,
       text2: text ? text : "Presiona aquí para verlo en tu carrito",
       visibilityTime: 5000,

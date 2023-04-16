@@ -58,7 +58,7 @@ export default function CourseScreen({ route }) {
 									title={course.name}
 									duration={course.sections}
 									progress={
-										course.inscriptions[0].full_percentage
+                    course.inscriptions[0].fullPercentage
 									}
 									image={course.image}
 								/>

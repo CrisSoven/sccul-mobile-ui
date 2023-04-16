@@ -7,6 +7,8 @@ import { Icon } from 'react-native-elements'
 import { deleteInscription } from '../../utils/Axios'
 
 export default function SwipeableComponent({ courses, onReload }) {
+  const [isHomeCourse, setIsHomeCourse] = useState(true);
+
   const SwipeDelete = async (courseId) => {
     const courseToDelete = courses.find(course => course.id === courseId);
     if (courseToDelete) {
@@ -41,7 +43,7 @@ export default function SwipeableComponent({ courses, onReload }) {
             onSwipeableOpen={() => SwipeDelete(courseSwipe.id)}
           >
             <View style={styles.container}>
-              <Courses courseSwipe={courseSwipe} />
+              <Courses courseSwipe={courseSwipe} isHomeCourse={isHomeCourse}/>
             </View>
           </Swipeable>
         ))
