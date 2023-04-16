@@ -125,7 +125,7 @@ export default function CoursesDetailsScreen({ route }) {
 			// Alert.alert(`Error code: ${error.code}`, error.message);
 		} else {
 			try {
-				const { data, error: errorBuy } = hasInscriptionCourse
+				const { error: errorBuy } = hasInscriptionCourse
 					? await buyCourseByCart(userInscription)
 					: await buyCourse(course.id, user);
 
