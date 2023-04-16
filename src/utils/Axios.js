@@ -2,7 +2,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
-const baseUrl = 'http:/192.168.229.120:8080';
+const baseUrl = 'http:/192.168.1.76:8080';
 // let token =
 //   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
 //cris@gmail.com
@@ -645,7 +645,6 @@ export const buyCourses = async (courses, userId) => {
 };
 
 export const saveAnswers = async (questions, answers, courseId) => {
-
 	const answersArr = [
 		{
 			question: {
@@ -707,11 +706,9 @@ export const saveAnswers = async (questions, answers, courseId) => {
 			},
 			answer: answers[9].answer + 1,
 		},
-	]
+	];
 
 	try {
-
-
 		const response = await axios.post(
 			`${baseUrl}/api/user_answers/saveAll`,
 			{
@@ -729,10 +726,6 @@ export const saveAnswers = async (questions, answers, courseId) => {
 				},
 			}
 		);
-
-		
-
-		
 
 		return response.data;
 	} catch (error) {

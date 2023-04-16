@@ -44,6 +44,7 @@
     android:usesCleartextTraffic="true"
     android:windowSoftInputMode="adjustResize"
     android:theme="@style/Theme.App.SplashScreen"
+    android:screenOrientation="portrait"
     android:exported="true">
 
       <intent-filter>

@@ -1,6 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React, { useState, useEffect } from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
+import {
+	StyleSheet,
+	Text,
+	View,
+	RefreshControl,
+	ScrollView,
+} from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
 import SearchBar from '../../components/common/SearchBar';
 import FilterCourse from '../../components/course/FilterCourse';
 import Courses from '../../components/course/Courses';
@@ -13,12 +18,14 @@ export default function CourseScreen({ route }) {
 
 	const [courses, setCourses] = useState(null);
 	const [inputText, setInputText] = useState('');
+	const [refreshing, setRefreshing] = useState(false);
+
+	const fetchCourses = async () => {
+		const fetchedCourses = await getBoughtCourses();
+		setCourses(fetchedCourses);
+	};
 
 	useEffect(() => {
-		const fetchCourses = async () => {
-			const fetchedCourses = await getBoughtCourses();
-			setCourses(fetchedCourses);
-		};
 		fetchCourses();
 	}, []);
 
@@ -32,10 +39,21 @@ export default function CourseScreen({ route }) {
 		});
 	};
 
+	const onRefresh = useCallback(async () => {
+		setRefreshing(true);
+		await fetchCourses();
+		setRefreshing(false);
+	}, []);
+
 	return courses === null ? (
 		<Splash />
 	) : (
-		<>
+		<ScrollView
+			showsVerticalScrollIndicator={false}
+			refreshControl={
+				<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+			}
+		>
 			<View style={styles.content}>
 				<Text style={styles.title}>Mis cursos</Text>
 			</View>
@@ -49,25 +67,22 @@ export default function CourseScreen({ route }) {
 			) : (
 				<>
 					<FilterCourse />
-					<ScrollView showsVerticalScrollIndicator={false}>
-						<View style={styles.container}>
-							{listOfCourses().map((course) => (
-								<Courses
-									key={course.id}
-									course={course}
-									title={course.name}
-									duration={course.sections}
-									progress={
-                    course.inscriptions[0].fullPercentage
-									}
-									image={course.image}
-								/>
-							))}
-						</View>
-					</ScrollView>
+
+					<View style={styles.container}>
+						{listOfCourses().map((course) => (
+							<Courses
+								key={course.id}
+								course={course}
+								title={course.name}
+								duration={course.sections}
+								progress={course.inscriptions[0].fullPercentage}
+								image={course.image}
+							/>
+						))}
+					</View>
 				</>
 			)}
-		</>
+		</ScrollView>
 	);
 }
 

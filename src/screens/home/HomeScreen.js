@@ -1,5 +1,11 @@
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import {
+	StyleSheet,
+	Text,
+	View,
+	ScrollView,
+	RefreshControl,
+} from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
 import SearchBar from '../../components/common/SearchBar';
 import Banner from '../../components/home/Banner';
 import ScrollViewCategories from '../../components/home/ScrollViewCategories';
@@ -12,14 +18,26 @@ export default function HomeScreen() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [inputText, setInputText] = useState('');
 
+	const [refreshing, setRefreshing] = useState(false);
+
+	const fetchCourses = async () => {
+		setIsLoading(true);
+		const fetchedCourses = await getCourses();
+		const filteredCourses = fetchedCourses.filter(
+			(course) => course.status === 1
+		);
+		setCourses(filteredCourses);
+		setIsLoading(false);
+	};
+
 	useEffect(() => {
-		const fetchCourses = async () => {
-			setIsLoading(true);
-			const fetchedCourses = await getCourses();
-			setCourses(fetchedCourses);
-			setIsLoading(false);
-		};
 		fetchCourses();
+	}, []);
+
+	const onRefresh = useCallback(async () => {
+		setRefreshing(true);
+		await fetchCourses();
+		setRefreshing(false);
 	}, []);
 
 	const listOfCourses = () => {
@@ -32,12 +50,17 @@ export default function HomeScreen() {
 		});
 	};
 
-	if (isLoading) {
+	if (isLoading && !refreshing) {
 		return <SplashScreen />;
 	}
 
 	return (
-		<ScrollView showsVerticalScrollIndicator={false}>
+		<ScrollView
+			showsVerticalScrollIndicator={false}
+			refreshControl={
+				<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+			}
+		>
 			<View style={styles.container}>
 				<SearchBar setInputValue={setInputText} value={inputText} />
 				<Banner />
