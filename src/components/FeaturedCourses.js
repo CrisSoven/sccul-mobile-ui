@@ -24,9 +24,6 @@ export default function FeaturedCourses({ courses }) {
 
   return (
     <>
-      <View style={styles.tituloContainer}>
-        <Text style={styles.titleFeatured}>Todos los cursos</Text>
-      </View>
       <View style={styles.listContainer}>
         <Courses courses={courses} />
       </View>

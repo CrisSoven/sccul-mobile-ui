@@ -16,9 +16,11 @@ export default function FeedbackComponent({ courseId }) {
   const [comment, setComment] = useState('');
   const [sent, setSent] = useState(null);
   const [showModal, setShowModal] = useState(false);
+
   const handleShowModal = () => setShowModal(true);
   const onClose = () => setShowModal((prevState) => !prevState);
   const handleSent = () => setSent(true);
+
   useEffect(() => {
     const fetchCourse = async () => {
       const fetchedCourse = await getCourseById(courseId);
@@ -32,6 +34,7 @@ export default function FeedbackComponent({ courseId }) {
     };
     fetchCourse();
   }, [showModal]);
+
   const formik = useFormik({
     initialValues: {
       comment: comment,
@@ -121,7 +124,7 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 30,
+    marginTop: 25,
   },
   title: {
     fontSize: 20,

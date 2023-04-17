@@ -44,7 +44,7 @@ export default function LoginForm() {
         response
           ? Toast.show({
             type: "success",
-            position: "bottom",
+            position: "top",
             text1: `¡Bienvenido de nuevo ${response}!`,
             text2: "Cargando recursos...",
             visibilityTime: 5000,
@@ -54,7 +54,7 @@ export default function LoginForm() {
         console.log(error);
         Toast.show({
           type: "error",
-          position: "bottom",
+          position: "top",
           text1: "Correo o contraseña incorrectos",
           visibilityTime: 5000,
           bottomOffset: 80,
@@ -99,9 +99,7 @@ export default function LoginForm() {
       <View style={{ alignItems: "center" }}>
         <Text style={{ marginTop: 10 }}>
           ¿Olvidaste tu contraseña?
-          <Text style={styles.registerNow} onPress={navigateRes}>
-            Cambiala aquí
-          </Text>
+          <Text style={styles.registerNow} onPress={navigateRes}> Cambiala aquí</Text>
         </Text>
       </View>
     </View>
