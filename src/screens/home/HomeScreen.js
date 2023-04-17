@@ -17,7 +17,6 @@ export default function HomeScreen() {
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [inputText, setInputText] = useState("");
-
   const [refreshing, setRefreshing] = useState(false);
 
   const fetchCourses = async () => {
@@ -54,6 +53,10 @@ export default function HomeScreen() {
     return <SplashScreen />;
   }
 
+  if (isLoading && refreshing) {
+    return <SplashScreen />;
+  }
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -66,6 +69,9 @@ export default function HomeScreen() {
         <ScrollViewCategories />
         <View style={styles.info}>
           <SearchBar setInputValue={setInputText} value={inputText} />
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>Todos los cursos</Text>
+          </View>
           <FeaturedCourses courses={listOfCourses()} />
         </View>
       </View>
@@ -74,6 +80,18 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
+  titleContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginHorizontal: "4%",
+    marginTop: "5%",
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: "5%",
+  },
   container: {
     flex: 1,
     marginTop: 10,

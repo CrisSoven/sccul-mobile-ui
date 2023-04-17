@@ -1,8 +1,8 @@
-import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import CourseDetail from '../screens/course/courseScreens/CourseDetail';
-import CourseSuvery from '../screens/course/courseScreens/CourseSuvery';
-import CourseScreen from '../screens/course/CourseScreen';
+import React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
+import CourseDetail from "../screens/course/courseScreens/CourseDetail";
+import CourseSuvery from "../screens/course/courseScreens/CourseSuvery";
+import CourseScreen from "../screens/course/CourseScreen";
 
 const Stack = createStackNavigator();
 
@@ -13,9 +13,13 @@ export default function CourseStack() {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Course" component={CourseScreen} initialParams={{ filter: 'todos' }} />
+      <Stack.Screen
+        name="Course"
+        component={CourseScreen}
+        initialParams={{ filter: "Todos" }}
+      />
       <Stack.Screen name="CourseDetail" component={CourseDetail} />
-      <Stack.Screen name='Survey' component={CourseSuvery} />
+      <Stack.Screen name="Survey" component={CourseSuvery} />
     </Stack.Navigator>
-  )
+  );
 }

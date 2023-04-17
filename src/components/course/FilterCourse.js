@@ -8,13 +8,22 @@ export default function FilterCourse() {
   const [filter, setFilter] = useState("Todos");
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.content} onPress={() => navigation.navigate('Course', {filter})}>
+      <TouchableOpacity
+        style={styles.content}
+        onPress={() => navigation.navigate("Course", { filter })}
+      >
         <Text style={styles.text}>Todos</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.content}>
+      <TouchableOpacity
+        style={styles.content}
+        onPress={() => navigation.navigate("Course", { filter: "En progreso" })}
+      >
         <Text style={styles.text}>En progreso</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.content}>
+      <TouchableOpacity
+        style={styles.content}
+        onPress={() => navigation.navigate("Course", { filter: "Finalizados" })}
+      >
         <Text style={styles.text}>Finalizados</Text>
       </TouchableOpacity>
     </View>
@@ -42,4 +51,4 @@ const styles = StyleSheet.create({
     fontSize: 13,
     paddingHorizontal: 20,
   },
-})
+});

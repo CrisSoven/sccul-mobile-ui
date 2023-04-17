@@ -32,18 +32,6 @@ export default function FeaturedCourses({ courses }) {
 }
 
 const styles = StyleSheet.create({
-  tituloContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginHorizontal: "4%",
-    marginTop: "5%",
-  },
-  titleFeatured: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: "5%",
-  },
   listContainer: {
     marginHorizontal: "4%",
   },

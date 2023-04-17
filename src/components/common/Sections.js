@@ -14,8 +14,8 @@ export default function Sections(props) {
   } = props;
   const [selectedSection, setSelectedSection] = useState(0);
 
-  console.log(continueVideo);
-  console.log("selectedSection", selectedSection);
+  // console.log(continueVideo);
+  // console.log("selectedSection", selectedSection);
 
   useEffect(() => {
     if (!isCourseScreen && sections.length > 0) {
