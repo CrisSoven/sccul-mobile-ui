@@ -73,6 +73,7 @@ export default function LoginForm() {
         keyboardType='email-address'
         onChangeText={(text) => formik.setFieldValue('email', text)}
         errorMessage={formik.errors.email}
+        
       />
       <Input
         label='Contraseña'

@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { getUserAnswers } from "../../utils/getUserAnswers";
 import { getUser } from "../../utils/Axios";
 
-export default function SectionSurvey({ navigation, course, disableSurvey, disable=true }) {
+export default function SectionSurvey({ navigation, course, disableSurvey, disable=true, reload, setReload }) {
   const [userAnswers, setUserAnswers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [initialValues, setInitialValues] = useState({
@@ -38,7 +38,7 @@ export default function SectionSurvey({ navigation, course, disableSurvey, disab
       setIsLoading(false);
     };
     getAnswers();
-  }, []);
+  }, [reload]);
 
 
   if (isLoading) {
@@ -53,7 +53,7 @@ export default function SectionSurvey({ navigation, course, disableSurvey, disab
     <View>
       <TouchableOpacity
         style={styles.container}
-        onPress={() => navigation.navigate("Survey", { course, initialValues, isSurveyCompleted: userAnswers.length > 0 })}
+        onPress={() => navigation.navigate("Survey", { course, setReload, initialValues, isSurveyCompleted: userAnswers.length > 0 })}
         {...(disableSurvey ? null : { disabled: true })}
       >
         <Text style={[styles.punto, disable ? {opacity: 0.2} : {}]}>•</Text>

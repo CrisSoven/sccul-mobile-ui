@@ -20,7 +20,7 @@ export default function CourseSurvey(props) {
   // console.log("answers", answers);
   // console.log("questions", questions);
 
-  const { course, initialValues, isSurveyCompleted } = props.route.params;
+  const { course, initialValues, isSurveyCompleted, setReload } = props.route.params;
   const courseId = course.id;
 
   const validationSchema = Yup.object({
@@ -36,6 +36,7 @@ export default function CourseSurvey(props) {
 
   const handleSubmit = async (values) => {
     const data = await saveAnswers(questions, values.answers, courseId);
+    setReload((prevState) => !prevState);
     navigation.navigate("CourseDetail", { course });
   };
 
