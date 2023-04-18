@@ -1,11 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  RefreshControl,
-  ScrollView,
-} from "react-native";
+import { View, StyleSheet, Text, RefreshControl, ScrollView } from "react-native";
 import { Video } from "expo-av";
 import Goback from "../../../components/common/Goback";
 import ContentComponent from "../../../components/common/ContentComponent";

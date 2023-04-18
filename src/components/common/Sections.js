@@ -4,18 +4,8 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import Colors from "../../utils/Colors";
 import { Icon } from "react-native-elements";
 
-export default function Sections(props) {
-  const {
-    sections,
-    disable = true,
-    onSectionPress,
-    continueVideo,
-    isCourseScreen,
-  } = props;
-  const [selectedSection, setSelectedSection] = useState(0);
-
-  // console.log(continueVideo);
-  // console.log("selectedSection", selectedSection);
+export default function Sections({ sections, disable = true, onSectionPress, continueVideo, isCourseScreen }) {
+  const [selectedSection, setSelectedSection] = useState(disable ? 0 : 1);
 
   useEffect(() => {
     if (!isCourseScreen && sections.length > 0) {
@@ -38,6 +28,7 @@ export default function Sections(props) {
       {sections.map((section) => (
         <TouchableOpacity
           key={section.id}
+          activeOpacity={0.8}
           style={[
             styles.container,
             selectedSection === section.id
@@ -52,7 +43,8 @@ export default function Sections(props) {
         >
           <Text
             style={[
-              styles.infoVideo,
+              disable ? [styles.infoVideo, { opacity: 0.5 }] :
+                styles.infoVideo,
               selectedSection === section.id ? { fontWeight: "bold" } : {},
             ]}
           >{`${section.number}.`}</Text>
@@ -63,10 +55,12 @@ export default function Sections(props) {
                 : "play-circle-outline"
             }
             type="material-community"
+            color={disable ? Colors.PalleteGray : Colors.PalleteBlack}
           />
           <Text
             style={[
-              styles.title,
+              disable ? [styles.title, { opacity: 0.5 }] :
+                styles.title,
               selectedSection === section.id ? { fontWeight: "bold" } : {},
             ]}
             numberOfLines={1}
@@ -75,7 +69,8 @@ export default function Sections(props) {
           </Text>
           <Text
             style={[
-              styles.infoVideo,
+              disable ? [styles.infoVideo, { opacity: 0.5 }] :
+                styles.infoVideo,
               selectedSection === section.id ? { fontWeight: "bold" } : {},
             ]}
           >

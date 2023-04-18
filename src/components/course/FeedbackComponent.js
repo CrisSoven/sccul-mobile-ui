@@ -68,8 +68,8 @@ export default function FeedbackComponent({ courseId }) {
               imageSize={40}
               startingValue={rating}
               onFinishRating={handleRating}
-              minValue={0.5}
-              jumpValue={0.5}
+              minValue={1}
+              jumpValue={1}
               fractions={1}
             // showRating={true}
             />

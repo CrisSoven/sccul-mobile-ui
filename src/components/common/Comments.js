@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
-import Colors from "../../utils/Colors";
-import { Avatar, Rating } from "react-native-elements";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { useNavigation } from "@react-navigation/native";
+import React from 'react'
+import Colors from '../../utils/Colors'
+import { StyleSheet, Text, View } from 'react-native'
+import { Avatar, Rating } from 'react-native-elements'
+import { useNavigation } from '@react-navigation/native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 export default function Comments({ comments, rating, sent }) {
   const navigation = useNavigation();
@@ -11,7 +11,7 @@ export default function Comments({ comments, rating, sent }) {
     <>
       <Text style={styles.title}>
         {sent
-          ? "Tu calificación del curso"
+          ? 'Tu calificación del curso'
           : `Comentarios (${comments.length})`}
       </Text>
       {comments.map((comment) => (
@@ -22,8 +22,8 @@ export default function Comments({ comments, rating, sent }) {
           onPress={
             sent
               ? () =>
-                  navigation.navigate("HomeStack", {
-                    screen: "HomeS",
+                  navigation.navigate('HomeStack', {
+                    screen: 'HomeS',
                   })
               : () => {}
           }
@@ -42,10 +42,10 @@ export default function Comments({ comments, rating, sent }) {
           <View style={styles.infoContainer}>
             <View style={styles.commentHeader}>
               <Text style={styles.name} numberOfLines={1}>
-                {comment.user.name + " " + comment.user.lastname}
+                {comment.user.name + ' ' + comment.user.lastname}
               </Text>
               <Text style={styles.createdAt}>
-                {comment.created_at.split(" ")[0]}
+                {comment.created_at.split(' ')[0]}
               </Text>
               {rating.map(
                 (score) =>
@@ -69,28 +69,28 @@ export default function Comments({ comments, rating, sent }) {
 
 const styles = StyleSheet.create({
   content: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginVertical: 20,
-    alignItems: "center",
+    alignItems: 'center',
   },
   title: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 24,
     marginTop: 20,
   },
   infoContainer: {
     flex: 1,
     marginLeft: 10,
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
   },
   commentHeader: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
   },
   name: {
     flex: 1,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   createdAt: {
     opacity: 0.5,

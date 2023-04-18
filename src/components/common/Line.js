@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   lineStyle: {
     borderBottomColor: Colors.PalleteGray,
     borderBottomWidth: 1,
-    marginTop: 25,
+    marginVertical: 10,
     marginHorizontal: 10,
   },
 });

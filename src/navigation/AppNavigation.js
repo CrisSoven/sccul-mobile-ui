@@ -87,14 +87,13 @@ export default function AppNavigation() {
 	);
 }
 
-const icon =
-	(iconName) =>
+const icon = (iconName) =>
 	({ focused }) =>
-		(
-			<Icon
-				name={iconName}
-				type='material-community'
-				color={focused ? Colors.PalleteBlack : Colors.PalleteGray}
-				size={28}
-			/>
-		);
+	(
+		<Icon
+			name={iconName}
+			type='material-community'
+			color={focused ? Colors.PalleteBlack : Colors.PalleteGray}
+			size={28}
+		/>
+	);

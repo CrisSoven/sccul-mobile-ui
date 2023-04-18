@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
-import BannerProfileComponent from '../../components/profile/BannerProfileComponent';
-import Line from '../../components/common/Line';
-import TitleBtnComponent from '../../components/profile/TitleBtnComponent';
-import PersonalInfoComponent from '../../components/profile/PersonalInfoFormComponent';
 import { getUserInfo } from '../../utils/Axios';
 import Splash from '../../screens/sccul/SplashScreen';
+import { StyleSheet, ScrollView } from 'react-native';
 import { AuthContext } from '../../context/auth/authContext';
+import React, { useState, useEffect, useContext } from 'react';
+import TitleBtnComponent from '../../components/profile/TitleBtnComponent';
+import BannerProfileComponent from '../../components/profile/BannerProfileComponent';
+import PersonalInfoComponent from '../../components/profile/PersonalInfoFormComponent';
 
 export default function ProfileScreen() {
   const { logout } = useContext(AuthContext);
