@@ -19,10 +19,13 @@ export default function CourseScreen({ route }) {
   const [courses, setCourses] = useState(null);
   const [inputText, setInputText] = useState("");
   const [refreshing, setRefreshing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchCourses = async () => {
+    setIsLoading(true);
     const fetchedCourses = await getBoughtCourses();
     setCourses(fetchedCourses);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -45,6 +48,14 @@ export default function CourseScreen({ route }) {
     setRefreshing(false);
   }, []);
 
+  if (isLoading && !refreshing) {
+    return <Splash />;
+  }
+
+  if (isLoading && refreshing) {
+    return <Splash />;
+  }
+
   return courses === null ? (
     <Splash />
   ) : (
@@ -66,8 +77,7 @@ export default function CourseScreen({ route }) {
         />
       ) : (
         <>
-          <FilterCourse />
-
+          {/* <FilterCourse /> */}
           <View style={styles.container}>
             {listOfCourses().map((course) => (
               <Courses
@@ -100,5 +110,6 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-between",
     paddingHorizontal: 20,
+    marginTop: 20,
   },
 });

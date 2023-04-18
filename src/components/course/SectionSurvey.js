@@ -50,7 +50,7 @@ export default function SectionSurvey(props) {
     );
   }
 
-  console.log(userAnswers.length > 0);
+  // console.log(userAnswers.length > 0);
 
   return (
     <View>

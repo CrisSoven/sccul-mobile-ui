@@ -48,6 +48,10 @@ export default function HomeScreen() {
     return <SplashScreen />;
   }
 
+  if (isLoading && refreshing) {
+    return <SplashScreen />;
+  }
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -68,6 +72,18 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
+  titleContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginHorizontal: "4%",
+    marginTop: "5%",
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: "5%",
+  },
   container: {
     flex: 1,
     marginTop: 10,

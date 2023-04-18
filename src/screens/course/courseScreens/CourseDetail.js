@@ -24,7 +24,6 @@ export default function CourseScreen(props) {
   const [videosWatchedCount, setVideosWatchedCount] = useState(0);
   const [percentage, setPercentage] = useState(null);
   const [continueVideo, setContinueVideo] = useState(0);
-
   const [refreshing, setRefreshing] = useState(false);
 
   const fetchCourse = async () => {
@@ -86,10 +85,6 @@ export default function CourseScreen(props) {
     await fetchCourse();
     setRefreshing(false);
   }, []);
-
-  // const reloadCourses = async () => {
-  //   await getCourseById(course.id);
-  // };
 
   const allVideosWatched = videosWatchedCount === course.sections.length;
 
