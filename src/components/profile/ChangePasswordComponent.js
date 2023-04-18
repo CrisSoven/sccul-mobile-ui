@@ -45,10 +45,10 @@ export default function ChangePasswordComponent({ onClose }) {
         if (isPasswordValid.error) {
           Toast.show({
             type: 'error',
-            position: 'bottom',
+            position: 'top',
             text1: 'La contraseña actual es incorrecta',
-            visibilityTime: 1500,
-            bottomOffset: 80,
+            visibilityTime: 5000,
+            topOffset: 100,
           });
           onClose();
           setIsLoading(false);
@@ -59,20 +59,20 @@ export default function ChangePasswordComponent({ onClose }) {
         console.log('Respuesta del servicio changePassword  :', response);
         Toast.show({
           type: 'info',
-          position: 'bottom',
+          position: 'top',
           text1: 'Tu contraseña ha sido actualizada',
-          visibilityTime: 1500,
-          bottomOffset: 80,
+          visibilityTime: 5000,
+          topOffset: 100,
         });
         onClose();
       } catch (error) {
         console.log('Error:', error);
         Toast.show({
           type: 'error',
-          position: 'bottom',
+          position: 'top',
           text1: 'Ha ocurrido un error, inténtalo de nuevo',
-          visibilityTime: 1500,
-          bottomOffset: 80,
+          visibilityTime: 5000,
+          topOffset: 100,
         });
       }
       setIsLoading(false);

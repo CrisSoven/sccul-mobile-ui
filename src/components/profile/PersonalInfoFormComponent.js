@@ -10,6 +10,7 @@ import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import TitleBtnComponent from '../../components/profile/TitleBtnComponent';
 import ChangePasswordScreen from '../../screens/profile/profileScreens/ChangePasswordScreen';
+import Line from '../common/Line';
 
 export default function PersonalInfoFormComponent(props) {
   const { user, onReload } = props;
@@ -68,25 +69,23 @@ export default function PersonalInfoFormComponent(props) {
           formData.phoneNumber,
           formData.email
         );
-        console.log(updatedUser);
         saveToken(updatedUser);
         setDisabled(true);
         onReload();
         Toast.show({
           type: 'info',
-          position: 'bottom',
+          position: 'top',
           text1: 'Tu información ha sido actualizada',
-          visibilityTime: 1500,
-          bottomOffset: 80,
+          visibilityTime: 5000,
+          topOffset: 100,
         });
       } catch (error) {
-        console.log(error);
         Toast.show({
           type: 'error',
-          position: 'bottom',
+          position: 'top',
           text1: 'Ha ocurrido un error, inténtalo de nuevo',
-          visibilityTime: 1500,
-          bottomOffset: 80,
+          visibilityTime: 5000,
+          topOffset: 100,
         });
       }
       setIsLoading(false);
@@ -176,6 +175,7 @@ export default function PersonalInfoFormComponent(props) {
           keyboardType='email-address'
           shouldUpdate={false}
         />
+        <Line />
       </View>
       <TouchableOpacity
         style={[styles.row, { marginBottom: 10 }]}
@@ -195,10 +195,10 @@ export default function PersonalInfoFormComponent(props) {
 const styles = StyleSheet.create({
   container: {
     marginVertical: 10,
+    paddingHorizontal: 15,
   },
   content: {
     flex: 1,
-    paddingHorizontal: 10,
     justifyContent: 'center',
     marginBottom: 10,
   },

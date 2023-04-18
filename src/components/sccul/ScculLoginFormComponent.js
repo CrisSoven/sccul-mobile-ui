@@ -43,7 +43,7 @@ export default function LoginForm() {
           ? Toast.show({
             type: 'success',
             position: 'top',
-            text1: `¡Bienvenido de nuevo ${response}!`,
+            text1: `¡Que gusto verte ${response}!`,
             text2: 'Cargando recursos...',
             visibilityTime: 5000,
             topOffset: 100,
@@ -73,6 +73,7 @@ export default function LoginForm() {
         keyboardType='email-address'
         onChangeText={(text) => formik.setFieldValue('email', text)}
         errorMessage={formik.errors.email}
+        
       />
       <Input
         label='Contraseña'

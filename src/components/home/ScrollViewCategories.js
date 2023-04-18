@@ -27,6 +27,7 @@ export default function ScrollViewCategories() {
           categories.map((category) => (
             <TouchableOpacity
               key={category.id}
+              activeOpacity={0.6}
               style={styles.container}
               onPress={() => handleNavigateCategory(category)}
             >
@@ -42,6 +43,7 @@ export default function ScrollViewCategories() {
 const styles = StyleSheet.create({
   viewContainer: {
     marginHorizontal: 20,
+    marginVertical: 10,
   },
   container: {
     height: 55,

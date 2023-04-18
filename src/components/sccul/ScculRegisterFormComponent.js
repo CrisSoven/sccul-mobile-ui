@@ -53,17 +53,21 @@ export default function LoginForm() {
         const registed = await registerUser(names, lastname, surname, cellphone, email, password);
         registed ? (
           Toast.show({
-            position: 'bottom',
             type: 'success',
+            position: 'top',
             text1: 'Usuario registrado correctamente',
             text2: 'Inicia sesión para continuar',
+            visibilityTime: 5000,
+            topOffset: 100,
           }),
           navigation.navigate('Logins')
         ) :
           Toast.show({
-            position: 'bottom',
-            type: 'error',
+            type: 'success',
+            position: 'top',
             text1: 'Correo eletrónico o teléfono ya registrado',
+            visibilityTime: 5000,
+            topOffset: 100,
           });
       }
       catch (error) {
@@ -123,6 +127,7 @@ export default function LoginForm() {
         placeholder='correo@ejemplo.com'
         iconName='email-outline'
         iconType='material-community'
+        keyboardType='email-address'
         onChangeText={(text) => formik.setFieldValue('email', text)}
         errorMessage={formik.errors.email}
       />

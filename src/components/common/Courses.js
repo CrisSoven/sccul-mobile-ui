@@ -1,15 +1,13 @@
-//*
-import { StyleSheet, View } from "react-native";
-import React from "react";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { Image, Text } from "react-native-elements";
-import { Rating } from "react-native-elements";
-import { useNavigation } from "@react-navigation/native";
-import Colors from "../../utils/Colors";
+import React from 'react'
+import Colors from '../../utils/Colors'
+import { StyleSheet, View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import { Image, Text, Rating } from 'react-native-elements'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 export default function Courses({ courses, courseSwipe, isHomeCourse }) {
   const navigation = useNavigation();
-  const onPressHandler = (courseId) => navigation.navigate("CoursesDetailsScreen", { courseId: courseId });
+  const onPressHandler = (courseId) => navigation.navigate('CoursesDetailsScreen', { courseId: courseId });
 
   const renderCourse = (course) => (
     <TouchableOpacity
@@ -23,7 +21,7 @@ export default function Courses({ courses, courseSwipe, isHomeCourse }) {
         <Image
           source={{ uri: course.image }}
           style={styles.image}
-          resizeMode="cover"
+          resizeMode='cover'
         />
       </View>
       <View style={styles.infoContainer}>
@@ -32,14 +30,14 @@ export default function Courses({ courses, courseSwipe, isHomeCourse }) {
         </Text>
         <View>
           {course.discount > 0 && (
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: 'row' }}>
               <Text
                 style={{
                   ...styles.price,
                   color: Colors.PalletteRed,
-                  fontWeight: "bold",
+                  fontWeight: 'bold',
                   fontSize: 15,
-                  marginRight: "4%",
+                  marginRight: '4%',
                 }}
               >
                 ${parseFloat(course.price.toFixed(2))} MXN
@@ -48,8 +46,8 @@ export default function Courses({ courses, courseSwipe, isHomeCourse }) {
                 style={{
                   ...styles.price,
                   fontSize: 11.5,
-                  textDecorationLine: "line-through",
-                  marginTop: "1.5%",
+                  textDecorationLine: 'line-through',
+                  marginTop: '1.5%',
                 }}
               >
                 ${course.originalPrice} MXN
@@ -59,12 +57,12 @@ export default function Courses({ courses, courseSwipe, isHomeCourse }) {
           {(course.discount == 0 || course.discount == null) && (
             <Text style={styles.price}>${course.price} MXN</Text>
           )}
-          <View style={{ flexDirection: "row" }}>
+          <View style={{ flexDirection: 'row' }}>
             <Text style={styles.average}>
               {course.averageRatings ? course.averageRatings.toFixed(1) : 0}
             </Text>
             <Rating
-              startingValue={course.averageRatings ? Math.floor(course.averageRatings * 2)/2 : 0}
+              startingValue={course.averageRatings ? course.averageRatings : 0}
               fractions={1}
               imageSize={20}
               readonly
@@ -112,27 +110,27 @@ export default function Courses({ courses, courseSwipe, isHomeCourse }) {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
+    flexDirection: 'row',
     backgroundColor: Colors.PalleteGreenBackground,
     marginBottom: 10,
     borderRadius: 16,
     height: 110,
-    width: "100%",
+    width: '100%',
   },
   image: {
-    height: "100%",
-    width: "100%",
-    resizeMode: "cover",
+    height: '100%',
+    width: '100%',
+    resizeMode: 'cover',
   },
   infoContainer: {
     flex: 1,
-    marginHorizontal: "3%",
-    marginVertical: "2%",
-    justifyContent: "space-evenly",
+    marginHorizontal: '3%',
+    marginVertical: '2%',
+    justifyContent: 'space-evenly',
   },
   titleCourse: {
     fontSize: 15,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   price: {
     fontSize: 16,
@@ -143,8 +141,8 @@ const styles = StyleSheet.create({
     color: Colors.PalletteRed,
   },
   imageContainer: {
-    width: "45%",
+    width: '45%',
     borderRadius: 16,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
 });

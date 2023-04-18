@@ -3,8 +3,7 @@ import React from "react";
 import Colors from "../../utils/Colors";
 import Courses from "./ListCourses";
 
-export default function FilterCourses(props) {
-    const { courses } = props;
+export default function FilterCourses({ courses }) {
     console.log(courses);
   return (
     <View>

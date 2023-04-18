@@ -7,8 +7,7 @@ import { useEffect, useState } from "react";
 import { getUserAnswers } from "../../utils/getUserAnswers";
 import { getUser } from "../../utils/Axios";
 
-export default function SectionSurvey(props) {
-  const { navigation, course, disableSurvey } = props;
+export default function SectionSurvey({ navigation, course, disableSurvey, disable=true, reload, setReload }) {
   const [userAnswers, setUserAnswers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [initialValues, setInitialValues] = useState({
@@ -39,7 +38,7 @@ export default function SectionSurvey(props) {
       setIsLoading(false);
     };
     getAnswers();
-  }, []);
+  }, [reload]);
 
 
   if (isLoading) {
@@ -50,22 +49,30 @@ export default function SectionSurvey(props) {
     );
   }
 
-  // console.log(userAnswers.length > 0);
-
   return (
     <View>
       <TouchableOpacity
         style={styles.container}
-        onPress={() => navigation.navigate("Survey", { course, initialValues, isSurveyCompleted: userAnswers.length > 0 })}
+        onPress={() => navigation.navigate("Survey", { course, setReload, initialValues, isSurveyCompleted: userAnswers.length > 0 })}
         {...(disableSurvey ? null : { disabled: true })}
       >
-        <Text style={styles.punto}>•</Text>
+        <Text style={[styles.punto, disable ? {opacity: 0.2} : {}]}>•</Text>
         {disableSurvey ? (
-          <Icon name="lock-open-variant-outline" type="material-community" />
+          <Icon
+            name="lock-open-variant-outline"
+            type="material-community"
+            size={22}
+            color={disable ? Colors.PalleteGray : Colors.PalleteBlack}
+            />
         ) : (
-          <Icon name="lock-outline" type="material-community" />
+          <Icon
+            name="lock-outline"
+            type="material-community"
+            size={22}
+            color={disable ? Colors.PalleteGray : Colors.PalleteBlack}
+          />
         )}
-        <Text style={styles.survey}>{
+        <Text style={[styles.survey, disable ? {opacity: 0.5} : {}]}>{
           userAnswers.length > 0 ? "Encuesta completada" : "Encuesta"
         }</Text>
       </TouchableOpacity>
@@ -83,11 +90,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: Colors.PalleteGreenBackground,
     marginHorizontal: 5,
-    marginTop: 15,
   },
   punto: {
-    fontSize: 24,
-    marginHorizontal: 12,
+    fontSize: 20,
+    marginHorizontal: 5,
   },
   survey: {
     flex: 1,

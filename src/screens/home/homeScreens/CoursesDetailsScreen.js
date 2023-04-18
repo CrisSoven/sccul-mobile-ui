@@ -1,33 +1,30 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-import { Rating } from "react-native-elements";
-import { ScrollView } from "react-native-gesture-handler";
-import Comments from "../../../components/common/Comments";
-import Goback from "../../../components/common/Goback";
-import AddToCartBtn from "../../../components/home/AddToCartBtn";
-import ButtonComponent from "../../../components/common/ButtonComponent";
-import Colors from "../../../utils/Colors";
-import { buyCourse, buyCourseByCart, buyCourses, checkout, getCourseById, getUser } from "../../../utils/Axios";
-import Splash from "../../sccul/SplashScreen";
-import ContentComponent from "../../../components/common/ContentComponent";
-import { useNavigation } from "@react-navigation/native";
-import { useStripe } from "@stripe/stripe-react-native";
-import { Toast } from "react-native-toast-message/lib/src/Toast";
+import Colors from '../../../utils/Colors';
+import Splash from '../../sccul/SplashScreen';
+import { Rating } from 'react-native-elements';
+import React, { useState, useEffect } from 'react';
+import Goback from '../../../components/common/Goback';
+import { useStripe } from '@stripe/stripe-react-native';
+import { useNavigation } from '@react-navigation/native';
+import { ScrollView } from 'react-native-gesture-handler';
+import Comments from '../../../components/common/Comments';
+import AddToCartBtn from '../../../components/home/AddToCartBtn';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
+import ButtonComponent from '../../../components/common/ButtonComponent';
+import ContentComponent from '../../../components/common/ContentComponent';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { buyCourse, buyCourseByCart, checkout, getCourseById, getUser } from '../../../utils/Axios';
 
 export default function CoursesDetailsScreen({ route }) {
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
-
   const [course, setCourse] = useState({});
   const [hasBoughtCourse, setHasBoughtCourse] = useState(false);
   const [hasInscriptionCourse, setHasInscriptionCourse] = useState(false);
   const [userInscription, setUserInscription] = useState();
   const [isCourseScreen, setIsCourseScreen] = useState(true);
-
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [total, setTotal] = useState(0);
   const { courseId } = route.params;
-
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -40,8 +37,8 @@ export default function CoursesDetailsScreen({ route }) {
         (inscription) => inscription.user.user.id === userIdNumber
       );
       setUserInscription(hasInscription);
-      const hasBoughtCourse = hasInscription?.status === "comprado";
-      const hasInscriptionCourse = hasInscription?.status === "inscrito";
+      const hasBoughtCourse = hasInscription?.status === 'comprado';
+      const hasInscriptionCourse = hasInscription?.status === 'inscrito';
 
       const totalToPay =
         fetchedCourse.price -
@@ -71,14 +68,14 @@ export default function CoursesDetailsScreen({ route }) {
 
   const handleBuyCourse = async () => {
     if (hasBoughtCourse) {
-      navigation.navigate("CourseStack", {
-        screen: "Courses",
+      navigation.navigate('CourseStack', {
+        screen: 'Courses',
       });
       return;
     }
 
     setIsLoading(true);
-    console.log("Total: " + total);
+    console.log('Total: ' + total);
 
     const { paymentIntent, ephemeralKey, customer } = await checkout(total);
 
@@ -86,18 +83,20 @@ export default function CoursesDetailsScreen({ route }) {
       paymentIntentClientSecret: paymentIntent,
       customerId: customer,
       customerEphemeralKeySecret: ephemeralKey,
-      merchantDisplayName: "SCCUL Inc.",
+      merchantDisplayName: 'SCCUL Inc.',
       defaultBillingDetails: {
         address: {
-          country: "mx",
+          country: 'mx',
         },
       },
     });
     if (error) {
       Toast.show({
-        type: "error",
-        text1: "Error",
-        text2: "No se ha podido realizar la compra",
+        type: 'error',
+        position: 'top',
+        text1: 'No se ha podido realizar la compra',
+        visibilityTime: 5000,
+        topOffset: 100,
       });
       setIsLoading(false);
       return;
@@ -105,43 +104,52 @@ export default function CoursesDetailsScreen({ route }) {
 
     const { error: errorPresent, ...presetData } = await presentPaymentSheet();
 
-		if (errorPresent) {
-			setIsLoading(false);
-			Toast.show({
-				type: 'error',
-				text1: 'Error',
-				text2: errorPresent.message,
-			});
-			return;
-		} else {
-			try {
-				const { error: errorBuy } = hasInscriptionCourse ? await buyCourseByCart(userInscription) : await buyCourse(course.id, user);
+    if (errorPresent) {
+      setIsLoading(false);
+      // Toast.show({
+      //   type: 'error',
+      //   position: 'top',
+      //   text1: errorPresent.message,
+      //   visibilityTime: 5000,
+      //   topOffset: 100,
+      // });
+      return;
+    } else {
+      try {
+        const { error: errorBuy } = hasInscriptionCourse ? await buyCourseByCart(userInscription) : await buyCourse(course.id, user);
         setIsLoading(false);
 
         if (errorBuy) {
           Toast.show({
-            type: "error",
-            text1: "Error",
-            text2:
-              "No se actualizaron los cursos. Contacte con un administrador",
+            type: 'error',
+            position: 'top',
+            text1: 'Error',
+            text2: 'No se actualizaron los cursos. Contacte con un administrador',
+            visibilityTime: 5000,
+            topOffset: 100,
           });
         } else {
           Toast.show({
-            type: "success",
-            text1: "Compra realizada",
-            text2: "Se ha realizado la compra correctamente",
+            type: 'success',
+            position: 'top',
+            text1: 'Compra realizada',
+            text2: 'Se ha realizado la compra correctamente',
+            visibilityTime: 5000,
+            topOffset: 100,
           });
-
-          navigation.navigate("CourseStack", {
-            screen: "Courses",
+          navigation.navigate('CourseStack', {
+            screen: 'Courses',
           });
         }
       } catch (error) {
         console.log(error);
         Toast.show({
-          type: "error",
-          text1: "Error",
-          text2: "No se actualizaron los cursos. Contacte con un administrador",
+          type: 'error',
+          position: 'top',
+          text1: 'Error',
+          text2: 'No se actualizaron los cursos. Contacte con un administrador',
+          visibilityTime: 5000,
+          topOffset: 100,
         });
       }
     }
@@ -157,10 +165,7 @@ export default function CoursesDetailsScreen({ route }) {
       <View style={styles.averageContainer}>
         <Text style={styles.text}>{course.averageRatings}</Text>
         <Rating
-          startingValue={
-            course.averageRatings
-              ? Math.floor(course.averageRatings * 2) / 2 : 0
-          }
+          startingValue={ course.averageRatings ? course.averageRatings : 0 }
           imageSize={20}
           readonly
           ratingColor={Colors.PalleteYellow}
@@ -171,13 +176,13 @@ export default function CoursesDetailsScreen({ route }) {
         </Text>
       </View>
       {course.discount > 0 && (
-        <View style={{ flexDirection: "column" }}>
+        <View style={{ flexDirection: 'column' }}>
           <View style={styles.priceContainer}>
             <Text
               style={{
                 ...styles.price,
                 color: Colors.PalletteRed,
-                fontWeight: "bold",
+                fontWeight: 'bold',
               }}
             >
               ${parseFloat(updatedCourse.price.toFixed(2))} MXN
@@ -188,7 +193,7 @@ export default function CoursesDetailsScreen({ route }) {
             style={{
               ...styles.price,
               fontSize: 20,
-              textDecorationLine: "line-through",
+              textDecorationLine: 'line-through',
               color: Colors.PalleteBlack,
             }}
           >
@@ -210,14 +215,14 @@ export default function CoursesDetailsScreen({ route }) {
       <View style={styles.buttonContainer}>
         <AddToCartBtn addCourse={course} loading={isLoading} />
         <View style={styles.buyCourseContainer}>
-        <ButtonComponent
-          title={hasBoughtCourse ? "Ver curso" : "Comprar curso"}
-          icon={hasBoughtCourse ? "eye-outline" : "cart-outline"}
-          type="material-community"
-          btnPrimary={true}
-          onPress={() => handleBuyCourse()}
-          loading={isLoading}
-        />
+          <ButtonComponent
+            title={hasBoughtCourse ? 'Ver curso' : 'Comprar curso'}
+            icon={hasBoughtCourse ? 'eye-outline' : 'cart-outline'}
+            type='material-community'
+            btnPrimary={true}
+            onPress={() => handleBuyCourse()}
+            loading={isLoading}
+          />
         </View>
       </View>
       <ContentComponent course={course} isCourseScreen={isCourseScreen} />
@@ -233,23 +238,23 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.PalleteWhite,
   },
   image: {
-    alignSelf: "center",
-    width: "100%",
+    alignSelf: 'center',
+    width: '100%',
     height: 230,
     borderRadius: 16,
     marginBottom: 15,
-    resizeMode: "cover",
+    resizeMode: 'cover',
     backgroundColor: Colors.PalleteGray,
   },
   averageContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginBottom: 10,
   },
   priceContainer: {
-    flexDirection: "row",
-    alignContent: "center",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignContent: 'center',
+    alignItems: 'center',
   },
   price: {
     fontSize: 35,
@@ -259,32 +264,32 @@ const styles = StyleSheet.create({
   discount: {
     color: Colors.PalletteRed,
     fontSize: 24,
-    marginBottom: "2.5%",
-    marginLeft: "2.5%",
+    marginBottom: '2.5%',
+    marginLeft: '2.5%',
   },
   text: {
     fontSize: 16,
-    textAlign: "justify",
+    textAlign: 'justify',
     marginRight: 5,
   },
   categoryContainer: {
     marginVertical: 20,
-    width: "45%",
+    width: '45%',
     height: 40,
     backgroundColor: Colors.PalleteGreenBackground,
-    justifyContent: "center",
+    justifyContent: 'center',
     borderRadius: 16,
   },
   categoryText: {
-    fontWeight: "bold",
-    textAlign: "center",
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   buttonContainer: {
-    flexDirection: "row",
-    width: "100%",
-    justifyContent: "space-evenly",
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-evenly',
   },
   buyCourseContainer: {
-    width: "90%",
+    width: '90%',
   },
 });

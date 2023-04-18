@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
-import ButtonComponent from '../common/ButtonComponent';
+import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import ButtonComponent from '../common/ButtonComponent'
 
 export default function TitleBtnComponent({ textTitle, titleStyle, icon, textBtn, iconType, btnPrimary, onPress, loading = false }) {
 	return (
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 	container: {
 		flexDirection: 'row',
 		marginVertical: 20,
-		marginLeft: 20,
+		marginHorizontal: 15,
 		alignItems: 'center',
 		justifyContent: 'space-between',
 	},
