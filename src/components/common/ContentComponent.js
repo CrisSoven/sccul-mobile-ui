@@ -3,7 +3,7 @@ import SectionSurvey from "../course/SectionSurvey";
 import { StyleSheet, Text, View } from "react-native";
 import Sections from "../../components/common/Sections";
 
-export default function ContentComponent({ course, disable, onSectionPress, navigation, disableSurvey, continueVideo, isCourseScreen, setReload, reload }) {
+export default function ContentComponent({ course, disable, onSectionPress, navigation, disableSurvey, continueVideo, isCourseScreen, setReload, reload, percentage }) {
   const minutes = course.sections.reduce((acc, section) => {
     const duration = section.duration.split(":");
     const minutes = parseInt(duration[0]);
@@ -31,6 +31,7 @@ export default function ContentComponent({ course, disable, onSectionPress, navi
           disable={disable}
           onSectionPress={onSectionPress}
           isCourseScreen={isCourseScreen}
+          percentage={percentage}
         />
         <SectionSurvey
           navigation={navigation}

@@ -1,16 +1,17 @@
-import { StyleSheet, Text, View, ScrollView, RefreshControl } from 'react-native';
-import React, { useState, useEffect, useCallback } from 'react';
-import SearchBar from '../../components/common/SearchBar';
-import SwipeNotify from '../../components/cart/SwipeNotify';
-import Colors from '../../utils/Colors';
-import TitleBtnComponent from '../../components/profile/TitleBtnComponent';
-import { useNavigation } from '@react-navigation/native';
-import { buyCourses, checkout, getCoursesCart, getUser } from '../../utils/Axios';
-import SwipeableComponent from '../../components/cart/SwipeableComponent';
-import SplashScreen from '../../screens/sccul/SplashScreen';
-import EmptyContainer from '../../components/common/EmptyContainer';
-import { useStripe } from '@stripe/stripe-react-native';
-import { Toast } from 'react-native-toast-message/lib/src/Toast';
+import Colors from '../../utils/Colors'
+import Title from '../../components/common/Title'
+import { useStripe } from '@stripe/stripe-react-native'
+import { useNavigation } from '@react-navigation/native'
+import SearchBar from '../../components/common/SearchBar'
+import SwipeNotify from '../../components/cart/SwipeNotify'
+import SplashScreen from '../../screens/sccul/SplashScreen'
+import React, { useState, useEffect, useCallback } from 'react'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
+import EmptyContainer from '../../components/common/EmptyContainer'
+import SwipeableComponent from '../../components/cart/SwipeableComponent'
+import TitleBtnComponent from '../../components/profile/TitleBtnComponent'
+import { StyleSheet, View, ScrollView, RefreshControl } from 'react-native'
+import { buyCourses, checkout, getCoursesCart, getUser } from '../../utils/Axios'
 
 export default function CartScreen() {
   const [reload, setReload] = useState(false);
@@ -136,7 +137,7 @@ export default function CartScreen() {
     <SplashScreen />
   ) : (
     <View style={styles.container}>
-      <Text style={styles.title}>Carrito de compras</Text>
+      <Title title='Carrito de compras'/>
       <SearchBar setInputValue={setInputText} value={inputText} />
       {!courses.length ? (
         <EmptyContainer
@@ -179,18 +180,11 @@ export default function CartScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20,
+    marginHorizontal: 10,
   },
   content: {
     flexGrow: 1,
     paddingHorizontal: 20,
-    paddingVertical: 10,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginLeft: 20,
-    marginBottom: 20,
   },
   subtitle: {
     fontSize: 18,

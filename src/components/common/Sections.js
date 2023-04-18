@@ -4,9 +4,17 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import Colors from "../../utils/Colors";
 import { Icon } from "react-native-elements";
 
-export default function Sections({ sections, disable = true, onSectionPress, continueVideo, isCourseScreen }) {
+export default function Sections({ sections, disable = true, onSectionPress, continueVideo, isCourseScreen, percentage }) {
   const [selectedSection, setSelectedSection] = useState(disable ? 0 : 1);
+  const [isWatched, setIsWatched] = useState(false);
 
+  // for (let i = 0; i < 6; i++) {
+  //   if (percentage.split(',')[i] == sections[i].id) {
+  //     console.log(percentage.split(',')[i]);
+  //     console.log(sections[i].id);
+  //   }
+  // }
+  
   useEffect(() => {
     if (!isCourseScreen && sections.length > 0) {
       setSelectedSection(sections[continueVideo].id);

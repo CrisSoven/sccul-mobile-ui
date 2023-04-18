@@ -1,32 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Colors from "../../utils/Colors";
 import Line from "../common/Line";
+import { Icon } from "react-native-elements";
 
-export default function SurveyCourse(props) {
-  const {
-    survey,
-    answers,
-    setAnswers,
-    questions,
-    setQuestions,
-    errors,
-    values,
-    setFieldValue,
-    isSurveyCompleted,
-  } = props;
-
+export default function SurveyCourse({ survey, setQuestions, errors, values, setFieldValue, isSurveyCompleted }) {
   const handlePress = (questionIndex, answerIndex, setFieldValue) => {
     const answer = {
       answer: answerIndex,
     };
     setFieldValue(`answers[${questionIndex}]`, answer);
 
-    // setAnswers((prevAnswers) => {
-    //   const newAnswers = [...prevAnswers];
-    //   newAnswers[.answerquestionIndex] = answerIndex;
-    //   return newAnswers;
-    // });
     setQuestions((prevQuestions) => {
       const newQuestions = [...prevQuestions];
       newQuestions[questionIndex] = survey.questions[questionIndex];
@@ -34,16 +18,13 @@ export default function SurveyCourse(props) {
     });
   };
 
-  // console.log("errors", errors);
-  // console.log("errorr 1", errors?.answers?.[0]?.answer);
-
   return (
     <View>
       {survey.questions.map((question, index) => (
-        <View key={question.id} style={styles.questionContainer}>
-          <Text style={styles.question}>{question.question}</Text>
-          <View style={styles.buttonsContainer}>
-            <View style={{ flexDirection: "row", marginBottom: 10 }}>
+        <>
+          <View key={question.id} style={styles.questionContainer}>
+            <Text style={styles.question}>{question.question}</Text>
+            <View style={styles.questionAspect}>
               <TouchableOpacity
                 style={[
                   styles.button,
@@ -52,15 +33,15 @@ export default function SurveyCourse(props) {
                 onPress={() => handlePress(index, 0, setFieldValue)}
                 disabled={isSurveyCompleted}
               >
-                <Text
-                  style={[
-                    styles.textBtn,
-                    values?.answers[index]?.answer === 0 &&
-                      styles.textBtnSelected,
-                  ]}
-                >
-                  Malo
-                </Text>
+                <Icon
+                  name="emoticon-confused-outline"
+                  type="material-community"
+                  color={
+                    values?.answers[index]?.answer === 0
+                      ? Colors.PalleteWhite
+                      : Colors.PalleteAuxiliarBlue
+                  }
+                />
               </TouchableOpacity>
               <TouchableOpacity
                 style={[
@@ -70,15 +51,15 @@ export default function SurveyCourse(props) {
                 onPress={() => handlePress(index, 1, setFieldValue)}
                 disabled={isSurveyCompleted}
               >
-                <Text
-                  style={[
-                    styles.textBtn,
-                    values?.answers[index]?.answer === 1 &&
-                      styles.textBtnSelected,
-                  ]}
-                >
-                  Regular
-                </Text>
+                <Icon
+                  name="emoticon-sad-outline"
+                  type="material-community"
+                  color={
+                    values?.answers[index]?.answer === 1
+                      ? Colors.PalleteWhite
+                      : Colors.PalleteAuxiliarBlue
+                  }
+                />
               </TouchableOpacity>
               <TouchableOpacity
                 style={[
@@ -88,18 +69,16 @@ export default function SurveyCourse(props) {
                 onPress={() => handlePress(index, 2, setFieldValue)}
                 disabled={isSurveyCompleted}
               >
-                <Text
-                  style={[
-                    styles.textBtn,
-                    values?.answers[index]?.answer === 2 &&
-                      styles.textBtnSelected,
-                  ]}
-                >
-                  Bueno
-                </Text>
+                <Icon
+                  name="emoticon-neutral-outline"
+                  type="material-community"
+                  color={
+                    values?.answers[index]?.answer === 2
+                      ? Colors.PalleteWhite
+                      : Colors.PalleteAuxiliarBlue
+                  }
+                />
               </TouchableOpacity>
-            </View>
-            <View style={{ flexDirection: "row", marginHorizontal: 30 }}>
               <TouchableOpacity
                 style={[
                   styles.button,
@@ -108,15 +87,15 @@ export default function SurveyCourse(props) {
                 onPress={() => handlePress(index, 3, setFieldValue)}
                 disabled={isSurveyCompleted}
               >
-                <Text
-                  style={[
-                    styles.textBtn,
-                    values?.answers[index]?.answer === 3 &&
-                      styles.textBtnSelected,
-                  ]}
-                >
-                  Muy bueno
-                </Text>
+                <Icon
+                  name="emoticon-happy-outline"
+                  type="material-community"
+                  color={
+                    values?.answers[index]?.answer === 3
+                      ? Colors.PalleteWhite
+                      : Colors.PalleteAuxiliarBlue
+                  }
+                />
               </TouchableOpacity>
               <TouchableOpacity
                 style={[
@@ -126,27 +105,27 @@ export default function SurveyCourse(props) {
                 onPress={() => handlePress(index, 4, setFieldValue)}
                 disabled={isSurveyCompleted}
               >
-                <Text
-                  style={[
-                    styles.textBtn,
-                    values?.answers[index]?.answer === 4 &&
-                      styles.textBtnSelected,
-                  ]}
-                >
-                  Excelente
-                </Text>
+                <Icon
+                  name="emoticon-excited-outline"
+                  type="material-community"
+                  color={
+                    values?.answers[index]?.answer === 4
+                      ? Colors.PalleteWhite
+                      : Colors.PalleteAuxiliarBlue
+                  }
+                />
               </TouchableOpacity>
             </View>
-          </View>
-          <View>
-            {
-              errors?.answers?.[index]?.answer && (
-                <Text style={styles.error}>{errors?.answers?.[index].answer}</Text>
-              )
-            }
+            <View>
+              {
+                errors?.answers?.[index]?.answer && (
+                  <Text style={styles.error}>{errors?.answers?.[index].answer}</Text>
+                )
+              }
+            </View>
           </View>
           <Line />
-        </View>
+        </>
       ))}
     </View>
   );
@@ -155,17 +134,16 @@ export default function SurveyCourse(props) {
 const styles = StyleSheet.create({
   questionContainer: {
     marginHorizontal: 20,
-    marginVertical: 10,
+    marginVertical: 20,
   },
   question: {
     fontSize: 18,
     marginBottom: 15,
+    alignSelf: "center",
   },
-  buttonsContainer: {
-    flexDirection: "column",
-    alignContent: "center",
-    alignItems: "center",
-    justifyContent: "center",
+  questionAspect: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   button: {
     flex: 1,

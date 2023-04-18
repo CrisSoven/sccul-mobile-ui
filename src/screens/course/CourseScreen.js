@@ -1,23 +1,18 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  RefreshControl,
-  ScrollView,
-} from "react-native";
-import React, { useState, useEffect, useCallback } from "react";
-import SearchBar from "../../components/common/SearchBar";
-import FilterCourse from "../../components/course/FilterCourse";
-import Courses from "../../components/course/Courses";
-import { getBoughtCourses } from "../../utils/Axios";
-import Splash from "../sccul/SplashScreen";
-import EmptyContainer from "../../components/common/EmptyContainer";
+import Splash from '../sccul/SplashScreen'
+import Title from '../../components/common/Title'
+import { getBoughtCourses } from '../../utils/Axios'
+import Courses from '../../components/course/Courses'
+import SearchBar from '../../components/common/SearchBar'
+import FilterCourse from '../../components/course/FilterCourse'
+import React, { useState, useEffect, useCallback } from 'react'
+import EmptyContainer from '../../components/common/EmptyContainer'
+import { StyleSheet, View, RefreshControl, ScrollView } from 'react-native'
 
 export default function CourseScreen({ route }) {
   const { filter } = route.params;
   const [courses, setCourses] = useState(null);
   const [progress, setProgress] = useState(0);
-  const [inputText, setInputText] = useState("");
+  const [inputText, setInputText] = useState('');
   const [refreshing, setRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [percentage, setPercentage] = useState(0);
@@ -35,22 +30,22 @@ export default function CourseScreen({ route }) {
   }, []);
 
   const listOfCourses = () => {
-    if (inputText === "") {
-      if (filter === "Todos") {
+    if (inputText === '') {
+      if (filter === 'Todos') {
         return courses;
-      } else if (filter === "En progreso") {
+      } else if (filter === 'En progreso') {
         const progressSplit = progress.map((course) => {
           if (course === null) {
             return null;
           } else {
-            return course.split(",");
+            return course.split(',');
           }
         });
 
         const progressInNumber = progressSplit.map((course) => {
           if (course !== null) {
             return course.map((section) => {
-              if (section !== "") {
+              if (section !== '') {
                 return Number(section);
               } else {
                 return null;
@@ -96,19 +91,19 @@ export default function CourseScreen({ route }) {
         });
         
         return coursesInProgress.filter((course) => course !== null);
-      } else if (filter === "Finalizados") {
+      } else if (filter === 'Finalizados') {
         const progressSplit = progress.map((course) => {
           if (course === null) {
             return null;
           } else {
-            return course.split(",");
+            return course.split(',');
           }
         });
 
         const progressInNumber = progressSplit.map((course) => {
           if (course !== null) {
             return course.map((section) => {
-              if (section !== "") {
+              if (section !== '') {
                 return Number(section);
               } else {
                 return null;
@@ -154,19 +149,19 @@ export default function CourseScreen({ route }) {
         });
         
         return coursesFinished.filter((course) => course !== null);
-      } else if (filter === "Sin empezar") {
+      } else if (filter === 'Sin empezar') {
         const progressSplit = progress.map((course) => {
           if (course === null) {
             return null;
           } else {
-            return course.split(",");
+            return course.split(',');
           }
         });
 
         const progressInNumber = progressSplit.map((course) => {
           if (course !== null) {
             return course.map((section) => {
-              if (section !== "") {
+              if (section !== '') {
                 return Number(section);
               } else {
                 return null;
@@ -244,14 +239,14 @@ export default function CourseScreen({ route }) {
       }
     >
       <View style={styles.content}>
-        <Text style={styles.title}>Mis cursos</Text>
-      </View>
+        <Title title='Mis curso' />
       <SearchBar setInputValue={setInputText} value={inputText} />
+      </View>
       {!courses.length ? (
         <EmptyContainer
-          icon="tag-outline"
-          type="material-community"
-          text="No tienes cursos comprados"
+          icon='tag-outline'
+          type='material-community'
+          text='No tienes cursos comprados'
         />
       ) : (
         <>
@@ -278,17 +273,12 @@ export default function CourseScreen({ route }) {
 
 const styles = StyleSheet.create({
   content: {
-    paddingVertical: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginLeft: 20,
+    paddingHorizontal: 10,
   },
   container: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
     paddingHorizontal: 20,
     marginTop: 20,
   },

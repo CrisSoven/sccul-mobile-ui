@@ -82,7 +82,6 @@ export default function CourseScreen(props) {
   }, []);
 
   const allVideosWatched = videosWatchedCount === course.sections.length;
-
   return !course.id ? (
     <Splash />
   ) : (
@@ -117,6 +116,7 @@ export default function CourseScreen(props) {
         disableSurvey={allVideosWatched}
         setReload={setReload}
         reload={reload}
+        percentage={percentage}
       />
       <FeedbackComponent courseId={course.id} />
     </ScrollView>
