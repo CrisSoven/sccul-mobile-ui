@@ -60,11 +60,11 @@ export default function HomeScreen() {
       }
     >
       <View style={styles.container}>
-        <SearchBar setInputValue={setInputText} value={inputText} />
-        <Banner />
+        {/* <Banner /> */}
         <Title title="Categorías" />
         <ScrollViewCategories />
-        <Title title="Cursos" />
+        <SearchBar setInputValue={setInputText} value={inputText} />
+        <Title title="Todos los cursos" />
           <FeaturedCourses courses={listOfCourses()} />
       </View>
     </ScrollView>

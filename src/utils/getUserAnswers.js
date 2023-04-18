@@ -2,7 +2,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
-const baseUrl = 'http:/192.168.1.78:8080';
+const baseUrl = 'http:/44.194.100.50:8080';
 
 export const getUserAnswers = async (userId, courseId) => {
 	try {
