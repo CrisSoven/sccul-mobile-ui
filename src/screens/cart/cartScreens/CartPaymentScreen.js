@@ -5,7 +5,6 @@ import Line from "../../../components/common/Line";
 import CartResume from "../../../components/cart/CartResume";
 import DetailsPayment from "../../../components/cart/DetailsPayment";
 import AccionsBtnComponent from "../../../components/cart/AccionsBtnComponent";
-import CardsComponent from "../../../components/cart/CardsComponent";
 import ResumePrice from "../../../components/cart/ResumePrice";
 import { useNavigation } from "@react-navigation/native";
 import { buyCourse, getBankCardById } from "../../../utils/Axios";
@@ -14,8 +13,7 @@ import Courses from "../../../components/common/Courses";
 import Colors from "../../../utils/Colors";
 import Toast from "react-native-toast-message";
 
-export default function CartPaymentScreen(props) {
-  const { cardId, courses } = props.route.params;
+export default function CartPaymentScreen({ cardId, courses }) {
   const [card, setCard] = useState({});
 
   useEffect(() => {
@@ -65,10 +63,6 @@ export default function CartPaymentScreen(props) {
               <ResumePrice
                 price={parseFloat(totalPrice).toFixed(2)}
                 totalInscriptions={courses.length}
-              />
-              <CardsComponent
-                card={card}
-                onPress="ProfileStack"
               />
               <Line />
             </View>

@@ -1,22 +1,11 @@
-import {
-	StyleSheet,
-	Text,
-	View,
-	ScrollView,
-	RefreshControl,
-} from 'react-native';
+import { StyleSheet, Text, View, ScrollView, RefreshControl } from 'react-native';
 import React, { useState, useEffect, useCallback } from 'react';
 import SearchBar from '../../components/common/SearchBar';
 import SwipeNotify from '../../components/cart/SwipeNotify';
 import Colors from '../../utils/Colors';
 import TitleBtnComponent from '../../components/profile/TitleBtnComponent';
 import { useNavigation } from '@react-navigation/native';
-import {
-	buyCourses,
-	checkout,
-	getCoursesCart,
-	getUser,
-} from '../../utils/Axios';
+import { buyCourses, checkout, getCoursesCart, getUser } from '../../utils/Axios';
 import SwipeableComponent from '../../components/cart/SwipeableComponent';
 import SplashScreen from '../../screens/sccul/SplashScreen';
 import EmptyContainer from '../../components/common/EmptyContainer';
@@ -33,7 +22,6 @@ export default function CartScreen() {
 	const [total, setTotal] = useState(0);
 	const [user, setUser] = useState(null);
 	const [inputText, setInputText] = useState('');
-
 	const [refreshing, setRefreshing] = useState(false);
 
 	const onCheckout = async () => {
@@ -66,14 +54,7 @@ export default function CartScreen() {
 
 		if (errorPresent) {
 			setIsLoading(false);
-			// console.log('Error', errorPresent.code, errorPresent.message);
-			// Toast.show({
-			// 	type: 'error',
-			// 	text1: 'Error',
-			// 	text2: errorPresent.message,
-			// });
 			return;
-			// Alert.alert(`Error code: ${error.code}`, error.message);
 		} else {
 			const { data, error: errorBuy } = await buyCourses(courses, user);
 			setIsLoading(false);

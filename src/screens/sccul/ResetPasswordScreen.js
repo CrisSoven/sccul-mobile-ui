@@ -1,23 +1,23 @@
-import { StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
-import AccionsBtnComponent from "../../components/cart/AccionsBtnComponent";
-import { Formik } from "formik";
-import InputComponent from "../../components/common/InputComponent";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { forgotPassword } from "../../utils/Axios";
-import { Toast } from "react-native-toast-message/lib/src/Toast";
+import * as Yup from 'yup';
+import { useFormik } from 'formik';
+import React, { useState } from 'react';
+import { forgotPassword } from '../../utils/Axios';
+import { StyleSheet, View, Image } from 'react-native';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
+import InputComponent from '../../components/common/InputComponent';
+import AccionsBtnComponent from '../../components/cart/AccionsBtnComponent';
+import ScculMainComponent from '../../components/sccul/ScculMainComponent';
 
 export default function ResetPasswordScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const formik = useFormik({
     initialValues: {
-      email: "",
+      email: '',
     },
     validationSchema: Yup.object({
       email: Yup.string()
-        .required("Correo electrónico obligatorio")
-        .email("Correo electrónico no valido"),
+        .required('Correo electrónico obligatorio')
+        .email('Correo electrónico no valido'),
     }),
     validateOnChange: false,
     onSubmit: async (formData) => {
@@ -28,24 +28,31 @@ export default function ResetPasswordScreen() {
         setIsLoading(false);
         if (response.success) {
           Toast.show({
-            type: "success",
-            position: "bottom",
-            text1: "Correo enviado correctamente",
+            type: 'success',
+            position: 'top',
+            text1: 'Correo enviado correctamente',
+            text2: 'Revisa tu bandeja de entrada',
+            visibilityTime: 5000,
+            topOffset: 100,
           });
         } else {
           Toast.show({
-            position: "bottom",
-            type: "error",
+            type: 'error',
+            position: 'top',
             text1: response.message,
+            visibilityTime: 5000,
+            topOffset: 100,
           });
         }
       } catch (error) {
         console.log(error);
         setIsLoading(false);
         Toast.show({
-          position: "bottom",
-          type: "error",
-          text1: "Ha ocurrido un error",
+          type: 'error',
+          position: 'top',
+          text1: 'Ha ocurrido un error',
+          visibilityTime: 5000,
+          topOffset: 100,
         });
       }
     },
@@ -53,25 +60,24 @@ export default function ResetPasswordScreen() {
 
   return (
     <View style={styles.header}>
-      {/* <Text style={{ marginTop: 10 }}>
-        Ingresa tu correo electrónico para poder enviar el link para realizar tu
-        cambio de contraseña
-      </Text> */}
+      <ScculMainComponent text='Ingresa tu correo electrónico' />
+      <Image style={styles.img} source={require('../../../assets/img/resetImage.png')} />
       <InputComponent
-        label="Correo electrónico"
-        placeholder="correo@ejemplo.com"
-        iconName="email-outline"
-        iconType="material-community"
-        onChangeText={(text) => formik.setFieldValue("email", text)}
+        label='Correo electrónico'
+        placeholder='correo@ejemplo.com'
+        iconName='email-outline'
+        iconType='material-community'
+        keyboardType='email-address'
+        onChangeText={(text) => formik.setFieldValue('email', text)}
         errorMessage={formik.errors.email}
       />
       <AccionsBtnComponent
-        btnCancelTitle="Cancelar"
-        icon="login"
-        type="material-community"
-        btnContinueTitle="Confirmar"
+        btnCancelTitle='Regresar'
+        icon='email-fast-outline'
+        type='material-community'
+        btnContinueTitle='Enviar'
         btnPrimary={true}
-        buttonStyle={{ paddingHorizontal: "10%" }}
+        buttonStyle={{ paddingHorizontal: '10%' }}
         loading={isLoading}
         onPress={formik.handleSubmit}
         isLoading={isLoading}
@@ -84,5 +90,11 @@ const styles = StyleSheet.create({
   header: {
     paddingTop: 20,
     paddingHorizontal: 20,
+  },
+  img: {
+    width: '100%',
+    height: 200,
+    resizeMode: 'contain',
+    marginBottom: 20,
   },
 });

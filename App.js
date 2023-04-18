@@ -1,11 +1,11 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import AppNavigation from './src/navigation/AppNavigation';
 import { View } from 'react-native';
-import Header from './src/components/common/Header';
 import Toast from 'react-native-toast-message';
-import AuthContextProvider from './src/context/auth/AuthContextProvider';
+import Header from './src/components/common/Header';
+import AppNavigation from './src/navigation/AppNavigation';
 import { StripeProvider } from '@stripe/stripe-react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import AuthContextProvider from './src/context/auth/AuthContextProvider';
 
 export default function App() {
 	return (

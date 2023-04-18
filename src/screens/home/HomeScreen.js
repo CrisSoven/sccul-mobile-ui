@@ -1,23 +1,17 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  RefreshControl,
-} from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
-import SearchBar from "../../components/common/SearchBar";
-import Banner from "../../components/home/Banner";
-import ScrollViewCategories from "../../components/home/ScrollViewCategories";
-import FeaturedCourses from "../../components/FeaturedCourses";
-import SplashScreen from "../sccul/SplashScreen";
-import { getCourses } from "../../utils/Axios";
+import { getCourses } from '../../utils/Axios';
+import SplashScreen from '../sccul/SplashScreen';
+import Banner from '../../components/home/Banner';
+import SearchBar from '../../components/common/SearchBar';
+import FeaturedCourses from '../../components/FeaturedCourses';
+import React, { useCallback, useEffect, useState } from 'react';
+import { StyleSheet, View, ScrollView, RefreshControl } from 'react-native';
+import ScrollViewCategories from '../../components/home/ScrollViewCategories';
+import Title from '../../components/common/Title';
 
 export default function HomeScreen() {
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [inputText, setInputText] = useState("");
-
+  const [inputText, setInputText] = useState('');
   const [refreshing, setRefreshing] = useState(false);
 
   const fetchCourses = async () => {
@@ -41,7 +35,7 @@ export default function HomeScreen() {
   }, []);
 
   const listOfCourses = () => {
-    if (inputText === "") {
+    if (inputText === '') {
       return courses;
     }
 
@@ -62,12 +56,12 @@ export default function HomeScreen() {
       }
     >
       <View style={styles.container}>
+        <SearchBar setInputValue={setInputText} value={inputText} />
         <Banner />
+        <Title title="Categorías" />
         <ScrollViewCategories />
-        <View style={styles.info}>
-          <SearchBar setInputValue={setInputText} value={inputText} />
+        <Title title="Cursos" />
           <FeaturedCourses courses={listOfCourses()} />
-        </View>
       </View>
     </ScrollView>
   );
@@ -77,8 +71,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 10,
-  },
-  info: {
-    marginTop: 25,
   },
 });

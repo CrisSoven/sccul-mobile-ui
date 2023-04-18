@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import Colors from "../../utils/Colors";
-import { useNavigation } from "@react-navigation/native";
-import { getCategories } from "../../utils/Axios";
+import Colors from '../../utils/Colors'
+import { getCategories } from '../../utils/Axios'
+import React, { useState, useEffect } from 'react'
+import { useNavigation } from '@react-navigation/native'
+import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
 export default function ScrollViewCategories() {
   const [categories, setCategories] = useState([]);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -15,20 +16,19 @@ export default function ScrollViewCategories() {
     fetchCategories();
   }, []);
 
-  const navigation = useNavigation();
+  const handleNavigateCategory = (category) => {
+    navigation.navigate('CategoryScreen', { category });
+  };
 
   return (
     <View style={styles.viewContainer}>
-      <Text style={styles.title}>Categorías</Text>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         {
           categories.map((category) => (
             <TouchableOpacity
               key={category.id}
               style={styles.container}
-              onPress={() => {
-                navigation.navigate("CategoryScreen", { category });
-              }}
+              onPress={() => handleNavigateCategory(category)}
             >
               <Text style={styles.text} numberOfLines={1}>{category.name}</Text>
             </TouchableOpacity>
@@ -41,25 +41,19 @@ export default function ScrollViewCategories() {
 
 const styles = StyleSheet.create({
   viewContainer: {
-    marginHorizontal: "4%",
-    marginBottom: "3%",
-  },
-  title: {
-    fontWeight: "bold",
-    fontSize: 24,
-    marginBottom: 20,
+    marginHorizontal: 20,
   },
   container: {
     height: 55,
     backgroundColor: Colors.PalleteGreenBackground,
     marginRight: 15,
     borderRadius: 15,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   text: {
-    fontWeight: "500",
-    textAlign: "center",
+    fontWeight: '500',
+    textAlign: 'center',
     fontSize: 13,
     paddingHorizontal: 20,
   },

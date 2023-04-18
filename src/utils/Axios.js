@@ -2,10 +2,8 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
-const baseUrl = 'http:/192.168.100.17:8080';
-// let token =
-//   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
-//cris@gmail.com
+const baseUrl = 'http:/192.168.1.65:8080';
+//"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
 
 export const checkout = async (amount) => {
 	console.log('checkout', amount);
@@ -766,20 +764,19 @@ export const forgotPassword = async (email) => {
 				email,
 			}
 		);
-		console.log(response.data.message);
-		return { success: true, message: response.data.message };
+		const data = response.data;
+		const success = data.error ? false : true; 
+		return { success, message: data.message };
 	} catch (error) {
-		console.log(error);
 		if (error.response && error.response.status === 404) {
 			return {
 				success: false,
-				message: ' El email no esta registrado en la aplicación',
+				message: ' El correo electrónico no esta registrado en la aplicación',
 			};
 		} else {
 			return {
 				success: false,
-				message:
-					'Ha ocurrido un error al enviar el correo de restablecimiento de contraseña',
+				message: 'Error al enviar el correo',
 			};
 		}
 	}

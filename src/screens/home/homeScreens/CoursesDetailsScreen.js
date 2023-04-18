@@ -6,16 +6,8 @@ import Comments from "../../../components/common/Comments";
 import Goback from "../../../components/common/Goback";
 import AddToCartBtn from "../../../components/home/AddToCartBtn";
 import ButtonComponent from "../../../components/common/ButtonComponent";
-import BuyNowBtn from "../../../components/home/BuyNowBtn";
 import Colors from "../../../utils/Colors";
-import {
-  buyCourse,
-  buyCourseByCart,
-  buyCourses,
-  checkout,
-  getCourseById,
-  getUser,
-} from "../../../utils/Axios";
+import { buyCourse, buyCourseByCart, buyCourses, checkout, getCourseById, getUser } from "../../../utils/Axios";
 import Splash from "../../sccul/SplashScreen";
 import ContentComponent from "../../../components/common/ContentComponent";
 import { useNavigation } from "@react-navigation/native";
@@ -115,20 +107,15 @@ export default function CoursesDetailsScreen({ route }) {
 
 		if (errorPresent) {
 			setIsLoading(false);
-			// console.log('Error', errorPresent.code, errorPresent.message);
 			Toast.show({
 				type: 'error',
 				text1: 'Error',
 				text2: errorPresent.message,
 			});
 			return;
-			// Alert.alert(`Error code: ${error.code}`, error.message);
 		} else {
 			try {
-				const { error: errorBuy } = hasInscriptionCourse
-					? await buyCourseByCart(userInscription)
-					: await buyCourse(course.id, user);
-
+				const { error: errorBuy } = hasInscriptionCourse ? await buyCourseByCart(userInscription) : await buyCourse(course.id, user);
         setIsLoading(false);
 
         if (errorBuy) {
@@ -159,7 +146,6 @@ export default function CoursesDetailsScreen({ route }) {
       }
     }
   };
-
   const updatedCourse = calcPrice();
 
   return !course.id ? (
@@ -173,8 +159,7 @@ export default function CoursesDetailsScreen({ route }) {
         <Rating
           startingValue={
             course.averageRatings
-              ? Math.floor(course.averageRatings * 2) / 2
-              : 0
+              ? Math.floor(course.averageRatings * 2) / 2 : 0
           }
           imageSize={20}
           readonly
@@ -222,9 +207,9 @@ export default function CoursesDetailsScreen({ route }) {
           </Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.btns}>
+      <View style={styles.buttonContainer}>
         <AddToCartBtn addCourse={course} loading={isLoading} />
-        {/* <BuyNowBtn addCourse={course} loading={true} /> */}
+        <View style={styles.buyCourseContainer}>
         <ButtonComponent
           title={hasBoughtCourse ? "Ver curso" : "Comprar curso"}
           icon={hasBoughtCourse ? "eye-outline" : "cart-outline"}
@@ -233,6 +218,7 @@ export default function CoursesDetailsScreen({ route }) {
           onPress={() => handleBuyCourse()}
           loading={isLoading}
         />
+        </View>
       </View>
       <ContentComponent course={course} isCourseScreen={isCourseScreen} />
       <Comments comments={course.comments} rating={course.scores} />
@@ -293,8 +279,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
-  btns: {
+  buttonContainer: {
     flexDirection: "row",
-    justifyContent: "center",
+    width: "100%",
+    justifyContent: "space-evenly",
+  },
+  buyCourseContainer: {
+    width: "90%",
   },
 });

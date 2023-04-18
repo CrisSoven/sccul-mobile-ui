@@ -1,11 +1,8 @@
-import { createStackNavigator } from "@react-navigation/stack";
-import ProfileScreen from "../screens/profile/ProfileScreen";
-import React from "react";
-import ChangePasswordScreen from "../screens/profile/profileScreens/ChangePasswordScreen";
-import PocketScreen from "../screens/profile/profileScreens/PocketScreen";
-import CreditCardDetailsScreen from "../screens/profile/profileScreens/CreditCardDetailsScreen";
-import ModalComponent from "../components/common/ModalComponent";
-import AddCardScreen from "../screens/cart/cartScreens/AddCardScreen";
+import React from 'react'
+import ProfileScreen from '../screens/profile/ProfileScreen'
+import { createStackNavigator } from '@react-navigation/stack'
+import ModalComponent from '../components/common/ModalComponent'
+import ChangePasswordScreen from '../screens/profile/profileScreens/ChangePasswordScreen'
 
 const Stack = createStackNavigator();
 
@@ -16,12 +13,9 @@ export default function ProfileStack() {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Profiles" component={ProfileScreen} />
-      <Stack.Screen name="ChangePass" component={ChangePasswordScreen} />
-      <Stack.Screen name="Pockets" component={PocketScreen} />
-      <Stack.Screen name="AddCard" component={AddCardScreen} />
-      <Stack.Screen name="CreditCards" component={CreditCardDetailsScreen} />
-      <Stack.Screen name="ModalComponent" component={ModalComponent}/>
+      <Stack.Screen name='Profiles' component={ProfileScreen} />
+      <Stack.Screen name='ChangePass' component={ChangePasswordScreen} />
+      <Stack.Screen name='ModalComponent' component={ModalComponent}/>
     </Stack.Navigator>
   );
 }

@@ -1,8 +1,8 @@
-import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import CourseDetail from '../screens/course/courseScreens/CourseDetail';
-import CourseSuvery from '../screens/course/courseScreens/CourseSuvery';
-import CourseScreen from '../screens/course/CourseScreen';
+import React from 'react'
+import CourseScreen from '../screens/course/CourseScreen'
+import { createStackNavigator } from '@react-navigation/stack'
+import CourseDetail from '../screens/course/courseScreens/CourseDetail'
+import CourseSuvery from '../screens/course/courseScreens/CourseSuvery'
 
 const Stack = createStackNavigator();
 

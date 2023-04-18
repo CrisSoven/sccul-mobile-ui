@@ -1,18 +1,15 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
 import Colors from '../../utils/Colors';
+import { StyleSheet, Text, View, Image } from 'react-native'
 
-export default function ScculMainComponent(props) {
-  const { text } = props;
+export default function ScculMainComponent({ text }) {
   return (
     <>
       <View style={styles.appName}>
         <Image style={styles.img} source={require('../../../assets/img/sccullogo.png')} />
         <Text style={styles.title}>SIOCU</Text>
       </View>
-      <Text style={styles.text}>
-        {text}
-      </Text>
+      <Text style={styles.text}> {text} </Text>
     </>
   )
 }

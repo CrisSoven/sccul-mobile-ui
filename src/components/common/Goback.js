@@ -1,12 +1,11 @@
-import React from "react";
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
-import { Icon } from "react-native-elements";
-import { useNavigation } from "@react-navigation/native";
+import React from 'react'
+import { Icon } from 'react-native-elements'
+import { useNavigation } from '@react-navigation/native'
+import { StyleSheet, View, TouchableOpacity } from 'react-native'
+import Title from './Title'
 
-export default function Goback(props) {
-  const { title } = props;
+export default function Goback({ title }) {
   const navigation = useNavigation();
-
   return (
     <View>
       <TouchableOpacity
@@ -14,12 +13,12 @@ export default function Goback(props) {
         style={styles.container}
       >
         <Icon
-          name="chevron-left"
-          type="material-community"
+          name='chevron-left'
+          type='material-community'
           size={30}
-          style={{marginLeft: 1}}
+          style={{ marginLeft: 1 }}
         />
-        <Text style={styles.title} numberOfLines={3}>{title}</Text>
+        <Title title={title} goBack={true} />
       </TouchableOpacity>
     </View>
   );
@@ -27,14 +26,9 @@ export default function Goback(props) {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginVertical: 20,
-    paddingEnd: "5%",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    alignItems: "center",
+    paddingEnd: '5%',
   },
 });

@@ -1,55 +1,63 @@
-import { Image, StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
-import { SafeAreaView } from "react-native-safe-area-context";
 import Colors from '../../utils/Colors';
-import ButtonComponent from '../../components/common/ButtonComponent';
 import { useNavigation } from '@react-navigation/native';
-import ScculMainComponent from "../../components/sccul/ScculMainComponent";
+import ButtonComponent from '../../components/common/ButtonComponent';
+import { Image, StyleSheet, Text, View, ScrollView } from 'react-native'
+import ScculMainComponent from '../../components/sccul/ScculMainComponent';
 
 export default function LandingScreen() {
   const navigation = useNavigation();
-  const navigateToL = () => {
+  const handleNavigateLogin = () => {
     navigation.navigate('Logins');
   }
-  const navigateToR = () => {
+  const handleNavigateRegister = () => {
     navigation.navigate('Registers');
   }
   return (
-    <SafeAreaView>
+    <>
       <ScrollView showsVerticalScrollIndicator={false}>
         <ScculMainComponent
-          text="Aprende sin límites a tu propio tiempo y espacio"
+          text='Aprende sin límites a tu propio tiempo y espacio'
         />
         <Image style={styles.img} source={require('../../../assets/img/landingImage.png')} />
-        <View style={styles.btnContainer}>
-          <ButtonComponent
-            title="Iniciar sesión"
-            icon="login"
-            btnPrimary={true}
-            onPress={navigateToL}
-          />
-        </View>
-        <View style={{ alignItems: 'center' }}>
-          <Text style={{ marginTop: 10 }}>¿No tienes una cuenta?
-            <Text style={styles.registerNow} onPress={navigateToR}> Registrate aquí</Text>
-          </Text>
-        </View>
       </ScrollView>
-    </SafeAreaView>
+      <View style={styles.footer}>
+        <ButtonComponent
+          title='Iniciar sesión'
+          icon='login'
+          btnPrimary={true}
+          onPress={handleNavigateLogin}
+        />
+        <View style={styles.textContainer}>
+          <Text>¿No tienes una cuenta? </Text>
+          <Text style={styles.registerNow} onPress={handleNavigateRegister}>Registrate aquí</Text>
+        </View>
+      </View>
+    </>
   )
 }
 
 const styles = StyleSheet.create({
   img: {
-    width: '100%',
     resizeMode: 'contain',
+    width: '100%',
   },
-  btnContainer: {
-    marginHorizontal: 20,
-    marginTop: 30,
+  footer: {
+    paddingHorizontal: 20,
+    paddingVertical: 50,
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+  },
+  textContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10,
   },
   registerNow: {
     color: Colors.PalletteRed,
     fontWeight: 'bold',
+    textDecorationLine: 'underline',
   },
 })
