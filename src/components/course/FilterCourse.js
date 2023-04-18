@@ -26,6 +26,12 @@ export default function FilterCourse() {
       >
         <Text style={styles.text}>Finalizados</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.content}
+        onPress={() => navigation.navigate("Course", { filter: "Sin empezar" })}
+      >
+        <Text style={styles.text}>Sin empezar</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -33,14 +39,12 @@ export default function FilterCourse() {
 const styles = StyleSheet.create({
   container: {
     marginVertical: 15,
-    marginHorizontal: 20,
     flexDirection: "row",
-    justifyContent: "space-evenly",
   },
   content: {
     height: 55,
     backgroundColor: Colors.PalleteGreenBackground,
-    marginRight: 15,
+    marginRight: 10,
     borderRadius: 15,
     justifyContent: "center",
     alignItems: "center",
@@ -49,6 +53,6 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     textAlign: "center",
     fontSize: 13,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
   },
 });

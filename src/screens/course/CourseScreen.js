@@ -1,4 +1,10 @@
-import { StyleSheet, Text, View, RefreshControl, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  RefreshControl,
+  ScrollView,
+} from "react-native";
 import React, { useState, useEffect, useCallback } from "react";
 import SearchBar from "../../components/common/SearchBar";
 import FilterCourse from "../../components/course/FilterCourse";
@@ -9,12 +15,12 @@ import EmptyContainer from "../../components/common/EmptyContainer";
 
 export default function CourseScreen({ route }) {
   const { filter } = route.params;
-  console.log(filter)
   const [courses, setCourses] = useState(null);
   const [progress, setProgress] = useState(0);
   const [inputText, setInputText] = useState("");
   const [refreshing, setRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [percentage, setPercentage] = useState(0);
 
   const fetchCourses = async () => {
     setIsLoading(true);
@@ -28,10 +34,185 @@ export default function CourseScreen({ route }) {
     fetchCourses();
   }, []);
 
-
   const listOfCourses = () => {
     if (inputText === "") {
-      return courses;
+      if (filter === "Todos") {
+        return courses;
+      } else if (filter === "En progreso") {
+        const progressSplit = progress.map((course) => {
+          if (course === null) {
+            return null;
+          } else {
+            return course.split(",");
+          }
+        });
+
+        const progressInNumber = progressSplit.map((course) => {
+          if (course !== null) {
+            return course.map((section) => {
+              if (section !== "") {
+                return Number(section);
+              } else {
+                return null;
+              }
+            });
+          } else {
+            return null;
+          }
+        });
+
+        const progressLength = progressInNumber.map((course) => {
+          if (course === null) {
+            return null;
+          } else {
+            return course.length - 1;
+          }
+        });
+
+        const sectionsLength = courses.map((course) => {
+          if (course === null) {
+            return null;
+          } else {
+            return course.sections.length;
+          }
+        });
+
+        const progressPercentage = progressLength.map((course, index) => {
+          if (course === null) {
+            return 0;
+          } else {
+            return (course / sectionsLength[index]) * 100;
+          }
+        });
+
+        const coursesInProgress = progressPercentage.map((course, index) => {
+          if (course === null) {
+            return null;
+          } else if (course > 0 && course < 100) {
+            return courses[index];
+          } else {
+            return null;
+          }
+        });
+        
+        return coursesInProgress.filter((course) => course !== null);
+      } else if (filter === "Finalizados") {
+        const progressSplit = progress.map((course) => {
+          if (course === null) {
+            return null;
+          } else {
+            return course.split(",");
+          }
+        });
+
+        const progressInNumber = progressSplit.map((course) => {
+          if (course !== null) {
+            return course.map((section) => {
+              if (section !== "") {
+                return Number(section);
+              } else {
+                return null;
+              }
+            });
+          } else {
+            return null;
+          }
+        });
+
+        const progressLength = progressInNumber.map((course) => {
+          if (course === null) {
+            return null;
+          } else {
+            return course.length - 1;
+          }
+        });
+
+        const sectionsLength = courses.map((course) => {
+          if (course === null) {
+            return null;
+          } else {
+            return course.sections.length;
+          }
+        });
+
+        const progressPercentage = progressLength.map((course, index) => {
+          if (course === null) {
+            return 0;
+          } else {
+            return (course / sectionsLength[index]) * 100;
+          }
+        });
+
+        const coursesFinished = progressPercentage.map((course, index) => {
+          if (course === null) {
+            return null;
+          } else if (course === 100) {
+            return courses[index];
+          } else {
+            return null;
+          }
+        });
+        
+        return coursesFinished.filter((course) => course !== null);
+      } else if (filter === "Sin empezar") {
+        const progressSplit = progress.map((course) => {
+          if (course === null) {
+            return null;
+          } else {
+            return course.split(",");
+          }
+        });
+
+        const progressInNumber = progressSplit.map((course) => {
+          if (course !== null) {
+            return course.map((section) => {
+              if (section !== "") {
+                return Number(section);
+              } else {
+                return null;
+              }
+            });
+          } else {
+            return null;
+          }
+        });
+
+        const progressLength = progressInNumber.map((course) => {
+          if (course === null) {
+            return 0;
+          } else {
+            return course.length - 1;
+          }
+        });
+
+        const sectionsLength = courses.map((course) => {
+          if (course === null) {
+            return null;
+          } else {
+            return course.sections.length;
+          }
+        });
+
+        const progressPercentage = progressLength.map((course, index) => {
+          if (course === null) {
+            return null;
+          } else {
+            return (course / sectionsLength[index]) * 100;
+          }
+        });
+
+        const coursesNotStarted = progressPercentage.map((course, index) => {
+          if (course === null) {
+            return null;
+          } else if (course === 0) {
+            return courses[index];
+          } else {
+            return null;
+          }
+        });
+        
+        return coursesNotStarted.filter((course) => course !== null);
+      }
     }
 
     return courses.filter((course) => {
@@ -74,7 +255,9 @@ export default function CourseScreen({ route }) {
         />
       ) : (
         <>
-          <FilterCourse />
+          <View style={styles.containerFilter}>
+            <FilterCourse />
+          </View>
           <View style={styles.container}>
             {listOfCourses().map((course) => (
               <Courses
@@ -108,5 +291,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 20,
     marginTop: 20,
+  },
+  containerFilter: {
+    marginTop: 20,
+    marginLeft: 15,
   },
 });

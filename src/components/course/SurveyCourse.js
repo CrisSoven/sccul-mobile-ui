@@ -35,18 +35,19 @@ export default function SurveyCourse(props) {
   };
 
   // console.log("errors", errors);
+  // console.log("errorr 1", errors?.answers?.[0]?.answer);
 
   return (
     <View>
       {survey.questions.map((question, index) => (
-        <View key={index} style={styles.questionContainer}>
+        <View key={question.id} style={styles.questionContainer}>
           <Text style={styles.question}>{question.question}</Text>
           <View style={styles.buttonsContainer}>
             <View style={{ flexDirection: "row", marginBottom: 10 }}>
               <TouchableOpacity
                 style={[
                   styles.button,
-                  values.answers[index]?.answer === 0 && styles.selectedButton,
+                  values?.answers[index]?.answer === 0 && styles.selectedButton,
                 ]}
                 onPress={() => handlePress(index, 0, setFieldValue)}
                 disabled={isSurveyCompleted}
@@ -54,7 +55,7 @@ export default function SurveyCourse(props) {
                 <Text
                   style={[
                     styles.textBtn,
-                    values.answers[index]?.answer === 0 &&
+                    values?.answers[index]?.answer === 0 &&
                       styles.textBtnSelected,
                   ]}
                 >
@@ -64,7 +65,7 @@ export default function SurveyCourse(props) {
               <TouchableOpacity
                 style={[
                   styles.button,
-                  values.answers[index]?.answer === 1 && styles.selectedButton,
+                  values?.answers[index]?.answer === 1 && styles.selectedButton,
                 ]}
                 onPress={() => handlePress(index, 1, setFieldValue)}
                 disabled={isSurveyCompleted}
@@ -72,7 +73,7 @@ export default function SurveyCourse(props) {
                 <Text
                   style={[
                     styles.textBtn,
-                    values.answers[index]?.answer === 1 &&
+                    values?.answers[index]?.answer === 1 &&
                       styles.textBtnSelected,
                   ]}
                 >
@@ -82,7 +83,7 @@ export default function SurveyCourse(props) {
               <TouchableOpacity
                 style={[
                   styles.button,
-                  values.answers[index]?.answer === 2 && styles.selectedButton,
+                  values?.answers[index]?.answer === 2 && styles.selectedButton,
                 ]}
                 onPress={() => handlePress(index, 2, setFieldValue)}
                 disabled={isSurveyCompleted}
@@ -90,7 +91,7 @@ export default function SurveyCourse(props) {
                 <Text
                   style={[
                     styles.textBtn,
-                    values.answers[index]?.answer === 2 &&
+                    values?.answers[index]?.answer === 2 &&
                       styles.textBtnSelected,
                   ]}
                 >
@@ -102,7 +103,7 @@ export default function SurveyCourse(props) {
               <TouchableOpacity
                 style={[
                   styles.button,
-                  values.answers[index]?.answer === 3 && styles.selectedButton,
+                  values?.answers[index]?.answer === 3 && styles.selectedButton,
                 ]}
                 onPress={() => handlePress(index, 3, setFieldValue)}
                 disabled={isSurveyCompleted}
@@ -110,7 +111,7 @@ export default function SurveyCourse(props) {
                 <Text
                   style={[
                     styles.textBtn,
-                    values.answers[index]?.answer === 3 &&
+                    values?.answers[index]?.answer === 3 &&
                       styles.textBtnSelected,
                   ]}
                 >
@@ -120,7 +121,7 @@ export default function SurveyCourse(props) {
               <TouchableOpacity
                 style={[
                   styles.button,
-                  values.answers[index]?.answer === 4 && styles.selectedButton,
+                  values?.answers[index]?.answer === 4 && styles.selectedButton,
                 ]}
                 onPress={() => handlePress(index, 4, setFieldValue)}
                 disabled={isSurveyCompleted}
@@ -128,7 +129,7 @@ export default function SurveyCourse(props) {
                 <Text
                   style={[
                     styles.textBtn,
-                    values.answers[index]?.answer === 4 &&
+                    values?.answers[index]?.answer === 4 &&
                       styles.textBtnSelected,
                   ]}
                 >
@@ -137,11 +138,13 @@ export default function SurveyCourse(props) {
               </TouchableOpacity>
             </View>
           </View>
-
           <View>
-            <Text style={styles.error}>{errors?.answers?.[index]?.answer}</Text>
+            {
+              errors?.answers?.[index]?.answer && (
+                <Text style={styles.error}>{errors?.answers?.[index].answer}</Text>
+              )
+            }
           </View>
-
           <Line />
         </View>
       ))}
@@ -187,8 +190,10 @@ const styles = StyleSheet.create({
   },
   error: {
     color: Colors.PalletteRed,
-    fontSize: 12,
+    fontSize: 15,
     marginHorizontal: 20,
     marginTop: 5,
+    textAlign: "center",
+    marginTop: 15,
   },
 });

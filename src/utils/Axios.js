@@ -2,7 +2,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
-const baseUrl = 'http:/192.168.1.65:8080';
+const baseUrl = 'http:/192.168.100.17:8080';
 //"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjcmlzQGdtYWlsLmNvbSIsImlhdCI6MTY3OTI2OTY0MiwiZXhwIjo0Njc5MjcxNDQyfQ.Qk5f2keh3RO9j8tdzCDndVIhfoDUZYDSXk3T9ah-9C0";
 
 export const checkout = async (amount) => {
@@ -453,7 +453,7 @@ export async function setPercentageInscription(courseId, sectionId) {
       }
     );
     const data = response.data;
-    console.log('data de setPercentage', data);
+    // console.log('data de setPercentage', data);
     return data.data;
   } catch (error) {
     console.log(error);

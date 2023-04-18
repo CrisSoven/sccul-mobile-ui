@@ -25,6 +25,7 @@ export default function CourseScreen(props) {
   const [percentage, setPercentage] = useState(null);
   const [continueVideo, setContinueVideo] = useState(0);
   const [refreshing, setRefreshing] = useState(false);
+  const [reload, setReload] = useState(false);
 
   const fetchCourse = async () => {
     const userId = Number(await getUser());
@@ -37,7 +38,7 @@ export default function CourseScreen(props) {
 
   useEffect(() => {
     fetchCourse();
-  }, []);
+  }, [reload]);
 
   useEffect(() => {
     if (percentage !== null) {
@@ -74,7 +75,7 @@ export default function CourseScreen(props) {
         setPercentageInscription(course.id, course.sections[resumenVideo].id);
       }
     }
-  }, [status]);
+  }, [status, reload]);
 
   const handleSectionPress = (sectionId) => {
     setResumenVideo(sectionId);
@@ -120,6 +121,8 @@ export default function CourseScreen(props) {
         onSectionPress={handleSectionPress}
         navigation={navigation}
         disableSurvey={allVideosWatched}
+        setReload={setReload}
+        reload={reload}
       />
       <FeedbackComponent courseId={course.id} />
     </ScrollView>

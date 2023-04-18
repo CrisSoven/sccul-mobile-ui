@@ -33,6 +33,7 @@ export default function InputComponent({ label, iconName, iconType, onPressIcon,
           disabled ? styles.border : styles.borderless,
           multiline ? [{ height: 100 }, { alignItems: "flex-start" }] : null,
         ]}
+        autoCapitalize="none"
       />
     </>
   );
