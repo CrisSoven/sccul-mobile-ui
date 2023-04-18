@@ -33,6 +33,8 @@ export default function Courses({ course, title, duration, progress, image }) {
       );
 
       setProgressPercentage(percentageCourse);
+    } else {
+      setProgressPercentage(0);
     }
   }, [course.sections.length, progress]);
 

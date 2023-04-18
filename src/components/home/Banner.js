@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
   container: {
     height: 230,
     paddingHorizontal: 15,
+    marginTop: 20,
   },
   image: {
     width: "99%",

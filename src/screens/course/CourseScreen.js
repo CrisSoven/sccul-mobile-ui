@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  RefreshControl,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, Text, View, RefreshControl, ScrollView } from "react-native";
 import React, { useState, useEffect, useCallback } from "react";
 import SearchBar from "../../components/common/SearchBar";
 import FilterCourse from "../../components/course/FilterCourse";
@@ -15,8 +9,9 @@ import EmptyContainer from "../../components/common/EmptyContainer";
 
 export default function CourseScreen({ route }) {
   const { filter } = route.params;
-
+  console.log(filter)
   const [courses, setCourses] = useState(null);
+  const [progress, setProgress] = useState(0);
   const [inputText, setInputText] = useState("");
   const [refreshing, setRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -24,13 +19,15 @@ export default function CourseScreen({ route }) {
   const fetchCourses = async () => {
     setIsLoading(true);
     const fetchedCourses = await getBoughtCourses();
-    setCourses(fetchedCourses);
+    setCourses(fetchedCourses.courses);
+    setProgress(fetchedCourses.progress);
     setIsLoading(false);
   };
 
   useEffect(() => {
     fetchCourses();
   }, []);
+
 
   const listOfCourses = () => {
     if (inputText === "") {
@@ -77,7 +74,7 @@ export default function CourseScreen({ route }) {
         />
       ) : (
         <>
-          {/* <FilterCourse /> */}
+          <FilterCourse />
           <View style={styles.container}>
             {listOfCourses().map((course) => (
               <Courses
@@ -85,7 +82,7 @@ export default function CourseScreen({ route }) {
                 course={course}
                 title={course.name}
                 duration={course.sections}
-                progress={course.inscriptions[0].fullPercentage}
+                progress={progress[course.progressId]}
                 image={course.image}
               />
             ))}

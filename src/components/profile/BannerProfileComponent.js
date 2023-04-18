@@ -9,7 +9,6 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function BannerProfileComponent({ user, setUser, onReload }) {
   const [uploading, setUploading] = useState(false);
   const fullName = user.name + ' ' + user.lastname + ' ' + user.surname;
-
   const changePhoto = async () => {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
