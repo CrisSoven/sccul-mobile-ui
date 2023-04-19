@@ -5,7 +5,12 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "0a55ba50-5dca-41d2-a4e3-6eb5db59677e"
+      }
+    }
   },
   "name": "sccul-mobile-ui"
 }
